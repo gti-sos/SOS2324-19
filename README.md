@@ -5,7 +5,6 @@ Lecturers:
 --
  - [Pablo Fernandez](https://github.com/pafmon) (coordinator)
  - [Rafael Fresno](https://github.com/raffrearaUS)
- 
 
 List of projects registered in the course of **Service Oriented Systems** (2023/2024):
 --
@@ -23,7 +22,6 @@ List of projects registered in the course of **Service Oriented Systems** (2023/
 - **URL**: TBD
 -  **APIs**:
     - TBD
-  
     - TBD
 
   PRUEBA
