@@ -26,4 +26,4 @@ List of projects registered in the course of **Service Oriented Systems** (2023/
   
     - TBD
 
-  PRUEBA
+  PRUEBA 2
