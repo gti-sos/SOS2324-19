@@ -91,7 +91,7 @@ let datos =
         eu_payment_rate_on_planned_eu_amount : 100}
     ];
 
-//Funcion que suma los datos de net_pre_financing que su ms name sea Interreg
+//Funcion que calcula la media de net_pre_financing que su ms name sea Interreg
 function mediaPreFinancingInterreg(data) {
     let total = 
     data
