@@ -28,7 +28,7 @@ function mediatotal_amount_committed_to_final_recipientsAT(data) {
         .filter((n) => n.country === "AT").length;
     
     media = total / n
-    console.log(media);
+    console.log("media de total_amount_committed_to_final_recipients :"+media);
 }
 
 mediatotal_amount_committed_to_final_recipientsAT(datos);
