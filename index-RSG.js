@@ -19,7 +19,8 @@ function mediaNewCases(data, searchString){
     let suma = data.filter((n)=>n.country.match(searchString))
     .map((n)=>n.new_cases).reduce((a, b) => a + b);
 
-    let res = suma/data.length
+    let res = data.filter((n) => n.country === searchString).length;
+    
 
     console.log(res.toFixed(2))
 }
