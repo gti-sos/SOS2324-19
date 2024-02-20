@@ -12,7 +12,7 @@ app.get("/cool",(req ,res)=>{
 });
 
 app.get("/samples/JPR",(req ,res)=>{
-    res.send(`<html><body><h1><script src="index-JPR.js"></script></h1></body></html>`)
+    res.send(`<html><body><h1><script src="${__dirname}/index-JPR.js"></script></h1></body></html>`)
 });
 
 app.listen(PORT,()=>{
