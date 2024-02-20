@@ -15,6 +15,9 @@ app.get("/samples/JPR",(req ,res)=>{
     res.send(`<html><body><h1><script src="index-JPR.js"></script></h1></body></html>`)
 });
 
+app.get("/samples/AFI",(req ,res)=>{
+    res.send(`<html><body><h1><script src="index-AFI.js"></script></h1></body></html>`)
+});
 app.listen(PORT,()=>{
     console.log(`Server listening on port ${PORT}.`);
 });
