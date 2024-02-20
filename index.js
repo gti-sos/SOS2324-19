@@ -3,7 +3,18 @@ let express = require("express")
 
 let app = express();
 
-app.listen(10000);
+const PORT = (process.env.PORT || 10000);
 
-///console.log(cool());
-console.log("Server listening on port 10000");
+app.use("/",express.static("./public"));
+
+app.get("/cool",(req ,res)=>{
+    res.send(`<html><body><h1>${cool()}</h1></body></html>`)
+});
+
+app.get("/samples/JPR",(req ,res)=>{
+    res.send(`<html><body><h1><script src="index-JPR.js"></script></h1></body></html>`)
+});
+
+app.listen(PORT,()=>{
+    console.log(`Server listening on port ${PORT}.`);
+});
