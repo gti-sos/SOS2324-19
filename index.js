@@ -3,6 +3,8 @@ let express = require("express")
 const data_AFI = require('./index-AFI');
 let app = express();
 let data_PHT= require('./index-PHT');
+let data_RSG= require('./index-RSG');
+
 
 const path = require('path');
 app.get('/', (req, res) => {
@@ -59,18 +61,28 @@ app.get("/samples/PHT", (req,res)=>{
 
 
 
+//RAUL SEQUERA
+function mediaNewCases(data, searchString){
+    let suma = data.filter((n)=>n.country.match(searchString))
+    .map((n)=>n.new_cases).reduce((a, b) => a + b);
+
+    let res = data.filter((n) => n.country === searchString).length;
+    
+    let media = suma/res;
+
+    return media.toFixed(2);
+}
+
+
+
+app.get("/samples/RSG", (req,res)=>{
+    let city = 'Austria';
+    const result = mediaNewCases(data_RSG, city); 
+    res.send(`<html> <body> <h1> La media de new_cases de ${city} es de: ${result}</h1> </body> </html>`)
+});
+
+
+
 // app.get("/samples/JPR",(req ,res)=>{
 //     res.send(`<html><body><h1><script src="${__dirname}/index-JPR.js"></script></h1></body></html>`)
-// });
-
-// const mediaNewCases = require('./index-RSG.js');
-
-// app.get("/samples/RSG", (req, res) => {
-//     try {
-//         const media = mediaNewCases(data, 'Austria');
-//         res.send(`<html><body><h1>Media de new_cases en Austria: ${media}</h1></body></html>`);
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).send('Error al calcular la media');
-//     }
 // });

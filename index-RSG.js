@@ -23,9 +23,9 @@ function mediaNewCases(data, searchString){
     
     let media = suma/res;
 
-    console.log(media.toFixed(2))
+    console.log(`La media de new_cases de ${searchString} es: ${media.toFixed(2)}`)
 }
 
 mediaNewCases(data, 'Austria')
 
-module.exports = mediaNewCases;
+module.exports = data;
