@@ -1,4 +1,4 @@
-let datos=
+const datos=
 [
 {country : "AT",cci : "2014AT16RFOP001",short_title : "Investments in Growth and Employment - AT - ERDF",year : "2015",priority : "A.2",fund : "ERDF",to : "03",fi_name : "OÃ–. Hightechfonds",fi_address : "BetlehemstraÃŸe 3, 4020 Linz, Austria",is_set_up_at_union_level : "N",fi_type : "Specific fund",ex_ante_completion_date : "2016-02-25T00:00:00.000",funding_agreement_signature_date : "2015-06-30T00:00:00.000",total_amount_committed_to_fi : "9000000.00",esif_amount_committed_to_fi : "3000000.00",total_amount_paid_to_fi : "9000000.00",esif_amount_paid_to_fi : "3000000.00",management_costs_amount : "133081.00",base_renumeration_amount : "133081.00",performance_based_renumeration_paid_amount : "0.00",total_amount_committed_to_final_recipients : "450000.00",esif_amount_committed_to_final_recipients : "150000.00",total_amount_paid_to_final_recipients : "450000.00",esif_amount_paid_to_final_recipients : "150000.00",to_code_short_title : "TO 3 SMEs",to_long_title : "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)"},
 {country : "AT",cci : "2014AT16RFOP001",short_title : "Investments in Growth and Employment - AT - ERDF",year : "2016",priority : "A.2",fund : "ERDF",to : "03",fi_name : "OÃ–. Hightechfonds",fi_address : "OÃ¶ Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz",is_set_up_at_union_level : "N",fi_type : "Specific fund",ex_ante_completion_date : "2015-01-15T00:00:00.000",funding_agreement_signature_date : "2015-06-30T00:00:00.000",total_amount_committed_to_fi : "9000000.00",esif_amount_committed_to_fi : "3000000.00",total_amount_paid_to_fi : "9000000.00",esif_amount_paid_to_fi : "3000000.00",management_costs_amount : "304000.00",base_renumeration_amount : "304000.00",performance_based_renumeration_paid_amount : "0.00",total_amount_committed_to_final_recipients : "950000.00",esif_amount_committed_to_final_recipients : "316667.00",total_amount_paid_to_final_recipients : "950000.00",esif_amount_paid_to_final_recipients : "316667.00",to_code_short_title : "TO 3 SMEs",to_long_title : "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)"},
@@ -14,13 +14,13 @@ let datos=
 {country : "BE",cci : "2014BE16RFOP001",short_title : "Brussels Capital Region - ERDF",year : "2020",priority : "Axe 1",fund : "ERDF",to : "01",fi_name : "Outil de prise de capital pour entreprises innovantes en early-stage",fi_address : "Belgique, Bruxelles",is_set_up_at_union_level : "N",fi_type : "Specific fund",ex_ante_completion_date : "2017-05-31T00:00:00.000",funding_agreement_signature_date : "2018-05-23T00:00:00.000",total_amount_committed_to_fi : "6085703.00",esif_amount_committed_to_fi : "2253964.00",total_amount_paid_to_fi : "2704756.80",esif_amount_paid_to_fi : "1352378.40",management_costs_amount : "0.00",base_renumeration_amount : "0.00",performance_based_renumeration_paid_amount : "0.00",total_amount_committed_to_final_recipients : "0.00",esif_amount_committed_to_final_recipients : "1550000.00",total_amount_paid_to_final_recipients : "775000.00",esif_amount_paid_to_final_recipients : "0.00",to_code_short_title : "TO 1 RTDI",to_long_title : "Strengthening research, technological development and innovation"},
 {country : "BE",cci : "2014BE16RFOP001",short_title : "Brussels Capital Region - ERDF",year : "2020",priority : "Axe 2",fund : "ERDF",to : "03",fi_name : "Outil de microcrÃ©dits",fi_address : "Belgique, Bruxelles",is_set_up_at_union_level : "N",fi_type : "Specific fund",ex_ante_completion_date : "2017-05-31T00:00:00.000",funding_agreement_signature_date : "2018-05-23T00:00:00.000",total_amount_committed_to_fi : "4554057.00",esif_amount_committed_to_fi : "1830857.00",total_amount_paid_to_fi : "1647771.30",esif_amount_paid_to_fi : "823885.65",management_costs_amount : "0.00",base_renumeration_amount : "0.00",performance_based_renumeration_paid_amount : "0.00",total_amount_committed_to_final_recipients : "494400.00",esif_amount_committed_to_final_recipients : "247200.00",total_amount_paid_to_final_recipients : "494400.00",esif_amount_paid_to_final_recipients : "247200.00",to_code_short_title : "TO 3 SMEs",to_long_title : "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)"}
 ]
-
+module.exports = datos;
 //Funcion que calcula la media de total_amount_committed_to_final_recipients que su country sea AT
 function mediatotal_amount_committed_to_final_recipientsAT(data) {
     let total = 
     data
         .filter((n) => n.country === "AT")
-        .map((n) => parseFloat(n.total_amount_committed_to_final_recipients))
+        .map((n) => parseInt(n.total_amount_committed_to_final_recipients))
         .reduce((a, b) => a + b);
     
     let n = 
@@ -28,7 +28,7 @@ function mediatotal_amount_committed_to_final_recipientsAT(data) {
         .filter((n) => n.country === "AT").length;
     
     media = total / n
-    console.log("media de total_amount_committed_to_final_recipients :"+media);
+    return media
 }
 
-mediatotal_amount_committed_to_final_recipientsAT(datos);
+console.log("media de total_amount_committed_to_final_recipients :"+mediatotal_amount_committed_to_final_recipientsAT(datos));
