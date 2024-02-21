@@ -8,12 +8,10 @@ app.use("/",express.static("./public"));
 app.get("/cool",(req ,res)=>{
     res.send(`<html><body><h1>${cool()}</h1></body></html>`)
 });
-
+const PORT = (process.env.PORT || 10000);
 app.listen(PORT,()=>{
     console.log(`Server listening on port ${PORT}.`);
 });
-
-const PORT = (process.env.PORT || 10000);
 
 //ALBERTO FRAILE
 function mediatotal_amount_committed_to_final_recipientsAT(data) {
