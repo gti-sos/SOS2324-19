@@ -21,9 +21,11 @@ function mediaNewCases(data, searchString){
 
     let res = data.filter((n) => n.country === searchString).length;
     
+    let media = suma/res;
 
-    console.log(res.toFixed(2))
+    console.log(media.toFixed(2))
 }
 
 mediaNewCases(data, 'Austria')
 
+module.exports = mediaNewCases;

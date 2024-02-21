@@ -17,6 +17,19 @@ app.get("/samples/JPR",(req ,res)=>{
 app.get("/samples/AFI", (req,res)=>{
     res.send(`<html><body><h1>${index-AFI.js}</h1></body></html>`);
 });
+
+const mediaNewCases = require('./index-RSG.js');
+
+app.get("/samples/RSG", (req, res) => {
+    try {
+        const media = mediaNewCases(data, 'Austria');
+        res.send(`<html><body><h1>Media de new_cases en Austria: ${media}</h1></body></html>`);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al calcular la media');
+    }
+});
+
 app.listen(PORT,()=>{
     console.log(`Server listening on port ${PORT}.`);
 });
