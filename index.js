@@ -4,6 +4,11 @@ const data_AFI = require('./index-AFI');
 let app = express();
 let data_PHT= require('./index-PHT');
 
+const path = require('path');
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 app.use("/",express.static("./public"));
 
 app.get("/cool",(req ,res)=>{
