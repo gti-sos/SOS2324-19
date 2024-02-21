@@ -2,6 +2,7 @@ let cool = require("cool-ascii-faces");
 let express = require("express")
 const data_AFI = require('./index-AFI');
 let app = express();
+let data_PHT= require('./index-PHT');
 
 app.use("/",express.static("./public"));
 
@@ -33,6 +34,24 @@ app.get("/samples/AFI", (req,res)=>{
     const result = mediatotal_amount_committed_to_final_recipientsAT(data_AFI); 
     res.send(`<html> <body> <h1> media de total_amount_committed_to_final_recipients:  ${result}</h1> </body> </html>`)
 });
+
+//PEDRO HEREDIA
+function mediaTotalNetPayments(datos){
+    let sol=datos.filter((n)=> n.ms_name==="Greece").map((n)=>n.total_net_payments)
+    .reduce((a,b)=>a+b);
+
+    let n=datos.filter((n)=> n.ms_name==="Greece").length;
+
+    media=sol/n
+
+    return media
+}
+
+app.get("/samples/PHT", (req,res)=>{
+    const result = mediaTotalNetPayments(data_PHT); 
+    res.send(`<html> <body> <h1> La media de total_net_payments de Grecia es de: ${result}</h1> </body> </html>`)
+});
+
 
 
 // app.get("/samples/JPR",(req ,res)=>{

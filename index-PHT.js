@@ -79,7 +79,7 @@ let datos =
         eu_payment_rate_init_plan_eu_amt: 0.0850555132224861, eu_payment_rate_actual_plan_eu_amt: 0.0850555132224861
     }]
 
-
+module.exports=datos;
 
 
 //Media total_net_payments de Grecia
@@ -91,7 +91,7 @@ function mediaTotalNetPayments(datos){
 
     media=sol/n
 
-    console.log(media)
+    console.log(`La media de total_net_payments de Grecia es de: ${media}`)
 }
 
 mediaTotalNetPayments(datos)
