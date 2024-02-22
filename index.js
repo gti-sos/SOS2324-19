@@ -24,10 +24,10 @@ app.listen(PORT,()=>{
 });
 
 //ALBERTO FRAILE
-function mediatotal_amount_committed_to_final_recipientsAT(data) {
+function mediatotal_amount_committed_to_final_recipientsAT(data, pais) {
     let total = 
     data
-        .filter((n) => n.country === "AT")
+        .filter((n) => n.country === pais)
         .map((n) => parseInt(n.total_amount_committed_to_final_recipients))
         .reduce((a, b) => a + b);
     
@@ -40,8 +40,9 @@ function mediatotal_amount_committed_to_final_recipientsAT(data) {
 }
 
 app.get("/samples/AFI", (req,res)=>{
-    const result = mediatotal_amount_committed_to_final_recipientsAT(data_AFI); 
-    res.send(`<html> <body> <h1> media de total_amount_committed_to_final_recipients:  ${result}</h1> </body> </html>`)
+    let pais ="AT";
+    const result = mediatotal_amount_committed_to_final_recipientsAT(data_AFI,pais); 
+    res.send(`<html> <body> <h1> The average of total_amount_committed_to_final_recipients in ${pais}: ${result}</h1> </body> </html>`)
 });
 
 //PEDRO HEREDIA
