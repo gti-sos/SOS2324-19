@@ -86,7 +86,7 @@ app.get("/samples/RSG", (req,res)=>{
 
 
 
-//Jose Manuel Peña
+//JOSE MANUEL PEÑA
 function mediaPreFinancing(data,name) {
     let total = 
     data
