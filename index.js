@@ -1,9 +1,11 @@
 let cool = require("cool-ascii-faces");
 let express = require("express")
-const data_AFI = require('./index-AFI');
 let app = express();
+
+const data_AFI = require('./index-AFI');
 let data_PHT= require('./index-PHT');
 let data_RSG= require('./index-RSG');
+let data_JPR= require('./index-JPR');
 
 
 const path = require('path');
@@ -83,6 +85,24 @@ app.get("/samples/RSG", (req,res)=>{
 
 
 
-// app.get("/samples/JPR",(req ,res)=>{
-//     res.send(`<html><body><h1><script src="${__dirname}/index-JPR.js"></script></h1></body></html>`)
-// });
+//Jose Manuel Peña
+function mediaPreFinancing(data,name) {
+    let total = 
+    data
+        .filter((n) => n.ms_name === name)
+        .map((n) => n.net_pre_financing)
+        .reduce((a, b) => a + b);
+    
+    let n = 
+    data
+        .filter((n) => n.ms_name === name).length;
+    
+    media = total / n
+    
+    return media;
+}
+
+app.get("/samples/JPR", (req,res)=>{
+    let pais = "Interreg"
+    res.send(`<html> <body> <h1>La media de net pre financing de ${pais} es ${mediaPreFinancing(data_JPR,pais)}.</h1> </body> </html>`)
+});

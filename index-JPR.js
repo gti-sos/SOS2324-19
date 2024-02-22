@@ -91,21 +91,22 @@ let datos =
         eu_payment_rate_on_planned_eu_amount : 100}
     ];
 
-//Funcion que calcula la media de net_pre_financing que su ms name sea Interreg
-function mediaPreFinancingInterreg(data) {
+module.exports = datos;
+//Funcion que calcula la media de net_pre_financing que su ms name sea name
+function mediaPreFinancing(data,name) {
     let total = 
     data
-        .filter((n) => n.ms_name === "Interreg")
+        .filter((n) => n.ms_name === name)
         .map((n) => n.net_pre_financing)
         .reduce((a, b) => a + b);
     
     let n = 
     data
-        .filter((n) => n.ms_name === "Interreg").length;
+        .filter((n) => n.ms_name === name).length;
     
     media = total / n
     
-    console.log(media);
+    return media;
 }
-
-mediaPreFinancingInterreg(datos);
+let pais = "Interreg"
+console.log(`La media de net pre financing de ${pais} es ${mediaPreFinancing(datos,pais)}.`);
