@@ -21,7 +21,9 @@ List of projects registered in the course of **Service Oriented Systems** (2023/
 - **Repository**: [gti-sos/SOS2324-19](https://github.com/gti-sos/SOS2324-19)
 - **URL**: https://sos2324-19.appspot.com/
 -  **APIs**:
-    - TBD
-    - TBD
+    - https://sos2324-19.appspot.com/samples/AFI
+    - https://sos2324-19.appspot.com/samples/JPR
+    - https://sos2324-19.appspot.com/samples/PHT
+    - https://sos2324-19.appspot.com/samples/RSG
 
   PRUEBA
