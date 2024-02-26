@@ -25,23 +25,23 @@ app.listen(PORT,()=>{
 
 //ALBERTO FRAILE
 function mediatotal_amount_committed_to_final_recipientsAT(data, pais) {
-    let total = 
+    let total =
     data
         .filter((n) => n.country === pais)
         .map((n) => parseInt(n.total_amount_committed_to_final_recipients))
         .reduce((a, b) => a + b);
-    
-    let n = 
+
+    let n =
     data
         .filter((n) => n.country === "AT").length;
-    
+
     media = total / n
     return media
 }
 
 app.get("/samples/AFI", (req,res)=>{
     let pais ="AT";
-    const result = mediatotal_amount_committed_to_final_recipientsAT(data_AFI,pais); 
+    const result = mediatotal_amount_committed_to_final_recipientsAT(data_AFI,pais);
     res.send(`<html> <body> <h1> The average of total_amount_committed_to_final_recipients in ${pais}: ${result}</h1> </body> </html>`)
 });
 
@@ -58,7 +58,7 @@ function mediaTotalNetPayments(datos){
 }
 
 app.get("/samples/PHT", (req,res)=>{
-    const result = mediaTotalNetPayments(data_PHT); 
+    const result = mediaTotalNetPayments(data_PHT);
     res.send(`<html> <body> <h1> La media de total_net_payments de Grecia es de: ${result}</h1> </body> </html>`)
 });
 
@@ -70,7 +70,7 @@ function mediaNewCases(data, searchString){
     .map((n)=>n.new_cases).reduce((a, b) => a + b);
 
     let res = data.filter((n) => n.country === searchString).length;
-    
+
     let media = suma/res;
 
     return media.toFixed(2);
@@ -80,7 +80,7 @@ function mediaNewCases(data, searchString){
 
 app.get("/samples/RSG", (req,res)=>{
     let city = 'Austria';
-    const result = mediaNewCases(data_RSG, city); 
+    const result = mediaNewCases(data_RSG, city);
     res.send(`<html> <body> <h1> La media de new_cases de ${city} es de: ${result}</h1> </body> </html>`)
 });
 

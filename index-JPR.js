@@ -94,18 +94,18 @@ let datos =
 module.exports = datos;
 //Funcion que calcula la media de net_pre_financing que su ms name sea name
 function mediaPreFinancing(data,name) {
-    let total = 
+    let total =
     data
         .filter((n) => n.ms_name === name)
         .map((n) => n.net_pre_financing)
         .reduce((a, b) => a + b);
-    
-    let n = 
+
+    let n =
     data
         .filter((n) => n.ms_name === name).length;
-    
+
     media = total / n
-    
+
     return media;
 }
 let pais = "Interreg"
