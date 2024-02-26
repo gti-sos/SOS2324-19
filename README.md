@@ -17,7 +17,7 @@ List of projects registered in the course of **Service Oriented Systems** (2023/
   - [Raul Sequera Gomez](https://github.com/raulsequera)
   - [Jose Manuel Peña Ramirez](https://github.com/jpenrrami)
 
-- **Project description**: Nuestro trabajo consiste en analizar la relación que existe entre los pagos realizados en EU y lo que se ha invertido de esos pagos en los programas de politica de cohesión y en el periodo de alerta del Covid 19. 
+- **Project description**: Nuestro trabajo consiste en analizar la relación que existe entre los pagos realizados en EU y lo que se ha invertido de esos pagos en los programas de politica de cohesión y en el periodo de alerta del Covid 19.  
 - **Repository**: [gti-sos/SOS2324-19](https://github.com/gti-sos/SOS2324-19)
 - **URL**: https://sos2324-19.appspot.com/
 -  **APIs**:
