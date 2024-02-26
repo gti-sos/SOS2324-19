@@ -1,26 +1,34 @@
 let cool = require("cool-ascii-faces");
 let express = require("express")
-let app = express();
+let bodyParser = require("body-parser");
 
-const data_AFI = require('./index-AFI');
+let data_AFI = require('./index-AFI');
 let data_PHT= require('./index-PHT');
 let data_RSG= require('./index-RSG');
 let data_JPR= require('./index-JPR');
 
 
+let app = express();
+
+app.use(bodyParser.json());
+
+app.use("/",express.static("./public"));
+
 const path = require('path');
+const API_BASE = '/api/v1';
+const PORT = (process.env.PORT || 10000);
+
+app.listen(PORT,()=>{
+    console.log(`Server listening on port ${PORT}.`);
+});
+
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.use("/",express.static("./public"));
-
 app.get("/cool",(req ,res)=>{
     res.send(`<html><body><h1>${cool()}</h1></body></html>`)
-});
-const PORT = (process.env.PORT || 10000);
-app.listen(PORT,()=>{
-    console.log(`Server listening on port ${PORT}.`);
 });
 
 //ALBERTO FRAILE
