@@ -32,27 +32,10 @@ app.get("/cool",(req ,res)=>{
 });
 
 //ALBERTO FRAILE
-function mediatotal_amount_committed_to_final_recipientsAT(data, pais) {
-    let total =
-    data
-        .filter((n) => n.country === pais)
-        .map((n) => parseInt(n.total_amount_committed_to_final_recipients))
-        .reduce((a, b) => a + b);
-
-    let n =
-    data
-        .filter((n) => n.country === "AT").length;
-
-    media = total / n
-    return media
-}
-
 app.get("/samples/AFI", (req,res)=>{
     let pais ="AT";
-    const result = mediatotal_amount_committed_to_final_recipientsAT(data_AFI,pais);
-    res.send(`<html> <body> <h1> The average of total_amount_committed_to_final_recipients in ${pais}: ${result}</h1> </body> </html>`)
+    res.send(data_AFI.media_amon(data_AFI.datos_afi,pais));
 });
-
 //PEDRO HEREDIA
 function mediaTotalNetPayments(datos){
     let sol=datos.filter((n)=> n.ms_name==="Greece").map((n)=>n.total_net_payments)
