@@ -27,7 +27,7 @@ function mediatotal_amount_committed_to_final_recipientsAT(data,countr) {
         .filter((n) => n.country === countr).length;
     
     media = total / n
-    return ('The average of total_amount_committed_to_final_recipients in ${countr}: ${media}')
+    return (`The average of total_amount_committed_to_final_recipients in ${countr}: ${media}`)
 }
 module.exports.datos_afi = datos;
 module.exports.media_amon = mediatotal_amount_committed_to_final_recipientsAT;
