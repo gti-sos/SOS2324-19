@@ -8,8 +8,8 @@ let data_RSG= require('./index-RSG');
 let data_JPR= require('./index-JPR');
 
 let api_JPR = require('./api/index-JPR');
-let api_PHT=require('./api/index-PHT')
-
+let api_PHT=require('./api/index-PHT');
+let api_AFI = require('./api/index-AFI');
 let app = express();
 
 app.use(bodyParser.json());
@@ -34,8 +34,7 @@ app.get("/cool",(req ,res)=>{
 });
 
 //ALBERTO FRAILE
-import AFI from "./api/index-AFI.js";
-AFI(app);
+api_AFI.afiv1(app);
 app.get("/samples/AFI", (req,res)=>{
     let pais ="AT";
     res.send(data_AFI.media_amon(data_AFI.datos_afi,pais));
