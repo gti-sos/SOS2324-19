@@ -79,8 +79,6 @@ let datos =
         eu_payment_rate_init_plan_eu_amt: 0.0850555132224861, eu_payment_rate_actual_plan_eu_amt: 0.0850555132224861
     }]
 
-module.exports.data_PHT=datos;
-
 
 //Media total_net_payments de Grecia
 function mediaTotalNetPayments(datos,pais){
@@ -91,10 +89,8 @@ function mediaTotalNetPayments(datos,pais){
 
     media=sol/n
 
-    return media
+    return (`La media de total_net_payments de ${pais} es de: ${media}`)
 }
-let  pais="Greece"
-console.log(`La media de total_net_payments de ${pais} es de: ${mediaTotalNetPayments(datos,pais)}`)
-mediaTotalNetPayments(datos,pais)
 
+module.exports.data_pht=datos;
 module.exports.mediaTotalNetPayments=mediaTotalNetPayments;

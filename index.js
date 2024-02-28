@@ -42,14 +42,13 @@ app.get("/samples/AFI", (req,res)=>{
 
 
 //PEDRO HEREDIA
-
+api_PHT.phtv1(app)
 app.get("/samples/PHT", (req,res)=>{
     let pais="Greece"
-    const result = mediaTotalNetPayments(data_PHT,pais);
-    res.send(`<html> <body> <h1> La media de total_net_payments de ${pais} es de: ${result}</h1> </body> </html>`)
+   
+    res.send(data_PHT.mediaTotalNetPayments(data_PHT.data_pht,pais))
 });
 
-api_PHT(app);
 
 
 
