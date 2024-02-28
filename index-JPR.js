@@ -91,7 +91,7 @@ let datos =
         eu_payment_rate_on_planned_eu_amount : 100}
     ];
 
-module.exports = datos;
+module.exports.data_JPR = datos;
 //Funcion que calcula la media de net_pre_financing que su ms name sea name
 function mediaPreFinancing(data,name) {
     let total =
@@ -110,3 +110,5 @@ function mediaPreFinancing(data,name) {
 }
 let pais = "Interreg"
 console.log(`La media de net pre financing de ${pais} es ${mediaPreFinancing(datos,pais)}.`);
+
+module.exports.mediaPreFinancing = mediaPreFinancing;
