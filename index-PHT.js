@@ -83,15 +83,16 @@ module.exports=datos;
 
 
 //Media total_net_payments de Grecia
-function mediaTotalNetPayments(datos){
-    let sol=datos.filter((n)=> n.ms_name==="Greece").map((n)=>n.total_net_payments)
+function mediaTotalNetPayments(datos,pais){
+    let sol=datos.filter((n)=> n.ms_name===pais).map((n)=>n.total_net_payments)
     .reduce((a,b)=>a+b);
 
-    let n=datos.filter((n)=> n.ms_name==="Greece").length;
+    let n=datos.filter((n)=> n.ms_name===pais).length;
 
     media=sol/n
 
-    console.log(`La media de total_net_payments de Grecia es de: ${media}`)
+    return media
 }
-
-mediaTotalNetPayments(datos)
+let  pais="Greece"
+console.log(`La media de total_net_payments de ${pais} es de: ${mediaTotalNetPayments(datos,pais)}`)
+mediaTotalNetPayments(datos,pais)

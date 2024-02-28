@@ -37,11 +37,11 @@ app.get("/samples/AFI", (req,res)=>{
     res.send(data_AFI.media_amon(data_AFI.datos_afi,pais));
 });
 //PEDRO HEREDIA
-function mediaTotalNetPayments(datos){
-    let sol=datos.filter((n)=> n.ms_name==="Greece").map((n)=>n.total_net_payments)
+function mediaTotalNetPayments(datos,pais){
+    let sol=datos.filter((n)=> n.ms_name===pais).map((n)=>n.total_net_payments)
     .reduce((a,b)=>a+b);
 
-    let n=datos.filter((n)=> n.ms_name==="Greece").length;
+    let n=datos.filter((n)=> n.ms_name===pais).length;
 
     media=sol/n
 
@@ -49,8 +49,9 @@ function mediaTotalNetPayments(datos){
 }
 
 app.get("/samples/PHT", (req,res)=>{
-    const result = mediaTotalNetPayments(data_PHT);
-    res.send(`<html> <body> <h1> La media de total_net_payments de Grecia es de: ${result}</h1> </body> </html>`)
+    let pais="Greece"
+    const result = mediaTotalNetPayments(data_PHT,pais);
+    res.send(`<html> <body> <h1> La media de total_net_payments de ${pais} es de: ${result}</h1> </body> </html>`)
 });
 
 
