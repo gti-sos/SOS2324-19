@@ -31,6 +31,31 @@ app.get("/cool",(req ,res)=>{
     res.send(`<html><body><h1>${cool()}</h1></body></html>`)
 });
 
+
+
+
+var contacts = [
+    {
+        name: "pepe",
+        phone: 12345
+    },
+    {
+        name: "luis",
+        phone: 23456
+    }
+];
+
+app.get(API_BASE+"/contacts",(req,res)=>{
+    res.send(JSON.stringify(contacts));
+});
+
+app.post(API_BASE+"/contacts",(req,res)=>{
+    let contact = req.body;
+    contacts.push(contact);
+    res.sendStatus(201,"Created");
+});
+
+
 //ALBERTO FRAILE
 app.get("/samples/AFI", (req,res)=>{
     let pais ="AT";
