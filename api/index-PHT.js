@@ -10,7 +10,7 @@ function PHT(app) {
     //POST1
     app.post(API_BASE + "/", (req, res) => {
         let data = req.body;
-        const datose = datos.some(j => j.country === data.country && j.year === data.year);
+        const datose = datos.some(j => j.ms_name === data.ms_name && j.year === data.year);
         if (datose) {
             //No se puede hacer un POST con un recurso que ya existe;
             //en el caso contrario se debe devolver el código 409
@@ -150,7 +150,7 @@ function PHT(app) {
     //GET2
     app.get(API_BASE + "/:country", (req, res) => {
         const pais = req.params.country;
-        const countryDatos = datos.filter(p => p.country === pais);
+        const countryDatos = datos.filter(p => p.ms_name === pais);
 
         if (countryDatos.length > 0) {
             //muestra los datos con los filtros especificados
@@ -163,13 +163,13 @@ function PHT(app) {
         }
     });
     //PUT2
-    app.get(API_BASE + "/:country", (req, res) => {
+    app.put(API_BASE + "/:country", (req, res) => {
         const pais = req.params.country;
         let data = req.body;
 
-        const countryDatos = datos.filter(p => p.country === pais);
+        const countryDatos = datos.filter(p => p.ms_name === pais);
 
-        if (!data || Object.keys(data).length === 0 || data.country !== pais) {
+        if (!data || Object.keys(data).length === 0 || data.ms_name !== pais) {
             //Un dato pasado con un PUT debe contener el mismo id del recurso al que se especifica en la URL;
             // en caso contrario se debe devolver el código 400.
 
@@ -183,7 +183,7 @@ function PHT(app) {
     //DELETE2
     app.get(API_BASE + "/:country", (req, res) => {
         const pais = req.params.country;
-        const nuevoDatos = datos.filter(entry => entry.country !== pais);
+        const nuevoDatos = datos.filter(entry => entry.ms_name !== pais);
 
         if (nuevoDatos.length < datos.length) {
             //eliminar los datos del filtro espedificado

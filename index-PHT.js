@@ -88,8 +88,9 @@ function mediaTotalNetPayments(datos,pais){
     let n=datos.filter((n)=> n.ms_name===pais).length;
 
     media=sol/n
-
+    
     return (`La media de total_net_payments de ${pais} es de: ${media}`)
+    
 }
 
 module.exports.data_pht=datos;

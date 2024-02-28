@@ -8,7 +8,7 @@ let data_RSG= require('./index-RSG');
 let data_JPR= require('./index-JPR');
 
 let api_JPR = require('./api/index-JPR');
-let api_PHT=require('./api/index-PHT');
+let api_PHT = require('./api/index-PHT');
 let api_AFI = require('./api/index-AFI');
 let app = express();
 
@@ -42,7 +42,7 @@ app.get("/samples/AFI", (req,res)=>{
 
 
 //PEDRO HEREDIA
-api_PHT.phtv1(app)
+api_PHT.phtv1(app);
 app.get("/samples/PHT", (req,res)=>{
     let pais="Greece"
    
