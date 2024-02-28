@@ -7,6 +7,8 @@ let data_PHT= require('./index-PHT');
 let data_RSG= require('./index-RSG');
 let data_JPR= require('./index-JPR');
 
+let api_JPR = require('./api/index-JPR');
+
 
 let app = express();
 
@@ -30,31 +32,6 @@ app.get('/', (req, res) => {
 app.get("/cool",(req ,res)=>{
     res.send(`<html><body><h1>${cool()}</h1></body></html>`)
 });
-
-
-
-
-var contacts = [
-    {
-        name: "pepe",
-        phone: 12345
-    },
-    {
-        name: "luis",
-        phone: 23456
-    }
-];
-
-app.get(API_BASE+"/contacts",(req,res)=>{
-    res.send(JSON.stringify(contacts));
-});
-
-app.post(API_BASE+"/contacts",(req,res)=>{
-    let contact = req.body;
-    contacts.push(contact);
-    res.sendStatus(201,"Created");
-});
-
 
 //ALBERTO FRAILE
 app.get("/samples/AFI", (req,res)=>{
@@ -109,3 +86,5 @@ app.get("/samples/JPR", (req,res)=>{
     let pais = "Interreg"
     res.send(`<html> <body> <h1>La media de net pre financing de ${pais} es ${mediaPreFinancing(data_JPR,pais)}.</h1> </body> </html>`)
 });
+
+api_JPR(app);
