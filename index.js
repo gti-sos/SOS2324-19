@@ -34,6 +34,8 @@ app.get("/cool",(req ,res)=>{
 });
 
 //ALBERTO FRAILE
+import AFI  from "./api/index-AFI.js"
+AFI(app);
 app.get("/samples/AFI", (req,res)=>{
     let pais ="AT";
     res.send(data_AFI.media_amon(data_AFI.datos_afi,pais));
