@@ -8,7 +8,7 @@ let data_RSG= require('./index-RSG');
 let data_JPR= require('./index-JPR');
 
 let api_JPR = require('./api/index-JPR');
-
+let api_PHT=require('./api/index-PHT')
 
 let app = express();
 
@@ -34,29 +34,21 @@ app.get("/cool",(req ,res)=>{
 });
 
 //ALBERTO FRAILE
-import AFI  from "./api/index-AFI.js"
-AFI(app);
 app.get("/samples/AFI", (req,res)=>{
     let pais ="AT";
     res.send(data_AFI.media_amon(data_AFI.datos_afi,pais));
 });
+
+
 //PEDRO HEREDIA
-function mediaTotalNetPayments(datos,pais){
-    let sol=datos.filter((n)=> n.ms_name===pais).map((n)=>n.total_net_payments)
-    .reduce((a,b)=>a+b);
-
-    let n=datos.filter((n)=> n.ms_name===pais).length;
-
-    media=sol/n
-
-    return media
-}
 
 app.get("/samples/PHT", (req,res)=>{
     let pais="Greece"
     const result = mediaTotalNetPayments(data_PHT,pais);
     res.send(`<html> <body> <h1> La media de total_net_payments de ${pais} es de: ${result}</h1> </body> </html>`)
 });
+
+api_PHT(app);
 
 
 

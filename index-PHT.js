@@ -79,7 +79,7 @@ let datos =
         eu_payment_rate_init_plan_eu_amt: 0.0850555132224861, eu_payment_rate_actual_plan_eu_amt: 0.0850555132224861
     }]
 
-module.exports=datos;
+module.exports.data_PHT=datos;
 
 
 //Media total_net_payments de Grecia
@@ -96,3 +96,5 @@ function mediaTotalNetPayments(datos,pais){
 let  pais="Greece"
 console.log(`La media de total_net_payments de ${pais} es de: ${mediaTotalNetPayments(datos,pais)}`)
 mediaTotalNetPayments(datos,pais)
+
+module.exports.mediaTotalNetPayments=mediaTotalNetPayments;
