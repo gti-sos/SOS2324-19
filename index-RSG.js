@@ -29,3 +29,4 @@ function mediaNewCases(data, searchString){
 mediaNewCases(data, 'Austria')
 
 module.exports = data;
+modeule.exports.mediaNewCases = mediaNewCases;

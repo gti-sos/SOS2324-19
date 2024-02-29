@@ -10,6 +10,8 @@ let data_JPR= require('./index-JPR');
 let api_JPR = require('./api/index-JPR');
 let api_PHT = require('./api/index-PHT');
 let api_AFI = require('./api/index-AFI');
+let api_RSG = require('./api/index-RSG');
+
 let app = express();
 
 app.use(bodyParser.json());
@@ -53,6 +55,15 @@ app.get("/samples/PHT", (req,res)=>{
 
 
 //RAUL SEQUERA
+
+api_RSG.rsgv1(app);
+app.get("/samples/RSG", (req,res)=>{
+    let country ="Australia";
+    res.send(data_AFI.media_amon(data_RSG.datos_rsg,country));
+});
+
+/*
+////////////
 function mediaNewCases(data, searchString){
     let suma = data.filter((n)=>n.country.match(searchString))
     .map((n)=>n.new_cases).reduce((a, b) => a + b);
@@ -72,7 +83,7 @@ app.get("/samples/RSG", (req,res)=>{
     res.send(`<html> <body> <h1> La media de new_cases de ${city} es de: ${result}</h1> </body> </html>`)
 });
 
-
+*/
 
 //JOSE MANUEL PEÑA
 
