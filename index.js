@@ -52,8 +52,6 @@ app.get("/samples/PHT", (req,res)=>{
 });
 
 
-
-
 //RAUL SEQUERA
 
 api_RSG.rsgv1(app);
@@ -62,28 +60,6 @@ app.get("/samples/RSG", (req,res)=>{
     res.send(data_RSG.mediaNewCases(data_RSG.data_rsg,country));
 });
 
-/*
-////////////
-function mediaNewCases(data, searchString){
-    let suma = data.filter((n)=>n.country.match(searchString))
-    .map((n)=>n.new_cases).reduce((a, b) => a + b);
-
-    let res = data.filter((n) => n.country === searchString).length;
-
-    let media = suma/res;
-
-    return media.toFixed(2);
-}
-
-
-
-app.get("/samples/RSG", (req,res)=>{
-    let city = 'Austria';
-    const result = mediaNewCases(data_RSG, city);
-    res.send(`<html> <body> <h1> La media de new_cases de ${city} es de: ${result}</h1> </body> </html>`)
-});
-
-*/
 
 //JOSE MANUEL PEÑA
 
