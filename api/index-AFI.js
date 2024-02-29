@@ -99,25 +99,26 @@ function AFI(app){
         }
     });
     //PUT2
-    app.get(API_BASE +"/:country", (req, res) => {
+    app.put(API_BASE+ "/:country", (req, res) => {
         const pais = req.params.country;
         let data = req.body;
+        let act = false;
 
-        const countryDatos = datos.filter(p => p.country === pais);
-
-        if (!data || Object.keys(data).length === 0 || data.country !== pais) {
-            //Un dato pasado con un PUT debe contener el mismo id del recurso al que se especifica en la URL;
-            // en caso contrario se debe devolver el código 400.
-            
-            res.sendStatus(400, "Bad Request");
-        } else {
-            //actualiza los datos con los filtros especificados
-            countryDatos.push(data);
-            res.sendStatus(200, "Ok");
+        for (let i=0;  i < datos.length; i++) {
+            if (!data || Object.keys(data).length === 0 || datos[i].country !== pais) {
+                res.sendStatus(400, "Bad Request");
+                break;
+                
+            }else{
+                datos[i] = data;
+                act = true;
+                res.sendStatus(200, "OK");
+                break;
+            }
         }
     });
     //DELETE2
-    app.get(API_BASE +"/:country", (req, res) => {
+    app.delete(API_BASE +"/:country", (req, res) => {
         const pais = req.params.country;
         const nuevoDatos = datos.filter(entry => entry.country !== pais);
 
