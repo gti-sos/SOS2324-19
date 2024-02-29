@@ -163,20 +163,23 @@ function PHT(app) {
         }
     });
     //PUT2
-    app.put(API_BASE+ "/:country", (req, res) => {
+    app.put(API_BASE + "/:country", (req, res) => {
         const pais = req.params.country;
         let data = req.body;
 
-        for (let i=0;  i < datos.length; i++) {
-            if (Object.keys(data).length === 0 || datos[i].country !== pais) {
-                res.sendStatus(400, "Bad Request");
-                break;
-                
-            }else{
+        let updated = false;
+        for (let i = 0; i < datos.length; i++) {
+            if (datos[i].ms_name === pais) {
                 datos[i] = data;
-                res.sendStatus(200, "OK");
+                updated = true;
                 break;
             }
+        }
+
+        if (!updated) {
+            res.sendStatus(400, "Bad Request");
+        } else {
+            res.sendStatus(200, "Ok");
         }
     });
 
