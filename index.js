@@ -58,8 +58,8 @@ app.get("/samples/PHT", (req,res)=>{
 
 api_RSG.rsgv1(app);
 app.get("/samples/RSG", (req,res)=>{
-    let country ="Australia";
-    res.send(data_AFI.media_amon(data_RSG.datos_rsg,country));
+    let country ="Austria";
+    res.send(data_RSG.mediaNewCases(data_RSG.data_rsg,country));
 });
 
 /*
