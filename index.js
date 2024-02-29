@@ -89,7 +89,7 @@ app.get("/samples/RSG", (req,res)=>{
 
 app.get("/samples/JPR", (req,res)=>{
     let pais = "Interreg"
-    res.send(`<html> <body> <h1>La media de net pre financing de ${pais} es ${mediaPreFinancing(data_JPR,pais)}.</h1> </body> </html>`)
+    res.send(`<html> <body> <h1>La media de net pre financing de ${pais} es ${mediaFinancing(data_JPR,pais)}.</h1> </body> </html>`)
 });
 
 api_JPR(app);

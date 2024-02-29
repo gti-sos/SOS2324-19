@@ -11,8 +11,8 @@ function RSG(app) {
     //POST1
     app.post(API_BASE + "/", (req, res) => {
         let data = req.body;
-        const datose = datos.some(i => i.country === data.country && i.year_week === data.year_week);
-        if (datose) {
+        const cond = datos.some(i => i.country === data.country && i.year_week === data.year_week);
+        if (cond) {
             //No se puede hacer un POST con un recurso que ya existe;
             //en el caso contrario se debe devolver el código 409
             res.sendStatus(409, "CONFLICT");
@@ -47,94 +47,29 @@ function RSG(app) {
     });
 
 
-/*
+
     //El recurso debe contener una ruta /api/v1/FFFFF/loadInitialData 
     //que al hacer un GET cree 10 o más datos en el array
     //de NodeJS si está vacío.
     app.get(API_BASE + "/loadInitialData", (req, res) => {
         if (datos.length === 0) {
-            let datoss =
-                [{
-                    ms: 'EL', ms_name: 'Greece', cci: '2021EL16FFPR008', title: 'Thessalia – ERDF/ESF+', fund: 'ESF+',
-                    category_of_region: 'Less developed', year: 2023, init_plan_eu_amt_1_adoption: 121971450,
-                    transfers: 0, actual_plan_eu_amt_latest_adop: 121971450, pre_fin: 3049286.25, recovery_of_pre_financing: 0,
-                    net_pre_financing: 3049286.25, interim_payments: 3056694.49, recovery_of_expenses: 0, net_interim_payments: 3056694.49,
-                    total_net_payments: 6105980.74, eu_payment_rate_init_plan_eu_amt: 0.0500607374922574, eu_payment_rate_actual_plan_eu_amt: 0.0500607374922574
-                },
-
-                {
-                    ms: 'EL', ms_name: 'Greece', cci: '2021EL16FFPR018', title: 'Notio Aigaio – ERDF/ESF+', fund: 'ESF+',
-                    category_of_region: 'Transition', year: 2023, init_plan_eu_amt_1_adoption: 36901682,
-                    transfers: 0, actual_plan_eu_amt_latest_adop: 36901682, pre_fin: 922542.05, recovery_of_pre_financing: 0,
-                    net_pre_financing: 922542.05, interim_payments: 2331102.22, recovery_of_expenses: 0, net_interim_payments: 2331102.22,
-                    total_net_payments: 3253644.27, eu_payment_rate_init_plan_eu_amt: 0.0881706224122792, eu_payment_rate_actual_plan_eu_amt: 0.0881706224122792
-                },
-
-                {
-                    ms: 'EL', ms_name: 'Greece', cci: '2021EL16FFPR014', title: 'Ionia Nisia – ERDF/ESF+', fund: 'ESF+',
-                    category_of_region: 'Less developed', year: 2023, init_plan_eu_amt_1_adoption: 63331330,
-                    transfers: 0, actual_plan_eu_amt_latest_adop: 63331330, pre_fin: 1583283.25, recovery_of_pre_financing: 0,
-                    net_pre_financing: 1583283.25, interim_payments: 1868313.45, recovery_of_expenses: 0, net_interim_payments: 1868313.45,
-                    total_net_payments: 3451596.7, eu_payment_rate_init_plan_eu_amt: 0.0545006192037969, eu_payment_rate_actual_plan_eu_amt: 0.0545006192037969
-                },
-
-                {
-                    ms: 'CY', ms_name: 'Cyprus', cci: '2021CY65BVPR001', title: 'Cyprus - BMVI', fund: 'BMVI',
-                    category_of_region: 'VOID', year: 2023, init_plan_eu_amt_1_adoption: 49884805,
-                    transfers: 595528, actual_plan_eu_amt_latest_adop: 50480333, pre_fin: 5986176.6, recovery_of_pre_financing: 0,
-                    net_pre_financing: 5986176.6, interim_payments: 0, recovery_of_expenses: 0, net_interim_payments: 0, total_net_payments: 5986176.6,
-                    eu_payment_rate_init_plan_eu_amt: 0.12, eu_payment_rate_actual_plan_eu_amt: 0.118584332635048
-                },
-
-                {
-                    ms: 'CY', ms_name: 'Cyprus', cci: '2021CY65ISPR001', title: 'Cyprus - ISF', fund: 'ISF',
-                    category_of_region: 'VOID', year: 2023, init_plan_eu_amt_1_adoption: 24982738,
-                    transfers: 611.646, actual_plan_eu_amt_latest_adop: 25594384.12, pre_fin: 2997928.56, recovery_of_pre_financing: 0,
-                    net_pre_financing: 2997928.56, interim_payments: 0, recovery_of_expenses: 0, net_interim_payments: 0, total_net_payments: 2997928.56,
-                    eu_payment_rate_init_plan_eu_amt: 0.12, eu_payment_rate_actual_plan_eu_amt: 0.117132279719806
-                },
-
-                {
-                    ms: 'ES', ms_name: 'Spain', cci: '2021ES65AMPR001', title: 'Spain - AMIF', fund: 'AMIF',
-                    category_of_region: 'VOID', year: 2023, init_plan_eu_amt_1_adoption: 514341793,
-                    transfers: 16960000, actual_plan_eu_amt_latest_adop: 531301793, pre_fin: 61721015.16, recovery_of_pre_financing: 0,
-                    net_pre_financing: 61721015.16, interim_payments: 0, recovery_of_expenses: 0, net_interim_payments: 0, total_net_payments: 61721015.16,
-                    eu_payment_rate_init_plan_eu_amt: 0.12, eu_payment_rate_actual_plan_eu_amt: 0.116169408748824
-                },
-
-                {
-                    ms: 'FR', ms_name: 'France', cci: '2021FR65AMPR001', title: 'France - AMIF', fund: 'AMIF',
-                    category_of_region: 'VOID', year: 2023, init_plan_eu_amt_1_adoption: 910485391,
-                    transfers: 15900000, actual_plan_eu_amt_latest_adop: 926385391, pre_fin: 109258246.92, recovery_of_pre_financing: 0,
-                    net_pre_financing: 109258246.92, interim_payments: 0, recovery_of_expenses: 0, net_interim_payments: 0, total_net_payments: 109258246.92,
-                    eu_payment_rate_init_plan_eu_amt: 0.12, eu_payment_rate_actual_plan_eu_amt: 0.117940382028326
-                },
-
-                {
-                    ms: 'FR', ms_name: 'France', cci: '2021FR16FFPR017', title: 'Bourgogne-Franche-Comté - ERDF - ESF + ', fund: 'ERDF',
-                    category_of_region: 'Transition', year: 2023, init_plan_eu_amt_1_adoption: 401454687,
-                    transfers: 0, actual_plan_eu_amt_latest_adop: 401454687, pre_fin: 10036367.2, recovery_of_pre_financing: 0,
-                    net_pre_financing: 10036367.2, interim_payments: 7915467.06, recovery_of_expenses: 0, net_interim_payments: 7915467.06, total_net_payments: 17951834.26,
-                    eu_payment_rate_init_plan_eu_amt: 0.0447169626892412, eu_payment_rate_actual_plan_eu_amt: 0.0447169626892412
-                },
-
-                {
-                    ms: 'BG', ms_name: 'Bulgaria', cci: '2021BG05SFPR003', title: 'Food and Basic Material Support - BG - ESF + ', fund: 'ESF + ',
-                    category_of_region: 'Less developed', year: 2023, init_plan_eu_amt_1_adoption: 157875000,
-                    transfers: 0, actual_plan_eu_amt_latest_adop: 157875000, pre_fin: 3946875, recovery_of_pre_financing: 0,
-                    net_pre_financing: 3946875, interim_payments: 10299266.83, recovery_of_expenses: 0, net_interim_payments: 10299266.83, total_net_payments: 14246141.83,
-                    eu_payment_rate_init_plan_eu_amt: 0.0902368445288995, eu_payment_rate_actual_plan_eu_amt: 0.0902368445288995
-                },
-
-                {
-                    ms: 'BG', ms_name: 'Bulgaria', cci: '2021BG05SFPR003', title: 'Food and Basic Material Support - BG - ESF + ', fund: 'ESF + ',
-                    category_of_region: 'Transition', year: 2023, init_plan_eu_amt_1_adoption: 31575000,
-                    transfers: 0, actual_plan_eu_amt_latest_adop: 31575000, pre_fin: 789375, recovery_of_pre_financing: 0,
-                    net_pre_financing: 789375, interim_payments: 1896252.83, recovery_of_expenses: 0, net_interim_payments: 1896252.83, total_net_payments: 2685627.83,
-                    eu_payment_rate_init_plan_eu_amt: 0.0850555132224861, eu_payment_rate_actual_plan_eu_amt: 0.0850555132224861
-                }]
-            for (let i = 0; i < datoss.length; i++) {
-                datos.push(datoss[i]);
+            let datos1 =
+            [
+                { country: 'Austria', country_code: 'AT', year_week: '2020-W41', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 7487, tests_done: 124663, population: 8978929, testing_rate: 1388.394985638042, positivity_rate: 6.005791614191861, testing_data_source: 'TESSy COVID-19' },
+                { country: 'Austria', country_code: 'AT', year_week: '2020-W42', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 9898, tests_done: 129647, population: 8978929, testing_rate: 1443.9027193555044, positivity_rate: 7.634576966686464, testing_data_source: 'TESSy COVID-19' },
+                { country: 'Austria', country_code: 'AT', year_week: '2020-W43', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 18262, tests_done: 158997, population: 8978929, testing_rate: 1770.7791207615073, positivity_rate: 11.485751303483713, testing_data_source: 'TESSy COVID-19' },
+                { country: 'Austria', country_code: 'AT', year_week: '2020-W44', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 31613, tests_done: 167926, population: 8978929, testing_rate: 1870.223052214802, positivity_rate: 18.825554113121257, testing_data_source: 'TESSy COVID-19' },
+                { country: 'Austria', country_code: 'AT', year_week: '2020-W45', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 44772, tests_done: 199567, population: 8978929, testing_rate: 2222.6147461462274, positivity_rate: 22.434570845881332, testing_data_source: 'TESSy COVID-19' },
+                { country: 'Austria', country_code: 'AT', year_week: '2020-W46', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 47837, tests_done: 215044, population: 8978929, testing_rate: 2394.9849698109874, positivity_rate: 22.245214932757946, testing_data_source: 'TESSy COVID-19' },
+                { country: 'Austria', country_code: 'AT', year_week: '2020-W47', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 40699, tests_done: 207745, population: 8978929, testing_rate: 2313.6946511103943, positivity_rate: 19.590844544995065, testing_data_source: 'TESSy COVID-19' },
+                { country: 'Austria', country_code: 'AT', year_week: '2020-W48', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 31142, tests_done: 196461, population: 8978929, testing_rate: 2188.022647244454, positivity_rate: 15.851492153658995, testing_data_source: 'TESSy COVID-19' },
+                { country: 'Austria', country_code: 'AT', year_week: '2020-W49', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 23070, tests_done: 163770, population: 8978929, testing_rate: 1823.9369082882824, positivity_rate: 14.086829089576845, testing_data_source: 'TESSy COVID-19' },
+                { country: 'Austria', country_code: 'AT', year_week: '2020-W50', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 18693, tests_done: 162984, population: 8978929, testing_rate: 1815.1830802983295, positivity_rate: 11.469223972905317, testing_data_source: 'TESSy COVID-19' },
+                { country: 'Austria', country_code: 'AT', year_week: '2020-W51', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 14841, tests_done: 185766, population: 8978929, testing_rate: 2068.91044577811, positivity_rate: 7.98908303995349, testing_data_source: 'TESSy COVID-19' },
+                { country: 'Austria', country_code: 'AT', year_week: '2020-W52', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 13415, tests_done: 163961, population: 8978929, testing_rate: 1826.0641107642125, positivity_rate: 8.181823726373954, testing_data_source: 'TESSy COVID-19' }
+            ]
+            for (let i = 0; i < datos1.length; i++) {
+                datos.push(datos1[i]);
             }
             res.sendStatus(201, "Data created");
         } else {
@@ -202,7 +137,7 @@ function RSG(app) {
         }
     });
 
-*/
+
 }
 
 module.exports.rsgv1 = RSG;
