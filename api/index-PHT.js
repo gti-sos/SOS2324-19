@@ -167,21 +167,24 @@ function PHT(app) {
         const pais = req.params.country;
         let data = req.body;
 
-        const countryDatos = datos.filter(p => p.ms_name === pais);
+        let updated = false;
+        for (let i = 0; i < datos.length; i++) {
+            if (datos[i].ms_name === pais) {
+                datos[i] = data;
+                updated = true;
+                break;
+            }
+        }
 
-        if (!data || Object.keys(data).length === 0 || data.ms_name !== pais) {
-            //Un dato pasado con un PUT debe contener el mismo id del recurso al que se especifica en la URL;
-            // en caso contrario se debe devolver el código 400.
-
-            res.sendStatus(400, "Bad Request");
+        if (!updated) {
+            res.sendStatus(404, "Not Found");
         } else {
-            //actualiza los datos con los filtros especificados
-            countryDatos.push(data);
             res.sendStatus(200, "Ok");
         }
     });
+
     //DELETE2
-    app.get(API_BASE + "/:country", (req, res) => {
+    app.delete(API_BASE + "/:country", (req, res) => {
         const pais = req.params.country;
         const nuevoDatos = datos.filter(entry => entry.ms_name !== pais);
 
