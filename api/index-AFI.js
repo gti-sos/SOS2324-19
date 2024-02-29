@@ -102,16 +102,14 @@ function AFI(app){
     app.put(API_BASE+ "/:country", (req, res) => {
         const pais = req.params.country;
         let data = req.body;
-        let act = false;
 
         for (let i=0;  i < datos.length; i++) {
-            if (!data || Object.keys(data).length === 0 || datos[i].country !== pais) {
+            if (Object.keys(data).length === 0 || datos[i].country !== pais) {
                 res.sendStatus(400, "Bad Request");
                 break;
                 
             }else{
                 datos[i] = data;
-                act = true;
                 res.sendStatus(200, "OK");
                 break;
             }
