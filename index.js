@@ -19,7 +19,6 @@ app.use(bodyParser.json());
 app.use("/",express.static("./public"));
 
 const path = require('path');
-const API_BASE = '/api/v1';
 const PORT = (process.env.PORT || 10000);
 
 app.listen(PORT,()=>{
@@ -65,7 +64,7 @@ app.get("/samples/RSG", (req,res)=>{
 
 app.get("/samples/JPR", (req,res)=>{
     let pais = "Interreg"
-    res.send(`<html> <body> <h1>La media de net pre financing de ${pais} es ${mediaFinancing(data_JPR,pais)}.</h1> </body> </html>`)
+    res.send(`<html> <body> <h1>La media de net pre financing de ${pais} es ${data_JPR.mediaFinancing(data_JPR.data_JPR,pais)}.</h1> </body> </html>`)
 });
 
 api_JPR(app);

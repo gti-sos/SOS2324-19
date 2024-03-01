@@ -90,13 +90,12 @@ let datos =
         net_interim_payments : 238458013.14 , total_net_payments : 256779031 , eu_payment_rate : 100 , 
         eu_payment_rate_on_planned_eu_amount : 100}
     ];
-//Funcion que calcula la media de net_pre_financing que su ms name sea name
+//Function that calculates the mean net_pre_financing with ms_name as name
 function mediaPreFinancing(data,name) {
     let total =
-    data
-        .filter((n) => n.ms_name === name)
+    data.filter((n) => n.ms_name === name)
         .map((n) => n.net_pre_financing)
-        .reduce((a, b) => a + b);
+        .reduce((a, b) => a + b, 0);
 
     let n =
     data
@@ -106,8 +105,5 @@ function mediaPreFinancing(data,name) {
 
     return media;
 }
-let pais = "Interreg"
-console.log(`La media de net pre financing de ${pais} es ${mediaPreFinancing(datos,pais)}.`);
-
 module.exports.data_JPR = datos;
 module.exports.mediaFinancing = mediaPreFinancing;
