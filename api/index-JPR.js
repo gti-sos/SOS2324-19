@@ -27,6 +27,17 @@ module.exports = (app) => {
         res.send(JSON.stringify(data));
         res.sendStatus(200, "OK");
     });
+    //El recurso debe contener una ruta /api/v1/FFFFF/loadInitialData que al hacer un GET
+    //cree 10 o más datos en el array de NodeJS si está vacío.
+    app.get(API_BASE + "/loadInitialData", (req, res) => {
+        if (data.length === 0) {
+            data = data_JPR.data_JPR
+            res.sendStatus(201, "Data created");
+        } else {
+            //If initial data is loaded cant be loaded again
+            res.sendStatus(405, "Method Not Allowed");
+        }
+    });
     app.get(API_BASE + "/:country", (req, res) => {
         const country = req.params.country;
         const attempt = data.filter(a => a.ms_name === country);
@@ -37,17 +48,6 @@ module.exports = (app) => {
         } else {
             //Can´t get an object that doesn´t exist
             res.sendStatus(404, "Not Found");
-        }
-    });
-    //El recurso debe contener una ruta /api/v1/FFFFF/loadInitialData que al hacer un GET
-    //cree 10 o más datos en el array de NodeJS si está vacío.
-    app.get(API_BASE + "/loadInitialData", (req, res) => {
-        if (data.length === 0) {
-            data = data_JPR
-            res.sendStatus(201, "Data created");
-        } else {
-            //If initial data is loaded cant be loaded again
-            res.sendStatus(405, "Method Not Allowed");
         }
     });
     //PUT petition
