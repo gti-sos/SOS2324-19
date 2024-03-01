@@ -42,7 +42,7 @@ module.exports = (app) => {
     //El recurso debe contener una ruta /api/v1/FFFFF/loadInitialData que al hacer un GET
     //cree 10 o más datos en el array de NodeJS si está vacío.
     app.get(API_BASE + "/loadInitialData", (req, res) => {
-        if (datos.length === 0) {
+        if (data.length === 0) {
             data = data_JPR
             res.sendStatus(201, "Data created");
         } else {
