@@ -6,7 +6,7 @@ module.exports = (app) => {
     //POST petition
     app.post(API_BASE + "/", (req, res) => {
         let attempt = req.body;
-        let invalid = attempt.any(a => a.cci == cci && a.title == title);
+        let invalid = data.some(d => d.cci == attempt.cci && d.title == attempt.title);
         if (invalid) {
             //Can´t post an existing resource, it throws an 409 error
             res.sendStatus(409, "Conflict");
@@ -14,6 +14,7 @@ module.exports = (app) => {
             //Can´t post an object without the expected fields
             res.sendStatus(400, "BAD REQUEST");
         } else {
+            //If the object is valid, it will be added to the array
             data.push(attempt);
             res.sendStatus(201, "CREATED");
         }
@@ -39,11 +40,12 @@ module.exports = (app) => {
         }
     });
     app.get(API_BASE + "/:country", (req, res) => {
-        const country = req.params.country;
-        const attempt = data.filter(a => a.ms_name === country);
+        let country = req.params.country;
+        let attempt = data.filter(a => a.ms_name === country);
 
         if (attempt.length > 0) {
-            res.send(JSON.stringify(data))
+            //If the object exists, it will be sent
+            res.send(JSON.stringify(attempt))
             res.sendStatus(200, "Ok");
         } else {
             //Can´t get an object that doesn´t exist
@@ -59,34 +61,38 @@ module.exports = (app) => {
     app.put(API_BASE + "/:country", (req, res) => {
         let country = req.params.country;
         let attempt = req.body;
+        let updated = false;
 
-        for (let i = 0; i < attempt.length; i++) {
-            if (data[i].country !== country || Object.keys(attempt) === 0) {
-                //Can´t update something that doesn´t exist
-                res.sendStatus(400, "Bad Request");
-                break;
-            } else {
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].ms_name === country) {
+                //If the object exists, it will be updated
                 data[i] = attempt;
-                res.sendStatus(200, "OK");
+                updated = true;
                 break;
             }
+        }
+        if (updated) {
+            //If the object is updated, it will be sent
+            res.sendStatus(200, "Ok");
+        } else {
+            //Can´t put an object that doesn´t exist
+            res.sendStatus(404, "Not Found");
         }
     });
     //DELETE petition
     app.delete(API_BASE + "/", (req, res) => {
-        data.splice(0, data.length);
+        data = [];
         res.sendStatus(200, "OK");
     });
     app.delete(API_BASE + "/:country", (req, res) => {
         let country = req.params.country;
-        let attempt = data.filter(a => a.country === country);
+        let initialLength = data.length;
+        data = data.filter(a => a.ms_name !== country);
 
-        if (!attempt || Object.keys(attempt).length === 0) {
-            //Can´t delete an object that doesn´t exist
-            res.sendStatus(404, "Not Found");
+        if (data.length < initialLength) {
+            res.status(200).send("Ok");
         } else {
-            data = data.remove(attempt);
-            res.sendStatus(200, "Ok");
+            res.status(404).send("Not Found");
         }
     });
 }
