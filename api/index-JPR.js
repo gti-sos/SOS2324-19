@@ -3,6 +3,10 @@ let data_JPR = require('../index-JPR');
 let data = [];
 
 module.exports = (app) => {
+    app.get("/samples/JPR", (req, res) => {
+        let pais = "Interreg"
+        res.send(`<html> <body> <h1>La media de net pre financing de ${pais} es ${data_JPR.mediaFinancing(data_JPR.data_JPR, pais)}.</h1> </body> </html>`)
+    });
     //POST petition
     app.post(API_BASE + "/", (req, res) => {
         let attempt = req.body;
