@@ -9,14 +9,40 @@ module.exports = (app) => {
     });
     //POST petition
     app.post(API_BASE + "/", (req, res) => {
+        let structure = {
+            "ms": "string",
+            "ms_name": "string",
+            "cci": "string",
+            "title": "string",
+            "fund": "string",
+            "category_of_region": "string",
+            "year": "number",
+            "net_planned_eu_amount": "number",
+            "cumulative_initial_pre_financing": "number",
+            "cumulative_additional_initial_pre_financing": "number",
+            "recovery_of_initial_pre_financing": "number",
+            "cumulative_annual_pre_financing": "number",
+            "pre_financing_covered_by_expenditure": "number",
+            "recovery_of_annual_pre_financing": "number",
+            "net_pre_financing": "number",
+            "cumulative_interim_payments": "number",
+            "recovery_of_expenses": "number",
+            "net_interim_payments": "number",
+            "total_net_payments": "number",
+            "eu_payment_rate": "number",
+            "eu_payment_rate_on_planned_eu_amount":"number"
+          };
         let attempt = req.body;
+        let structureKeys = Object.keys(structure);
+        let actualKeys = Object.keys(attempt);
+        let valid = structureKeys.every(key => actualKeys.includes(key) && typeof attempt[key] === structure[key]);
         let invalid = data.some(d => d.cci == attempt.cci && d.title == attempt.title);
-        if (invalid) {
-            //Can´t post an existing resource, it throws an 409 error
-            res.sendStatus(409, "Conflict");
-        } else if (!attempt || Object.keys(attempt).length === 0) {
+        if (!valid || actualKeys.length !== structureKeys.length) {
             //Can´t post an object without the expected fields
             res.sendStatus(400, "BAD REQUEST");
+        } else if (invalid) {
+            //Can´t post an existing resource, it throws an 409 error
+            res.sendStatus(409, "Conflict");
         } else {
             //If the object is valid, it will be added to the array
             data.push(attempt);
