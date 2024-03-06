@@ -199,6 +199,10 @@ function PHT(app) {
         }
     });
 
+    //REDIRECT PORTAL DOCUMENTACION
+    app.get(API_BASE+"/docs", (req,res)=>{
+        res.redirect("https://documenter.getpostman.com/view/32952835/2sA2xfXCsh");
+    })
 
 }
 
