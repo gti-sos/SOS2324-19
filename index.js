@@ -5,7 +5,6 @@ let bodyParser = require("body-parser");
 let data_PHT = require('./index-PHT');
 let data_RSG = require('./index-RSG');
 
-let api_JPR = require('./api/index-JPR');
 let api_PHT = require('./api/index-PHT');
 let api_RSG = require('./api/index-RSG');
 
@@ -50,4 +49,6 @@ app.get("/samples/RSG", (req, res) => {
 });
 
 //JOSE MANUEL PEÑA
-api_JPR(app);
+let api_JPR = require('./api/index-JPR');
+let db_JPR = new dataStore();
+api_JPR(app,db_JPR);
