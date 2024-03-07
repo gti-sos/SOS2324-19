@@ -9,7 +9,7 @@ Lecturers:
 List of projects registered in the course of **Service Oriented Systems** (2023/2024):
 --
 
-## SOS2324-00
+## SOS2324-19
 
 - **Team**
   - [Pedro Heredia Torres](https://github.com/Pedro-Heredia)
@@ -17,14 +17,8 @@ List of projects registered in the course of **Service Oriented Systems** (2023/
   - [Raul Sequera Gomez](https://github.com/raulsequera)
   - [Jose Manuel Peña Ramirez](https://github.com/jpenrrami)
 
-- **Project description**: Nuestro trabajo consiste en analizar la relación que existe entre los pagos realizados en EU y lo que se ha invertido de esos pagos en los programas de politica de cohesión y en el periodo de alerta del Covid 19.  
+- **Project description**: Our sources of information are aimed at analyzing the relationship that exists between payments made in the US and what has been invested from those payments in the cohesion policy programs and in the Covid 19 alert period.
 - **Repository**: [gti-sos/SOS2324-19](https://github.com/gti-sos/SOS2324-19)
-- **URL**: https://sos2324-19.appspot.com/
+- **URL**: [https://sos2324-19.appspot.com/] (https://sos2324-19.appspot.com/)
 -  **APIs**:
-    - https://sos2324-19.appspot.com/samples/AFI
-    - https://sos2324-19.appspot.com/samples/JPR
-    - https://sos2324-19.appspot.com/samples/PHT
-    - https://sos2324-19.appspot.com/samples/RSG
-
--  **APIs DOC**:
-    - https://documenter.getpostman.com/view/32953689/2sA2rGvKPT
+    -  **ALBERTO FRAILE INFANTES** [https://sos2324-19.appspot.com/api/v1/policy-program-stats/docs] (https://sos2324-19.appspot.com/api/v1/policy-program-stats/docs)
