@@ -12,6 +12,7 @@ let api_PHT = require('./api/index-PHT');
 let api_AFI = require('./api/index-AFI');
 let api_RSG = require('./api/index-RSG');
 
+let dataStore = require("nedb");
 let app = express();
 
 app.use(bodyParser.json());
