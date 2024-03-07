@@ -1,18 +1,14 @@
-let cool = require("cool-ascii-faces");
 let express = require("express")
+let dataStore = require("nedb");
 let bodyParser = require("body-parser");
 
-let data_AFI = require('./index-AFI');
 let data_PHT = require('./index-PHT');
 let data_RSG = require('./index-RSG');
-let data_JPR = require('./index-JPR');
 
 let api_JPR = require('./api/index-JPR');
 let api_PHT = require('./api/index-PHT');
-let api_AFI = require('./api/index-AFI');
 let api_RSG = require('./api/index-RSG');
 
-let dataStore = require("nedb");
 let app = express();
 
 app.use(bodyParser.json());
@@ -26,21 +22,14 @@ app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}.`);
 });
 
-
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.get("/cool", (req, res) => {
-    res.send(`<html><body><h1>${cool()}</h1></body></html>`)
-});
-
 //ALBERTO FRAILE
-api_AFI.afiv1(app);
-app.get("/samples/AFI", (req, res) => {
-    let pais = "AT";
-    res.send(data_AFI.media_amon(data_AFI.datos_afi, pais));
-});
+let API_AFI = require("./api/index-AFI.js");
+let db_AFI = new dataStore();
+API_AFI(app, db_AFI);
 
 
 //PEDRO HEREDIA
