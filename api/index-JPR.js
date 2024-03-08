@@ -244,14 +244,14 @@ module.exports = (app, db) => {
                 } else {
                     if (!uploaded) {
                         // Country does not exist in the array
-                        res.sendStatus(404,"Not Found");
+                        res.sendStatus(404, "Not Found");
                     } else {
                         // Country exists in the array, proceed with the update
                         db.update({ ms_name: country }, attempt, {}, (err) => {
                             if (err) {
-                                res.sendStatus(500,"Internal Server Error");
+                                res.sendStatus(500, "Internal Server Error");
                             } else {
-                                res.sendStatus(200,"OK");
+                                res.sendStatus(200, "OK");
                             }
                         });
                     }
@@ -290,8 +290,8 @@ module.exports = (app, db) => {
         });
     });
     //POSTMAN documentation
-    //app.get(API_BASE + "/docs", (req, res) => {
-    //    console.log("Redirection to Postman documentation");
-    //    res.redirect("https://documenter.getpostman.com/view/32953689/2sA2rGvKPT");
-    //});
+    app.get(API_BASE + "/docs", (req, res) => {
+        console.log("Redirection to Postman documentation");
+        res.redirect("https://documenter.getpostman.com/view/32953613/2sA2xcZa6Y");
+    });
 }

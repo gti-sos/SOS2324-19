@@ -21,4 +21,5 @@ List of projects registered in the course of **Service Oriented Systems** (2023/
 - **Repository**: [gti-sos/SOS2324-19](https://github.com/gti-sos/SOS2324-19)
 - **URL**: [https://sos2324-19.appspot.com/] (https://sos2324-19.appspot.com/)
 -  **APIs**:
-    -  **ALBERTO FRAILE INFANTES** [https://sos2324-19.appspot.com/api/v1/policy-program-stats/docs] (https://sos2324-19.appspot.com/api/v1/policy-program-stats/docs)
+    - [https://sos2324-19.appspot.com/api/v1/policy-program-stats/docs](https://sos2324-19.appspot.com/api/v1/policy-program-stats/docs) (developed by Alberto Fraile Infantes)
+    - [https://sos2324-19.appspot.com/api/v1/esif-payments/docs](https://sos2324-19.appspot.com/api/v1/esif-payments/docs) (developed by Jose Manuel Peña Ramírez)

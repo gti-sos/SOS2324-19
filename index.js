@@ -2,12 +2,6 @@ let express = require("express")
 let dataStore = require("nedb");
 let bodyParser = require("body-parser");
 
-let data_PHT = require('./index-PHT');
-let data_RSG = require('./index-RSG');
-
-let api_PHT = require('./api/index-PHT');
-let api_RSG = require('./api/index-RSG');
-
 let app = express();
 
 app.use(bodyParser.json());
@@ -32,21 +26,13 @@ API_AFI(app, db_AFI);
 
 
 //PEDRO HEREDIA
+let api_PHT = require('./api/index-PHT');
 api_PHT.phtv1(app);
-app.get("/samples/PHT", (req, res) => {
-    let pais = "Greece"
-
-    res.send(data_PHT.mediaTotalNetPayments(data_PHT.data_pht, pais))
-});
 
 
 //RAUL SEQUERA
-
+let api_RSG = require('./api/index-RSG');
 api_RSG.rsgv1(app);
-app.get("/samples/RSG", (req, res) => {
-    let country = "Austria";
-    res.send(data_RSG.mediaNewCases(data_RSG.data_rsg, country));
-});
 
 //JOSE MANUEL PEÑA
 let api_JPR = require('./api/index-JPR');
