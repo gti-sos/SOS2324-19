@@ -27,7 +27,8 @@ API_AFI(app, db_AFI);
 
 //PEDRO HEREDIA
 let api_PHT = require('./api/index-PHT');
-api_PHT.phtv1(app);
+let db_PHT= new dataStore();
+api_PHT(app,db_PHT);
 
 
 //RAUL SEQUERA
