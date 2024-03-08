@@ -33,7 +33,8 @@ api_PHT(app,db_PHT);
 
 //RAUL SEQUERA
 let api_RSG = require('./api/index-RSG');
-api_RSG.rsgv1(app);
+let db_RSG= new dataStore();
+api_RSG(app,db_RSG);
 
 //JOSE MANUEL PEÑA
 let api_JPR = require('./api/index-JPR');
