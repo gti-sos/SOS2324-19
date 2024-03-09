@@ -168,15 +168,43 @@ module.exports = (app, db) => {
     });
     //GET petition
     app.get(API_BASE + "/", (req, res) => {
+        let limit = parseInt(req.query.limit) || 10;
+        let offset = parseInt(req.query.offset) || 0;
+        let par = req.query;
+        let query = {};
 
-        db.find({}, (err, data) => {
+        Object.keys(par).forEach(key => {
+            if (key !== 'limit' && key !== 'offset') {
+                let value = req.query[key];
+                // Verifies if the value is a number
+                if (!isNaN(value)) {
+                    // Verifies if the number is an integer or a float
+                    if (Number.isInteger(parseFloat(value))) {
+                        // If it is an integer, convert it to an integer
+                        value = parseInt(value);
+                    } else {
+                        // If it is a float, convert it to a float
+                        value = parseFloat(value);
+                    }
+                }
+                // Add the key-value pair to the query object
+                query[key] = value;
+            }
+        });
+
+        db.find(query).skip(offset).limit(limit).exec((err, data) => {
             if (err) {
                 res.sendStatus(500, "Internal Error");
             } else {
-                res.send(JSON.stringify(data.map((c) => {
-                    delete c._id;
-                    return c;
-                })));
+                if (data.length === 0) {
+                    res.sendStatus(404, "Not Found");
+                } else {
+                    // Remove the _id field from the response
+                    res.status(200).json(data.map(c => {
+                        delete c._id;
+                        return c;
+                    }));
+                }
             }
         });
     });
@@ -192,7 +220,7 @@ module.exports = (app, db) => {
                         if (err) {
                             res.sendStatus(500, "Internal error");
                         } else {
-                            res.sendStatus(200, "OK");
+                            res.sendStatus(201, "Created");
                         }
                     });
                 } else {
