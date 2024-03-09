@@ -162,6 +162,11 @@ module.exports = (app, db) => {
             });
         }
     });
+    //POSTMAN documentation
+    app.get(API_BASE + "/docs", (req, res) => {
+        console.log("Redirection to Postman documentation");
+        res.redirect("https://documenter.getpostman.com/view/32953613/2sA2xcZa6Y");
+    });
     app.post(API_BASE + "/:country", (req, res) => {
         //Can´t post in a resource
         res.sendStatus(405, "Method Not Allowed");
@@ -316,10 +321,5 @@ module.exports = (app, db) => {
                 }
             }
         });
-    });
-    //POSTMAN documentation
-    app.get(API_BASE + "/docs", (req, res) => {
-        console.log("Redirection to Postman documentation");
-        res.redirect("https://documenter.getpostman.com/view/32953613/2sA2xcZa6Y");
     });
 }
