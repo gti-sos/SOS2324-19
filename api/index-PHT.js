@@ -228,7 +228,7 @@ module.exports = (app, db_PHT) => {
     //GET2
     app.get(API_BASE + "/:country", (req, res) => {
         const pais = req.params.country;
-        db_PHT.find({country: pais}, (error,countrydata)=>{
+        db_PHT.find({ms_name: pais}, (error,countrydata)=>{
             if (error) {
                 res.sendStatus(500, "Internal Server Error");
             }else{
