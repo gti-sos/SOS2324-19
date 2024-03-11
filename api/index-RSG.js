@@ -120,7 +120,7 @@ module.exports = (app, db_RSG) =>  {
                             if(error) {
                                 res.sendStatus(500,"Internal error");
                             }else{
-                                res.sendStatus(200,"OK"); 
+                                res.sendStatus(201,"Created"); 
                             }
                         });
                     }
