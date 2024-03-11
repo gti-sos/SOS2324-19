@@ -18,6 +18,7 @@ List of projects registered in the course of **Service Oriented Systems** (2023/
   - [Jose Manuel Peña Ramirez](https://github.com/jpenrrami)
 
 - **Project description**: Our sources of information are aimed at analyzing the relationship that exists between payments made in the US and what has been invested from those payments in the cohesion policy programs and in the Covid 19 alert period.
+
 - **Repository**: [gti-sos/SOS2324-19](https://github.com/gti-sos/SOS2324-19)
 - **URL**: [https://sos2324-19.appspot.com/] (https://sos2324-19.appspot.com/)
 -  **APIs**:

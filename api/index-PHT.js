@@ -13,7 +13,6 @@ module.exports = (app, db_PHT) => {
     app.post(API_BASE + "/", (req, res) => {
         let newdata = req.body;
         const ccc = req.body.cci;
-
         const Fields = ["ms", "ms_name", "cci", "title", "fund", "category_of_region", "year", "init_plan_eu_amt_1_adoption", "transfers", "actual_plan_eu_amt_latest_adop", "pre_fin", "recovery_of_pre_financing", "net_pre_financing", "interim_payments", "recovery_of_expenses", "net_interim_payments", "total_net_payments", "eu_payment_rate_init_plan_eu_amt", "eu_payment_rate_actual_plan_eu_amt"];
         const recFields = Object.keys(newdata);
         const isvalid = Fields.every(f => recFields.includes(f));
@@ -39,21 +38,49 @@ module.exports = (app, db_PHT) => {
         }
     });
 
-    //GET1
-    app.get(API_BASE + "/", (req, res) => {
-        const limit = parseInt(req.query.limit);
-        const offset = parseInt(req.query.offset);
-        db_PHT.find({}, (error, data) => {
+     //GET1
+     app.get(API_BASE + "/", (req, res) => {
+        const limit = parseInt(req.query.limit) || 10;
+        const offset = parseInt(req.query.offset) || 0;
+        const params = req.query;
+        let query = {};
+    
+        Object.keys(params).forEach(key => {
+            if (key !== 'limit' && key !== 'offset') {
+                let value = req.query[key];
+                // Verifica si el valor es numérico
+                if (!isNaN(value)) {
+                    // Si es numérico, comprueba si es entero o flotante
+                    if (Number.isInteger(parseFloat(value))) {
+                        // Si es entero, conviértelo a entero
+                        value = parseInt(value);
+                    } else {
+                        // Si es flotante, conviértelo a flotante
+                        value = parseFloat(value);
+                    }
+                }
+                // Agrega el parámetro a la consulta
+                query[key] = value;
+            }
+        });
+    
+        db_PHT.find(query).skip(offset).limit(limit).exec((error, data) => {
             if (error) {
                 res.sendStatus(500, "Internal Error");
             } else {
-                res.send(JSON.stringify(data.map((c) => {
-                    delete c._id;
-                    return c;
-                })));
+                if (data.length === 0) {
+                    res.sendStatus(404, "Not Found");
+                } else {
+                    // Devuelve los datos sin el campo _id
+                    res.status(200).json(data.map(c => {
+                        delete c._id;
+                        return c;
+                    }));
+                }
             }
         });
     });
+    
     //PUT1
     app.put(API_BASE + "/", (req, res) => {
         //Si se intenta usar alguno de los métodos no permitidos 
@@ -190,7 +217,7 @@ module.exports = (app, db_PHT) => {
             });
         });
 
-    
+    //Post2
     //Si se intenta usar alguno de los métodos no permitidos por la 
     //tabla azul se debe devolver el código 405
     app.post(API_BASE + "/:country", (req, res) => {
@@ -201,17 +228,23 @@ module.exports = (app, db_PHT) => {
     //GET2
     app.get(API_BASE + "/:country", (req, res) => {
         const pais = req.params.country;
-        const countryDatos = datos.filter(p => p.ms_name === pais);
-
-        if (countryDatos.length > 0) {
-            //muestra los datos con los filtros especificados
-            res.send(JSON.stringify(countryDatos))
-            res.sendStatus(200, "Ok");
-        } else {
-            //Si se intenta acceder a un recurso 
+        db_PHT.find({ms_name: pais}, (error,countrydata)=>{
+            if (error) {
+                res.sendStatus(500, "Internal Server Error");
+            }else{
+                if(countrydata.length>0){
+                    //muestra los datos con los filtros especificados
+                    res.send(JSON.stringify(countrydata.map((c)=>{
+                        delete c._id;
+                        return c;
+                    })));
+                }else{
+                    //Si se intenta acceder a un recurso 
             //inexistente se debe devolver el código 404
-            res.sendStatus(404, "Not Found");
-        }
+                    res.sendStatus(404, "Not Found");
+                }
+            }
+        });
     });
 
  //PUT2
