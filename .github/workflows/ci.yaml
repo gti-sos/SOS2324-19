@@ -7,10 +7,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: npm install
-      - run: npm test_AFI
+      - run: npm start &
+      - run: npm test
 
   deploy:
-    needs: [test_AFI]   
+    needs: [test]   
     runs-on: ubuntu-latest
     environment: production
     steps:
