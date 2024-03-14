@@ -13,8 +13,8 @@
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test_AFI": "npx newman run ./test/test_AFI/API_AFI.json -e ./test/test_AFI/enviroment/gcloud.json"
+    "start": "node index",
+    "test_AFI":"npx newman run ./test/test_AFI/API_AFI.json -e ./test/test_AFI/enviroment/gcloud.json"
   },
   "repository": {
     "type": "git",
