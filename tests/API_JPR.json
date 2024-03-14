@@ -1,0 +1,619 @@
+{
+	"info": {
+		"_postman_id": "b98288a4-0a38-461e-b1fd-74019fc3ceab",
+		"name": "Esif-payments API-Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32953613"
+	},
+	"item": [
+		{
+			"name": "Load IniItal Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/loadInitialData",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405 can´t Load Initial Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/loadInitialData",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET v1/esif-payments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Interreg v1/esif-payments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/Interreg",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						"Interreg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET England v1/esif-payments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/England",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						"England"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST v1/esif-payments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ms\": \"TC\",\r\n  \"ms_name\": \"Interreg\",\r\n  \"cci\": \"2014TC16RFCB020\",\r\n  \"title\": \"Interreg V-A - Greece-Italy\",\r\n  \"fund\": \"ERDF\",\r\n  \"category_of_region\": \"\",\r\n  \"year\": 2023,\r\n  \"net_planned_eu_amount\": 104700362,\r\n  \"cumulative_initial_pre_financing\": 3141010.86,\r\n  \"cumulative_additional_initial_pre_financing\": 0,\r\n  \"recovery_of_initial_pre_financing\": 0,\r\n  \"cumulative_annual_pre_financing\": 20154819.69,\r\n  \"pre_financing_covered_by_expenditure\": 3068299.57,\r\n  \"recovery_of_annual_pre_financing\": 12297485.09,\r\n  \"net_pre_financing\": 7930045.89,\r\n  \"cumulative_interim_payments\": 75133465.84,\r\n  \"recovery_of_expenses\": 585512.46,\r\n  \"net_interim_payments\": 77616252.95,\r\n  \"total_net_payments\": 85546298.84,\r\n  \"eu_payment_rate\": 81.7058290973244,\r\n  \"eu_payment_rate_on_planned_eu_amount\": 81.7058290973244\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "409 Conflict",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ms\": \"TC\",\r\n  \"ms_name\": \"Interreg\",\r\n  \"cci\": \"2014TC16RFCB020\",\r\n  \"title\": \"Interreg V-A - Greece-Italy\",\r\n  \"fund\": \"ERDF\",\r\n  \"category_of_region\": \"\",\r\n  \"year\": 2023,\r\n  \"net_planned_eu_amount\": 104700362,\r\n  \"cumulative_initial_pre_financing\": 3141010.86,\r\n  \"cumulative_additional_initial_pre_financing\": 0,\r\n  \"recovery_of_initial_pre_financing\": 0,\r\n  \"cumulative_annual_pre_financing\": 20154819.69,\r\n  \"pre_financing_covered_by_expenditure\": 3068299.57,\r\n  \"recovery_of_annual_pre_financing\": 12297485.09,\r\n  \"net_pre_financing\": 7930045.89,\r\n  \"cumulative_interim_payments\": 75133465.84,\r\n  \"recovery_of_expenses\": 585512.46,\r\n  \"net_interim_payments\": 77616252.95,\r\n  \"total_net_payments\": 85546298.84,\r\n  \"eu_payment_rate\": 81.7058290973244,\r\n  \"eu_payment_rate_on_planned_eu_amount\": 81.7058290973244\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 Bad Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ms\": \"TC\",\r\n  \"ms_name\": \"Interreg\",\r\n  \"cci\": \"2014TC16RFCB020\",\r\n  \"title\": \"Interreg V-A - Greece-Italy\",\r\n  \"fund\": \"ERDF\",\r\n  \"category_of_region\": \"\",\r\n  \"cumulative_interim_payments\": 75133465.84,\r\n  \"recovery_of_expenses\": 585512.46,\r\n  \"net_interim_payments\": 77616252.95,\r\n  \"total_net_payments\": 85546298.84,\r\n  \"eu_payment_rate\": 81.7058290973244,\r\n  \"eu_payment_rate_on_planned_eu_amount\": 81.7058290973244\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405 Method not allowed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ms\": \"TC\",\r\n  \"ms_name\": \"Interreg\",\r\n  \"cci\": \"2014TC16RFCB020\",\r\n  \"title\": \"Interreg V-A - Greece-Italy\",\r\n  \"fund\": \"ERDF\",\r\n  \"category_of_region\": \"\",\r\n  \"year\": 2023,\r\n  \"net_planned_eu_amount\": 104700362,\r\n  \"cumulative_initial_pre_financing\": 3141010.86,\r\n  \"cumulative_additional_initial_pre_financing\": 0,\r\n  \"recovery_of_initial_pre_financing\": 0,\r\n  \"cumulative_annual_pre_financing\": 20154819.69,\r\n  \"pre_financing_covered_by_expenditure\": 3068299.57,\r\n  \"recovery_of_annual_pre_financing\": 12297485.09,\r\n  \"net_pre_financing\": 7930045.89,\r\n  \"cumulative_interim_payments\": 75133465.84,\r\n  \"recovery_of_expenses\": 585512.46,\r\n  \"net_interim_payments\": 77616252.95,\r\n  \"total_net_payments\": 85546298.84,\r\n  \"eu_payment_rate\": 81.7058290973244,\r\n  \"eu_payment_rate_on_planned_eu_amount\": 81.7058290973244\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/Interreg",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						"Interreg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405 Method not Allowed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ms\": \"TC\",\r\n  \"ms_name\": \"Interreg\",\r\n  \"cci\": \"2014TC16RFCB020\",\r\n  \"title\": \"Interreg V-A - Greece-Italy\",\r\n  \"fund\": \"ERDF\",\r\n  \"category_of_region\": \"\",\r\n  \"year\": 2023,\r\n  \"net_planned_eu_amount\": 104700362,\r\n  \"cumulative_initial_pre_financing\": 3141010.86,\r\n  \"cumulative_additional_initial_pre_financing\": 0,\r\n  \"recovery_of_initial_pre_financing\": 0,\r\n  \"cumulative_annual_pre_financing\": 20154819.69,\r\n  \"pre_financing_covered_by_expenditure\": 3068299.57,\r\n  \"recovery_of_annual_pre_financing\": 12297485.09,\r\n  \"net_pre_financing\": 7930045.89,\r\n  \"cumulative_interim_payments\": 75133465.84,\r\n  \"recovery_of_expenses\": 585512.46,\r\n  \"net_interim_payments\": 77616252.95,\r\n  \"total_net_payments\": 85546298.84,\r\n  \"eu_payment_rate\": 81.7058290973244,\r\n  \"eu_payment_rate_on_planned_eu_amount\": 81.7058290973244\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT England v1/esif-payments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ms\": \"ES\",\r\n  \"ms_name\": \"Spain\",\r\n  \"cci\": \"2014ES16RFOP005\",\r\n  \"title\": \"Asturias - ERDF\",\r\n  \"fund\": \"ERDF\",\r\n  \"category_of_region\": \"More developed\",\r\n  \"year\": 2018,\r\n  \"net_planned_eu_amount\": 256779031,\r\n  \"cumulative_initial_pre_financing\": 8341606.04,\r\n  \"cumulative_additional_initial_pre_financing\": 0,\r\n  \"recovery_of_initial_pre_financing\": 0,\r\n  \"cumulative_annual_pre_financing\": 47815463.33,\r\n  \"pre_financing_covered_by_expenditure\": 11534327.06,\r\n  \"recovery_of_annual_pre_financing\": 26301724.45,\r\n  \"net_pre_financing\": 18321017.86,\r\n  \"cumulative_interim_payments\": 227111465.82,\r\n  \"recovery_of_expenses\": 187779.74,\r\n  \"net_interim_payments\": 238458013.14,\r\n  \"total_net_payments\": 256779031,\r\n  \"eu_payment_rate\": 100,\r\n  \"eu_payment_rate_on_planned_eu_amount\": 100\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/England",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						"England"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Interreg v1/esif-payments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ms\": \"TC\",\r\n  \"ms_name\": \"Interreg\",\r\n  \"cci\": \"2014TC16I5CB010\",\r\n  \"title\": \"IPA CBC Greece - Albania\",\r\n  \"fund\": \"IPAE-contribution from ERDF\",\r\n  \"category_of_region\": \"\",\r\n  \"year\": 2010,\r\n  \"net_planned_eu_amount\": 22982611,\r\n  \"cumulative_initial_pre_financing\": 3716776.5,\r\n  \"cumulative_additional_initial_pre_financing\": 0,\r\n  \"recovery_of_initial_pre_financing\": 0,\r\n  \"cumulative_annual_pre_financing\": 0,\r\n  \"pre_financing_covered_by_expenditure\": 0,\r\n  \"recovery_of_annual_pre_financing\": 0,\r\n  \"net_pre_financing\": 3716776.5,\r\n  \"cumulative_interim_payments\": 18046057.46,\r\n  \"recovery_of_expenses\": 0,\r\n  \"net_interim_payments\": 18046057.46,\r\n  \"total_net_payments\": 21762833.96,\r\n  \"eu_payment_rate\": 94.6926089468251,\r\n  \"eu_payment_rate_on_planned_eu_amount\": 94.6926089468251\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/Interreg",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						"Interreg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 Bad Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ms\": \"TC\",\r\n  \"recovery_of_annual_pre_financing\": 0,\r\n  \"net_pre_financing\": 3716776.5,\r\n  \"cumulative_interim_payments\": 18046057.46,\r\n  \"recovery_of_expenses\": 0,\r\n  \"net_interim_payments\": 18046057.46,\r\n  \"total_net_payments\": 21762833.96,\r\n  \"eu_payment_rate\": 94.6926089468251,\r\n  \"eu_payment_rate_on_planned_eu_amount\": 94.6926089468251\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/Interreg",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						"Interreg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE England",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/England",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						"England"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Interreg",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ms\": \"TC\",\r\n  \"ms_name\": \"Interreg\",\r\n  \"cci\": \"2014TC16I5CB010\",\r\n  \"title\": \"IPA CBC Greece - Albania\",\r\n  \"fund\": \"IPAE-contribution from ERDF\",\r\n  \"category_of_region\": null,\r\n  \"year\": 2012,\r\n  \"net_planned_eu_amount\": 22982611,\r\n  \"cumulative_initial_pre_financing\": 3716776.5,\r\n  \"cumulative_additional_initial_pre_financing\": 0,\r\n  \"recovery_of_initial_pre_financing\": 0,\r\n  \"cumulative_annual_pre_financing\": 0,\r\n  \"pre_financing_covered_by_expenditure\": 0,\r\n  \"recovery_of_annual_pre_financing\": 0,\r\n  \"net_pre_financing\": 3716776.5,\r\n  \"cumulative_interim_payments\": 18046057.46,\r\n  \"recovery_of_expenses\": 0,\r\n  \"net_interim_payments\": 18046057.46,\r\n  \"total_net_payments\": 21762833.96,\r\n  \"eu_payment_rate\": 94.6926089468251,\r\n  \"eu_payment_rate_on_planned_eu_amount\": 94.6926089468251\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/Interreg",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						"Interreg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE all",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
