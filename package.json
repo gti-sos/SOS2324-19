@@ -13,8 +13,9 @@
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test":"npx newman run ./test/test_AFI/API_AFI.json -e ./test/test_AFI/enviroment/gcloud.json"
+    "start": "node index",
+    "test_AFI": "npx newman run ./test/test_AFI/API_AFI.json -e ./test/test_AFI/enviroment/gcloud.json",
+    "test":"npm run test_AFI"
   },
   "repository": {
     "type": "git",
@@ -25,9 +26,5 @@
   "bugs": {
     "url": "https://github.com/gti-sos/SOS2324-19/issues"
   },
-  "homepage": "https://github.com/gti-sos/SOS2324-19#readme",
-  "directories": {
-    "test": "test"
-  },
-  "devDependencies": {}
+  "homepage": "https://github.com/gti-sos/SOS2324-19#readme"
 }
