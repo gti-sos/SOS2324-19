@@ -1,0 +1,453 @@
+{
+	"info": {
+		"_postman_id": "31b9e518-3dee-4dbc-93b4-95715b0af244",
+		"name": "API-V1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32953689"
+	},
+	"item": [
+		{
+			"name": "LOADINITIALDATA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}loadInitialData",
+					"host": [
+						"{{SERVER}}loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET SIN PARAMETRO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}",
+					"host": [
+						"{{SERVER}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET CON PARAMETRO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}?country=AT",
+					"host": [
+						"{{SERVER}}"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "AT"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST SIN PARAMETRO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"country\": \"AT\",\r\n        \"cci\": \"2014A16RFOP0081\",\r\n        \"short_title\": \"Investments in Growth and Employment - AT - ERDF\",\r\n        \"year\": \"2020\",\r\n        \"priority\": \"A.2\",\r\n        \"fund\": \"ERDF\",\r\n        \"to\": \"03\",\r\n        \"fi_name\": \"OÃ–. Hightechfonds\",\r\n        \"fi_address\": \"OÃ¶ Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz\",\r\n        \"is_set_up_at_union_level\": \"N\",\r\n        \"fi_type\": \"Specific fund\",\r\n        \"ex_ante_completion_date\": \"2015-01-15T00:00:00.000\",\r\n        \"funding_agreement_signature_date\": \"2015-07-01T00:00:00.000\",\r\n        \"total_amount_committed_to_fi\": \"9000000.00\",\r\n        \"esif_amount_committed_to_fi\": \"3000000.00\",\r\n        \"total_amount_paid_to_fi\": \"9000000.00\",\r\n        \"esif_amount_paid_to_fi\": \"3000000.00\",\r\n        \"management_costs_amount\": \"0.00\",\r\n        \"base_renumeration_amount\": \"0.00\",\r\n        \"performance_based_renumeration_paid_amount\": \"0.00\",\r\n        \"total_amount_committed_to_final_recipients\": \"7756185.76\",\r\n        \"esif_amount_committed_to_final_recipients\": \"2585395.25\",\r\n        \"total_amount_paid_to_final_recipients\": \"7456185.76\",\r\n        \"esif_amount_paid_to_final_recipients\": \"2485395.25\",\r\n        \"to_code_short_title\": \"TO 3 SMEs\",\r\n        \"to_long_title\": \"Enhancing the competitiveness of small and medium-sized enterprises (SMEs)\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}",
+					"host": [
+						"{{SERVER}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST CON PARAMETRO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"country\": \"BG\",\r\n        \"cci\": \"2014AT16RFOP001\",\r\n        \"short_title\": \"Investments in Growth and Employment - AT - ERDF\",\r\n        \"year\": \"2015\",\r\n        \"priority\": \"A.2\",\r\n        \"fund\": \"ERDF\",\r\n        \"to\": \"03\",\r\n        \"fi_name\": \"OÃ–. Hightechfonds\",\r\n        \"fi_address\": \"BetlehemstraÃŸe 3, 4020 Linz, Austria\",\r\n        \"is_set_up_at_union_level\": \"N\",\r\n        \"fi_type\": \"Specific fund\",\r\n        \"ex_ante_completion_date\": \"2016-02-25T00:00:00.000\",\r\n        \"funding_agreement_signature_date\": \"2015-06-30T00:00:00.000\",\r\n        \"total_amount_committed_to_fi\": \"9000000.00\",\r\n        \"esif_amount_committed_to_fi\": \"3000000.00\",\r\n        \"total_amount_paid_to_fi\": \"9000000.00\",\r\n        \"esif_amount_paid_to_fi\": \"3000000.00\",\r\n        \"management_costs_amount\": \"133081.00\",\r\n        \"base_renumeration_amount\": \"133081.00\",\r\n        \"performance_based_renumeration_paid_amount\": \"0.00\",\r\n        \"total_amount_committed_to_final_recipients\": \"450000.00\",\r\n        \"esif_amount_committed_to_final_recipients\": \"150000.00\",\r\n        \"total_amount_paid_to_final_recipients\": \"450000.00\",\r\n        \"esif_amount_paid_to_final_recipients\": \"150000.00\",\r\n        \"to_code_short_title\": \"TO 3 SMEs\",\r\n        \"to_long_title\": \"Enhancing the competitiveness of small and medium-sized enterprises (SMEs)\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}BE",
+					"host": [
+						"{{SERVER}}BE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT SIN PARAMETRO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"country\": \"BF\",\r\n        \"cci\": \"2014AT16RFOP005\",\r\n        \"short_title\": \"Investments in Growth and Employment - AT - ERDF\",\r\n        \"year\": \"2034\",\r\n        \"priority\": \"A.2\",\r\n        \"fund\": \"ERDF\",\r\n        \"to\": \"03\",\r\n        \"fi_name\": \"OÃ–. Hightechfonds\",\r\n        \"fi_address\": \"BetlehemstraÃŸe 3, 4020 Linz, Austria\",\r\n        \"is_set_up_at_union_level\": \"N\",\r\n        \"fi_type\": \"Specific fund\",\r\n        \"ex_ante_completion_date\": \"2016-02-25T00:00:00.000\",\r\n        \"funding_agreement_signature_date\": \"2015-06-30T00:00:00.000\",\r\n        \"total_amount_committed_to_fi\": \"9000000.00\",\r\n        \"esif_amount_committed_to_fi\": \"3000000.00\",\r\n        \"total_amount_paid_to_fi\": \"9000000.00\",\r\n        \"esif_amount_paid_to_fi\": \"3000000.00\",\r\n        \"management_costs_amount\": \"133081.00\",\r\n        \"base_renumeration_amount\": \"133081.00\",\r\n        \"performance_based_renumeration_paid_amount\": \"0.00\",\r\n        \"total_amount_committed_to_final_recipients\": \"450000.00\",\r\n        \"esif_amount_committed_to_final_recipients\": \"150000.00\",\r\n        \"total_amount_paid_to_final_recipients\": \"450000.00\",\r\n        \"esif_amount_paid_to_final_recipients\": \"150000.00\",\r\n        \"to_code_short_title\": \"TO 3 SMEs\",\r\n        \"to_long_title\": \"Enhancing the competitiveness of small and medium-sized enterprises (SMEs)\"\r\n    }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}",
+					"host": [
+						"{{SERVER}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT CON PARAMETRO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n        \"country\": \"AT\",\r\n        \"cci\": \"2014AT16RFOP0019999\",\r\n        \"short_title\": \"Investments in Growth and Employment - AT - ERDF\",\r\n        \"year\": \"2015\",\r\n        \"priority\": \"A.2\",\r\n        \"fund\": \"ERDF\",\r\n        \"to\": \"03\",\r\n        \"fi_name\": \"OÃ–. Hightechfonds\",\r\n        \"fi_address\": \"BetlehemstraÃŸe 3, 4020 Linz, Austria\",\r\n        \"is_set_up_at_union_level\": \"N\",\r\n        \"fi_type\": \"Specific fund\",\r\n        \"ex_ante_completion_date\": \"2016-02-25T00:00:00.000\",\r\n        \"funding_agreement_signature_date\": \"2015-06-30T00:00:00.000\",\r\n        \"total_amount_committed_to_fi\": \"9000000.00\",\r\n        \"esif_amount_committed_to_fi\": \"3000000.00\",\r\n        \"total_amount_paid_to_fi\": \"9000000.00\",\r\n        \"esif_amount_paid_to_fi\": \"3000000.00\",\r\n        \"management_costs_amount\": \"133081.00\",\r\n        \"base_renumeration_amount\": \"133081.00\",\r\n        \"performance_based_renumeration_paid_amount\": \"0.00\",\r\n        \"total_amount_committed_to_final_recipients\": \"450000.00\",\r\n        \"esif_amount_committed_to_final_recipients\": \"150000.00\",\r\n        \"total_amount_paid_to_final_recipients\": \"450000.00\",\r\n        \"esif_amount_paid_to_final_recipients\": \"150000.00\",\r\n        \"to_code_short_title\": \"TO 3 SMEs\",\r\n        \"to_long_title\": \"Enhancing the competitiveness of small and medium-sized enterprises (SMEs)\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}AT",
+					"host": [
+						"{{SERVER}}AT"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ERROR 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}AJ",
+					"host": [
+						"{{SERVER}}AJ"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ERROR 409",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"country\": \"BE\",\r\n        \"cci\": \"2014BE16RFOP001\",\r\n        \"short_title\": \"Brussels Capital Region - ERDF\",\r\n        \"year\": 2019,\r\n        \"priority\": \"Axe 2\",\r\n        \"fund\": \"ERDF\",\r\n        \"to\": 3,\r\n        \"fi_name\": \"Outil de prÃªts avantageux Ã destination des entreprises de l'Ã©conomie sociale, d'insertion ou coopÃ©rative\",\r\n        \"fi_address\": \"Belgique, Bruxelles\",\r\n        \"is_set_up_at_union_level\": \"N\",\r\n        \"fi_type\": \"Specific fund\",\r\n        \"ex_ante_completion_date\": \"2017-05-31T00:00:00.000\",\r\n        \"funding_agreement_signature_date\": \"2018-05-23T00:00:00.000\",\r\n        \"total_amount_committed_to_fi\": 6591086,\r\n        \"esif_amount_committed_to_fi\": 2746286,\r\n        \"total_amount_paid_to_fi\": 2526583.12,\r\n        \"esif_amount_paid_to_fi\": 1263291.56,\r\n        \"management_costs_amount\": 0,\r\n        \"base_renumeration_amount\": 0,\r\n        \"performance_based_renumeration_paid_amount\": 0,\r\n        \"total_amount_committed_to_final_recipients\": 0,\r\n        \"esif_amount_committed_to_final_recipients\": 0,\r\n        \"total_amount_paid_to_final_recipients\": 0,\r\n        \"esif_amount_paid_to_final_recipients\": 0,\r\n        \"to_code_short_title\": \"TO 3 SMEs\",\r\n        \"to_long_title\": \"Enhancing the competitiveness of small and medium-sized enterprises (SMEs)\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}",
+					"host": [
+						"{{SERVER}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ERROR 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}",
+					"host": [
+						"{{SERVER}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ERROR 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}AJ",
+					"host": [
+						"{{SERVER}}AJ"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ERROR 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}",
+					"host": [
+						"{{SERVER}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE CON PARAMETRO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}AT",
+					"host": [
+						"{{SERVER}}AT"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE SIN PARAMETRO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}",
+					"host": [
+						"{{SERVER}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
