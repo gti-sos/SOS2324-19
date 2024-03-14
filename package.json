@@ -15,8 +15,8 @@
   "scripts": {
     "start": "node index",
     "test_AFI": "npx newman run ./test/test_AFI/API_AFI.json -e ./test/test_AFI/enviroment/gcloud.json",
-    "test_JPR": "npx newman run ./tests/API_JPR.json -e ./tests/enviroments/gcloud.json",
-    "test": "npm run test_AFI && npm run test_JPR"
+    "test-esif-payments": "npx newman run ./tests/API_JPR.json -e ./tests/enviroments/gcloud.json",
+    "test": "npm run test_AFI && npm run test-esif-payments"
   },
   "repository": {
     "type": "git",
