@@ -1,0 +1,549 @@
+{
+	"info": {
+		"_postman_id": "9b56026d-4721-46e8-bebc-057c39aefc37",
+		"name": "API SOS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32952835"
+	},
+	"item": [
+		{
+			"name": "Load Datos (200)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}api/v1/eu-payment-info/loadInitialData",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"eu-payment-info",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Datos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}api/v1/eu-payment-info",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"eu-payment-info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Datos de \"Spain\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}api/v1/eu-payment-info/Spain",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"eu-payment-info",
+						"Spain"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post de un nuevo dato",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ms\": \"GB\",\r\n    \"ms_name\": \"England\",\r\n    \"cci\": \"2021ES65AMPR002\",\r\n    \"title\": \"Spain - ERDF\",\r\n    \"fund\": \"ERDF\",\r\n    \"category_of_region\": \"Less developed\",\r\n    \"year\": 2026,\r\n    \"init_plan_eu_amt_1_adoption\": 250000000,\r\n    \"transfers\": 0,\r\n    \"actual_plan_eu_amt_latest_adop\": 250000000,\r\n    \"pre_fin\": 6250000,\r\n    \"recovery_of_pre_financing\": 0,\r\n    \"net_pre_financing\": 6250000,\r\n    \"interim_payments\": 0,\r\n    \"recovery_of_expenses\": 0,\r\n    \"net_interim_payments\": 0,\r\n    \"total_net_payments\": 6250000,\r\n    \"eu_payment_rate_init_plan_eu_amt\": 0.12,\r\n    \"eu_payment_rate_actual_plan_eu_amt\": 0.12\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}api/v1/eu-payment-info/",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"eu-payment-info",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put de England",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ms\": \"GB\",\r\n    \"ms_name\": \"England\",\r\n    \"cci\": \"2021ES65AMPR002\",\r\n    \"title\": \"Spain - ERDF\",\r\n    \"fund\": \"ERDF\",\r\n    \"category_of_region\": \"More developed\",\r\n    \"year\": 2023,\r\n    \"init_plan_eu_amt_1_adoption\": 300000000,\r\n    \"transfers\": 0,\r\n    \"actual_plan_eu_amt_latest_adop\": 300000000,\r\n    \"pre_fin\": 7500000,\r\n    \"recovery_of_pre_financing\": 0,\r\n    \"net_pre_financing\": 7500000,\r\n    \"interim_payments\": 0,\r\n    \"recovery_of_expenses\": 0,\r\n    \"net_interim_payments\": 0,\r\n    \"total_net_payments\": 7500000,\r\n    \"eu_payment_rate_init_plan_eu_amt\": 0.12,\r\n    \"eu_payment_rate_actual_plan_eu_amt\": 0.12\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}api/v1/eu-payment-info/England",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"eu-payment-info",
+						"England"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete England",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}api/v1/eu-payment-info/England",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"eu-payment-info",
+						"England"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put de un dato errorneo (400)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ms\": \"GB\",\r\n    \"ms_name\": \"England\",\r\n    \"cci\": \"2021ES65AMPR002\",\r\n    \"title\": \"Spain - ERDF\",\r\n    \"fund\": \"ERDF\",\r\n    \"category_of_region\": \"More developed\",\r\n    \"year\": 2023,\r\n    \"init_plan_eu_amt_1_adoption\": 300000000,\r\n    \"transfers\": 0,\r\n    \"actual_plan_eu_amt_latest_adop\": 300000000,\r\n    \"pre_fin\": 7500000,\r\n    \"recovery_of_pre_financing\": 0,\r\n    \"net_pre_financing\": 7500000,\r\n    \"interim_payments\": 0,\r\n    \"recovery_of_expenses\": 0,\r\n    \"net_interim_payments\": 0,\r\n    \"total_net_payments\": 7500000,\r\n    \"eu_payment_rate_init_plan_eu_amt\": 0.12,\r\n    \"eu_payment_rate_actual_plan_eu_amt\": 0.12\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}api/v1/eu-payment-info/Chile",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"eu-payment-info",
+						"Chile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "No post ya creado (409)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ms\": \"EL\",\r\n    \"ms_name\": \"Greece\",\r\n    \"cci\": \"2021EL16FFPR018\",\r\n    \"title\": \"Notio Aigaio – ERDF/ESF+\",\r\n    \"fund\": \"ESF+\",\r\n    \"category_of_region\": \"Transition\",\r\n    \"year\": 2023,\r\n    \"init_plan_eu_amt_1_adoption\": 36901682,\r\n    \"transfers\": 0,\r\n    \"actual_plan_eu_amt_latest_adop\": 36901682,\r\n    \"pre_fin\": 922542.05,\r\n    \"recovery_of_pre_financing\": 0,\r\n    \"net_pre_financing\": 922542.05,\r\n    \"interim_payments\": 2331102.22,\r\n    \"recovery_of_expenses\": 0,\r\n    \"net_interim_payments\": 2331102.22,\r\n    \"total_net_payments\": 3253644.27,\r\n    \"eu_payment_rate_init_plan_eu_amt\": 0.0881706224122792,\r\n    \"eu_payment_rate_actual_plan_eu_amt\": 0.0881706224122792\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}api/v1/eu-payment-info/",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"eu-payment-info",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dato JSON no esperado (400)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}api/v1/eu-payment-info/",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"eu-payment-info",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recurso inexistente (404)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}api/v1/eu-payment-info/Chile",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"eu-payment-info",
+						"Chile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Metodo no esperado (405)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}api/v1/eu-payment-info/Chile",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"eu-payment-info",
+						"Chile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Paginacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}api/v1/eu-payment-info/?limit=2&offset=2",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"eu-payment-info",
+						""
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "offset",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busqueda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}api/v1/eu-payment-info/?year=2023",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"eu-payment-info",
+						""
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2023"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all (200)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}api/v1/eu-payment-info",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"eu-payment-info"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

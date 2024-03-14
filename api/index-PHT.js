@@ -6,6 +6,7 @@ var datos = [];
 module.exports = (app, db_PHT) => {
     //REDIRECT PORTAL DOCUMENTACION
     app.get(API_BASE + "/docs", (req, res) => {
+        console.log("Redirection to Postman documentation");
         res.redirect("https://documenter.getpostman.com/view/32952835/2sA2xfXCsh");
     });
 
