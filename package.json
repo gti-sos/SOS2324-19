@@ -14,10 +14,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "test_AFI": "npx newman run ./test/test_AFI/API_AFI.json -e ./test/test_AFI/enviroment/gcloud.json",
+    "test-policy-program-stats": "npx newman run ./tests/API_AFI.json -e ./tests/enviroments/gcloud_2.json",
     "test-esif-payments": "npx newman run ./tests/API_JPR.json -e ./tests/enviroments/gcloud.json",
     "test-eu-payment-info":"npx newman run ./tests/API_PHT.json -e ./tests/enviroments/gcloud.json",
-    "test": "npm run test_AFI && npm run test-esif-payments && npm run test-eu-payment-info"
+    "test": "npm run test-policy-program-stats && npm run test-esif-payments && npm run test-eu-payment-info"
   },
   "repository": {
     "type": "git",
