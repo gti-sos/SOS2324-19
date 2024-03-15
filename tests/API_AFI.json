@@ -26,9 +26,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}loadInitialData",
+					"raw": "{{SERVER}}api/v1/policy-program-stats/loadInitialData",
 					"host": [
-						"{{SERVER}}loadInitialData"
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						"loadInitialData"
 					]
 				}
 			},
@@ -41,8 +46,13 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"The array should contain more than 0 elements\", function () {",
+							"    const responseData = pm.response.json();",
+							"    pm.expect(responseData.length).to.be.greaterThan(0, \"Array should not be empty\");",
 							"});"
 						],
 						"type": "text/javascript",
@@ -54,9 +64,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}",
+					"raw": "{{SERVER}}api/v1/policy-program-stats/",
 					"host": [
-						"{{SERVER}}"
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						""
 					]
 				}
 			},
@@ -71,6 +86,10 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"The array should contain more than 0 elements\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData.length).to.be.greaterThan(0, \"Array should not be empty\");\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -82,9 +101,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}?country=AT",
+					"raw": "{{SERVER}}api/v1/policy-program-stats/?country=AT",
 					"host": [
-						"{{SERVER}}"
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						""
 					],
 					"query": [
 						{
@@ -125,9 +149,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}",
+					"raw": "{{SERVER}}api/v1/policy-program-stats/",
 					"host": [
-						"{{SERVER}}"
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						""
 					]
 				}
 			},
@@ -162,9 +191,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}BE",
+					"raw": "{{SERVER}}api/v1/policy-program-stats/BE",
 					"host": [
-						"{{SERVER}}BE"
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						"BE"
 					]
 				}
 			},
@@ -199,9 +233,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}",
+					"raw": "{{SERVER}}api/v1/policy-program-stats/",
 					"host": [
-						"{{SERVER}}"
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						""
 					]
 				}
 			},
@@ -236,9 +275,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}AT",
+					"raw": "{{SERVER}}api/v1/policy-program-stats/AT",
 					"host": [
-						"{{SERVER}}AT"
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						"AT"
 					]
 				}
 			},
@@ -264,9 +308,14 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}AJ",
+					"raw": "{{SERVER}}api/v1/policy-program-stats/AJ",
 					"host": [
-						"{{SERVER}}AJ"
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						"AJ"
 					]
 				}
 			},
@@ -301,9 +350,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}",
+					"raw": "{{SERVER}}api/v1/policy-program-stats/",
 					"host": [
-						"{{SERVER}}"
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						""
 					]
 				}
 			},
@@ -329,9 +383,14 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}",
+					"raw": "{{SERVER}}api/v1/policy-program-stats/",
 					"host": [
-						"{{SERVER}}"
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						""
 					]
 				}
 			},
@@ -357,9 +416,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}AJ",
+					"raw": "{{SERVER}}api/v1/policy-program-stats/AJ",
 					"host": [
-						"{{SERVER}}AJ"
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						"AJ"
 					]
 				}
 			},
@@ -385,9 +449,14 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}",
+					"raw": "{{SERVER}}api/v1/policy-program-stats/",
 					"host": [
-						"{{SERVER}}"
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						""
 					]
 				}
 			},
@@ -413,9 +482,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}AT",
+					"raw": "{{SERVER}}api/v1/policy-program-stats/AT",
 					"host": [
-						"{{SERVER}}AT"
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						"AT"
 					]
 				}
 			},
@@ -441,9 +515,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}",
+					"raw": "{{SERVER}}api/v1/policy-program-stats/",
 					"host": [
-						"{{SERVER}}"
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						""
 					]
 				}
 			},
