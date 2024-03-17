@@ -105,6 +105,39 @@
 			"response": []
 		},
 		{
+			"name": "Datos de Greece",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}api/v1/eu-payment-info/Greece",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"eu-payment-info",
+						"Greece"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Post de un nuevo dato",
 			"event": [
 				{
@@ -293,7 +326,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"ms\": \"EL\",\r\n    \"ms_name\": \"Greece\",\r\n    \"cci\": \"2021EL16FFPR018\",\r\n    \"title\": \"Notio Aigaio – ERDF/ESF+\",\r\n    \"fund\": \"ESF+\",\r\n    \"category_of_region\": \"Transition\",\r\n    \"year\": 2023,\r\n    \"init_plan_eu_amt_1_adoption\": 36901682,\r\n    \"transfers\": 0,\r\n    \"actual_plan_eu_amt_latest_adop\": 36901682,\r\n    \"pre_fin\": 922542.05,\r\n    \"recovery_of_pre_financing\": 0,\r\n    \"net_pre_financing\": 922542.05,\r\n    \"interim_payments\": 2331102.22,\r\n    \"recovery_of_expenses\": 0,\r\n    \"net_interim_payments\": 2331102.22,\r\n    \"total_net_payments\": 3253644.27,\r\n    \"eu_payment_rate_init_plan_eu_amt\": 0.0881706224122792,\r\n    \"eu_payment_rate_actual_plan_eu_amt\": 0.0881706224122792\r\n}",
+					"raw": "{\r\n        \"ms\": \"BG\",\r\n        \"ms_name\": \"Bulgaria\",\r\n        \"cci\": \"2021BG05SFPR003\",\r\n        \"title\": \"Food and Basic Material Support - BG - ESF + \",\r\n        \"fund\": \"ESF + \",\r\n        \"category_of_region\": \"Less developed\",\r\n        \"year\": 2023,\r\n        \"init_plan_eu_amt_1_adoption\": 157875000,\r\n        \"transfers\": 0,\r\n        \"actual_plan_eu_amt_latest_adop\": 157875000,\r\n        \"pre_fin\": 3946875,\r\n        \"recovery_of_pre_financing\": 0,\r\n        \"net_pre_financing\": 3946875,\r\n        \"interim_payments\": 10299266.83,\r\n        \"recovery_of_expenses\": 0,\r\n        \"net_interim_payments\": 10299266.83,\r\n        \"total_net_payments\": 14246141.83,\r\n        \"eu_payment_rate_init_plan_eu_amt\": 0.0902368445288995,\r\n        \"eu_payment_rate_actual_plan_eu_amt\": 0.0902368445288995,\r\n        \"_id\": \"FbGSDjv8zNB4h0X5\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -534,7 +567,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"ms\": \"EL\",\r\n        \"ms_name\": \"Greece\",\r\n        \"cci\": \"2021EL16FFPR008\",\r\n        \"title\": \"Thessalia – ERDF/ESF+\",\r\n        \"fund\": \"ESF+\",\r\n        \"category_of_region\": \"Less developed\",\r\n        \"year\": 2022,\r\n        \"init_plan_eu_amt_1_adoption\": 121971450,\r\n        \"transfers\": 0,\r\n        \"actual_plan_eu_amt_latest_adop\": 121971450,\r\n        \"pre_fin\": 3049286.25,\r\n        \"recovery_of_pre_financing\": 0,\r\n        \"net_pre_financing\": 3049286.25,\r\n        \"interim_payments\": 3056694.49,\r\n        \"recovery_of_expenses\": 0,\r\n        \"net_interim_payments\": 3056694.49,\r\n        \"total_net_payments\": 6105980.74,\r\n        \"eu_payment_rate_init_plan_eu_amt\": 0.0500607374922574,\r\n        \"eu_payment_rate_actual_plan_eu_amt\": 0.0500607374922574\r\n    }",
+					"raw": "{\r\n        \"ms\": \"EL\",\r\n        \"ms_name\": \"Greece\",\r\n        \"cci\": \"2021EL16FFPR008\",\r\n        \"title\": \"Thessalia – ERDF/ESF+\",\r\n        \"fund\": \"ESF+\",\r\n        \"category_of_region\": \"Less developed\",\r\n        \"year\": 2021,\r\n        \"init_plan_eu_amt_1_adoption\": 121971450,\r\n        \"transfers\": 0,\r\n        \"actual_plan_eu_amt_latest_adop\": 121971450,\r\n        \"pre_fin\": 3049286.25,\r\n        \"recovery_of_pre_financing\": 0,\r\n        \"net_pre_financing\": 3049286.25,\r\n        \"interim_payments\": 3056694.49,\r\n        \"recovery_of_expenses\": 0,\r\n        \"net_interim_payments\": 3056694.49,\r\n        \"total_net_payments\": 6105980.74,\r\n        \"eu_payment_rate_init_plan_eu_amt\": 0.0500607374922574,\r\n        \"eu_payment_rate_actual_plan_eu_amt\": 0.0500607374922574\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -542,14 +575,15 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/Greece",
+					"raw": "{{SERVER}}api/v1/eu-payment-info/Greece/2023",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
 						"v1",
 						"eu-payment-info",
-						"Greece"
+						"Greece",
+						"2023"
 					]
 				}
 			},
@@ -584,6 +618,49 @@
 						"eu-payment-info",
 						"Greece",
 						"2023"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete año y pais",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}api/v1/eu-payment-info/Greece/2021",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"eu-payment-info",
+						"Greece",
+						"2021"
 					]
 				}
 			},

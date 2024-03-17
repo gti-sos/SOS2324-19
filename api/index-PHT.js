@@ -272,47 +272,47 @@ module.exports = (app, db_PHT) => {
             }
         });
     });
-});
-//DELETE año y pais
-app.delete(API_BASE+"/:country/:year", (req, res) => {
+
+    
+// PUT año y pais
+app.put(API_BASE + "/:country/:year", (req, res) => {
     const country = req.params.country;
-    const year =parseInt(req.params.year);
-    db_PHT.remove({ms_name: country,year:year}, {multi: true}, (error, numremov)=>{
-        if(error){
-            res.sendStatus(500, "Internal Server Error");
-        }else{
-            if(numremov>0){
-                //eliminar los datos del filtro espedificado
-                res.sendStatus(200, "Ok");
-            }else{
-                //Si se intenta acceder a un recurso 
-            //inexistente se debe devolver el código 404
-                res.sendStatus(404, "Not Found");
+    const year = parseInt(req.params.year);
+    const data = req.body;
+
+    const Fields = ["ms", "ms_name", "cci", "title", "fund", "category_of_region", "year", "init_plan_eu_amt_1_adoption", "transfers", "actual_plan_eu_amt_latest_adop", "pre_fin", "recovery_of_pre_financing", "net_pre_financing", "interim_payments", "recovery_of_expenses", "net_interim_payments", "total_net_payments", "eu_payment_rate_init_plan_eu_amt", "eu_payment_rate_actual_plan_eu_amt"];
+    
+    // Verificar si la estructura de los datos es válida
+    const isValidStructure = Fields.every(key => Object.prototype.hasOwnProperty.call(data, key));
+
+    if (!isValidStructure || Object.keys(data).length !== Fields.length) {
+        // No se pueden actualizar los datos si la estructura no es válida
+        return res.status(400).send("Bad Request");
+    }
+
+    // Verificar si el país y el año existen antes de actualizar
+    db_PHT.findOne({ ms_name: country, year: year }, (err, existingData) => {
+        if (err) {
+            return res.status(500).send("Internal Server Error");
+        } else {
+            if (!existingData) {
+                // El país y el año no existen en la base de datos
+                return res.status(404).send("Not Found");
+            } else {
+                // El país y el año existen, proceder con la actualización
+                db_PHT.update({ ms_name: country, year: year }, { $set: data }, {}, (err) => {
+                    if (err) {
+                        return res.status(500).send("Internal Server Error");
+                    } else {
+                        return res.status(200).send("OK");
+                    }
+                });
             }
         }
     });
 });
 
-//PUT año y pais
-app.put(API_BASE+"/:country/:year", (req, res) => {
-    const country = req.params.country;
-    const anyo =parseInt(req.params.year);
-    let data = req.body;
-    const Fields = ["ms", "ms_name", "cci", "title", "fund", "category_of_region", "year", "init_plan_eu_amt_1_adoption", "transfers", "actual_plan_eu_amt_latest_adop", "pre_fin", "recovery_of_pre_financing", "net_pre_financing", "interim_payments", "recovery_of_expenses", "net_interim_payments", "total_net_payments", "eu_payment_rate_init_plan_eu_amt", "eu_payment_rate_actual_plan_eu_amt"];
-    if (!data||Object.keys(data).length === 0 || data.ms_name !== country ||data.year !== anyo) {
-            res.sendStatus(400, "Bad Request");
-            
-        } else {
-            db_PHT.update({ms_name: country, year:anyo},data, { multi: true }, {}, (error)=>{
-                if(error){
-                    res.sendStatus(500, "Internal Server Error");
-                }else{
-                    res.sendStatus(200, "Ok");
-                }
-            });
-        }
-    
-});
+
 
     //PUT2
     app.put(API_BASE + "/:country", (req, res) => {
@@ -333,6 +333,28 @@ app.put(API_BASE+"/:country/:year", (req, res) => {
         }
 
     });
+
+
+//DELETE año y pais
+app.delete(API_BASE+"/:country/:year", (req, res) => {
+    const country = req.params.country;
+    const year =parseInt(req.params.year);
+    db_PHT.remove({ms_name: country,year:year}, {multi: true}, (error, numremov)=>{
+        if(error){
+            res.sendStatus(500, "Internal Server Error");
+        }else{
+            if(numremov>0){
+                //eliminar los datos del filtro espedificado
+                res.sendStatus(200, "Ok");
+            }else{
+                //Si se intenta acceder a un recurso 
+            //inexistente se debe devolver el código 404
+                res.sendStatus(404, "Not Found");
+            }
+        }
+    });
+});
+
     //DELETE2
     app.delete(API_BASE + "/:country", (req, res) => {
         const pais = req.params.country;
@@ -354,6 +376,8 @@ app.put(API_BASE+"/:country/:year", (req, res) => {
 
 
 }
+
+
 
 
 
