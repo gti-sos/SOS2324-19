@@ -18,13 +18,13 @@
     "test-esif-payments": "npx newman run ./tests/API_JPR.json -e ./tests/environments/gcloud.json",
     "test-eu-payment-info": "npx newman run ./tests/API_PHT.json -e ./tests/environments/gcloud.json",
     "test-covid-testings": "npx newman run ./tests/API_RSG.json -e ./tests/environments/gcloud.json",
-    "test": "npm run test-policy-program-stats && npm run test-eu-payment-info&& npm run test-esif-payments "
+    "test": "npm run test-policy-program-stats && npm run test-eu-payment-info&& npm run test-esif-payments && npm run test-covid-testings"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gti-sos/SOS2324-19.git"
   },
-  "author": "Jose Manuel Peña Ramirez, Alberto Fraile Infantes",
+  "author": "Jose Manuel Peña Ramirez, Alberto Fraile Infantes, Raul Sequera Gomez, Pedro Heredia Torres",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/gti-sos/SOS2324-19/issues"
