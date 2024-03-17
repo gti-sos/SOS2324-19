@@ -142,6 +142,15 @@ module.exports = (app, db_AFI) =>  {
             }
         });
         });
+        //POST22
+        //Si se intenta usar alguno de los métodos no permitidos por la
+        //tabla azul se debe devolver el código 405
+        app.post(API_BASE + "/:country/:year", (req, res) => {
+            const pais = req.params.country;
+            const year =parseInt(req.params.year);
+            let data = req.body;
+            res.sendStatus(405, "Method Not Allowed");
+        });
         //POST2
         //Si se intenta usar alguno de los métodos no permitidos por la
         //tabla azul se debe devolver el código 405
@@ -149,6 +158,28 @@ module.exports = (app, db_AFI) =>  {
             const pais = req.params.country;
             let data = req.body;
             res.sendStatus(405, "Method Not Allowed");
+        });
+        //GET22
+        app.get(API_BASE + "/:country/:year", (req, res) => {
+            const pais = req.params.country;
+            const ano =parseInt(req.params.year);
+            db_AFI.find({country: pais, year:ano}, (error,countrydata)=>{
+                if (error) {
+                    res.sendStatus(500, "Internal Server Error");
+                }else{
+                    if(countrydata.length>0){
+                        //muestra los datos con los filtros especificados
+                        res.send(JSON.stringify(countrydata.map((c)=>{
+                            delete c._id;
+                            return c;
+                        })));
+                    }else{
+                        //Si se intenta acceder a un recurso 
+                //inexistente se debe devolver el código 404
+                        res.sendStatus(404, "Not Found");
+                    }
+                }
+            });
         });
         //GET2
         app.get(API_BASE + "/:country", (req, res) => {
@@ -171,6 +202,37 @@ module.exports = (app, db_AFI) =>  {
                 }
             });
         });
+        //PUT22
+        app.put(API_BASE + "/:country/:year", (req, res) => {
+            const pais = req.params.country;
+            const ano =parseInt(req.params.year);
+            let data = req.body;
+            const Fields = ["country", "cci", "short_title", "year", "priority", "fund", "to", "fi_name", "fi_address", "is_set_up_at_union_level", "fi_type", "ex_ante_completion_date", "funding_agreement_signature_date", "total_amount_committed_to_fi", "esif_amount_committed_to_fi", "total_amount_paid_to_fi", "esif_amount_paid_to_fi", "management_costs_amount", "base_renumeration_amount", "performance_based_renumeration_paid_amount", "total_amount_committed_to_final_recipients", "esif_amount_committed_to_final_recipients","total_amount_paid_to_final_recipients","esif_amount_paid_to_final_recipients", "to_code_short_title", "to_long_title"];
+            const isValidStructure = Fields.every(key => Object.prototype.hasOwnProperty.call(data, key));
+
+            if (!isValidStructure||Object.keys(data).length !== Fields.length) {
+                    res.sendStatus(400, "Bad Request");
+                    
+                } 
+                db_AFI.findOne({ country: pais, year: ano }, (err, existingData) => {
+                    if (err) {
+                        return res.status(500).send("Internal Server Error");
+                    } else {
+                        if (!existingData) {
+                            return res.status(404).send("Not Found");
+                        }else{
+                            db_AFI.update({country: pais, year: ano}, {$set: data}, {}, (error)=>{
+                                if(error){
+                                    res.sendStatus(500, "Internal Server Error");
+                                }else{
+                                    res.sendStatus(200, "Ok");
+                                }
+                            });
+                        }
+                    }
+                });
+            
+        });
         //PUT2
         app.put(API_BASE + "/:country", (req, res) => {
             const pais = req.params.country;
@@ -190,6 +252,26 @@ module.exports = (app, db_AFI) =>  {
                 }
             
         });
+        //DELETE22
+        app.delete(API_BASE + "/:country/:year", (req, res) => {
+            const pais = req.params.country;
+            const ano =parseInt(req.params.year);
+            db_AFI.remove({country: pais, year:ano}, {multi: true}, (error, numremov)=>{
+                if(error){
+                    res.sendStatus(500, "Internal Server Error");
+                }else{
+                    if(numremov>0){
+                        //eliminar los datos del filtro espedificado
+                        res.sendStatus(200, "Ok");
+                    }else{
+                        //Si se intenta acceder a un recurso 
+                    //inexistente se debe devolver el código 404
+                        res.sendStatus(404, "Not Found");
+                    }
+                }
+            });
+        });
+    
         //DELETE2
         app.delete(API_BASE + "/:country", (req, res) => {
             const pais = req.params.country;
