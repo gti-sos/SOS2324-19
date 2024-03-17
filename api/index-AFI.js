@@ -221,7 +221,7 @@ module.exports = (app, db_AFI) =>  {
                         if (!existingData) {
                             return res.status(404).send("Not Found");
                         }else{
-                            db_AFI.update({country: pais, year: ano}, {$set: data}, {}, (error)=>{
+                            db_AFI.update({country: pais, year: ano}, data, {}, (error)=>{
                                 if(error){
                                     res.sendStatus(500, "Internal Server Error");
                                 }else{
