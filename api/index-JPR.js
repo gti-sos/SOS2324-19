@@ -247,7 +247,6 @@ module.exports = (app, db) => {
                         return c;
                     })));
                 } else {
-
                     res.sendStatus(404, "Not Found");
                 }
             }
