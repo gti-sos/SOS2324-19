@@ -14,9 +14,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "test-policy-program-stats": "npx newman run ./tests/API_AFI.json -e ./tests/enviroments/gcloud.json",
-    "test-esif-payments": "npx newman run ./tests/API_JPR.json -e ./tests/enviroments/gcloud.json",
-    "test-eu-payment-info": "npx newman run ./tests/API_PHT.json -e ./tests/enviroments/gcloud.json",
+    "test-policy-program-stats": "npx newman run ./tests/API_AFI.json -e ./tests/environments/gcloud.json",
+    "test-esif-payments": "npx newman run ./tests/API_JPR.json -e ./tests/environments/gcloud.json",
+    "test-eu-payment-info": "npx newman run ./tests/API_PHT.json -e ./tests/environments/gcloud.json",
+    "test-covid-testings": "npx newman run ./tests/API_RSG.json -e ./tests/environments/gcloud.json",
     "test": "npm run test-policy-program-stats && npm run test-eu-payment-info&& npm run test-esif-payments "
   },
   "repository": {
