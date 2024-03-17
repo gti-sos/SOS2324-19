@@ -39,13 +39,13 @@ module.exports = (app, db_PHT) => {
         }
     });
 
-     //GET1
-     app.get(API_BASE + "/", (req, res) => {
+    //GET1
+    app.get(API_BASE + "/", (req, res) => {
         const limit = parseInt(req.query.limit) || 10;
         const offset = parseInt(req.query.offset) || 0;
         const params = req.query;
         let query = {};
-    
+
         Object.keys(params).forEach(key => {
             if (key !== 'limit' && key !== 'offset') {
                 let value = req.query[key];
@@ -64,7 +64,7 @@ module.exports = (app, db_PHT) => {
                 query[key] = value;
             }
         });
-    
+
         db_PHT.find(query).skip(offset).limit(limit).exec((error, data) => {
             if (error) {
                 res.sendStatus(500, "Internal Error");
@@ -81,7 +81,7 @@ module.exports = (app, db_PHT) => {
             }
         });
     });
-    
+
     //PUT1
     app.put(API_BASE + "/", (req, res) => {
         //Si se intenta usar alguno de los métodos no permitidos 
@@ -189,34 +189,34 @@ module.exports = (app, db_PHT) => {
                 net_pre_financing: 789375, interim_payments: 1896252.83, recovery_of_expenses: 0, net_interim_payments: 1896252.83, total_net_payments: 2685627.83,
                 eu_payment_rate_init_plan_eu_amt: 0.0850555132224861, eu_payment_rate_actual_plan_eu_amt: 0.0850555132224861
             }]
-            db_PHT.count({}, (error, count) => {
-                if (error) {
-                    res.sendStatus(500, "Internal error");
+        db_PHT.count({}, (error, count) => {
+            if (error) {
+                res.sendStatus(500, "Internal error");
+            } else {
+                if (count === 0) {
+                    db_PHT.insert(datoss, (error, doc) => {
+                        if (error) {
+                            res.sendStatus(500, "Internal error");
+                        } else {
+                            // Actualiza la variable datos después de insertar en la base de datos
+                            datos = datoss;
+                            res.sendStatus(200, "OK");
+                        }
+                    });
                 } else {
-                    if (count === 0) {
-                        db_PHT.insert(datoss, (error, doc) => {
-                            if (error) {
-                                res.sendStatus(500, "Internal error");
-                            } else {
-                                // Actualiza la variable datos después de insertar en la base de datos
-                                datos = datoss;
-                                res.sendStatus(200, "OK");
-                            }
-                        });
-                    } else {
-                        // Si ya hay datos en la base de datos, simplemente actualiza la variable datos
-                        db_PHT.find({}, (error, data) => {
-                            if (error) {
-                                res.sendStatus(500, "Internal Error");
-                            } else {
-                                datos = data;
-                                res.status(200).json(data);
-                            }
-                        });
-                    }
+                    // Si ya hay datos en la base de datos, simplemente actualiza la variable datos
+                    db_PHT.find({}, (error, data) => {
+                        if (error) {
+                            res.sendStatus(500, "Internal Error");
+                        } else {
+                            datos = data;
+                            res.status(200).json(data);
+                        }
+                    });
                 }
-            });
+            }
         });
+    });
 
     //Post2
     //Si se intenta usar alguno de los métodos no permitidos por la 
@@ -229,19 +229,19 @@ module.exports = (app, db_PHT) => {
     //GET2
     app.get(API_BASE + "/:country", (req, res) => {
         const pais = req.params.country;
-        db_PHT.find({ms_name: pais}, (error,countrydata)=>{
+        db_PHT.find({ ms_name: pais }, (error, countrydata) => {
             if (error) {
                 res.sendStatus(500, "Internal Server Error");
-            }else{
-                if(countrydata.length>0){
+            } else {
+                if (countrydata.length > 0) {
                     //muestra los datos con los filtros especificados
-                    res.send(JSON.stringify(countrydata.map((c)=>{
+                    res.send(JSON.stringify(countrydata.map((c) => {
                         delete c._id;
                         return c;
                     })));
-                }else{
+                } else {
                     //Si se intenta acceder a un recurso 
-            //inexistente se debe devolver el código 404
+                    //inexistente se debe devolver el código 404
                     res.sendStatus(404, "Not Found");
                 }
             }
@@ -249,27 +249,28 @@ module.exports = (app, db_PHT) => {
     });
 
     // Get para buscar por país y año
-app.get(API_BASE+"/:country/:year", (req, res) => {
-    const country = req.params.country;
-    const year =parseInt(req.params.year);
+    app.get(API_BASE + "/:country/:year", (req, res) => {
+        const country = req.params.country;
+        const year = parseInt(req.params.year);
 
-    // Realizar la búsqueda en la base de datos con los parámetros proporcionados
-    db_PHT.find({ ms_name: country, year: year }, (error, countrydata) => {
-        if (error) {
-            res.sendStatus(500, "Internal Server Error");
-        }else{
-            if(countrydata.length>0){
-                //muestra los datos con los filtros especificados
-                res.send(JSON.stringify(countrydata.map((c)=>{
-                    delete c._id;
-                    return c;
-                })));
-            }else{
-                //Si se intenta acceder a un recurso 
-        //inexistente se debe devolver el código 404
-                res.sendStatus(404, "Not Found");
+        // Realizar la búsqueda en la base de datos con los parámetros proporcionados
+        db_PHT.find({ ms_name: country, year: year }, (error, countrydata) => {
+            if (error) {
+                res.sendStatus(500, "Internal Server Error");
+            } else {
+                if (countrydata.length > 0) {
+                    //muestra los datos con los filtros especificados
+                    res.send(JSON.stringify(countrydata.map((c) => {
+                        delete c._id;
+                        return c;
+                    })));
+                } else {
+                    //Si se intenta acceder a un recurso 
+                    //inexistente se debe devolver el código 404
+                    res.sendStatus(404, "Not Found");
+                }
             }
-        }
+        });
     });
 });
 //DELETE año y pais
@@ -313,43 +314,43 @@ app.put(API_BASE+"/:country/:year", (req, res) => {
     
 });
 
- //PUT2
- app.put(API_BASE + "/:country", (req, res) => {
-    const pais = req.params.country;
-    let data = req.body;
-    const Fields = ["ms", "ms_name", "cci", "title", "fund", "category_of_region", "year", "init_plan_eu_amt_1_adoption", "transfers", "actual_plan_eu_amt_latest_adop", "pre_fin", "recovery_of_pre_financing", "net_pre_financing", "interim_payments", "recovery_of_expenses", "net_interim_payments", "total_net_payments", "eu_payment_rate_init_plan_eu_amt", "eu_payment_rate_actual_plan_eu_amt"];
-    if (!data||Object.keys(data).length === 0 || data.ms_name !== pais) {
+    //PUT2
+    app.put(API_BASE + "/:country", (req, res) => {
+        const pais = req.params.country;
+        let data = req.body;
+        const Fields = ["ms", "ms_name", "cci", "title", "fund", "category_of_region", "year", "init_plan_eu_amt_1_adoption", "transfers", "actual_plan_eu_amt_latest_adop", "pre_fin", "recovery_of_pre_financing", "net_pre_financing", "interim_payments", "recovery_of_expenses", "net_interim_payments", "total_net_payments", "eu_payment_rate_init_plan_eu_amt", "eu_payment_rate_actual_plan_eu_amt"];
+        if (!data || Object.keys(data).length === 0 || data.ms_name !== pais) {
             res.sendStatus(400, "Bad Request");
-            
+
         } else {
-            db_PHT.update({ms_name: pais}, data, {}, (error)=>{
-                if(error){
+            db_PHT.update({ ms_name: pais }, data, {}, (error) => {
+                if (error) {
                     res.sendStatus(500, "Internal Server Error");
-                }else{
+                } else {
                     res.sendStatus(200, "Ok");
                 }
             });
         }
-    
-});
-//DELETE2
-app.delete(API_BASE + "/:country", (req, res) => {
-    const pais = req.params.country;
-    db_PHT.remove({ms_name: pais}, {multi: true}, (error, numremov)=>{
-        if(error){
-            res.sendStatus(500, "Internal Server Error");
-        }else{
-            if(numremov>0){
-                //eliminar los datos del filtro espedificado
-                res.sendStatus(200, "Ok");
-            }else{
-                //Si se intenta acceder a un recurso 
-            //inexistente se debe devolver el código 404
-                res.sendStatus(404, "Not Found");
-            }
-        }
+
     });
-});
+    //DELETE2
+    app.delete(API_BASE + "/:country", (req, res) => {
+        const pais = req.params.country;
+        db_PHT.remove({ ms_name: pais }, { multi: true }, (error, numremov) => {
+            if (error) {
+                res.sendStatus(500, "Internal Server Error");
+            } else {
+                if (numremov > 0) {
+                    //eliminar los datos del filtro espedificado
+                    res.sendStatus(200, "Ok");
+                } else {
+                    //Si se intenta acceder a un recurso 
+                    //inexistente se debe devolver el código 404
+                    res.sendStatus(404, "Not Found");
+                }
+            }
+        });
+    });
 
 
 }

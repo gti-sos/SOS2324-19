@@ -14,7 +14,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "test-policy-program-stats": "npx newman run ./tests/API_AFI.json -e ./tests/enviroments/gcloud.json",
+    "test-policy-program-stats": "npx newman run ./tests/API_AFI.json -e ./tests/enviroments/gcloud.json" ,
     "test-esif-payments": "npx newman run ./tests/API_JPR.json -e ./tests/enviroments/gcloud.json",
     "test-eu-payment-info":"npx newman run ./tests/API_PHT.json -e ./tests/enviroments/gcloud.json",
     "test": "npm run test-policy-program-stats && npm run test-esif-payments && npm run test-eu-payment-info"
