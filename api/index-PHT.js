@@ -248,6 +248,32 @@ module.exports = (app, db_PHT) => {
         });
     });
 
+    // Get para buscar por país y año
+app.get(API_BASE+"/:country/:year", (req, res) => {
+    const country = req.params.country;
+    const year =parseInt(req.params.year);
+
+    // Realizar la búsqueda en la base de datos con los parámetros proporcionados
+    db_PHT.find({ ms_name: country, year: year }, (error, countrydata) => {
+        if (error) {
+            res.sendStatus(500, "Internal Server Error");
+        }else{
+            if(countrydata.length>0){
+                //muestra los datos con los filtros especificados
+                res.send(JSON.stringify(countrydata.map((c)=>{
+                    delete c._id;
+                    return c;
+                })));
+            }else{
+                //Si se intenta acceder a un recurso 
+        //inexistente se debe devolver el código 404
+                res.sendStatus(404, "Not Found");
+            }
+        }
+    });
+});
+
+
  //PUT2
  app.put(API_BASE + "/:country", (req, res) => {
     const pais = req.params.country;
@@ -288,6 +314,10 @@ app.delete(API_BASE + "/:country", (req, res) => {
 
 
 }
+
+
+
+
 /*
 function PHT(app) {
     //POST1
