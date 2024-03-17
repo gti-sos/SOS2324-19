@@ -78,6 +78,44 @@
 			"response": []
 		},
 		{
+			"name": "GET CON DOS PARAMETROS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"The array should contain more than 0 elements\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData.length).to.be.greaterThan(0, \"Array should not be empty\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}api/v1/policy-program-stats/AT/2020",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						"AT",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GET CON PARAMETRO",
 			"event": [
 				{
@@ -101,20 +139,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/policy-program-stats/?country=AT",
+					"raw": "{{SERVER}}api/v1/policy-program-stats/AT",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
 						"v1",
 						"policy-program-stats",
-						""
-					],
-					"query": [
-						{
-							"key": "country",
-							"value": "AT"
-						}
+						"AT"
 					]
 				}
 			},
@@ -157,6 +189,49 @@
 						"v1",
 						"policy-program-stats",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST CON DOS PARAMETROS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"country\": \"BG\",\r\n        \"cci\": \"2014AT16RFOP001\",\r\n        \"short_title\": \"Investments in Growth and Employment - AT - ERDF\",\r\n        \"year\": \"2015\",\r\n        \"priority\": \"A.2\",\r\n        \"fund\": \"ERDF\",\r\n        \"to\": \"03\",\r\n        \"fi_name\": \"OÃ–. Hightechfonds\",\r\n        \"fi_address\": \"BetlehemstraÃŸe 3, 4020 Linz, Austria\",\r\n        \"is_set_up_at_union_level\": \"N\",\r\n        \"fi_type\": \"Specific fund\",\r\n        \"ex_ante_completion_date\": \"2016-02-25T00:00:00.000\",\r\n        \"funding_agreement_signature_date\": \"2015-06-30T00:00:00.000\",\r\n        \"total_amount_committed_to_fi\": \"9000000.00\",\r\n        \"esif_amount_committed_to_fi\": \"3000000.00\",\r\n        \"total_amount_paid_to_fi\": \"9000000.00\",\r\n        \"esif_amount_paid_to_fi\": \"3000000.00\",\r\n        \"management_costs_amount\": \"133081.00\",\r\n        \"base_renumeration_amount\": \"133081.00\",\r\n        \"performance_based_renumeration_paid_amount\": \"0.00\",\r\n        \"total_amount_committed_to_final_recipients\": \"450000.00\",\r\n        \"esif_amount_committed_to_final_recipients\": \"150000.00\",\r\n        \"total_amount_paid_to_final_recipients\": \"450000.00\",\r\n        \"esif_amount_paid_to_final_recipients\": \"150000.00\",\r\n        \"to_code_short_title\": \"TO 3 SMEs\",\r\n        \"to_long_title\": \"Enhancing the competitiveness of small and medium-sized enterprises (SMEs)\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}api/v1/policy-program-stats/BE/2020",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						"BE",
+						"2020"
 					]
 				}
 			},
@@ -241,6 +316,49 @@
 						"v1",
 						"policy-program-stats",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT CON DOS PARAMETROS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"country\": \"AT\",\r\n        \"cci\": \"2014AT16RFOP0019999\",\r\n        \"short_title\": \"Investments in Growth and Employment - AT - ERDF\",\r\n        \"year\": \"2015\",\r\n        \"priority\": \"A.2\",\r\n        \"fund\": \"ERDF\",\r\n        \"to\": \"03\",\r\n        \"fi_name\": \"OÃ–. Hightechfonds\",\r\n        \"fi_address\": \"BetlehemstraÃŸe 3, 4020 Linz, Austria\",\r\n        \"is_set_up_at_union_level\": \"N\",\r\n        \"fi_type\": \"Specific fund\",\r\n        \"ex_ante_completion_date\": \"2016-02-25T00:00:00.000\",\r\n        \"funding_agreement_signature_date\": \"2015-06-30T00:00:00.000\",\r\n        \"total_amount_committed_to_fi\": \"9000000.00\",\r\n        \"esif_amount_committed_to_fi\": \"3000000.00\",\r\n        \"total_amount_paid_to_fi\": \"9000000.00\",\r\n        \"esif_amount_paid_to_fi\": \"3000000.00\",\r\n        \"management_costs_amount\": \"133081.00\",\r\n        \"base_renumeration_amount\": \"133081.00\",\r\n        \"performance_based_renumeration_paid_amount\": \"0.00\",\r\n        \"total_amount_committed_to_final_recipients\": \"450000.00\",\r\n        \"esif_amount_committed_to_final_recipients\": \"150000.00\",\r\n        \"total_amount_paid_to_final_recipients\": \"450000.00\",\r\n        \"esif_amount_paid_to_final_recipients\": \"150000.00\",\r\n        \"to_code_short_title\": \"TO 3 SMEs\",\r\n        \"to_long_title\": \"Enhancing the competitiveness of small and medium-sized enterprises (SMEs)\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}api/v1/policy-program-stats/AT/2015",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						"AT",
+						"2015"
 					]
 				}
 			},
@@ -457,6 +575,40 @@
 						"v1",
 						"policy-program-stats",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE CON DOS PARAMETROS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}api/v1/policy-program-stats/AT/2015",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"policy-program-stats",
+						"AT",
+						"2015"
 					]
 				}
 			},
