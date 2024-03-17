@@ -130,11 +130,40 @@ module.exports = (app, db_RSG) =>  {
                 }
             });
         });
+        //POST22
+        app.post(API_BASE + "/:country/:year_week", (req, res) => {
+            const pais = req.params.country;
+            const year_week =req.params.year_week;
+            let data = req.body;
+            res.sendStatus(405, "Method Not Allowed");
+        });
         //POST2
         app.post(API_BASE + "/:country", (req, res) => {
             const pais = req.params.country;
             let data = req.body;
             res.sendStatus(405, "Method Not Allowed");
+        });
+        //GET22
+        app.get(API_BASE + "/:country/:year_week", (req, res) => {
+            const pais = req.params.country;
+            const ano_sem =req.params.year_week;
+            db_RSG.find({country: pais, year_week:ano_sem}, (error,countrydata)=>{
+                if (error) {
+                    res.sendStatus(500, "Internal Server Error");
+                }else{
+                    if(countrydata.length>0){
+                        //muestra los datos con los filtros especificados
+                        res.send(JSON.stringify(countrydata.map((c)=>{
+                            delete c._id;
+                            return c;
+                        })));
+                    }else{
+                        //Si se intenta acceder a un recurso 
+                //inexistente se debe devolver el código 404
+                        res.sendStatus(404, "Not Found");
+                    }
+                }
+            });
         });
         //GET2
         app.get(API_BASE + "/:country", (req, res) => {
@@ -150,10 +179,43 @@ module.exports = (app, db_RSG) =>  {
                             return c;
                         })));
                     }else{
+                        //Si se intenta acceder a un recurso 
+                //inexistente se debe devolver el código 404
                         res.sendStatus(404, "Not Found");
                     }
                 }
             });
+        });
+        //PUT22
+        app.put(API_BASE + "/:country/:year_week", (req, res) => {
+            const pais = req.params.country;
+            const ano_sem =req.params.year_week;
+            let data = req.body;
+            const Fields = ["country","country_code","year_week","level","region","region_name","new_cases","tests_done","population","testing_rate","positivity_rate","testing_data_source"];
+            const isValidStructure = Fields.every(key => Object.prototype.hasOwnProperty.call(data, key));
+
+            if (!isValidStructure||Object.keys(data).length !== Fields.length) {
+                    res.sendStatus(400, "Bad Request");
+                    
+                } 
+                db_RSG.findOne({ country: pais, year_week: ano_sem }, (err, existingData) => {
+                    if (err) {
+                        return res.status(500).send("Internal Server Error");
+                    } else {
+                        if (!existingData) {
+                            return res.status(404).send("Not Found");
+                        }else{
+                            db_RSG.update({country: pais, year_week: ano_sem}, data, {}, (error)=>{
+                                if(error){
+                                    res.sendStatus(500, "Internal Server Error");
+                                }else{
+                                    res.sendStatus(200, "Ok");
+                                }
+                            });
+                        }
+                    }
+                });
+            
         });
         //PUT2
         app.put(API_BASE + "/:country", (req, res) => {
@@ -174,6 +236,26 @@ module.exports = (app, db_RSG) =>  {
                 }
             
         });
+        //DELETE22
+        app.delete(API_BASE + "/:country/:year_week", (req, res) => {
+            const pais = req.params.country;
+            const ano_sem =req.params.year_week;
+            db_RSG.remove({country: pais, year_week:ano_sem}, {multi: true}, (error, numremov)=>{
+                if(error){
+                    res.sendStatus(500, "Internal Server Error");
+                }else{
+                    if(numremov>0){
+                        //eliminar los datos del filtro espedificado
+                        res.sendStatus(200, "Ok");
+                    }else{
+                        //Si se intenta acceder a un recurso 
+                    //inexistente se debe devolver el código 404
+                        res.sendStatus(404, "Not Found");
+                    }
+                }
+            });
+        });
+    
         //DELETE2
         app.delete(API_BASE + "/:country", (req, res) => {
             const pais = req.params.country;
@@ -185,6 +267,8 @@ module.exports = (app, db_RSG) =>  {
                         //eliminar los datos del filtro espedificado
                         res.sendStatus(200, "Ok");
                     }else{
+                        //Si se intenta acceder a un recurso 
+                    //inexistente se debe devolver el código 404
                         res.sendStatus(404, "Not Found");
                     }
                 }

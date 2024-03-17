@@ -40,40 +40,7 @@
 			"response": []
 		},
 		{
-			"name": "GET v1/covid-testings/Austria",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{SERVER}}api/v1/covid-testings/Austria",
-					"host": [
-						"{{SERVER}}api"
-					],
-					"path": [
-						"v1",
-						"covid-testings",
-						"Austria"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GET v1/covid-testings/",
+			"name": "GET all",
 			"event": [
 				{
 					"listen": "test",
@@ -106,14 +73,14 @@
 			"response": []
 		},
 		{
-			"name": "POST v1/covid-testings/Austria",
+			"name": "GET 1 param",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 405\", function () {\r",
-							"    pm.response.to.have.status(405);\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -122,17 +89,8 @@
 				}
 			],
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"country\":\"Austria\",\"country_code\":\"AT\",\"year_week\":\"2020-W41\",\"level\":\"national\",\"region\":\"AT\",\"region_name\":\"Austria\",\"new_cases\":7487,\"tests_done\":124663,\"population\":8978929,\"testing_rate\":1388.394985638042,\"positivity_rate\":6.005791614191861,\"testing_data_source\":\"TESSyCOVID-19\"}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
 					"raw": "{{SERVER}}api/v1/covid-testings/Austria",
 					"host": [
@@ -142,6 +100,40 @@
 						"v1",
 						"covid-testings",
 						"Austria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET 2 param",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}api/v1/covid-testings/Austria/2020-W47",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"covid-testings",
+						"Austria",
+						"2020-W47"
 					]
 				}
 			},
@@ -190,14 +182,14 @@
 			"response": []
 		},
 		{
-			"name": "PUT v1/covid-testings/Austria",
+			"name": "POST 1 param",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -206,11 +198,11 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"country\": \"Austria\", \"country_code\": \"AT\", \"year_week\": \"2020-W45\", \"level\": \"national\", \"region\": \"AT\", \"region_name\": \"Austria\", \"new_cases\": 23, \"tests_done\": 199567, \"population\": 8978929, \"testing_rate\": 2222.6147461462274, \"positivity_rate\": 22.434570845881332, \"testing_data_source\": \"TESSy COVID-19\" }",
+					"raw": "{\"country\":\"Austria\",\"country_code\":\"AT\",\"year_week\":\"2020-W41\",\"level\":\"national\",\"region\":\"AT\",\"region_name\":\"Austria\",\"new_cases\":7487,\"tests_done\":124663,\"population\":8978929,\"testing_rate\":1388.394985638042,\"positivity_rate\":6.005791614191861,\"testing_data_source\":\"TESSyCOVID-19\"}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -226,6 +218,49 @@
 						"v1",
 						"covid-testings",
 						"Austria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST 2 param",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"country\":\"Austria\",\"country_code\":\"AT\",\"year_week\":\"2020-W41\",\"level\":\"national\",\"region\":\"AT\",\"region_name\":\"Austria\",\"new_cases\":7487,\"tests_done\":124663,\"population\":8978929,\"testing_rate\":1388.394985638042,\"positivity_rate\":6.005791614191861,\"testing_data_source\":\"TESSyCOVID-19\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}api/v1/covid-testings/Austria/2020-W41",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"covid-testings",
+						"Austria",
+						"2020-W41"
 					]
 				}
 			},
@@ -268,6 +303,91 @@
 						"v1",
 						"covid-testings",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT 1 param",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"country\": \"Austria\", \"country_code\": \"AT\", \"year_week\": \"2020-W45\", \"level\": \"national\", \"region\": \"AT\", \"region_name\": \"Austria\", \"new_cases\": 23, \"tests_done\": 199567, \"population\": 8978929, \"testing_rate\": 2222.6147461462274, \"positivity_rate\": 22.434570845881332, \"testing_data_source\": \"TESSy COVID-19\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}api/v1/covid-testings/Austria",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"covid-testings",
+						"Austria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT 2 param",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"country\": \"Austria\", \"country_code\": \"AT\", \"year_week\": \"2020-W45\", \"level\": \"national\", \"region\": \"AT\", \"region_name\": \"Austria\", \"new_cases\": 23, \"tests_done\": 23, \"population\": 8978929, \"testing_rate\": 2222.6147461462274, \"positivity_rate\": 22.434570845881332, \"testing_data_source\": \"TESSy COVID-19\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}api/v1/covid-testings/Austria/2020-W45",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"covid-testings",
+						"Austria",
+						"2020-W45"
 					]
 				}
 			},
@@ -433,7 +553,41 @@
 			"response": []
 		},
 		{
-			"name": "DELETE v1/covid-testings/Austria",
+			"name": "DELETE 2 param",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}api/v1/covid-testings/Austria/2020-W45",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"covid-testings",
+						"Austria",
+						"2020-W45"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE 1 param",
 			"event": [
 				{
 					"listen": "test",
