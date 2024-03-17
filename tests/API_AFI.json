@@ -600,15 +600,15 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/policy-program-stats/AT/2015",
+					"raw": "{{SERVER}}api/v1/policy-program-stats/BE/2020",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
 						"v1",
 						"policy-program-stats",
-						"AT",
-						"2015"
+						"BE",
+						"2020"
 					]
 				}
 			},
