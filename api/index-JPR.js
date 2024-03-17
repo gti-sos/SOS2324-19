@@ -252,6 +252,25 @@ module.exports = (app, db) => {
             }
         });
     });
+    app.get(API_BASE + "/:country/:year", (req, res) => {
+        let country = req.params.country;
+        let year = parseInt(req.params.year);
+
+        db.find({ ms_name: country, year: year }, (err, data) => {
+            if (err) {
+                res.sendStatus(500, "Internal Server Error");
+            } else {
+                if (data.length > 0) {
+                    res.send(JSON.stringify(data.map((c) => {
+                        delete c._id;
+                        return c;
+                    })));
+                } else {
+                    res.sendStatus(404, "Not Found");
+                }
+            }
+        });
+    });
     //PUT petition
     app.put(API_BASE + "/", (req, res) => {
         //Can´t put in the base api
@@ -291,6 +310,40 @@ module.exports = (app, db) => {
             });
         }
     });
+    app.put(API_BASE + "/:country/:year", (req, res) => {
+        let attempt = req.body;
+        let structureKeys = Object.keys(structure);
+        let actualKeys = Object.keys(attempt);
+        let valid = structureKeys.every(key => actualKeys.includes(key) && typeof attempt[key] === structure[key]);
+        let country = req.params.country;
+        let year = parseInt(req.params.year);
+
+        if (!valid || actualKeys.length !== structureKeys.length) {
+            // Cannot update an object without the expected fields
+            res.sendStatus(400).send("BAD REQUEST");
+        } else {
+            // Check if the country exists in the array before updating
+            db.findOne({ ms_name: country, year: year }, (err, uploaded) => {
+                if (err) {
+                    res.sendStatus(500).send("Internal Server Error");
+                } else {
+                    if (!uploaded) {
+                        // Country does not exist in the array
+                        res.sendStatus(404, "Not Found");
+                    } else {
+                        // Country exists in the array, proceed with the update
+                        db.update({ ms_name: country , year: year}, attempt, {}, (err) => {
+                            if (err) {
+                                res.sendStatus(500, "Internal Server Error");
+                            } else {
+                                res.sendStatus(200, "OK");
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    });
 
     //DELETE petition
     app.delete(API_BASE + "/", (req, res) => {
@@ -310,6 +363,22 @@ module.exports = (app, db) => {
         let country = req.params.country;
 
         db.remove({ ms_name: country }, {}, (err, n) => {
+            if (err) {
+                res.sendStatus(500, "Internal Error");
+            } else {
+                if (n >= 1) {
+                    res.sendStatus(200, "Ok");
+                } else {
+                    res.sendStatus(404, "Not found");
+                }
+            }
+        });
+    });
+    app.delete(API_BASE + "/:country/:year", (req, res) => {
+        let country = req.params.country;
+        let year = parseInt(req.params.year);
+
+        db.remove({ ms_name: country , year: year}, {}, (err, n) => {
             if (err) {
                 res.sendStatus(500, "Internal Error");
             } else {

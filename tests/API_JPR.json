@@ -139,6 +139,41 @@
 			"response": []
 		},
 		{
+			"name": "GET Poland 2024 v1/esif-payments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/Poland/2024",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						"Poland",
+						"2024"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GET England v1/esif-payments",
 			"event": [
 				{
@@ -166,6 +201,41 @@
 						"v1",
 						"esif-payments",
 						"England"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Poland 2023 v1/esif-payments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/Poland/2023",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						"Poland",
+						"2023"
 					]
 				}
 			},
@@ -382,6 +452,50 @@
 			"response": []
 		},
 		{
+			"name": "PUT Poland 2024 v1/esif-payments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ms\": \"PLE\",\r\n  \"ms_name\": \"Poland\",\r\n  \"cci\": \"2014PL16M2OP008\",\r\n  \"title\": \"Opolskie Voivodeship - ERDF/ESF\",\r\n  \"fund\": \"ERDF\",\r\n  \"category_of_region\": \"REACT-EU\",\r\n  \"year\": 2024,\r\n  \"net_planned_eu_amount\": 13123568,\r\n  \"cumulative_initial_pre_financing\": 4955701.95,\r\n  \"cumulative_additional_initial_pre_financing\": 0,\r\n  \"recovery_of_initial_pre_financing\": 0,\r\n  \"cumulative_annual_pre_financing\": 482724.78,\r\n  \"pre_financing_covered_by_expenditure\": 4759.17,\r\n  \"recovery_of_annual_pre_financing\": 215494.25,\r\n  \"net_pre_financing\": 5218173.31,\r\n  \"cumulative_interim_payments\": 7472694.41,\r\n  \"recovery_of_expenses\": 0,\r\n  \"net_interim_payments\": 7477453.58,\r\n  \"total_net_payments\": 12695626.89,\r\n  \"eu_payment_rate\": 967391405294658,\r\n  \"eu_payment_rate_on_planned_eu_amount\": 967391405294658\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/Poland/2024",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						"Poland",
+						"2024"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "PUT England v1/esif-payments",
 			"event": [
 				{
@@ -434,7 +548,8 @@
 							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -460,6 +575,50 @@
 						"v1",
 						"esif-payments",
 						"Interreg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Interreg 2024 v1/esif-payments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ms\": \"TC\",\r\n  \"ms_name\": \"Interreg\",\r\n  \"cci\": \"2014TC16I5CB010\",\r\n  \"title\": \"IPA CBC Greece - Albania\",\r\n  \"fund\": \"IPAE-contribution from ERDF\",\r\n  \"category_of_region\": \"\",\r\n  \"year\": 2010,\r\n  \"net_planned_eu_amount\": 22982611,\r\n  \"cumulative_initial_pre_financing\": 3716776.5,\r\n  \"cumulative_additional_initial_pre_financing\": 0,\r\n  \"recovery_of_initial_pre_financing\": 0,\r\n  \"cumulative_annual_pre_financing\": 0,\r\n  \"pre_financing_covered_by_expenditure\": 0,\r\n  \"recovery_of_annual_pre_financing\": 0,\r\n  \"net_pre_financing\": 3716776.5,\r\n  \"cumulative_interim_payments\": 18046057.46,\r\n  \"recovery_of_expenses\": 0,\r\n  \"net_interim_payments\": 18046057.46,\r\n  \"total_net_payments\": 21762833.96,\r\n  \"eu_payment_rate\": 94.6926089468251,\r\n  \"eu_payment_rate_on_planned_eu_amount\": 94.6926089468251\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/Interreg/2024",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						"Interreg",
+						"2024"
 					]
 				}
 			},
@@ -577,6 +736,94 @@
 						"v1",
 						"esif-payments",
 						"Interreg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Poland 2023",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ms\": \"TC\",\r\n  \"ms_name\": \"Interreg\",\r\n  \"cci\": \"2014TC16I5CB010\",\r\n  \"title\": \"IPA CBC Greece - Albania\",\r\n  \"fund\": \"IPAE-contribution from ERDF\",\r\n  \"category_of_region\": null,\r\n  \"year\": 2012,\r\n  \"net_planned_eu_amount\": 22982611,\r\n  \"cumulative_initial_pre_financing\": 3716776.5,\r\n  \"cumulative_additional_initial_pre_financing\": 0,\r\n  \"recovery_of_initial_pre_financing\": 0,\r\n  \"cumulative_annual_pre_financing\": 0,\r\n  \"pre_financing_covered_by_expenditure\": 0,\r\n  \"recovery_of_annual_pre_financing\": 0,\r\n  \"net_pre_financing\": 3716776.5,\r\n  \"cumulative_interim_payments\": 18046057.46,\r\n  \"recovery_of_expenses\": 0,\r\n  \"net_interim_payments\": 18046057.46,\r\n  \"total_net_payments\": 21762833.96,\r\n  \"eu_payment_rate\": 94.6926089468251,\r\n  \"eu_payment_rate_on_planned_eu_amount\": 94.6926089468251\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/Poland/2023",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						"Poland",
+						"2023"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Poland 2024",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ms\": \"TC\",\r\n  \"ms_name\": \"Interreg\",\r\n  \"cci\": \"2014TC16I5CB010\",\r\n  \"title\": \"IPA CBC Greece - Albania\",\r\n  \"fund\": \"IPAE-contribution from ERDF\",\r\n  \"category_of_region\": null,\r\n  \"year\": 2012,\r\n  \"net_planned_eu_amount\": 22982611,\r\n  \"cumulative_initial_pre_financing\": 3716776.5,\r\n  \"cumulative_additional_initial_pre_financing\": 0,\r\n  \"recovery_of_initial_pre_financing\": 0,\r\n  \"cumulative_annual_pre_financing\": 0,\r\n  \"pre_financing_covered_by_expenditure\": 0,\r\n  \"recovery_of_annual_pre_financing\": 0,\r\n  \"net_pre_financing\": 3716776.5,\r\n  \"cumulative_interim_payments\": 18046057.46,\r\n  \"recovery_of_expenses\": 0,\r\n  \"net_interim_payments\": 18046057.46,\r\n  \"total_net_payments\": 21762833.96,\r\n  \"eu_payment_rate\": 94.6926089468251,\r\n  \"eu_payment_rate_on_planned_eu_amount\": 94.6926089468251\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/api/v1/esif-payments/Poland/2024",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"esif-payments",
+						"Poland",
+						"2024"
 					]
 				}
 			},
