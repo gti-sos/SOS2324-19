@@ -73,12 +73,12 @@ module.exports = (app, db_AFI) =>  {
                         if (data.length === 1) {
                             let c = data[0];
                             delete c._id;
-                            res.send(JSON.stringify(c));
+                            res.send(c);
                         } else {
-                            res.send(JSON.stringify(data.map((c) => {
+                            res.send(data.map((c)=> {
                                 delete c._id;
                                 return c;
-                            })));
+                            }));
                         }
                     } else {
                         res.sendStatus(404, "Not Found");
@@ -175,12 +175,12 @@ module.exports = (app, db_AFI) =>  {
                         if (countrydata.length === 1) {
                             let c = countrydata[0];
                             delete c._id;
-                            res.send(JSON.stringify(c));
+                            res.send(c);
                         } else {
-                            res.send(JSON.stringify(countrydata.map((c) => {
+                            res.send(countrydata.map((c) => {
                                 delete c._id;
                                 return c;
-                            })));
+                            }));
                         }
                     } else {
                         res.sendStatus(404, "Not Found");
@@ -199,12 +199,12 @@ module.exports = (app, db_AFI) =>  {
                         if (countrydata.length === 1) {
                             let c = countrydata[0];
                             delete c._id;
-                            res.send(JSON.stringify(c));
+                            res.send(c);
                         } else {
-                            res.send(JSON.stringify(countrydata.map((c) => {
+                            res.send(countrydata.map((c) => {
                                 delete c._id;
                                 return c;
-                            })));
+                            }));
                         }
                     } else {
                         res.sendStatus(404, "Not Found");
