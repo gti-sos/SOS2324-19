@@ -110,7 +110,6 @@ let initial_data = [
         eu_payment_rate_on_planned_eu_amount: 100
     }
 ];
-let data = [];
 let structure = {
     "ms": "string",
     "ms_name": "string",
@@ -205,12 +204,12 @@ module.exports = (app, db) => {
                     if (data.length === 1) {
                         let c = data[0];
                         delete c._id;
-                        res.send(JSON.stringify(c));
+                        res.send(c);
                     } else {
-                        res.send(JSON.stringify(data.map((c) => {
+                        res.send(data.map((c) => {
                             delete c._id;
                             return c;
-                        })));
+                        }));
                     }
                 } else {
                     res.sendStatus(404, "Not Found");
@@ -250,12 +249,12 @@ module.exports = (app, db) => {
                     if (data.length === 1) {
                         let c = data[0];
                         delete c._id;
-                        res.send(JSON.stringify(c));
+                        res.send(c);
                     } else {
-                        res.send(JSON.stringify(data.map((c) => {
+                        res.send(data.map((c) => {
                             delete c._id;
                             return c;
-                        })));
+                        }));
                     }
                 } else {
                     res.sendStatus(404, "Not Found");
@@ -263,11 +262,11 @@ module.exports = (app, db) => {
             }
         });
     });
-    app.get(API_BASE + "/:country/:year", (req, res) => {
+    app.get(API_BASE + "/:country/:cci", (req, res) => {
         let country = req.params.country;
-        let year = parseInt(req.params.year);
+        let expected =req.params.cci;
 
-        db.find({ ms_name: country, year: year }, (err, data) => {
+        db.find({ ms_name: country, cci: expected }, (err, data) => {
             if (err) {
                 res.sendStatus(500, "Internal Server Error");
             } else {
@@ -275,12 +274,12 @@ module.exports = (app, db) => {
                     if (data.length === 1) {
                         let c = data[0];
                         delete c._id;
-                        res.send(JSON.stringify(c));
+                        res.send(c);
                     } else {
-                        res.send(JSON.stringify(data.map((c) => {
+                        res.send(data.map((c) => {
                             delete c._id;
                             return c;
-                        })));
+                        }));
                     }
                 } else {
                     res.sendStatus(404, "Not Found");
@@ -288,6 +287,7 @@ module.exports = (app, db) => {
             }
         });
     });
+
     //PUT petition
     app.put(API_BASE + "/", (req, res) => {
         //Can´t put in the base api
@@ -327,20 +327,20 @@ module.exports = (app, db) => {
             });
         }
     });
-    app.put(API_BASE + "/:country/:year", (req, res) => {
+    app.put(API_BASE + "/:country/:cci", (req, res) => {
         let attempt = req.body;
         let structureKeys = Object.keys(structure);
         let actualKeys = Object.keys(attempt);
         let valid = structureKeys.every(key => actualKeys.includes(key) && typeof attempt[key] === structure[key]);
         let country = req.params.country;
-        let year = parseInt(req.params.year);
+        let expected = req.params.cci;
 
         if (!valid || actualKeys.length !== structureKeys.length) {
             // Cannot update an object without the expected fields
             res.sendStatus(400).send("BAD REQUEST");
         } else {
             // Check if the country exists in the array before updating
-            db.findOne({ ms_name: country, year: year }, (err, uploaded) => {
+            db.findOne({ ms_name: country, cci: expected }, (err, uploaded) => {
                 if (err) {
                     res.sendStatus(500).send("Internal Server Error");
                 } else {
@@ -349,7 +349,7 @@ module.exports = (app, db) => {
                         res.sendStatus(404, "Not Found");
                     } else {
                         // Country exists in the array, proceed with the update
-                        db.update({ ms_name: country, year: year }, attempt, {}, (err) => {
+                        db.update({ ms_name: country, cci: expected }, attempt, {}, (err) => {
                             if (err) {
                                 res.sendStatus(500, "Internal Server Error");
                             } else {
@@ -391,11 +391,11 @@ module.exports = (app, db) => {
             }
         });
     });
-    app.delete(API_BASE + "/:country/:year", (req, res) => {
+    app.delete(API_BASE + "/:country/:cci", (req, res) => {
         let country = req.params.country;
-        let year = parseInt(req.params.year);
+        let expected = req.params.cci;
 
-        db.remove({ ms_name: country, year: year }, {}, (err, n) => {
+        db.remove({ ms_name: country, cci: expected }, {}, (err, n) => {
             if (err) {
                 res.sendStatus(500, "Internal Error");
             } else {

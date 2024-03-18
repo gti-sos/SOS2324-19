@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "b98288a4-0a38-461e-b1fd-74019fc3ceab",
 		"name": "Esif-payments API-Testing",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "32953613"
 	},
 	"item": [
@@ -24,23 +24,12 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/loadInitialData",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						"loadInitialData"
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/loadInitialData"
 			},
 			"response": []
 		},
 		{
-			"name": "405 can´t Load Initial Data",
+			"name": "405 datos ya cargados",
 			"event": [
 				{
 					"listen": "test",
@@ -57,23 +46,12 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/loadInitialData",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						"loadInitialData"
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/loadInitialData"
 			},
 			"response": []
 		},
 		{
-			"name": "GET v1/esif-payments",
+			"name": "GET todos",
 			"event": [
 				{
 					"listen": "test",
@@ -81,9 +59,41 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).equals(10);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{SERVER}}/api/v1/esif-payments/"
+			},
+			"response": []
+		},
+		{
+			"name": "GET Uno+Busqueda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].ms).to.eql(\"TC\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -91,7 +101,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/",
+					"raw": "{{SERVER}}/api/v1/esif-payments/Interreg/?ms=TC",
 					"host": [
 						"{{SERVER}}"
 					],
@@ -99,14 +109,21 @@
 						"api",
 						"v1",
 						"esif-payments",
+						"Interreg",
 						""
+					],
+					"query": [
+						{
+							"key": "ms",
+							"value": "TC"
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "GET Interreg v1/esif-payments",
+			"name": "GET Uno",
 			"event": [
 				{
 					"listen": "test",
@@ -114,32 +131,26 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].ms_name).to.eql(\"Interreg\");\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/Interreg",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						"Interreg"
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/Interreg"
 			},
 			"response": []
 		},
 		{
-			"name": "GET Poland 2024 v1/esif-payments",
+			"name": "GET Limit+offset",
 			"event": [
 				{
 					"listen": "test",
@@ -147,6 +158,10 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).equals(3);\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -158,7 +173,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/Poland/2024",
+					"raw": "{{SERVER}}/api/v1/esif-payments/Interreg/?limit=2&&offset=2",
 					"host": [
 						"{{SERVER}}"
 					],
@@ -166,15 +181,56 @@
 						"api",
 						"v1",
 						"esif-payments",
-						"Poland",
-						"2024"
+						"Interreg",
+						""
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": null,
+							"value": null
+						},
+						{
+							"key": "offset",
+							"value": "2"
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "GET England v1/esif-payments",
+			"name": "GET Uno Unico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.ms_name).to.eql(\"Poland\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{SERVER}}/api/v1/esif-payments/Poland/2014PL16M2OP008"
+			},
+			"response": []
+		},
+		{
+			"name": "GET Uno 404",
 			"event": [
 				{
 					"listen": "test",
@@ -191,23 +247,12 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/England",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						"England"
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/England"
 			},
 			"response": []
 		},
 		{
-			"name": "GET Poland 2023 v1/esif-payments",
+			"name": "GET Unico 404",
 			"event": [
 				{
 					"listen": "test",
@@ -225,24 +270,12 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/Poland/2023",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						"Poland",
-						"2023"
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/Poland/2014PL16M2OP"
 			},
 			"response": []
 		},
 		{
-			"name": "POST v1/esif-payments",
+			"name": "POST Uno",
 			"event": [
 				{
 					"listen": "test",
@@ -268,23 +301,12 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						""
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/"
 			},
 			"response": []
 		},
 		{
-			"name": "409 Conflict",
+			"name": "POSR Repe 409 Conflict",
 			"event": [
 				{
 					"listen": "test",
@@ -310,23 +332,12 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						""
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/"
 			},
 			"response": []
 		},
 		{
-			"name": "400 Bad Request",
+			"name": "POST MalJson 400 Bad Request",
 			"event": [
 				{
 					"listen": "test",
@@ -352,23 +363,12 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						""
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/"
 			},
 			"response": []
 		},
 		{
-			"name": "405 Method not allowed",
+			"name": "POST Recurso 405 Method not allowed",
 			"event": [
 				{
 					"listen": "test",
@@ -394,23 +394,12 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/Interreg",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						"Interreg"
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/Interreg"
 			},
 			"response": []
 		},
 		{
-			"name": "405 Method not Allowed",
+			"name": "PUT Base 405 Method not Allowed",
 			"event": [
 				{
 					"listen": "test",
@@ -436,23 +425,12 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						""
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/"
 			},
 			"response": []
 		},
 		{
-			"name": "PUT Poland 2024 v1/esif-payments",
+			"name": "PUT Unico",
 			"event": [
 				{
 					"listen": "test",
@@ -479,24 +457,12 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/Poland/2024",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						"Poland",
-						"2024"
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/Poland/2014PL16M2OP008"
 			},
 			"response": []
 		},
 		{
-			"name": "PUT England v1/esif-payments",
+			"name": "PUT Uno 404",
 			"event": [
 				{
 					"listen": "test",
@@ -522,23 +488,12 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/England",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						"England"
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/England"
 			},
 			"response": []
 		},
 		{
-			"name": "PUT Interreg v1/esif-payments",
+			"name": "PUT Uno",
 			"event": [
 				{
 					"listen": "test",
@@ -565,23 +520,12 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/Interreg",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						"Interreg"
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/Interreg"
 			},
 			"response": []
 		},
 		{
-			"name": "PUT Interreg 2024 v1/esif-payments",
+			"name": "PUT Unico 404",
 			"event": [
 				{
 					"listen": "test",
@@ -608,24 +552,12 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/Interreg/2024",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						"Interreg",
-						"2024"
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/Interreg/2014PL16M2OP008"
 			},
 			"response": []
 		},
 		{
-			"name": "400 Bad Request",
+			"name": "PUT MalJson 400 Bad Request",
 			"event": [
 				{
 					"listen": "test",
@@ -651,23 +583,12 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/Interreg",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						"Interreg"
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/Interreg"
 			},
 			"response": []
 		},
 		{
-			"name": "DELETE England",
+			"name": "DELETE Uno 404",
 			"event": [
 				{
 					"listen": "test",
@@ -684,23 +605,12 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/England",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						"England"
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/England"
 			},
 			"response": []
 		},
 		{
-			"name": "DELETE Interreg",
+			"name": "DELETE Uno",
 			"event": [
 				{
 					"listen": "test",
@@ -726,23 +636,12 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/Interreg",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						"Interreg"
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/Interreg"
 			},
 			"response": []
 		},
 		{
-			"name": "DELETE Poland 2023",
+			"name": "DELETE Uno Unico 404",
 			"event": [
 				{
 					"listen": "test",
@@ -769,24 +668,12 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/Poland/2023",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						"Poland",
-						"2023"
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/Poland/2014PL16M2OP0"
 			},
 			"response": []
 		},
 		{
-			"name": "DELETE Poland 2024",
+			"name": "DELETE Unico",
 			"event": [
 				{
 					"listen": "test",
@@ -813,19 +700,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/Poland/2024",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						"Poland",
-						"2024"
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/Poland/2014PL16M2OP008"
 			},
 			"response": []
 		},
@@ -847,18 +722,7 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"esif-payments",
-						""
-					]
-				}
+				"url": "{{SERVER}}/api/v1/esif-payments/"
 			},
 			"response": []
 		}
