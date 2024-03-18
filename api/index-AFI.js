@@ -70,13 +70,19 @@ module.exports = (app, db_AFI) =>  {
                 if (error) {
                     res.sendStatus(500, "Internal Error");
                 } else {
-                    if (data.length === 0) {
-                        res.sendStatus(404, "Not Found");
-                    } else {
-                        res.status(200).json(data.map(c => {
+                    if (data.length > 0) {
+                        if (data.length === 1) {
+                            let c = data[0];
                             delete c._id;
-                            return c;
-                        }));
+                            res.send(JSON.stringify(c));
+                        } else {
+                            res.send(JSON.stringify(data.map((c) => {
+                                delete c._id;
+                                return c;
+                            })));
+                        }
+                    } else {
+                        res.sendStatus(404, "Not Found");
                     }
                 }
             });
@@ -167,18 +173,11 @@ module.exports = (app, db_AFI) =>  {
                     res.sendStatus(500, "Internal Server Error");
                 }else{
                     if(countrydata.length>0){
-                        if (countrydata.length === 1) {
-                            // Si solo hay un dato, devuelve ese dato directamente
-                            const singleData = countrydata[0];
-                            delete singleData._id;
-                            res.send(JSON.stringify(singleData));
-                        } else {
                             // Muestra los datos con los filtros especificados
                             res.send(JSON.stringify(countrydata.map((c) => {
                                 delete c._id;
                                 return c;
                             })));
-                        }
                     }else{
                         //Si se intenta acceder a un recurso 
                 //inexistente se debe devolver el código 404
@@ -195,23 +194,16 @@ module.exports = (app, db_AFI) =>  {
                     res.sendStatus(500, "Internal Server Error");
                 }else{
                     if(countrydata.length>0){
-                        if (countrydata.length === 1) {
-                            // Si solo hay un dato, devuelve ese dato directamente
-                            const singleData = countrydata[0];
-                            delete singleData._id;
-                            res.send(JSON.stringify(singleData));
-                        } else {
-                            // Muestra los datos con los filtros especificados
-                            res.send(JSON.stringify(countrydata.map((c) => {
-                                delete c._id;
-                                return c;
-                            })));
-                        }
-                    }else{
-                        //Si se intenta acceder a un recurso 
-                //inexistente se debe devolver el código 404
-                        res.sendStatus(404, "Not Found");
-                    }
+                        // Muestra los datos con los filtros especificados
+                        res.send(JSON.stringify(countrydata.map((c) => {
+                            delete c._id;
+                            return c;
+                        })));
+                }else{
+                    //Si se intenta acceder a un recurso 
+            //inexistente se debe devolver el código 404
+                    res.sendStatus(404, "Not Found");
+                }
                 }
             });
         });
