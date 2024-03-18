@@ -168,9 +168,9 @@
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Your test name\", function () {\r",
+							"pm.test(\"Country property is equal to 'Austria'\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData[0].country).to.eql(\"Austria\");\r",
+							"    pm.expect(jsonData.country).to.eql(\"Austria\");\r",
 							"});"
 						],
 						"type": "text/javascript",
