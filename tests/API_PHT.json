@@ -15,7 +15,8 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});"
+							"});\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -72,7 +73,7 @@
 			"response": []
 		},
 		{
-			"name": "Datos de \"Spain\"",
+			"name": "Datos de \"Spain\" por cci",
 			"event": [
 				{
 					"listen": "test",
@@ -80,6 +81,10 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.year).to.eql(2023);\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -91,21 +96,21 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/Spain",
+					"raw": "{{SERVER}}api/v1/eu-payment-info/2021ES65AMPR001",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
 						"v1",
 						"eu-payment-info",
-						"Spain"
+						"2021ES65AMPR001"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Datos de Greece",
+			"name": "Datos de country/pais",
 			"event": [
 				{
 					"listen": "test",
@@ -113,7 +118,8 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});"
+							"});\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -124,14 +130,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/Greece",
+					"raw": "{{SERVER}}api/v1/eu-payment-info/Greece/2023",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
 						"v1",
 						"eu-payment-info",
-						"Greece"
+						"Greece",
+						"2023"
 					]
 				}
 			},
@@ -216,6 +223,49 @@
 						"v1",
 						"eu-payment-info",
 						"England"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put de pais y año",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"ms\": \"FR\",\r\n        \"ms_name\": \"France\",\r\n        \"cci\": \"2021FR65AMPR001\",\r\n        \"title\": \"France - AMIF\",\r\n        \"fund\": \"AMIF\",\r\n        \"category_of_region\": \"VOID\",\r\n        \"year\": 2021,\r\n        \"init_plan_eu_amt_1_adoption\": 910485391,\r\n        \"transfers\": 15900000,\r\n        \"actual_plan_eu_amt_latest_adop\": 926385391,\r\n        \"pre_fin\": 109258246.92,\r\n        \"recovery_of_pre_financing\": 0,\r\n        \"net_pre_financing\": 109258246.92,\r\n        \"interim_payments\": 0,\r\n        \"recovery_of_expenses\": 0,\r\n        \"net_interim_payments\": 0,\r\n        \"total_net_payments\": 109258246.92,\r\n        \"eu_payment_rate_init_plan_eu_amt\": 0.12,\r\n        \"eu_payment_rate_actual_plan_eu_amt\": 0.117940382028326\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}api/v1/eu-payment-info/France/2023",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"eu-payment-info",
+						"France",
+						"2023"
 					]
 				}
 			},
@@ -473,6 +523,10 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"pepe\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(2);\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -547,84 +601,7 @@
 			"response": []
 		},
 		{
-			"name": "Put de Grecia otro año",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"ms\": \"EL\",\r\n        \"ms_name\": \"Greece\",\r\n        \"cci\": \"2021EL16FFPR008\",\r\n        \"title\": \"Thessalia – ERDF/ESF+\",\r\n        \"fund\": \"ESF+\",\r\n        \"category_of_region\": \"Less developed\",\r\n        \"year\": 2021,\r\n        \"init_plan_eu_amt_1_adoption\": 121971450,\r\n        \"transfers\": 0,\r\n        \"actual_plan_eu_amt_latest_adop\": 121971450,\r\n        \"pre_fin\": 3049286.25,\r\n        \"recovery_of_pre_financing\": 0,\r\n        \"net_pre_financing\": 3049286.25,\r\n        \"interim_payments\": 3056694.49,\r\n        \"recovery_of_expenses\": 0,\r\n        \"net_interim_payments\": 3056694.49,\r\n        \"total_net_payments\": 6105980.74,\r\n        \"eu_payment_rate_init_plan_eu_amt\": 0.0500607374922574,\r\n        \"eu_payment_rate_actual_plan_eu_amt\": 0.0500607374922574\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/Greece/2023",
-					"host": [
-						"{{SERVER}}api"
-					],
-					"path": [
-						"v1",
-						"eu-payment-info",
-						"Greece",
-						"2023"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Datos de country y year country/year",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/Greece/2023",
-					"host": [
-						"{{SERVER}}api"
-					],
-					"path": [
-						"v1",
-						"eu-payment-info",
-						"Greece",
-						"2023"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete año y pais",
+			"name": "Delete pais y año",
 			"event": [
 				{
 					"listen": "test",
@@ -642,25 +619,16 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/Greece/2021",
+					"raw": "{{SERVER}}api/v1/eu-payment-info/Spain/2023",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
 						"v1",
 						"eu-payment-info",
-						"Greece",
-						"2021"
+						"Spain",
+						"2023"
 					]
 				}
 			},
