@@ -223,7 +223,6 @@ module.exports = (app, db_AFI) =>  {
 
             if (!isValidStructure||Object.keys(data).length !== Fields.length) {
                     res.sendStatus(400, "Bad Request");
-                    
                 } 
                 db_AFI.findOne({ country: pais, year: ano }, (err, existingData) => {
                     if (err) {
