@@ -86,7 +86,11 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});\r"
+							"});\r",
+							"pm.test(\"response contains country\", function () {\r",
+							"    let valores=Object.keys(pm.response.json);\r",
+							"    valores.indexOf(\"country\")!==1;\r",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -121,9 +125,9 @@
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"The array should contain more than 0 elements\", function () {\r",
-							"    const responseData = pm.response.json();\r",
-							"    pm.expect(responseData.length).to.be.greaterThan(0, \"Array should not be empty\");\r",
+							"pm.test(\"response contains country\", function () {\r",
+							"    let valores=Object.keys(pm.response.json);\r",
+							"    valores.indexOf(\"country\")!==1;\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -421,6 +425,15 @@
 			"request": {
 				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"country\": \"AT\",\r\n        \"cci\": \"2014AT16RFOP001\",\r\n        \"short_title\": \"Investments in Growth and Employment - AT - ERDF\",\r\n        \"year\": 2015,\r\n        \"priority\": \"A.2\",\r\n        \"fund\": \"ERDF\",\r\n        \"to\": 3,\r\n        \"fi_name\": \"OÃ–. Hightechfonds\",\r\n        \"fi_address\": \"BetlehemstraÃŸe 3, 4020 Linz, Austria\",\r\n        \"is_set_up_at_union_level\": \"N\",\r\n        \"fi_type\": \"Specific fund\",\r\n        \"ex_ante_completion_date\": \"2016-02-25T00:00:00.000\",\r\n        \"funding_agreement_signature_date\": \"2015-06-30T00:00:00.000\",\r\n        \"total_amount_committed_to_fi\": 9000000,\r\n        \"esif_amount_committed_to_fi\": 3000000,\r\n        \"total_amount_paid_to_fi\": 9000000,\r\n        \"esif_amount_paid_to_fi\": 3000000,\r\n        \"management_costs_amount\": 133081,\r\n        \"base_renumeration_amount\": 133081,\r\n        \"performance_based_renumeration_paid_amount\": 0,\r\n        \"total_amount_committed_to_final_recipients\": 450000,\r\n        \"esif_amount_committed_to_final_recipients\": 150000,\r\n        \"total_amount_paid_to_final_recipients\": 450000,\r\n        \"esif_amount_paid_to_final_recipients\": 150000,\r\n        \"to_code_short_title\": \"TO 3 SMEs\",\r\n        \"to_long_title\": \"Enhancing the competitiveness of small and medium-sized enterprises (SMEs)\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "{{SERVER}}api/v1/policy-program-stats/AJ",
 					"host": [
@@ -496,6 +509,15 @@
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"cotry\": \"AT\",\r\n        \"cci\": \"2014AT16RFOP001\",\r\n        \"short_title\": \"Investments in Growth and Employment - AT - ERDF\",\r\n        \"year\": 2021,\r\n        \"priority\": \"A.2\",\r\n        \"fund\": \"ERDF\",\r\n        \"to\": 3,\r\n        \"fi_name\": \"OÃ–. Hightechfonds\",\r\n        \"fi_address\": \"OÃ¶ Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz\",\r\n        \"is_set_up_at_union_level\": \"N\",\r\n        \"fi_type\": \"Specific fund\",\r\n        \"ex_ante_completion_date\": \"2015-01-15T00:00:00.000\",\r\n        \"funding_agreement_signature_date\": \"2015-07-01T00:00:00.000\",\r\n        \"total_amount_committed_to_fi\": 9000000,\r\n        \"esif_amount_committed_to_fi\": 3000000,\r\n        \"total_amount_paid_to_fi\": 9000000,\r\n        \"esif_amount_paid_to_fi\": 3000000,\r\n        \"management_costs_amount\": 0,\r\n        \"base_renumeration_amount\": 0,\r\n        \"performance_based_renumeration_paid_amount\": 0,\r\n        \"total_amount_committed_to_final_recipients\": 7256185.76,\r\n        \"esif_amount_committed_to_final_recipients\": 2418728.59,\r\n        \"total_amount_paid_to_final_recipients\": 7256185.76,\r\n        \"esif_amount_paid_to_final_recipients\": 2418728.59,\r\n        \"to_code_short_title\": \"TO 3 SMEs\",\r\n        \"to_long_title\": \"Enhancing the competitiveness of small and medium-sized enterprises (SMEs)\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "{{SERVER}}api/v1/policy-program-stats/",
 					"host": [
