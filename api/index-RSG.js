@@ -63,7 +63,7 @@ module.exports = (app, db_RSG) =>  {
                         res.sendStatus(404, "Not Found");
                     } else {
                         // Devuelve los datos sin el campo _id
-                        res.status(200).json(data.map(c => {
+                        res.send(data.map(c => {
                             delete c._id;
                             return c;
                         }));
@@ -153,10 +153,10 @@ module.exports = (app, db_RSG) =>  {
                 }else{
                     if(countrydata.length>0){
                         //muestra los datos con los filtros especificados
-                        res.send(JSON.stringify(countrydata.map((c)=>{
+                        res.send(countrydata.map((c)=>{
                             delete c._id;
                             return c;
-                        })));
+                        }));
                     }else{
                         //Si se intenta acceder a un recurso 
                 //inexistente se debe devolver el código 404
@@ -174,10 +174,10 @@ module.exports = (app, db_RSG) =>  {
                 }else{
                     if(countrydata.length>0){
                         //muestra los datos con los filtros especificados
-                        res.send(JSON.stringify(countrydata.map((c)=>{
+                        res.send(countrydata.map((c)=>{
                             delete c._id;
                             return c;
-                        })));
+                        }));
                     }else{
                         //Si se intenta acceder a un recurso 
                 //inexistente se debe devolver el código 404
