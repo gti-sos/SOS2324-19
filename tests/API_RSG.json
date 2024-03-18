@@ -106,6 +106,39 @@
 			"response": []
 		},
 		{
+			"name": "GET 1 param Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}api/v1/covid-testings/Austria",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"covid-testings",
+						"Austria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GET 2 param",
 			"event": [
 				{
@@ -394,6 +427,48 @@
 			"response": []
 		},
 		{
+			"name": "ERROR 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"country_code\": \"AT\", \"year_week\": \"2020-W45\", \"level\": \"national\", \"region\": \"AT\", \"region_name\": \"Austria\", \"new_cases\": 23, \"tests_done\": 199567, \"population\": 8978929, \"testing_rate\": 2222.6147461462274, \"positivity_rate\": 22.434570845881332 }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}api/v1/covid-testings/Austria",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"covid-testings",
+						"Austria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "ERROR 409",
 			"event": [
 				{
@@ -505,48 +580,6 @@
 						"v1",
 						"covid-testings",
 						"Mexico"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ERROR 400",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 400\", function () {\r",
-							"    pm.response.to.have.status(400);\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"country\":\"Austria\",\"country_code\":\"AT\",\"year_week\":\"2020-W92\",\"level\":\"national\",\"region\":\"AT\",\"region_name\":\"Austria\",\"new_cases\":555,\"tests_done\":124663,\"population\":8978929,\"positivity_rate\":6.005791614191861,\"testing_data_source\":\"TESSyCOVID-19\"}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{SERVER}}api/v1/covid-testings/",
-					"host": [
-						"{{SERVER}}api"
-					],
-					"path": [
-						"v1",
-						"covid-testings",
-						""
 					]
 				}
 			},
