@@ -73,19 +73,10 @@ module.exports = (app, db_AFI) =>  {
                     if (data.length === 0) {
                         res.sendStatus(404, "Not Found");
                     } else {
-                        // Devuelve los datos sin el campo _id
-                        if (countrydata.length === 1) {
-                            // Si solo hay un dato, devuelve ese dato directamente
-                            const singleData = countrydata[0];
-                            delete singleData._id;
-                            res.send(JSON.stringify(singleData));
-                        } else {
-                            // Muestra los datos con los filtros especificados
-                            res.send(JSON.stringify(countrydata.map((c) => {
-                                delete c._id;
-                                return c;
-                            })));
-                        }
+                        res.status(200).json(data.map(c => {
+                            delete c._id;
+                            return c;
+                        }));
                     }
                 }
             });
