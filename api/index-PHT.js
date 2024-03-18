@@ -45,7 +45,7 @@ module.exports = (app, db_PHT) => {
         const offset = parseInt(req.query.offset) || 0;
         const params = req.query;
         let query = {};
-
+    
         Object.keys(params).forEach(key => {
             if (key !== 'limit' && key !== 'offset') {
                 let value = req.query[key];
@@ -64,7 +64,7 @@ module.exports = (app, db_PHT) => {
                 query[key] = value;
             }
         });
-
+      
         db_PHT.find(query).skip(offset).limit(limit).exec((error, data) => {
             if (error) {
                 res.sendStatus(500, "Internal Error");
@@ -72,15 +72,23 @@ module.exports = (app, db_PHT) => {
                 if (data.length === 0) {
                     res.sendStatus(404, "Not Found");
                 } else {
-                    // Devuelve los datos sin el campo _id
-                    res.status(200).json(data.map(c => {
-                        delete c._id;
-                        return c;
-                    }));
+                    if (data.length === 1) {
+                        // Si solo hay un dato, devuelve ese dato directamente
+                        const singleData = data[0];
+                        delete singleData._id;
+                        res.status(200).json(singleData);
+                    } else {
+                        // Devuelve los datos sin el campo _id
+                        res.status(200).json(data.map(c => {
+                            delete c._id;
+                            return c;
+                        }));
+                    }
                 }
             }
         });
     });
+    
 
     //PUT1
     app.put(API_BASE + "/", (req, res) => {
