@@ -10,14 +10,14 @@ module.exports = (app, db_RSG) =>  {
         //POST1
         app.post(API_BASE + "/", (req, res) => {
             let newdata = req.body;
-            const ccc=req.body.cci;
+            const ccc=req.body.positivity_rate;
             const Fields = ["country","country_code","year_week","level","region","region_name","new_cases","tests_done","population","testing_rate","positivity_rate","testing_data_source"];
             const recFields = Object.keys(newdata);
             const isvalid=Fields.every(f=>recFields.includes(f));
             if (!isvalid) {
                 return res.sendStatus(400, "Bad request");
             }else{
-                db_RSG.find({cci: ccc}, (error,existdata)=>{
+                db_RSG.find({positivity_rate: ccc}, (error,existdata)=>{
                     if(error){
                         res.sendStatus(500, "Internal Error");
                     }else{
