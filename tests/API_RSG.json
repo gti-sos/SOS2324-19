@@ -81,6 +81,11 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].country).to.eql(\"Austria\");\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -114,6 +119,11 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(2);\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -125,14 +135,23 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/covid-testings/Austria",
+					"raw": "{{SERVER}}api/v1/covid-testings?limit=2&offset=1",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
 						"v1",
-						"covid-testings",
-						"Austria"
+						"covid-testings"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "offset",
+							"value": "1"
+						}
 					]
 				}
 			},
@@ -147,6 +166,11 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].country).to.eql(\"Austria\");\r",
 							"});"
 						],
 						"type": "text/javascript",

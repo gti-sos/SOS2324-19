@@ -55,18 +55,25 @@ module.exports = (app, db_RSG) =>  {
                 }
             });
         
-            db_RSG.find(query).skip(offset).limit(limit).exec((error, data) => {
+            db_RSG.find(query).skip(offset).limit(limit).exec((error, countrydata) => {
                 if (error) {
                     res.sendStatus(500, "Internal Error");
                 } else {
                     if (data.length === 0) {
                         res.sendStatus(404, "Not Found");
                     } else {
-                        // Devuelve los datos sin el campo _id
-                        res.send(data.map(c => {
-                            delete c._id;
-                            return c;
-                        }));
+                        if (countrydata.length > 0) {
+                            if (countrydata.length === 1) {
+                                let c = countrydata[0];
+                                delete c._id;
+                                res.send(JSON.stringify(c));
+                            } else {
+                                res.send(JSON.stringify(countrydata.map((c) => {
+                                    delete c._id;
+                                    return c;
+                                })));
+                            }
+                        }
                     }
                 }
             });
@@ -147,16 +154,21 @@ module.exports = (app, db_RSG) =>  {
         app.get(API_BASE + "/:country/:year_week", (req, res) => {
             const pais = req.params.country;
             const ano_sem =req.params.year_week;
-            db_RSG.find({country: pais, year_week:ano_sem}, (error,countrydata)=>{
+            db_RSG.find({country: pais, year_week:ano_sem}, (error,data)=>{
                 if (error) {
                     res.sendStatus(500, "Internal Server Error");
                 }else{
-                    if(countrydata.length>0){
-                        //muestra los datos con los filtros especificados
-                        res.send(countrydata.map((c)=>{
+                    if (data.length > 0) {
+                        if (data.length === 1) {
+                            let c = data[0];
                             delete c._id;
-                            return c;
-                        }));
+                            res.send(JSON.stringify(c));
+                        } else {
+                            res.send(JSON.stringify(data.map((c) => {
+                                delete c._id;
+                                return c;
+                            })));
+                        }
                     }else{
                         //Si se intenta acceder a un recurso 
                 //inexistente se debe devolver el código 404
@@ -168,16 +180,21 @@ module.exports = (app, db_RSG) =>  {
         //GET2
         app.get(API_BASE + "/:country", (req, res) => {
             const pais = req.params.country;
-            db_RSG.find({country: pais}, (error,countrydata)=>{
+            db_RSG.find({country: pais}, (error,data)=>{
                 if (error) {
                     res.sendStatus(500, "Internal Server Error");
                 }else{
-                    if(countrydata.length>0){
-                        //muestra los datos con los filtros especificados
-                        res.send(countrydata.map((c)=>{
+                    if (data.length > 0) {
+                        if (data.length === 1) {
+                            let c = data[0];
                             delete c._id;
-                            return c;
-                        }));
+                            res.send(JSON.stringify(c));
+                        } else {
+                            res.send(JSON.stringify(data.map((c) => {
+                                delete c._id;
+                                return c;
+                            })));
+                        }
                     }else{
                         //Si se intenta acceder a un recurso 
                 //inexistente se debe devolver el código 404
