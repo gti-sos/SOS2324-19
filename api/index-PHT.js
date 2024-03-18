@@ -253,7 +253,7 @@ module.exports = (app, db_PHT) => {
         });
     });
     
-
+//Get country y year
     app.get(API_BASE + "/:country/:year", (req, res) => {
         const country = req.params.country;
         const year = parseInt(req.params.year);
