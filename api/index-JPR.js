@@ -206,10 +206,10 @@ module.exports = (app, db) => {
                         delete c._id;
                         res.send(c);
                     } else {
-                        res.send(data.map((c) => {
+                        let w = data.map((c) => {
                             delete c._id;
-                            return c;
-                        }));
+                            return c;})
+                        res.send(w);
                     }
                 } else {
                     res.sendStatus(404, "Not Found");
@@ -251,10 +251,10 @@ module.exports = (app, db) => {
                         delete c._id;
                         res.send(c);
                     } else {
-                        res.send(data.map((c) => {
+                        let w = data.map((c) => {
                             delete c._id;
-                            return c;
-                        }));
+                            return c;})
+                        res.send(w);
                     }
                 } else {
                     res.sendStatus(404, "Not Found");
@@ -276,10 +276,10 @@ module.exports = (app, db) => {
                         delete c._id;
                         res.send(c);
                     } else {
-                        res.send(data.map((c) => {
+                        let w = data.map((c) => {
                             delete c._id;
-                            return c;
-                        }));
+                            return c;})
+                        res.send(w);
                     }
                 } else {
                     res.sendStatus(404, "Not Found");
