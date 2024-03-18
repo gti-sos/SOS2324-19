@@ -226,6 +226,8 @@ module.exports = (app, db_PHT) => {
         let data = req.body;
         res.sendStatus(405, "Method Not Allowed");
     });
+
+    //get country
     app.get(API_BASE + "/:country", (req, res) => {
         const pais = req.params.country;
         db_PHT.find({ ms_name: pais }, (error, countrydata) => {
@@ -253,7 +255,7 @@ module.exports = (app, db_PHT) => {
         });
     });
     
-
+//Get country y year
     app.get(API_BASE + "/:country/:year", (req, res) => {
         const country = req.params.country;
         const year = parseInt(req.params.year);

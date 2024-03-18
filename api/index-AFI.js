@@ -74,10 +74,18 @@ module.exports = (app, db_AFI) =>  {
                         res.sendStatus(404, "Not Found");
                     } else {
                         // Devuelve los datos sin el campo _id
-                        res.status(200).json(data.map(c => {
-                            delete c._id;
-                            return c;
-                        }));
+                        if (countrydata.length === 1) {
+                            // Si solo hay un dato, devuelve ese dato directamente
+                            const singleData = countrydata[0];
+                            delete singleData._id;
+                            res.send(JSON.stringify(singleData));
+                        } else {
+                            // Muestra los datos con los filtros especificados
+                            res.send(JSON.stringify(countrydata.map((c) => {
+                                delete c._id;
+                                return c;
+                            })));
+                        }
                     }
                 }
             });
@@ -168,11 +176,18 @@ module.exports = (app, db_AFI) =>  {
                     res.sendStatus(500, "Internal Server Error");
                 }else{
                     if(countrydata.length>0){
-                        //muestra los datos con los filtros especificados
-                        res.send(JSON.stringify(countrydata.map((c)=>{
-                            delete c._id;
-                            return c;
-                        })));
+                        if (countrydata.length === 1) {
+                            // Si solo hay un dato, devuelve ese dato directamente
+                            const singleData = countrydata[0];
+                            delete singleData._id;
+                            res.send(JSON.stringify(singleData));
+                        } else {
+                            // Muestra los datos con los filtros especificados
+                            res.send(JSON.stringify(countrydata.map((c) => {
+                                delete c._id;
+                                return c;
+                            })));
+                        }
                     }else{
                         //Si se intenta acceder a un recurso 
                 //inexistente se debe devolver el código 404
@@ -189,11 +204,18 @@ module.exports = (app, db_AFI) =>  {
                     res.sendStatus(500, "Internal Server Error");
                 }else{
                     if(countrydata.length>0){
-                        //muestra los datos con los filtros especificados
-                        res.send(JSON.stringify(countrydata.map((c)=>{
-                            delete c._id;
-                            return c;
-                        })));
+                        if (countrydata.length === 1) {
+                            // Si solo hay un dato, devuelve ese dato directamente
+                            const singleData = countrydata[0];
+                            delete singleData._id;
+                            res.send(JSON.stringify(singleData));
+                        } else {
+                            // Muestra los datos con los filtros especificados
+                            res.send(JSON.stringify(countrydata.map((c) => {
+                                delete c._id;
+                                return c;
+                            })));
+                        }
                     }else{
                         //Si se intenta acceder a un recurso 
                 //inexistente se debe devolver el código 404
