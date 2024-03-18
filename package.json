@@ -11,7 +11,7 @@
   "name": "sos2324-19",
   "description": "Service Oriented Systems (Sistemas Orientados a Servicios) 2023/2024 at the [University of Sevilla](https://www.us.es)\r ====================",
   "version": "0.0.0",
-  "main": "index.js",
+  "main": "index.js", 
   "scripts": {
     "start": "node index",
     "test-policy-program-stats": "npx newman run ./tests/API_AFI.json -e ./tests/environments/gcloud.json",
@@ -29,5 +29,5 @@
   "bugs": {
     "url": "https://github.com/gti-sos/SOS2324-19/issues"
   },
-  "homepage": "https://github.com/gti-sos/SOS2324-19#readme"
+  "homepage": "https://github.com/gti-sos/SOS2324-19#readme" 
 }
