@@ -64,7 +64,7 @@ module.exports = (app, db_PHT) => {
                 query[key] = value;
             }
         });
-      
+       
         db_PHT.find(query).skip(offset).limit(limit).exec((error, data) => {
             if (error) {
                 res.sendStatus(500, "Internal Error");
