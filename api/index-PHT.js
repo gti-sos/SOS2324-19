@@ -116,7 +116,14 @@ module.exports = (app, db_PHT) => {
     //El recurso debe contener una ruta /api/v1/FFFFF/loadInitialData 
     //que al hacer un GET cree 10 o más datos en el array
     //de NodeJS si está vacío.
+    let initialDataLoaded = false;
+
     app.get(API_BASE + "/loadInitialData", (req, res) => {
+    // Verifica si los datos iniciales ya han sido cargados
+    if (initialDataLoaded) {
+        res.status(400).send("Error: Los datos iniciales ya han sido cargados anteriormente.");
+        return;
+    }
         let datoss =
             [{
                 ms: 'EL', ms_name: 'Greece', cci: '2021EL16FFPR008', title: 'Thessalia – ERDF/ESF+', fund: 'ESF+',
@@ -235,10 +242,10 @@ module.exports = (app, db_PHT) => {
         res.sendStatus(405, "Method Not Allowed");
     });
 
-    //get country
-    app.get(API_BASE + "/:country", (req, res) => {
-        const pais = req.params.country;
-        db_PHT.find({ ms_name: pais }, (error, countrydata) => {
+    //get cci
+    app.get(API_BASE + "/:cci", (req, res) => {
+        const pais = req.params.cci;
+        db_PHT.find({ cci: pais }, (error, countrydata) => {
             if (error) {
                 res.sendStatus(500, "Internal Server Error");
             } else {
@@ -247,10 +254,10 @@ module.exports = (app, db_PHT) => {
                         // Si solo hay un dato, devuelve ese dato directamente
                         const singleData = countrydata[0];
                         delete singleData._id;
-                        res.send(JSON.stringify(singleData));
+                        res.send((singleData));
                     } else {
                         // Muestra los datos con los filtros especificados
-                        res.send(JSON.stringify(countrydata.map((c) => {
+                        res.send((countrydata.map((c) => {
                             delete c._id;
                             return c;
                         })));
@@ -262,6 +269,7 @@ module.exports = (app, db_PHT) => {
             }
         });
     });
+    
     
 //Get country y year
     app.get(API_BASE + "/:country/:year", (req, res) => {
@@ -278,10 +286,10 @@ module.exports = (app, db_PHT) => {
                         // Si solo hay un dato, devuelve ese dato directamente
                         const singleData = countrydata[0];
                         delete singleData._id;
-                        res.send(JSON.stringify(singleData));
+                        res.send((singleData));
                     } else {
                         // Muestra los datos con los filtros especificados
-                        res.send(JSON.stringify(countrydata.map((c) => {
+                        res.send((countrydata.map((c) => {
                             delete c._id;
                             return c;
                         })));
