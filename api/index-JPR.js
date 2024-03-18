@@ -303,7 +303,7 @@ module.exports = (app, db) => {
 
         if (!valid || actualKeys.length !== structureKeys.length) {
             // Cannot update an object without the expected fields
-            res.sendStatus(400).send("BAD REQUEST");
+            res.sendStatus(400);
         } else {
             // Check if the country exists in the array before updating
             db.findOne({ ms_name: country }, (err, uploaded) => {
