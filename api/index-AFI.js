@@ -172,15 +172,18 @@ module.exports = (app, db_AFI) =>  {
                 if (error) {
                     res.sendStatus(500, "Internal Server Error");
                 }else{
-                    if(countrydata.length>0){
-                            // Muestra los datos con los filtros especificados
+                    if (countrydata.length > 0) {
+                        if (countrydata.length === 1) {
+                            let c = countrydata[0];
+                            delete c._id;
+                            res.send(JSON.stringify(c));
+                        } else {
                             res.send(JSON.stringify(countrydata.map((c) => {
                                 delete c._id;
                                 return c;
                             })));
-                    }else{
-                        //Si se intenta acceder a un recurso 
-                //inexistente se debe devolver el código 404
+                        }
+                    } else {
                         res.sendStatus(404, "Not Found");
                     }
                 }
@@ -193,17 +196,20 @@ module.exports = (app, db_AFI) =>  {
                 if (error) {
                     res.sendStatus(500, "Internal Server Error");
                 }else{
-                    if(countrydata.length>0){
-                        // Muestra los datos con los filtros especificados
-                        res.send(JSON.stringify(countrydata.map((c) => {
+                    if (countrydata.length > 0) {
+                        if (countrydata.length === 1) {
+                            let c = countrydata[0];
                             delete c._id;
-                            return c;
-                        })));
-                }else{
-                    //Si se intenta acceder a un recurso 
-            //inexistente se debe devolver el código 404
-                    res.sendStatus(404, "Not Found");
-                }
+                            res.send(JSON.stringify(c));
+                        } else {
+                            res.send(JSON.stringify(countrydata.map((c) => {
+                                delete c._id;
+                                return c;
+                            })));
+                        }
+                    } else {
+                        res.sendStatus(404, "Not Found");
+                    }
                 }
             });
         });
