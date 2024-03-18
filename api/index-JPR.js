@@ -199,16 +199,21 @@ module.exports = (app, db) => {
 
         db.find(query).skip(offset).limit(limit).exec((err, data) => {
             if (err) {
-                res.sendStatus(500, "Internal Error");
+                res.sendStatus(500, "Internal Server Error");
             } else {
-                if (data.length === 0) {
-                    res.sendStatus(404, "Not Found");
-                } else {
-                    // Remove the _id field from the response
-                    res.status(200).json(data.map(c => {
+                if (data.length > 0) {
+                    if (data.length === 1) {
+                        let c = data[0];
                         delete c._id;
-                        return c;
-                    }));
+                        res.send(JSON.stringify(c));
+                    } else {
+                        res.send(JSON.stringify(data.map((c) => {
+                            delete c._id;
+                            return c;
+                        })));
+                    }
+                } else {
+                    res.sendStatus(404, "Not Found");
                 }
             }
         });
@@ -242,10 +247,16 @@ module.exports = (app, db) => {
                 res.sendStatus(500, "Internal Server Error");
             } else {
                 if (data.length > 0) {
-                    res.send(JSON.stringify(data.map((c) => {
+                    if (data.length === 1) {
+                        let c = data[0];
                         delete c._id;
-                        return c;
-                    })));
+                        res.send(JSON.stringify(c));
+                    } else {
+                        res.send(JSON.stringify(data.map((c) => {
+                            delete c._id;
+                            return c;
+                        })));
+                    }
                 } else {
                     res.sendStatus(404, "Not Found");
                 }
@@ -261,10 +272,16 @@ module.exports = (app, db) => {
                 res.sendStatus(500, "Internal Server Error");
             } else {
                 if (data.length > 0) {
-                    res.send(JSON.stringify(data.map((c) => {
+                    if (data.length === 1) {
+                        let c = data[0];
                         delete c._id;
-                        return c;
-                    })));
+                        res.send(JSON.stringify(c));
+                    } else {
+                        res.send(JSON.stringify(data.map((c) => {
+                            delete c._id;
+                            return c;
+                        })));
+                    }
                 } else {
                     res.sendStatus(404, "Not Found");
                 }
@@ -332,7 +349,7 @@ module.exports = (app, db) => {
                         res.sendStatus(404, "Not Found");
                     } else {
                         // Country exists in the array, proceed with the update
-                        db.update({ ms_name: country , year: year}, attempt, {}, (err) => {
+                        db.update({ ms_name: country, year: year }, attempt, {}, (err) => {
                             if (err) {
                                 res.sendStatus(500, "Internal Server Error");
                             } else {
@@ -378,7 +395,7 @@ module.exports = (app, db) => {
         let country = req.params.country;
         let year = parseInt(req.params.year);
 
-        db.remove({ ms_name: country , year: year}, {}, (err, n) => {
+        db.remove({ ms_name: country, year: year }, {}, (err, n) => {
             if (err) {
                 res.sendStatus(500, "Internal Error");
             } else {
