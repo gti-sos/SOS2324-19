@@ -106,7 +106,7 @@
 			"response": []
 		},
 		{
-			"name": "GET 1 param Copy",
+			"name": "GET limit & offset",
 			"event": [
 				{
 					"listen": "test",
