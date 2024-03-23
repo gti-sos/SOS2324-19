@@ -30,4 +30,6 @@
     "url": "https://github.com/gti-sos/SOS2324-19/issues"
   },
   "homepage": "https://github.com/gti-sos/SOS2324-19#readme" 
+  ,
+  "type":"module"
 }

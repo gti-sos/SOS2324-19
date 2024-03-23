@@ -1,14 +1,15 @@
-let express = require("express")
-let dataStore = require("nedb");
-let bodyParser = require("body-parser");
+import express from "express";
+import dataStore from"nedb";
+import bodyParser from "body-parser";
+import {handler} from "./front/build/handler.js";
 
 let app = express();
 
 app.use(bodyParser.json());
 
-app.use("/", express.static("./public"));
+//app.use("/", express.static("./public"));
 
-const path = require('path');
+//const path = require('path');
 const PORT = (process.env.PORT || 10000);
 
 app.listen(PORT, () => {
@@ -20,23 +21,29 @@ app.get('/', (req, res) => {
 });
 
 //ALBERTO FRAILE
-let API_AFI = require("./api/index-AFI.js");
-let db_AFI = new dataStore();
-API_AFI(app, db_AFI);
+//let API_AFI = require("./back/index-AFI.js");
+//let db_AFI = new dataStore();
+//API_AFI(app, db_AFI);
 
 
 //PEDRO HEREDIA
-let api_PHT = require('./api/index-PHT');
+import {loadBackendPHT} from "./back/index-PHT.js";
 let db_PHT= new dataStore();
-api_PHT(app,db_PHT);
+loadBackendPHT(app,db_PHT);
 
 
 //RAUL SEQUERA
-let api_RSG = require('./api/index-RSG');
-let db_RSG= new dataStore();
-api_RSG(app,db_RSG);
+//let api_RSG = require('./back/index-RSG.js');
+//let db_RSG= new dataStore();
+//api_RSG(app,db_RSG);
 
 //JOSE MANUEL PEÑA
-let api_JPR = require('./api/index-JPR');
-let db_JPR = new dataStore();
-api_JPR(app,db_JPR);
+//let api_JPR = require('./back/index-JPR.js');
+//let db_JPR = new dataStore();
+//api_JPR(app,db_JPR);
+
+
+
+
+//Esto tiene q ir abajo putos inutiles
+app.use(handler);
