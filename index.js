@@ -42,5 +42,4 @@ import {loadBackendJPR} from "./back/index-JPR.js";
 let db_JPR = new dataStore();
 loadBackendJPR(app, db_JPR);
 
-//Esto tiene q ir abajo putos inutiles
 app.use(handler);
