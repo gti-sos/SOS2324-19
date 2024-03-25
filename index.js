@@ -21,9 +21,9 @@ app.get('/', (req, res) => {
 });
 
 //ALBERTO FRAILE
-//let API_AFI = require("./back/index-AFI.js");
-//let db_AFI = new dataStore();
-//API_AFI(app, db_AFI);
+import {loadBackendAFI} from "./back/index-AFI.js";
+let db_AFI= new dataStore();
+loadBackendAFI(app,db_AFI);
 
 
 //PEDRO HEREDIA
@@ -33,17 +33,14 @@ loadBackendPHT(app,db_PHT);
 
 
 //RAUL SEQUERA
-//let api_RSG = require('./back/index-RSG.js');
-//let db_RSG= new dataStore();
-//api_RSG(app,db_RSG);
+import {loadBackendRSG} from "./back/index-RSG.js";
+let db_RSG= new dataStore();
+loadBackendRSG(app,db_RSG);
 
 //JOSE MANUEL PEÑA
-//let api_JPR = require('./back/index-JPR.js');
-//let db_JPR = new dataStore();
-//api_JPR(app,db_JPR);
-
-
-
+import {loadBackendJPR} from "./back/index-JPR.js";
+let db_JPR = new dataStore();
+loadBackendJPR(app, db_JPR);
 
 //Esto tiene q ir abajo putos inutiles
 app.use(handler);
