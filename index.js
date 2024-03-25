@@ -1,15 +1,14 @@
-import express from "express";
-import dataStore from"nedb";
-import bodyParser from "body-parser";
-import {handler} from "./front/build/handler.js";
+let express = require("express")
+let dataStore = require("nedb");
+let bodyParser = require("body-parser");
 
 let app = express();
 
 app.use(bodyParser.json());
 
-//app.use("/", express.static("./public"));
+app.use("/", express.static("./public"));
 
-//const path = require('path');
+const path = require('path');
 const PORT = (process.env.PORT || 10000);
 
 app.listen(PORT, () => {
@@ -21,25 +20,26 @@ app.get('/', (req, res) => {
 });
 
 //ALBERTO FRAILE
-import {loadBackendAFI} from "./back/index-AFI.js";
-let db_AFI= new dataStore();
-loadBackendAFI(app,db_AFI);
+let API_AFI = require("./api/index-AFI.js");
+let db_AFI = new dataStore();
+API_AFI(app, db_AFI);
 
+//import {loadBackendAFI} from "./backend/index-AFI.js";
+//let db_AFI= new dataStore();
+//loadBackendAFI(app,db_AFI);
 
 //PEDRO HEREDIA
-import {loadBackendPHT} from "./back/index-PHT.js";
+let api_PHT = require('./api/index-PHT');
 let db_PHT= new dataStore();
-loadBackendPHT(app,db_PHT);
+api_PHT(app,db_PHT);
 
 
 //RAUL SEQUERA
-import {loadBackendRSG} from "./back/index-RSG.js";
+let api_RSG = require('./api/index-RSG');
 let db_RSG= new dataStore();
-loadBackendRSG(app,db_RSG);
+api_RSG(app,db_RSG);
 
 //JOSE MANUEL PEÑA
-import {loadBackendJPR} from "./back/index-JPR.js";
+let api_JPR = require('./api/index-JPR');
 let db_JPR = new dataStore();
-loadBackendJPR(app, db_JPR);
-
-app.use(handler);
+api_JPR(app,db_JPR);

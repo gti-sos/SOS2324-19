@@ -2,7 +2,7 @@ const API_BASE = '/api/v1/policy-program-stats';
 
 var datos = [];
 
-function loadBackendAFI(app, db_AFI)  {
+module.exports = (app, db_AFI) => {
         //POSTMAN
         app.get(API_BASE + "/docs", (req, res) => {
             console.log("Redirection to Postman documentation");
@@ -303,5 +303,4 @@ function loadBackendAFI(app, db_AFI)  {
     
     
 }
-
-export {loadBackendAFI};
+export { loadBackendAFI }

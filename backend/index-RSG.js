@@ -1,7 +1,7 @@
 const API_BASE = '/api/v1/covid-testings';
 
 var datos = [];
-function loadBackendRSG(app, db_RSG)  {
+module.exports = (app, db_RSG) =>  {
         //POSTMAN
         app.get(API_BASE + "/docs", (req, res) => {
             console.log("Redirecting to POSTMAN documentation");
@@ -288,5 +288,3 @@ function loadBackendRSG(app, db_RSG)  {
     
     
 }
-
-export {loadBackendRSG};

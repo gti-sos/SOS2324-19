@@ -3,7 +3,7 @@ const API_BASE = '/api/v1/eu-payment-info';
 
 var datos = [];
 
-function loadBackendPHT (app, db_PHT)  {
+module.exports = (app, db_PHT) => {
     //REDIRECT PORTAL DOCUMENTACION
     app.get(API_BASE + "/docs", (req, res) => {
         console.log("Redirection to Postman documentation");
@@ -405,7 +405,7 @@ app.delete(API_BASE+"/:country/:year", (req, res) => {
 
 
 }
-export {loadBackendPHT};
+
 
 
 
