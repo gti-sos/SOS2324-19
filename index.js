@@ -8,12 +8,12 @@ let db_RSG = new dataStore();
 let db_JPR = new dataStore();
 
 import {handler} from "./front/build/handler.js";
-import cors from "cors";
+//import cors from "cors";
 
 let app = express();
 const PORT = (process.env.PORT || 10000);
 
-app.use(cors());
+//app.use(cors());
 
 app.listen(PORT);
 app.use(bodyParser.json());
