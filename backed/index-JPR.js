@@ -134,7 +134,7 @@ let structure = {
     "eu_payment_rate_on_planned_eu_amount": "number"
 };
 
-module.exports = (app, db) => {
+module.exports =(app, db)=>{
     //POST petition
     app.post(API_BASE + "/", (req, res) => {
         let cci_atempt = req.body.cci;
