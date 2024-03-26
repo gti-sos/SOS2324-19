@@ -1,60 +1,42 @@
 let express = require("express")
-let dataStore = require("nedb");
 let bodyParser = require("body-parser");
 
+let dataStore = require("nedb");
+let db_AFI = new dataStore();
+let db_PHT = new dataStore();
+let db_RSG = new dataStore();
+let db_JPR = new dataStore();
+
 import {handler} from "./front/build/handler.js";
+import cors from "cors";
 
 let app = express();
-
-app.use(bodyParser.json());
-
-app.use("/", express.static("./public"));
-
-const path = require('path');
 const PORT = (process.env.PORT || 10000);
 
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}.`);
-});
+app.use(cors());
 
+app.listen(PORT);
+app.use(bodyParser.json());
+
+
+//ALBERTO FRAILE
+import {LoadBackendAFI} from "./backed/index-AFI.js";
+LoadBackendAFI(app,db_AFI);
+//PEDRO HEREDIA
+import {LoadBackendPHT} from "./backed/index-PHT.js";
+LoadBackendPHT(app,db_PHT);
+//RAUL SEQUERA
+import {LoadBackendRSG} from "./backed/index-RSG.js";
+LoadBackendRSG(app,db_RSG);
+//JOSE MANUEL PEÑA
+import {LoadBackendJPR} from "./backed/index-JPR.js";
+LoadBackendJPR(app,db_JPR);
+
+app.use(handler);
+
+import path from "path";
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-
-//ALBERTO FRAILE
-//let API_AFI = require("./backed/index-AFI.js");
-//let db_AFI = new dataStore();
-//API_AFI(app, db_AFI);
-
-import {LoadBackendAFI} from "./backed/index-AFI.js";
-let db_AFI = new dataStore();
-LoadBackendAFI(app,db_AFI);
-
-//PEDRO HEREDIA
-//let api_PHT = require('./backed/index-PHT.js');
-//let db_PHT= new dataStore();
-//api_PHT(app,db_PHT);
-
-import {LoadBackendPHT} from "./backed/index-PHT.js";
-let db_PHT = new dataStore();
-LoadBackendPHT(app,db_PHT);
-
-//RAUL SEQUERA
-//let api_RSG = require('./backed/index-RSG.js');
-//let db_RSG= new dataStore();
-//api_RSG(app,db_RSG);
-
-import {LoadBackendRSG} from "./backed/index-RSG.js";
-let db_RSG= new dataStore();
-LoadBackendRSG(app,db_RSG);
-//JOSE MANUEL PEÑA
-//let api_JPR = require('./backed/index-JPR.js');
-//let db_JPR = new dataStore();
-//api_JPR(app,db_JPR);
-
-import {LoadBackendJPR} from "./backed/index-JPR.js";
-let db_JPR = new dataStore();
-LoadBackendJPR(app,db_JPR);
-
-
-app.use(handler);
+app.use("/", express.static("./public"));
+console.log(`Server listening on port ${PORT}`);
