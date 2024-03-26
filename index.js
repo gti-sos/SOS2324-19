@@ -32,17 +32,27 @@ let db_AFI = new dataStore();
 LoadBackendAFI(app,db_AFI);
 
 //PEDRO HEREDIA
-let api_PHT = require('./backed/index-PHT.js');
-let db_PHT= new dataStore();
-api_PHT(app,db_PHT);
+//let api_PHT = require('./backed/index-PHT.js');
+//let db_PHT= new dataStore();
+//api_PHT(app,db_PHT);
 
+import {LoadBackendPHT} from "./backed/index-PHT.js";
+let db_PHT = new dataStore();
+LoadBackendPHT(app,db_PHT);
 
 //RAUL SEQUERA
-let api_RSG = require('./backed/index-RSG.js');
-let db_RSG= new dataStore();
-api_RSG(app,db_RSG);
+//let api_RSG = require('./backed/index-RSG.js');
+//let db_RSG= new dataStore();
+//api_RSG(app,db_RSG);
 
+import {LoadBackendRSG} from "./backed/index-RSG.js";
+let db_RSG= new dataStore();
+LoadBackendRSG(app,db_RSG);
 //JOSE MANUEL PEÑA
-let api_JPR = require('./backed/index-JPR.js');
+//let api_JPR = require('./backed/index-JPR.js');
+//let db_JPR = new dataStore();
+//api_JPR(app,db_JPR);
+
+import {LoadBackendJPR} from "./backed/index-JPR.js";
 let db_JPR = new dataStore();
-api_JPR(app,db_JPR);
+LoadBackendJPR(app,db_JPR);
