@@ -7,7 +7,6 @@ import {handler} from "./front/build/handler.js";
 let app = express();
 
 app.use(bodyParser.json());
-app.use(handler);
 
 app.use("/", express.static("./public"));
 
@@ -56,3 +55,6 @@ LoadBackendRSG(app,db_RSG);
 import {LoadBackendJPR} from "./backed/index-JPR.js";
 let db_JPR = new dataStore();
 LoadBackendJPR(app,db_JPR);
+
+
+app.use(handler);
