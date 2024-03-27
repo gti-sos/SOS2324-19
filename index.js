@@ -1,7 +1,7 @@
-let express = require("express")
-let bodyParser = require("body-parser");
+import express from "express";
+import bodyParser from "body-parser";
+import dataStore from "nedb";
 
-let dataStore = require("nedb");
 let db_AFI = new dataStore();
 let db_PHT = new dataStore();
 let db_RSG = new dataStore();
