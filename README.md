@@ -24,8 +24,12 @@ List of projects registered in the course of **Service Oriented Systems** (2023/
 -  **APIs**:
     - **V1**
         - [https://sos2324-19.appspot.com/api/v1/policy-program-stats](https://sos2324-19.appspot.com/api/v1/policy-program-stats) (developed by Alberto Fraile Infantes)
+        - [https://sos2324-19.appspot.com/api/v1/eu-payment-info](https://sos2324-19.appspot.com/api/v1/eu-payment-info) (developed by Pedro Heredia Torres)
+
     - **V2**
         - [https://sos2324-19.appspot.com/api/v2/policy-program-stats](https://sos2324-19.appspot.com/api/v2/policy-program-stats) (developed by Alberto Fraile Infantes)
+        - [https://sos2324-19.appspot.com/api/v2/eu-payment-info](https://sos2324-19.appspot.com/api/v2/eu-payment-info) (developed by Pedro Heredia Torres)
+
 
 -  **Postman**:
     - **V1**
@@ -35,6 +39,8 @@ List of projects registered in the course of **Service Oriented Systems** (2023/
         - [https://sos2324-19.appspot.com/api/v1/covid-testings/docs](https://documenter.getpostman.com/view/32953626/2sA2xfZZUP) (developed by Raul Sequera Gomez)
     - **V2**
         - [https://sos2324-19.appspot.com/api/v2/policy-program-stats/docs](https://sos2324-19.appspot.com/api/v2/policy-program-stats/docs) (developed by Alberto Fraile Infantes)
+        - [https://sos2324-19.appspot.com/api/v2/eu-payment-info] (developed by Pedro Heredia Torres)
+
 
 -  **Frontends**:
     - [https://sos2324-19.appspot.com/policy-program-stats] (https://sos2324-19.appspot.com/policy-program-stats)(developed by Alberto Fraile Infantes)
