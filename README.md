@@ -39,7 +39,7 @@ List of projects registered in the course of **Service Oriented Systems** (2023/
         - [https://sos2324-19.appspot.com/api/v1/covid-testings/docs](https://documenter.getpostman.com/view/32953626/2sA2xfZZUP) (developed by Raul Sequera Gomez)
     - **V2**
         - [https://sos2324-19.appspot.com/api/v2/policy-program-stats/docs](https://sos2324-19.appspot.com/api/v2/policy-program-stats/docs) (developed by Alberto Fraile Infantes)
-        - [https://sos2324-19.appspot.com/api/v2/eu-payment-info/docs](https://sos2324-19.appspot.com/api/v2/eu-payment-info) (developed by Pedro Heredia Torres)
+        - [https://sos2324-19.appspot.com/api/v2/eu-payment-info/docs](https://sos2324-19.appspot.com/api/v2/eu-payment-info/docs) (developed by Pedro Heredia Torres)
 
 
 -  **Frontends**:
