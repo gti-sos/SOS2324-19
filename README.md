@@ -22,7 +22,20 @@ List of projects registered in the course of **Service Oriented Systems** (2023/
 - **Repository**: [gti-sos/SOS2324-19](https://github.com/gti-sos/SOS2324-19)
 - **URL**: [https://sos2324-19.appspot.com/] (https://sos2324-19.appspot.com/)
 -  **APIs**:
-    - [https://sos2324-19.appspot.com/api/v1/policy-program-stats/docs](https://sos2324-19.appspot.com/api/v1/policy-program-stats/docs) (developed by Alberto Fraile Infantes)
-    - [https://sos2324-19.appspot.com/api/v1/esif-payments/docs](https://sos2324-19.appspot.com/api/v1/esif-payments/docs) (developed by Jose Manuel Peña Ramírez)
-    - [https://sos2324-19.appspot.com/api/v1/eu-payment-info/docs](https://documenter.getpostman.com/view/32952835/2sA2xfXCsh) (developed by Pedro Heredia Torres)
-    - [https://sos2324-19.appspot.com/api/v1/covid-testings/docs](https://documenter.getpostman.com/view/32953626/2sA2xfZZUP) (developed by Raul Sequera Gomez)
+    - **V1**
+        - [https://sos2324-19.appspot.com/api/v1/policy-program-stats](https://sos2324-19.appspot.com/api/v1/policy-program-stats) (developed by Alberto Fraile Infantes)
+    - **V2**
+        - [https://sos2324-19.appspot.com/api/v2/policy-program-stats](https://sos2324-19.appspot.com/api/v2/policy-program-stats) (developed by Alberto Fraile Infantes)
+
+-  **Postman**:
+    - **V1**
+        - [https://sos2324-19.appspot.com/api/v1/policy-program-stats/docs](https://sos2324-19.appspot.com/api/v1/policy-program-stats/docs) (developed by Alberto Fraile Infantes)
+        - [https://sos2324-19.appspot.com/api/v1/esif-payments/docs](https://sos2324-19.appspot.com/api/v1/esif-payments/docs) (developed by Jose Manuel Peña Ramírez)
+        - [https://sos2324-19.appspot.com/api/v1/eu-payment-info/docs](https://documenter.getpostman.com/view/32952835/2sA2xfXCsh) (developed by Pedro Heredia Torres)
+        - [https://sos2324-19.appspot.com/api/v1/covid-testings/docs](https://documenter.getpostman.com/view/32953626/2sA2xfZZUP) (developed by Raul Sequera Gomez)
+    - **V2**
+        - [https://sos2324-19.appspot.com/api/v2/policy-program-stats/docs](https://sos2324-19.appspot.com/api/v2/policy-program-stats/docs) (developed by Alberto Fraile Infantes)
+
+-  **Frontends**:
+    - [https://sos2324-19.appspot.com/policy-program-stats] (https://sos2324-19.appspot.com/policy-program-stats)(developed by Alberto Fraile Infantes)
+        
