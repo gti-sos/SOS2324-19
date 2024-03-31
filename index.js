@@ -43,8 +43,10 @@ import {LoadBackendRSG} from "./backed/index-RSG.js";
 LoadBackendRSG(app,db_RSG);
 
 //JOSE MANUEL PEÑA
-import {LoadBackendJPR} from "./backed/index-JPR.js";
-LoadBackendJPR(app,db_JPR);
+import {LoadBackendv1JPR} from "./back/Esif-payments/v1/index-JPR.js";
+import {LoadBackendv2JPR} from "./back/Esif-payments/v2/index-JPR.js";
+LoadBackendv1JPR(app,db_JPR);
+LoadBackendv2JPR(app,db_JPR);
 
 app.use(handler);
 
