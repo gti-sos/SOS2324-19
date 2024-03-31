@@ -3,8 +3,7 @@
     import { onMount } from 'svelte';
 
     let API = "http://localhost:10000/api/v2/eu-payment-info";
-
-    let name = $page.params.ms_name;
+    
     let country = $page.params.ms_name;
     let year = $page.params.year;
     let errorMsg = '';
@@ -35,128 +34,73 @@
  
 
     onMount(async () => {
-        await getCountryData(country,year);
+        await loadCountry();
     });
 
-    async function getCountryData(country,year) {
+    async function loadCountry() {
         try {
-            let response = await fetch(API + '/' + country + '/' + year, {
-                method: "GET"
-            });
-
-            if (response.status == 200) {
-                let res = await response.json();
-                countryData = res[0];
-                
+            let response = await fetch(`${API}/${country}/${year}`);
+            if (response.ok) {
+                let data = await response.json();
+                countryData = { ...countryData, ...data };
             } else {
-                if (response.status == 400) {
-                    errorMsg = 'Error en la estructura de los datos';
-                    alert(errorMsg);
-                } else if (response.status == 409) {
-                    errorMsg = 'Ya existe una entrada con ese país y año';
-                    alert(errorMsg);
-                } else if (response.status == 404) {
-                    errorMsg = "Dato no encontrado";
-                    alert(errorMsg);
-                }
-            }             
-            console.log("Datos Originales: " + JSON.stringify(countryData));
-
-        } catch (e) {
-            errorMsg = e;
+                errorMsg = 'Error : ' + response.statusText;
+            }
+        } catch (error) {
+            errorMsg = 'Error : ' + error;
         }
     }
 
-    async function updateCountryData() {
+    async function updateCountry() {
         try {
-            let response = await fetch(API + '/' + country + '/' + year, {
+            let response = await fetch(`${API}/${country}/${year}`, {
                 method: 'PUT',
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify(countryData)
             });
-
-            if (response.status == 200) {
-                modificado = JSON.stringify(countryData);
-                await getCountryData(cci); // Volver a cargar los datos actualizados
+            if (response.ok) {
+                console.log('Country data updated successfully');
+                await loadCountry();
             } else {
-                if (response.status == 400) {
-                    errorMsg = 'No puedes cambiar ni el país ni el año';
-                    alert(errorMsg);
-                } else if (response.status == 409) {
-                    errorMsg = 'Ya existe una entrada con ese país y año';
-                    alert(errorMsg);
-                } else if (response.status == 404) {
-                    errorMsg = "Dato no encontrado";
-                    alert(errorMsg);
-                }
+                errorMsg = 'Error: ' + response.statusText;
             }
-            console.log("Datos Modificados: " + JSON.stringify(modificado));
-        } catch (e) {
-            errorMsg = e;
+        } catch (error) {
+            errorMsg = 'Error: ' + error;
         }
     }
 </script>
 
-<h1>Payments details of {name}</h1>
+<h1>Payments details of {country}</h1>
 
-<form on:submit|preventDefault={updateCountryData}>
-    <label for="ms">MS:</label>
-    <input type="text" id="ms" bind:value={countryData.ms}>
+<div class="container mx-auto mt-5" style="width: 60%;">
+    <h2 class="title">Data of {country} - {year}</h2>
+    <p>MS: <input type="text" bind:value="{countryData.ms}" /></p>
+    <p>MS Name: <input type="text" bind:value="{countryData.ms_name}" /></p>
+    <p>CCI: <input type="text" bind:value="{countryData.cci}" /></p>
+    <p>Title: <input type="text" bind:value="{countryData.title}" /></p>
+    <p>Fund: <input type="text" bind:value="{countryData.fund}" /></p>
+    <p>Category of Region: <input type="text" bind:value="{countryData.category_of_region}" /></p>
+    <p>Year: <input type="number" bind:value="{countryData.year}" /></p>
+    <p>Initial Plan EU Amount 1 Adoption: <input type="number" bind:value="{countryData.init_plan_eu_amt_1_adoption}" /></p>
+    <p>Transfers: <input type="number" bind:value="{countryData.transfers}" /></p>
+    <p>Actual Plan EU Amount Latest Adoption: <input type="number" bind:value="{countryData.actual_plan_eu_amt_latest_adop}" /></p>
+    <p>Pre-Fin: <input type="number" bind:value="{countryData.pre_fin}" /></p>
+    <p>Recovery of Pre-Financing: <input type="number" bind:value="{countryData.recovery_of_pre_financing}" /></p>
+    <p>Net Pre-Financing: <input type="number" bind:value="{countryData.net_pre_financing}" /></p>
+    <p>Interim Payments: <input type="number" bind:value="{countryData.interim_payments}" /></p>
+    <p>Recovery of Expenses: <input type="number" bind:value="{countryData.recovery_of_expenses}" /></p>
+    <p>Net Interim Payments: <input type="number" bind:value="{countryData.net_interim_payments}" /></p>
+    <p>Total Net Payments: <input type="number" bind:value="{countryData.total_net_payments}" /></p>
+    <p>EU Payment Rate Initial Plan EU Amount: <input type="number" bind:value="{countryData.eu_payment_rate_init_plan_eu_amt}" /></p>
+    <p>EU Payment Rate Actual Plan EU Amount: <input type="number" bind:value="{countryData.eu_payment_rate_actual_plan_eu_amt}" /></p>
 
-    <label for="ms_name">MS Name:</label>
-    <input type="text" id="ms_name" bind:value={countryData.ms_name}>
+    <div class="button-center">
+        <button on:click={updateCountry} class="btn btn-primary">Save</button>
+    </div>
 
-    <label for="cci">CCI:</label>
-    <input type="text" id="cci" bind:value={countryData.cci}>
-
-    <label for="title">Title:</label>
-    <input type="text" id="title" bind:value={countryData.title}>
-
-    <label for="fund">Fund:</label>
-    <input type="text" id="fund" bind:value={countryData.fund}>
-
-    <label for="category_of_region">Category of Region:</label>
-    <input type="text" id="category_of_region" bind:value={countryData.category_of_region}>
-
-    <label for="year">Year:</label>
-    <input type="number" id="year" bind:value={countryData.year}>
-
-    <label for="init_plan_eu_amt_1_adoption">Initial Plan EU Amount 1 Adoption:</label>
-    <input type="number" id="init_plan_eu_amt_1_adoption" bind:value={countryData.init_plan_eu_amt_1_adoption}>
-
-    <label for="transfers">Transfers:</label>
-    <input type="number" id="transfers" bind:value={countryData.transfers}>
-
-    <label for="actual_plan_eu_amt_latest_adop">Actual Plan EU Amount Latest Adoption:</label>
-    <input type="number" id="actual_plan_eu_amt_latest_adop" bind:value={countryData.actual_plan_eu_amt_latest_adop}>
-
-    <label for="pre_fin">Pre-Fin:</label>
-    <input type="number" id="pre_fin" bind:value={countryData.pre_fin}>
-
-    <label for="recovery_of_pre_financing">Recovery of Pre-Financing:</label>
-    <input type="number" id="recovery_of_pre_financing" bind:value={countryData.recovery_of_pre_financing}>
-
-    <label for="net_pre_financing">Net Pre-Financing:</label>
-    <input type="number" id="net_pre_financing" bind:value={countryData.net_pre_financing}>
-
-    <label for="interim_payments">Interim Payments:</label>
-    <input type="number" id="interim_payments" bind:value={countryData.interim_payments}>
-
-    <label for="recovery_of_expenses">Recovery of Expenses:</label>
-    <input type="number" id="recovery_of_expenses" bind:value={countryData.recovery_of_expenses}>
-
-    <label for="net_interim_payments">Net Interim Payments:</label>
-    <input type="number" id="net_interim_payments" bind:value={countryData.net_interim_payments}>
-
-    <label for="total_net_payments">Total Net Payments:</label>
-    <input type="number" id="total_net_payments" bind:value={countryData.total_net_payments}>
-
-    <label for="eu_payment_rate_init_plan_eu_amt">EU Payment Rate Initial Plan EU Amount:</label>
-    <input type="number" id="eu_payment_rate_init_plan_eu_amt" bind:value={countryData.eu_payment_rate_init_plan_eu_amt}>
-
-    <label for="eu_payment_rate_actual_plan_eu_amt">EU Payment Rate Actual Plan EU Amount:</label>
-    <input type="number" id="eu_payment_rate_actual_plan_eu_amt" bind:value={countryData.eu_payment_rate_actual_plan_eu_amt}>
-
-    <button type="submit">Update</button>
-</form>
-
+    {#if errorMsg}
+        <p>{errorMsg}</p>
+    {/if}
+</div>
