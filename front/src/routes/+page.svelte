@@ -82,8 +82,8 @@
             <p>Frontends:</p>
                 <ul>
                     <li>policy-program-stats: <a href="https://sos2324-19.appspot.com/policy-program-stats">FRONTEND-AFI</a> (developed by Alberto Fraile Infantes)</li>
-                    <li>eu-payment-info: <a href="https://sos2324-19.appspot.com/eu-payment-info">FRONTEND-PHT</a> (developed by Pedro Heredia Torres)</li>ç
-                    <li>esif-payments: <a href="https://sos2324-19.appspot.com/esif-payments">API-JPR</a> (developed by Jose Manuel Peña Ramírez)</li>
+                    <li>eu-payment-info: <a href="https://sos2324-19.appspot.com/eu-payment-info">FRONTEND-PHT</a> (developed by Pedro Heredia Torres)</li>
+                    <li>esif-payments: <a href="https://sos2324-19.appspot.com/esif-payments">FRONTEND-JPR</a> (developed by Jose Manuel Peña Ramírez)</li>
 
                 </ul>
         </div>
