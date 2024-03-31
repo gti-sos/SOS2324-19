@@ -16,9 +16,9 @@ const PORT = (process.env.PORT || 10000);
 
 import {handler} from "./front/build/handler.js";
 
-//import cors from "cors";
+import cors from "cors";
 
-//app.use(cors());
+app.use(cors());
 
 app.listen(PORT);
 app.use(bodyParser.json());
@@ -39,8 +39,8 @@ import {LoadBackendPHT2} from "./back/Eu-payment-info/v2/index-PHT.js";
 LoadBackendPHT2(app,db_PHT2);
 
 //RAUL SEQUERA
-import {LoadBackendRSG} from "./back/index-RSG.js";
-LoadBackendRSG(app,db_RSG);
+//import {LoadBackendRSG} from "./back/index-RSG.js";
+//LoadBackendRSG(app,db_RSG);
 
 //JOSE MANUEL PEÑA
 import {LoadBackendv1JPR} from "./back/Esif-payments/v1/index-JPR.js";
