@@ -3,7 +3,7 @@
 	import { dev } from '$app/environment';
 	import { get } from 'express/lib/response';
 
-	let API = 'http://localhost:10000/api/v1/esif-payments';
+	let API = 'http://localhost:10000/api/v2/esif-payments';
 
 	let message = '';
 	let err = '';
@@ -167,14 +167,28 @@
 				<td><input bind:value={structure.pre_financing_covered_by_expenditure} /></td>
 				<td><input bind:value={structure.recovery_of_annual_pre_financing} /></td>
 				<td><input bind:value={structure.net_pre_financing} /></td>
-                <td><input bind:value={structure.cumulative_interim_payments} /></td>
-                <td><input bind:value={structure.recovery_of_expenses} /></td>
-                <td><input bind:value={structure.net_interim_payments} /></td>
-                <td><input bind:value={structure.total_net_payments} /></td>
-                <td><input bind:value={structure.eu_payment_rate} /></td>
-                <td><input bind:value={structure.eu_payment_rate_on_planned_eu_amount} /></td>
+				<td><input bind:value={structure.cumulative_interim_payments} /></td>
+				<td><input bind:value={structure.recovery_of_expenses} /></td>
+				<td><input bind:value={structure.net_interim_payments} /></td>
+				<td><input bind:value={structure.total_net_payments} /></td>
+				<td><input bind:value={structure.eu_payment_rate} /></td>
+				<td><input bind:value={structure.eu_payment_rate_on_planned_eu_amount} /></td>
 			</tr>
 		</tbody>
 	</table>
-    </ul>
+	<ul>
+		{#each data as dato}
+			<li>
+				<a href="/esif-payments/{dato.ms_name}">
+					{dato.ms_name}
+				</a>
+			</li>
+		{/each}
+	</ul>
+</div>
+<div>
+    <button on:click={getInitialPayments}>Cargar datos</button>
+    <button on:click={getPayments}>Obtener todos los datos</button>
+    <button on:click={createPayment}>Crear un nuevo dato</button>
+    <button on:click={deleteAllPayments}>Eliminar todos los datos </button>
 </div>
