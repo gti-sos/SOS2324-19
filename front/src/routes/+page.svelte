@@ -42,7 +42,7 @@
         <div class="container">
             <h1>Proyect SOS2324-19</h1>
             <p>Team:</p>
-            <ul>
+            <ul> 
                 <li>Alberto Fraile Infantes</li>
                 <li>Raul Sequera Gomez</li>
                 <li>Jose Manuel Peña Ramirez</li>
