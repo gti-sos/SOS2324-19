@@ -8,8 +8,9 @@ let db_AFI = new dataStore();
 let db_AFI2 = new dataStore();
 let db_PHT = new dataStore();
 let db_PHT2 = new dataStore();
-
 let db_RSG = new dataStore();
+let db_RSG2 = new dataStore();
+
 let db_JPR = new dataStore();
 
 const PORT = (process.env.PORT || 10000);
@@ -39,8 +40,11 @@ import {LoadBackendPHT2} from "./back/Eu-payment-info/v2/index-PHT.js";
 LoadBackendPHT2(app,db_PHT2);
 
 //RAUL SEQUERA
-//import {LoadBackendRSG} from "./back/index-RSG.js";
-//LoadBackendRSG(app,db_RSG);
+import {LoadBackendRSGv1} from "./back/Covid-testings/v1/index-RSG.js";
+LoadBackendRSGv1(app,db_RSG);
+
+import {LoadBackendRSGv2} from "./back/Covid-testings/v2/index-RSG.js";
+LoadBackendRSGv2(app,db_RSG2);
 
 //JOSE MANUEL PEÑA
 import {LoadBackendv1JPR} from "./back/Esif-payments/v1/index-JPR.js";
