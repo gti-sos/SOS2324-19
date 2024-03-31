@@ -3,7 +3,9 @@
 	import { dev } from '$app/environment';
 	import { get } from 'express/lib/response';
 
-	let API = 'http://localhost:10000/api/v2/esif-payments';
+	let API = 'api/v2/esif-payments';
+    if(dev)
+        API = "http://localhost:10000"+API;
 
 	let message = '';
 	let err = '';
