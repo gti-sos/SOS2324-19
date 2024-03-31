@@ -1,7 +1,7 @@
 const API_BASE = '/api/v1/covid-testings';
 
 var datos = [];
-function LoadBackendRSG(app, db_RSG){
+function LoadBackendRSGv1(app, db_RSG){
         //POSTMAN
         app.get(API_BASE + "/docs", (req, res) => {
             console.log("Redirecting to POSTMAN documentation");

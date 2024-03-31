@@ -5,11 +5,10 @@
     import {dev} from "$app/environment";
     
 
-    let API = "/api/v2/eu-payment-info";
+    let API = "http://localhost:10000/api/v2/eu-payment-info";
    
-    if(dev)
-        API = "http://localhost:10000"+API;
-
+    let errorMsg = "";
+    let Msg = ""; 
     let payment=[];
     let newDato=
     {
@@ -33,12 +32,35 @@
         eu_payment_rate_init_plan_eu_amt: 0.025,
         eu_payment_rate_actual_plan_eu_amt: 0.025
     };
-    let errorMsg="";
+
     onMount(()=>{
 
       getPaymentInfo();
 
     })
+
+    
+    async function getInitial(){
+        try{
+            
+
+                let response = await fetch(API+"/loadInitialData",{
+                                      method: "GET"
+                });
+
+                if(response.ok){
+                    getPaymentInfo();
+                    errorMsg = "Datos cargados correctamente";
+                } else {
+                    errorMsg = "Error al cargar los datos";
+                }
+            
+            
+        } catch(e){
+            errorMsg = e;
+        }
+        
+    }
 
     async function getPaymentInfo(){
         try{
@@ -62,9 +84,12 @@
         });
 
         
-        console.log(`Deleting contact with name ${n}`);
-        getPaymentInfo();
-
+        if(response.ok){
+                    getPaymentInfo();
+                    errorMsg = "Dato con cci "+n+" borrado correctamente";
+                } else {
+                    errorMsg = "Error al cargar los datos";
+                }
         }catch(e){
             errorMsg=e;
         }
@@ -72,31 +97,55 @@
     }
 
 
-    async function createPaymentInfo(){
-        try{
-            
-        let response= await fetch(API,{
-            method:"POST",
-            headers:{"Content-Type":  "application/json"},
+    async function createPaymentInfo() {
+    try {
+        let response = await fetch(API, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newDato)
         });
 
         let status = await response.status;
-        
         console.log(`Creation response status ${status}`);
-        if (status==201){
-            getPaymentInfo();
-            errorMsg="code:"+status;
 
-        }else{
-            errorMsg="code:"+status;
+        if (status == 201) {
+            getPaymentInfo();
+            errorMsg = "Dato creado correctamente Status code: " + status;
+        } else {
+            if (response.status == 400) {
+                errorMsg = 'Error en la estructura de los datos';
+                alert(errorMsg);
+            } else if (response.status == 409) {
+                errorMsg = 'Ya existe un dato con los mismos datos';
+                alert(errorMsg);
+            }
         }
-        }
-        catch(e){
-            errorMsg=e;
-        }
-    
+    } catch (e) {
+        errorMsg = e;
     }
+}
+
+
+    async function DeleteAllInfo() {
+        try {
+            let response = await fetch(API,{
+                method: "DELETE"
+            });
+            
+            if (response.status == 200) {
+				getPaymentInfo();
+                console.log("Se borraron todos los datos")
+			} else {
+				errorMsg = 'Ya estan borrados todos los datos';
+				alert(errorMsg);
+			}
+        } catch(e) {
+            errorMsg = e;
+            
+        }
+    }
+    
+          
 
 </script>
 
@@ -194,15 +243,36 @@
 
 <ul>
     {#each payment as payment}
-        <li><a href="/eu-payment-info/{payment.ms_name}">{payment.ms_name}</a> - {payment.cci}<button on:click="{deletePaymentInfo(payment.ms_name)}">DELETE</button>
+        <li><a href="/eu-payment-info/{payment.ms_name}/{payment.year}">{payment.ms_name}</a> - {payment.cci}<button  style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
+            on:click="{deletePaymentInfo(payment.cci)}">DELETE</button>
         </li>
     {/each}
    
 </ul>
-<button on:click="{createPaymentInfo}">Create</button>
+<button
+            style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
+            on:click="{getInitial}"
+            >Cargar datos
+</button>
+<div style="margin-top: 20px; display: flex; justify-content: space-between;">
+    <button
+        style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
+        on:click={() => {
+            createPaymentInfo();
+        }}>Crear Nuevo Dato</button
+    >
+    <button
+        style="background-color: #FF0000; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
+        on:click={() => {
+            DeleteAllInfo();
+        }}>Eliminar Todos</button
+    >
+</div>
+
    
 {#if errorMsg!=""}
 
-ERROR: {errorMsg}
+{errorMsg}
 
 {/if}
+
