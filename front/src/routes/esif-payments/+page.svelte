@@ -1,9 +1,11 @@
 <script>
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
+	import { get } from 'express/lib/response';
 
 	let API = 'api/v2/esif-payments';
-	if (dev) API = 'http://localhost:10000/' + API;
+    if(dev)
+        API = "http://localhost:10000"+API;
 
 	let message = '';
 	let err = '';
@@ -45,7 +47,7 @@
 			err = '';
 		} else if (response.status === 405) {
 			message = '';
-			err = 'Los datos iniciales ya están cargados';
+			err = 'Los datos iniciales ya estan cargados';
 		} else {
 			message = '';
 			err = 'Ha ocurrido un error en el servidor';
@@ -123,94 +125,72 @@
 			err = 'Ha ocurrido un error en el servidor';
 		}
 	}
-
-	let showDetails = false;
-	let selectedData = {};
-
-	function toggleDetails(dato) {
-		selectedData = dato;
-		showDetails = !showDetails;
-	}
 </script>
 
 <div class="container-fluid">
-	<div class="row">
+	<table>
+		<thead>
+			<th>ms</th>
+			<th>ms_name</th>
+			<th>cci</th>
+			<th>title</th>
+			<th>fund</th>
+			<th>category_of_region</th>
+			<th>year</th>
+			<th>net_planned_eu_amount</th>
+			<th>cumulative_initial_pre_financing</th>
+			<th>cumulative_additional_initial_pre_financing</th>
+			<th>recovery_of_initial_pre_financing</th>
+			<th>cumulative_annual_pre_financing</th>
+			<th>pre_financing_covered_by_expenditure</th>
+			<th>recovery_of_annual_pre_financing</th>
+			<th>net_pre_financing</th>
+			<th>cumulative_interim_payments</th>
+			<th>recovery_of_expenses</th>
+			<th>net_interim_payments</th>
+			<th>total_net_payments</th>
+			<th>eu_payment_rate</th>
+			<th>eu_payment_rate_on_planned_eu_amount</th>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input bind:value={structure.ms} /></td>
+				<td><input bind:value={structure.ms_name} /></td>
+				<td><input bind:value={structure.cci} /></td>
+				<td><input bind:value={structure.title} /></td>
+				<td><input bind:value={structure.fund} /></td>
+				<td><input bind:value={structure.category_of_region} /></td>
+				<td><input bind:value={structure.year} /></td>
+				<td><input bind:value={structure.net_planned_eu_amount} /></td>
+				<td><input bind:value={structure.cumulative_initial_pre_financing} /></td>
+				<td><input bind:value={structure.cumulative_additional_initial_pre_financing} /></td>
+				<td><input bind:value={structure.recovery_of_initial_pre_financing} /></td>
+				<td><input bind:value={structure.cumulative_annual_pre_financing} /></td>
+				<td><input bind:value={structure.pre_financing_covered_by_expenditure} /></td>
+				<td><input bind:value={structure.recovery_of_annual_pre_financing} /></td>
+				<td><input bind:value={structure.net_pre_financing} /></td>
+				<td><input bind:value={structure.cumulative_interim_payments} /></td>
+				<td><input bind:value={structure.recovery_of_expenses} /></td>
+				<td><input bind:value={structure.net_interim_payments} /></td>
+				<td><input bind:value={structure.total_net_payments} /></td>
+				<td><input bind:value={structure.eu_payment_rate} /></td>
+				<td><input bind:value={structure.eu_payment_rate_on_planned_eu_amount} /></td>
+			</tr>
+		</tbody>
+	</table>
+	<ul>
 		{#each data as dato}
-			<div class="col-md-4 mb-3">
-				<div class="card custom-card">
-					<div class="card-header">
-						<a href="/esif-payments/{dato.ms_name}/{dato.cci}">
-							<h5 class="mb-0">{dato.ms_name}</h5>
-							<!-- Nombre en negro -->
-						</a>
-					</div>
-					<div class="card-body">
-						<div class="card-info">
-							<p><strong>CCI:</strong> {dato.cci}</p>
-							<p><strong>Year:</strong> {dato.year}</p>
-						</div>
-						<div class="details-container">
-							<button class="more-info-button" on:click={() => toggleDetails(dato)}
-								>Más Información</button
-							>
-							<!-- Botón para más información -->
-							{#if showDetails && selectedData === dato}
-								<table>
-									<tbody>
-										{#each Object.entries(dato) as [key, value]}
-											<tr>
-												<td>{key}</td>
-												<td>{value}</td>
-											</tr>
-										{/each}
-									</tbody>
-								</table>
-							{/if}
-						</div>
-					</div>
-				</div>
-			</div>
+			<li>
+				<a href="/esif-payments/{dato.ms_name}">
+					{dato.ms_name}
+				</a>
+			</li>
 		{/each}
-	</div>
+	</ul>
 </div>
-<div class="container">
-	<button class="btn btn-primary" on:click={getInitialPayments}>Cargar datos</button>
-	<button class="btn btn-primary" on:click={getPayments}>Obtener todos los datos</button>
-	<button class="btn btn-success" on:click={createPayment}>Crear un nuevo dato</button>
-	<button class="btn btn-danger" on:click={deleteAllPayments}>Eliminar todos los datos</button>
+<div>
+    <button on:click={getInitialPayments}>Cargar datos</button>
+    <button on:click={getPayments}>Obtener todos los datos</button>
+    <button on:click={createPayment}>Crear un nuevo dato</button>
+    <button on:click={deleteAllPayments}>Eliminar todos los datos </button>
 </div>
-
-<style>
-
-	.custom-card {
-		background-color: #1a1a1a; /* Fondo de la tarjeta */
-		border-radius: 15px; /* Bordes redondeados */
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
-		color: #fff; /* Texto blanco */
-	}
-
-	.custom-card .card-header {
-		background-color: #000; /* Fondo del encabezado */
-		color: #fff; /* Texto blanco */
-		border-top-left-radius: 15px; /* Bordes redondeados para la esquina superior izquierda */
-		border-top-right-radius: 15px; /* Bordes redondeados para la esquina superior derecha */
-	}
-
-	.more-info-button {
-		background-color: #28a745; /* Fondo del botón "Más Información" */
-		color: #fff; /* Texto blanco */
-		border: none; /* Sin borde */
-		border-radius: 5px; /* Bordes redondeados */
-		padding: 10px 20px; /* Espaciado interno */
-		margin-top: 20px; /* Margen superior */
-	}
-
-	table {
-		width: 100%;
-	}
-
-	td {
-		padding: 5px;
-		border-bottom: 1px solid #ddd;
-	}
-</style>
