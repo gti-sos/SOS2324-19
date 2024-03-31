@@ -32,5 +32,8 @@
     "url": "https://github.com/gti-sos/SOS2324-19/issues"
   },
   "type": "module",
-  "homepage": "https://github.com/gti-sos/SOS2324-19#readme"
+  "homepage": "https://github.com/gti-sos/SOS2324-19#readme",
+  "devDependencies": {
+    "@sveltejs/adapter-node": "^5.0.1"
+  }
 }
