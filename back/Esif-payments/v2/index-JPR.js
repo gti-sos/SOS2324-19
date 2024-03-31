@@ -1,4 +1,4 @@
-const API_BASE = "/api/v1/esif-payments";
+const API_BASE = "/api/v2/esif-payments";
 let initial_data = [
     {
         ms: "IT", ms_name: "Italy", cci: "2014IT16RFOP017", title: "Toscana - ERDF", fund: "ERDF",
@@ -134,7 +134,7 @@ let structure = {
     "eu_payment_rate_on_planned_eu_amount": "number"
 };
 
-function LoadBackendJPR(app, db){
+function LoadBackendv2JPR(app, db){
     //POST petition
     app.post(API_BASE + "/", (req, res) => {
         let cci_atempt = req.body.cci;
@@ -408,4 +408,4 @@ function LoadBackendJPR(app, db){
         });
     });
 }
-export {LoadBackendJPR}
+export {LoadBackendv2JPR}

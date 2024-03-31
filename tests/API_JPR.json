@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "b98288a4-0a38-461e-b1fd-74019fc3ceab",
 		"name": "Esif-payments API-Testing",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "32953613"
 	},
 	"item": [
@@ -17,14 +17,25 @@
 							"    pm.response.to.have.status(201);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{SERVER}}/api/v1/esif-payments/loadInitialData"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/loadInitialData",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						"loadInitialData"
+					]
+				}
 			},
 			"response": []
 		},
@@ -39,14 +50,25 @@
 							"    pm.response.to.have.status(405);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{SERVER}}/api/v1/esif-payments/loadInitialData"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/loadInitialData",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						"loadInitialData"
+					]
+				}
 			},
 			"response": []
 		},
@@ -73,12 +95,22 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{SERVER}}/api/v1/esif-payments/"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						""
+					]
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "GET Uno+Busqueda",
+			"name": "GET UnoyBusqueda",
 			"event": [
 				{
 					"listen": "test",
@@ -101,12 +133,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/Interreg/?ms=TC",
+					"raw": "{{SERVER}}api/v1/esif-payments/Interreg/?ms=TC",
 					"host": [
-						"{{SERVER}}"
+						"{{SERVER}}api"
 					],
 					"path": [
-						"api",
 						"v1",
 						"esif-payments",
 						"Interreg",
@@ -145,12 +176,22 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{SERVER}}/api/v1/esif-payments/Interreg"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/Interreg",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						"Interreg"
+					]
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "GET Limit+offset",
+			"name": "GET Limityoffset",
 			"event": [
 				{
 					"listen": "test",
@@ -173,12 +214,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/esif-payments/Interreg/?limit=2&&offset=2",
+					"raw": "{{SERVER}}api/v1/esif-payments/Interreg/?limit=2&&offset=2",
 					"host": [
-						"{{SERVER}}"
+						"{{SERVER}}api"
 					],
 					"path": [
-						"api",
 						"v1",
 						"esif-payments",
 						"Interreg",
@@ -225,7 +265,18 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{SERVER}}/api/v1/esif-payments/Poland/2014PL16M2OP008"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/Poland/2014PL16M2OP008",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						"Poland",
+						"2014PL16M2OP008"
+					]
+				}
 			},
 			"response": []
 		},
@@ -240,14 +291,25 @@
 							"    pm.response.to.have.status(404);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{SERVER}}/api/v1/esif-payments/England"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/England",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						"England"
+					]
+				}
 			},
 			"response": []
 		},
@@ -270,7 +332,18 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{SERVER}}/api/v1/esif-payments/Poland/2014PL16M2OP"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/Poland/2014PL16M2OP",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						"Poland",
+						"2014PL16M2OP"
+					]
+				}
 			},
 			"response": []
 		},
@@ -285,7 +358,8 @@
 							"    pm.response.to.have.status(201);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -301,7 +375,17 @@
 						}
 					}
 				},
-				"url": "{{SERVER}}/api/v1/esif-payments/"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						""
+					]
+				}
 			},
 			"response": []
 		},
@@ -316,7 +400,8 @@
 							"    pm.response.to.have.status(409);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -332,7 +417,17 @@
 						}
 					}
 				},
-				"url": "{{SERVER}}/api/v1/esif-payments/"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						""
+					]
+				}
 			},
 			"response": []
 		},
@@ -347,7 +442,8 @@
 							"    pm.response.to.have.status(400);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -363,7 +459,17 @@
 						}
 					}
 				},
-				"url": "{{SERVER}}/api/v1/esif-payments/"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						""
+					]
+				}
 			},
 			"response": []
 		},
@@ -378,7 +484,8 @@
 							"    pm.response.to.have.status(405);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -394,7 +501,17 @@
 						}
 					}
 				},
-				"url": "{{SERVER}}/api/v1/esif-payments/Interreg"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/Interreg",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						"Interreg"
+					]
+				}
 			},
 			"response": []
 		},
@@ -409,7 +526,8 @@
 							"    pm.response.to.have.status(405);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -425,7 +543,17 @@
 						}
 					}
 				},
-				"url": "{{SERVER}}/api/v1/esif-payments/"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						""
+					]
+				}
 			},
 			"response": []
 		},
@@ -457,7 +585,18 @@
 						}
 					}
 				},
-				"url": "{{SERVER}}/api/v1/esif-payments/Poland/2014PL16M2OP008"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/Poland/2014PL16M2OP008",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						"Poland",
+						"2014PL16M2OP008"
+					]
+				}
 			},
 			"response": []
 		},
@@ -472,7 +611,8 @@
 							"    pm.response.to.have.status(404);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -488,7 +628,17 @@
 						}
 					}
 				},
-				"url": "{{SERVER}}/api/v1/esif-payments/England"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/England",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						"England"
+					]
+				}
 			},
 			"response": []
 		},
@@ -520,7 +670,17 @@
 						}
 					}
 				},
-				"url": "{{SERVER}}/api/v1/esif-payments/Interreg"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/Interreg",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						"Interreg"
+					]
+				}
 			},
 			"response": []
 		},
@@ -552,7 +712,18 @@
 						}
 					}
 				},
-				"url": "{{SERVER}}/api/v1/esif-payments/Interreg/2014PL16M2OP008"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/Interreg/2014PL16M2OP008",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						"Interreg",
+						"2014PL16M2OP008"
+					]
+				}
 			},
 			"response": []
 		},
@@ -567,7 +738,8 @@
 							"    pm.response.to.have.status(400);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -583,7 +755,17 @@
 						}
 					}
 				},
-				"url": "{{SERVER}}/api/v1/esif-payments/Interreg"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/Interreg",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						"Interreg"
+					]
+				}
 			},
 			"response": []
 		},
@@ -598,14 +780,25 @@
 							"    pm.response.to.have.status(404);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "{{SERVER}}/api/v1/esif-payments/England"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/England",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						"England"
+					]
+				}
 			},
 			"response": []
 		},
@@ -620,7 +813,8 @@
 							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -636,7 +830,17 @@
 						}
 					}
 				},
-				"url": "{{SERVER}}/api/v1/esif-payments/Interreg"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/Interreg",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						"Interreg"
+					]
+				}
 			},
 			"response": []
 		},
@@ -668,7 +872,18 @@
 						}
 					}
 				},
-				"url": "{{SERVER}}/api/v1/esif-payments/Poland/2014PL16M2OP0"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/Poland/2014PL16M2OP0",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						"Poland",
+						"2014PL16M2OP0"
+					]
+				}
 			},
 			"response": []
 		},
@@ -700,7 +915,18 @@
 						}
 					}
 				},
-				"url": "{{SERVER}}/api/v1/esif-payments/Poland/2014PL16M2OP008"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/Poland/2014PL16M2OP008",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						"Poland",
+						"2014PL16M2OP008"
+					]
+				}
 			},
 			"response": []
 		},
@@ -715,14 +941,25 @@
 							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "{{SERVER}}/api/v1/esif-payments/"
+				"url": {
+					"raw": "{{SERVER}}api/v1/esif-payments/",
+					"host": [
+						"{{SERVER}}api"
+					],
+					"path": [
+						"v1",
+						"esif-payments",
+						""
+					]
+				}
 			},
 			"response": []
 		}

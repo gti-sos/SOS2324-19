@@ -25,26 +25,29 @@ app.use(bodyParser.json());
 
 
 //ALBERTO FRAILE
-import {LoadBackendAFI} from "./backed/Policy-program-stats/v1/index-AFI.js";
+import {LoadBackendAFI} from "./back/Policy-program-stats/v1/index-AFI.js";
 LoadBackendAFI(app,db_AFI);
 
-import {LoadBackendAFI2} from "./backed/Policy-program-stats/v2/index-AFI.js";
+import {LoadBackendAFI2} from "./back/Policy-program-stats/v2/index-AFI.js";
 LoadBackendAFI2(app,db_AFI2);
 
 //PEDRO HEREDIA
-import {LoadBackendPHT} from "./backed/Eu-payment-info/v1/index-PHT.js";
+import {LoadBackendPHT} from "./back/Eu-payment-info/v1/index-PHT.js";
 LoadBackendPHT(app,db_PHT);
 
-import {LoadBackendPHT2} from "./backed/Eu-payment-info/v2/index-PHT.js";
+import {LoadBackendPHT2} from "./back/Eu-payment-info/v2/index-PHT.js";
 LoadBackendPHT2(app,db_PHT2);
 
 //RAUL SEQUERA
-import {LoadBackendRSG} from "./backed/index-RSG.js";
-LoadBackendRSG(app,db_RSG);
+//import {LoadBackendRSG} from "./back/index-RSG.js";
+//LoadBackendRSG(app,db_RSG);
 
 //JOSE MANUEL PEÑA
-import {LoadBackendJPR} from "./backed/index-JPR.js";
-LoadBackendJPR(app,db_JPR);
+import {LoadBackendv1JPR} from "./back/Esif-payments/v1/index-JPR.js";
+LoadBackendv1JPR(app,db_JPR);
+
+import {LoadBackendv2JPR} from "./back/Esif-payments/v2/index-JPR.js";
+LoadBackendv2JPR(app,db_JPR);
 
 app.use(handler);
 
