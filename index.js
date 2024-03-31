@@ -16,9 +16,9 @@ const PORT = (process.env.PORT || 10000);
 
 import {handler} from "./front/build/handler.js";
 
-//import cors from "cors";
+import cors from "cors";
 
-//app.use(cors());
+app.use(cors());
 
 app.listen(PORT);
 app.use(bodyParser.json());
