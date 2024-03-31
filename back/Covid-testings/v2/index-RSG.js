@@ -295,4 +295,5 @@ function LoadBackendRSGv2(app, db_RSG) {
 
 
     }
-    export { LoadBackendRSGv2 }
+}
+export { LoadBackendRSGv2 }

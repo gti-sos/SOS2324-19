@@ -1,32 +1,29 @@
 const API_BASE = '/api/v1/covid-testings';
 
 var datos = [];
-<<<<<<< HEAD
-function LoadBackendRSGv1(app, db_RSG){
-=======
+function LoadBackendRSGv1(app, db_RSG) {
 
-let datos1 =
-            [
-                { country: 'Sweden', country_code: 'SE', year_week: '2023-W39', level: 'national', region: 'SE', region_name: 'Sweden', new_cases: 595, tests_done: 4717, population: 10452326, testing_rate: 45.12871106392969, positivity_rate: 12.613949544201823, testing_data_source: 'TESSy COVID-19' },
-                { country: 'Sweden', country_code: 'SE', year_week: '2020-W46', level: 'national', region: 'SE', region_name: 'Sweden', new_cases: 31319, tests_done: 248350, population: 10452326, testing_rate: 2376.0261591534745, positivity_rate: 12.61083148781961, testing_data_source: 'TESSy COVID-19' },
-                { country: 'Sweden', country_code: 'SE', year_week: '2021-W02', level: 'national', region: 'SE', region_name: 'Sweden', new_cases: 28935, tests_done: 199075, population: 10452326, testing_rate: 1904.5999904710204, positivity_rate: 14.53472309431119, testing_data_source: 'TESSy COVID-19' },
-                { country: 'Austria', country_code: 'AT', year_week: '2020-W45', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 44772, tests_done: 199567, population: 8978929, testing_rate: 2222.6147461462274, positivity_rate: 22.434570845881332, testing_data_source: 'TESSy COVID-19' },
-                { country: 'Austria', country_code: 'AT', year_week: '2020-W46', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 47837, tests_done: 215044, population: 8978929, testing_rate: 2394.9849698109874, positivity_rate: 22.245214932757946, testing_data_source: 'TESSy COVID-19' },
-                { country: 'Austria', country_code: 'AT', year_week: '2020-W47', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 40699, tests_done: 207745, population: 8978929, testing_rate: 2313.6946511103943, positivity_rate: 19.590844544995065, testing_data_source: 'TESSy COVID-19' },
-                { country: 'Spain', country_code: 'ES', year_week: '2022-W39', level: 'national', region: 'ES', region_name: 'Spain', new_cases: 17740, tests_done: 147653, population: 47432893, testing_rate: 311.2882024716477, positivity_rate: 12.014655983962399, testing_data_source: 'TESSy COVID-19' },
-                { country: 'Spain', country_code: 'ES', year_week: '2022-W45', level: 'national', region: 'ES', region_name: 'Spain', new_cases: 20387, tests_done: 153294, population: 47432893, testing_rate: 323.1807935476337, positivity_rate: 13.299281119939463, testing_data_source: 'TESSy COVID-19' },
-                { country: 'Slovenia', country_code: 'SI', year_week: '2021-W15', level: 'national', region: 'SI', region_name: 'Slovenia', new_cases: 5523, tests_done: 197068, population: 2107180, testing_rate: 9352.214808416937, positivity_rate: 2.802585909432277, testing_data_source: 'TESSy COVID-19' },
-                { country: 'Slovenia', country_code: 'SI', year_week: '2021-W17', level: 'national', region: 'SI', region_name: 'Slovenia', new_cases: 4680, tests_done: 178232, population: 2107180, testing_rate: 8458.318700822902, positivity_rate: 2.62579110372997, testing_data_source: 'TESSy COVID-19' },
-                { country: 'Norway', country_code: 'NO', year_week: '2021-W45', level: 'national', region: 'NO', region_name: 'Norway', new_cases: 11822, tests_done: 144861, population: 5425270, testing_rate: 2670.115957362491, positivity_rate: 8.160926681439449, testing_data_source: 'TESSy COVID-19' },
-                { country: 'Norway', country_code: 'NO', year_week: '2022-W01', level: 'national', region: 'NO', region_name: 'Norway', new_cases: 46620, tests_done: 298912, population: 5425270, testing_rate: 5509.624405789942, positivity_rate: 15.59656353709453, testing_data_source: 'TESSy COVID-19' }
-            
-            ];
+    let datos1 =
+        [
+            { country: 'Sweden', country_code: 'SE', year_week: '2023-W39', level: 'national', region: 'SE', region_name: 'Sweden', new_cases: 595, tests_done: 4717, population: 10452326, testing_rate: 45.12871106392969, positivity_rate: 12.613949544201823, testing_data_source: 'TESSy COVID-19' },
+            { country: 'Sweden', country_code: 'SE', year_week: '2020-W46', level: 'national', region: 'SE', region_name: 'Sweden', new_cases: 31319, tests_done: 248350, population: 10452326, testing_rate: 2376.0261591534745, positivity_rate: 12.61083148781961, testing_data_source: 'TESSy COVID-19' },
+            { country: 'Sweden', country_code: 'SE', year_week: '2021-W02', level: 'national', region: 'SE', region_name: 'Sweden', new_cases: 28935, tests_done: 199075, population: 10452326, testing_rate: 1904.5999904710204, positivity_rate: 14.53472309431119, testing_data_source: 'TESSy COVID-19' },
+            { country: 'Austria', country_code: 'AT', year_week: '2020-W45', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 44772, tests_done: 199567, population: 8978929, testing_rate: 2222.6147461462274, positivity_rate: 22.434570845881332, testing_data_source: 'TESSy COVID-19' },
+            { country: 'Austria', country_code: 'AT', year_week: '2020-W46', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 47837, tests_done: 215044, population: 8978929, testing_rate: 2394.9849698109874, positivity_rate: 22.245214932757946, testing_data_source: 'TESSy COVID-19' },
+            { country: 'Austria', country_code: 'AT', year_week: '2020-W47', level: 'national', region: 'AT', region_name: 'Austria', new_cases: 40699, tests_done: 207745, population: 8978929, testing_rate: 2313.6946511103943, positivity_rate: 19.590844544995065, testing_data_source: 'TESSy COVID-19' },
+            { country: 'Spain', country_code: 'ES', year_week: '2022-W39', level: 'national', region: 'ES', region_name: 'Spain', new_cases: 17740, tests_done: 147653, population: 47432893, testing_rate: 311.2882024716477, positivity_rate: 12.014655983962399, testing_data_source: 'TESSy COVID-19' },
+            { country: 'Spain', country_code: 'ES', year_week: '2022-W45', level: 'national', region: 'ES', region_name: 'Spain', new_cases: 20387, tests_done: 153294, population: 47432893, testing_rate: 323.1807935476337, positivity_rate: 13.299281119939463, testing_data_source: 'TESSy COVID-19' },
+            { country: 'Slovenia', country_code: 'SI', year_week: '2021-W15', level: 'national', region: 'SI', region_name: 'Slovenia', new_cases: 5523, tests_done: 197068, population: 2107180, testing_rate: 9352.214808416937, positivity_rate: 2.802585909432277, testing_data_source: 'TESSy COVID-19' },
+            { country: 'Slovenia', country_code: 'SI', year_week: '2021-W17', level: 'national', region: 'SI', region_name: 'Slovenia', new_cases: 4680, tests_done: 178232, population: 2107180, testing_rate: 8458.318700822902, positivity_rate: 2.62579110372997, testing_data_source: 'TESSy COVID-19' },
+            { country: 'Norway', country_code: 'NO', year_week: '2021-W45', level: 'national', region: 'NO', region_name: 'Norway', new_cases: 11822, tests_done: 144861, population: 5425270, testing_rate: 2670.115957362491, positivity_rate: 8.160926681439449, testing_data_source: 'TESSy COVID-19' },
+            { country: 'Norway', country_code: 'NO', year_week: '2022-W01', level: 'national', region: 'NO', region_name: 'Norway', new_cases: 46620, tests_done: 298912, population: 5425270, testing_rate: 5509.624405789942, positivity_rate: 15.59656353709453, testing_data_source: 'TESSy COVID-19' }
 
-function LoadBackendRSGv1(app, db_RSG){
+        ];
+
+    function LoadBackendRSGv1(app, db_RSG) {
         //carga los datos al iniciarlo
         db_RSG.insert(datos1);
 
->>>>>>> refs/remotes/origin/main
         //POSTMAN
         app.get(API_BASE + "/docs", (req, res) => {
             console.log("Redirecting to POSTMAN documentation");
@@ -35,22 +32,22 @@ function LoadBackendRSGv1(app, db_RSG){
         //POST1
         app.post(API_BASE + "/", (req, res) => {
             let newdata = req.body;
-            const ccc=req.body.positivity_rate;
-            const Fields = ["country","country_code","year_week","level","region","region_name","new_cases","tests_done","population","testing_rate","positivity_rate","testing_data_source"];
+            const ccc = req.body.positivity_rate;
+            const Fields = ["country", "country_code", "year_week", "level", "region", "region_name", "new_cases", "tests_done", "population", "testing_rate", "positivity_rate", "testing_data_source"];
             const recFields = Object.keys(newdata);
-            const isvalid=Fields.every(f=>recFields.includes(f));
+            const isvalid = Fields.every(f => recFields.includes(f));
             if (!isvalid) {
                 return res.sendStatus(400, "Bad request");
-            }else{
-                db_RSG.find({positivity_rate: ccc}, (error,existdata)=>{
-                    if(error){
+            } else {
+                db_RSG.find({ positivity_rate: ccc }, (error, existdata) => {
+                    if (error) {
                         res.sendStatus(500, "Internal Error");
-                    }else{
-                        if(existdata.length>0){
+                    } else {
+                        if (existdata.length > 0) {
                             res.sendStatus(409, "Conflict");
-                        }else{
+                        } else {
                             db_RSG.insert(newdata);
-                             res.sendStatus(201, "Created");  
+                            res.sendStatus(201, "Created");
                         }
                     }
                 });
@@ -62,7 +59,7 @@ function LoadBackendRSGv1(app, db_RSG){
             const offset = parseInt(req.query.offset) || 0;
             const params = req.query;
             let query = {};
-        
+
             Object.keys(params).forEach(key => {
                 if (key !== 'limit' && key !== 'offset') {
                     let value = req.query[key];
@@ -79,7 +76,7 @@ function LoadBackendRSGv1(app, db_RSG){
                     query[key] = value;
                 }
             });
-        
+
             db_RSG.find(query).skip(offset).limit(limit).exec((error, data) => {
                 if (error) {
                     res.sendStatus(500, "Internal Error");
@@ -101,7 +98,7 @@ function LoadBackendRSGv1(app, db_RSG){
                 }
             });
         });
-        
+
         //PUT1
         app.put(API_BASE + "/", (req, res) => {
             //Si se intenta usar alguno de los métodos no permitidos se debe devolver el código 405
@@ -111,36 +108,36 @@ function LoadBackendRSGv1(app, db_RSG){
         //DELETE1
         app.delete(API_BASE + "/", (req, res) => {
             //Borrar todos los datos
-            db_RSG.remove({},{multi: true},(error,nremov)=>{
-                if(error){
+            db_RSG.remove({}, { multi: true }, (error, nremov) => {
+                if (error) {
                     res.sendStatus(500, "Internal Error"); // Error interno del servidoR
-                }else{
-                    if(nremov>0){
-                        res.sendStatus(200,"OK");
-                    }else{
+                } else {
+                    if (nremov > 0) {
+                        res.sendStatus(200, "OK");
+                    } else {
                         res.sendStatus(400, "Not Found");
                     }
                 }
             });
         });
-    
+
         app.get(API_BASE + "/loadInitialData", (req, res) => {
-              
-            db_RSG.count({}, (error,count) =>{
-                if(error) {
-                    es.sendStatus(500,"Internal error");
-                }else{
-                    if(count === 0){
-                        db_RSG.insert(datos1,(error,doc)=>{
-                            if(error) {
-                                res.sendStatus(500,"Internal error");
-                            }else{
-                                res.sendStatus(201,"Created"); 
+
+            db_RSG.count({}, (error, count) => {
+                if (error) {
+                    es.sendStatus(500, "Internal error");
+                } else {
+                    if (count === 0) {
+                        db_RSG.insert(datos1, (error, doc) => {
+                            if (error) {
+                                res.sendStatus(500, "Internal error");
+                            } else {
+                                res.sendStatus(201, "Created");
                             }
                         });
                     }
                     else {
-                        res.sendStatus(200,"OK"); 
+                        res.sendStatus(200, "OK");
                     }
                 }
             });
@@ -148,7 +145,7 @@ function LoadBackendRSGv1(app, db_RSG){
         //POST22
         app.post(API_BASE + "/:country/:year_week", (req, res) => {
             const pais = req.params.country;
-            const year_week =req.params.year_week;
+            const year_week = req.params.year_week;
             let data = req.body;
             res.sendStatus(405, "Method Not Allowed");
         });
@@ -161,11 +158,11 @@ function LoadBackendRSGv1(app, db_RSG){
         //GET22
         app.get(API_BASE + "/:country/:year_week", (req, res) => {
             const pais = req.params.country;
-            const ano_sem =req.params.year_week;
-            db_RSG.find({country: pais, year_week:ano_sem}, (error,countrydata)=>{
+            const ano_sem = req.params.year_week;
+            db_RSG.find({ country: pais, year_week: ano_sem }, (error, countrydata) => {
                 if (error) {
                     res.sendStatus(500, "Internal Server Error");
-                }else{
+                } else {
                     if (countrydata.length > 0) {
                         if (countrydata.length === 1) {
                             let c = countrydata[0];
@@ -180,16 +177,16 @@ function LoadBackendRSGv1(app, db_RSG){
                     } else {
                         res.sendStatus(404, "Not Found");
                     }
-                }                    
+                }
             });
         });
         //GET2
         app.get(API_BASE + "/:country", (req, res) => {
             const pais = req.params.country;
-            db_RSG.find({country: pais}, (error,countrydata)=>{
+            db_RSG.find({ country: pais }, (error, countrydata) => {
                 if (error) {
                     res.sendStatus(500, "Internal Server Error");
-                }else{
+                } else {
                     if (countrydata.length > 0) {
                         if (countrydata.length === 1) {
                             let c = countrydata[0];
@@ -210,92 +207,92 @@ function LoadBackendRSGv1(app, db_RSG){
         //PUT22
         app.put(API_BASE + "/:country/:year_week", (req, res) => {
             const pais = req.params.country;
-            const ano_sem =req.params.year_week;
+            const ano_sem = req.params.year_week;
             let data = req.body;
-            const Fields = ["country","country_code","year_week","level","region","region_name","new_cases","tests_done","population","testing_rate","positivity_rate","testing_data_source"];
+            const Fields = ["country", "country_code", "year_week", "level", "region", "region_name", "new_cases", "tests_done", "population", "testing_rate", "positivity_rate", "testing_data_source"];
             const isValidStructure = Fields.every(key => Object.prototype.hasOwnProperty.call(data, key));
 
-            if (!isValidStructure||Object.keys(data).length !== Fields.length) {
-                    res.sendStatus(400, "Bad Request");
-                    
-                } 
-                db_RSG.findOne({ country: pais, year_week: ano_sem }, (err, existingData) => {
-                    if (err) {
-                        return res.status(500).send("Internal Server Error");
+            if (!isValidStructure || Object.keys(data).length !== Fields.length) {
+                res.sendStatus(400, "Bad Request");
+
+            }
+            db_RSG.findOne({ country: pais, year_week: ano_sem }, (err, existingData) => {
+                if (err) {
+                    return res.status(500).send("Internal Server Error");
+                } else {
+                    if (!existingData) {
+                        return res.status(404).send("Not Found");
                     } else {
-                        if (!existingData) {
-                            return res.status(404).send("Not Found");
-                        }else{
-                            db_RSG.update({country: pais, year_week: ano_sem}, data, {}, (error)=>{
-                                if(error){
-                                    res.sendStatus(500, "Internal Server Error");
-                                }else{
-                                    res.sendStatus(200, "Ok");
-                                }
-                            });
-                        }
+                        db_RSG.update({ country: pais, year_week: ano_sem }, data, {}, (error) => {
+                            if (error) {
+                                res.sendStatus(500, "Internal Server Error");
+                            } else {
+                                res.sendStatus(200, "Ok");
+                            }
+                        });
                     }
-                });
-            
+                }
+            });
+
         });
         //PUT2
         app.put(API_BASE + "/:country", (req, res) => {
             const pais = req.params.country;
             let data = req.body;
-            const Fields = ["country","country_code","year_week","level","region","region_name","new_cases","tests_done","population","testing_rate","positivity_rate","testing_data_source"];
-            if (!data||Object.keys(data).length === 0 || data.country !== pais) {
-                    res.sendStatus(400, "Bad Request");
-                    
-                } else {
-                    db_RSG.update({country: pais}, data, {}, (error)=>{
-                        if(error){
-                            res.sendStatus(500, "Internal Server Error");
-                        }else{
-                            res.sendStatus(200, "Ok");
-                        }
-                    });
-                }
-            
+            const Fields = ["country", "country_code", "year_week", "level", "region", "region_name", "new_cases", "tests_done", "population", "testing_rate", "positivity_rate", "testing_data_source"];
+            if (!data || Object.keys(data).length === 0 || data.country !== pais) {
+                res.sendStatus(400, "Bad Request");
+
+            } else {
+                db_RSG.update({ country: pais }, data, {}, (error) => {
+                    if (error) {
+                        res.sendStatus(500, "Internal Server Error");
+                    } else {
+                        res.sendStatus(200, "Ok");
+                    }
+                });
+            }
+
         });
         //DELETE22
         app.delete(API_BASE + "/:country/:year_week", (req, res) => {
             const pais = req.params.country;
-            const ano_sem =req.params.year_week;
-            db_RSG.remove({country: pais, year_week:ano_sem}, {multi: true}, (error, numremov)=>{
-                if(error){
+            const ano_sem = req.params.year_week;
+            db_RSG.remove({ country: pais, year_week: ano_sem }, { multi: true }, (error, numremov) => {
+                if (error) {
                     res.sendStatus(500, "Internal Server Error");
-                }else{
-                    if(numremov>0){
+                } else {
+                    if (numremov > 0) {
                         //eliminar los datos del filtro espedificado
                         res.sendStatus(200, "Ok");
-                    }else{
+                    } else {
                         //Si se intenta acceder a un recurso 
-                    //inexistente se debe devolver el código 404
+                        //inexistente se debe devolver el código 404
                         res.sendStatus(404, "Not Found");
                     }
                 }
             });
         });
-    
+
         //DELETE2
         app.delete(API_BASE + "/:country", (req, res) => {
             const pais = req.params.country;
-            db_RSG.remove({country: pais}, {multi: true}, (error, numremov)=>{
-                if(error){
+            db_RSG.remove({ country: pais }, { multi: true }, (error, numremov) => {
+                if (error) {
                     res.sendStatus(500, "Internal Server Error");
-                }else{
-                    if(numremov>0){
+                } else {
+                    if (numremov > 0) {
                         //eliminar los datos del filtro espedificado
                         res.sendStatus(200, "Ok");
-                    }else{
+                    } else {
                         //Si se intenta acceder a un recurso 
-                    //inexistente se debe devolver el código 404
+                        //inexistente se debe devolver el código 404
                         res.sendStatus(404, "Not Found");
                     }
                 }
             });
         });
-    
-    
+
+    }
 }
-export {LoadBackendRSGv1}
+export { LoadBackendRSGv1 }
