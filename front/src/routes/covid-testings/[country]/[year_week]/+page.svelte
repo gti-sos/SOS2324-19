@@ -50,7 +50,7 @@
                 body: JSON.stringify(toEdit)
             });
             if (response.ok) {
-                console.log('Testing edited ok');
+                console.log('Testing editado correctamente');
                 await loadTesting();
             } else {
                 errorMsg = 'Error: ' + response.statusText;
@@ -61,18 +61,23 @@
     }
 </script>
 
+
+
 <div class="container mx-auto mt-5" style="width: 60%;">
-    <h2 class="title">Data of {country} - {year_week}</h2>
-    <p>Country Code: {toEdit.country_code}</p>
+    <h2 class="title">Datos de {country} - {year_week}</h2>
+    <p>Country Code: <input type="text" bind:value="{toEdit.country_code}" /></p>
+    <p>Level: <input type="text" bind:value="{toEdit.level}" /></p>
+    <p>Region: <input type="text" bind:value="{toEdit.region}" /></p>
+    <p>Region Name: <input type="text" bind:value="{toEdit.region_name}" /></p>
     <p>New Cases: <input type="number" bind:value="{toEdit.new_cases}" /></p>
     <p>Tests Done: <input type="number" bind:value="{toEdit.tests_done}" /></p>
     <p>Population: <input type="number" bind:value="{toEdit.population}" /></p>
-    <p>Testing Rate: <input type="number" step="0.001" bind:value="{toEdit.testing_rate}" /></p>
-    <p>Positivity Rate: <input type="number" step="0.001" bind:value="{toEdit.positivity_rate}" /></p>
+    <p>Testing Rate: <input type="number" bind:value="{toEdit.testing_rate}" /></p>
+    <p>Positivity Rate: <input type="number" bind:value="{toEdit.positivity_rate}" /></p>
     <p>Testing Data Source: <input type="text" bind:value="{toEdit.testing_data_source}" /></p>
 
     <div class="button-center">
-        <button on:click={editTesting} class="btn btn-primary">Save</button>
+        <button on:click={editTesting} class="btn btn-primary">Guardar</button>
     </div>
 
     {#if errorMsg}
