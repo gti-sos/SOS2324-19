@@ -34,6 +34,8 @@
   "type": "module",
   "homepage": "https://github.com/gti-sos/SOS2324-19#readme",
   "devDependencies": {
-    "@sveltejs/adapter-node": "^5.0.1"
+    "@playwright/test": "^1.42.1",
+    "@sveltejs/adapter-node": "^5.0.1",
+    "@types/node": "^20.12.2"
   }
 }
