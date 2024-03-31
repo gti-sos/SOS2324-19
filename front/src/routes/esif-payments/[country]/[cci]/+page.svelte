@@ -62,10 +62,12 @@
         });
         if (response.status === 200) {
 			newData = JSON.stringify(structure)
-            getPayment()
 			message = 'Se han actualizado los datos correctamente';
 			err = '';
-		} else if (response.status === 400) {
+        }else if (response.status === 404) {
+			message = '';
+			err = 'No se ha encontrado el dato';} 
+        else if (response.status === 400) {
 			message = '';
 			err = 'Los datos no son correctos';
 		} else if (response.status === 409) {
@@ -75,6 +77,7 @@
 			message = '';
 			err = 'Ha ocurrido un error en el servidor';
 		}
+        getPayment()
     }
 </script>
 
