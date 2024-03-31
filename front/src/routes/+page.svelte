@@ -56,11 +56,13 @@
                     <ul>
                         <li>policy-program-stats: <a href="https://sos2324-19.appspot.com/api/v1/policy-program-stats/">API-AFI</a> (developed by Alberto Fraile Infantes)</li>
                         <li>eu-payment-info: <a href="https://sos2324-19.appspot.com/api/v1/eu-payment-info/">API-PHT</a> (developed by Pedro Heredia Torres)</li>
+                        <li>esif-payments: <a href="https://sos2324-19.appspot.com/api/v1/esif-payments/">API-JPR</a> (developed by Jose Manuel Peña Ramírez)</li>
                     </ul>
                 <p>V2:</p>
                     <ul>
                         <li>policy-program-stats: <a href="https://sos2324-19.appspot.com/api/v2/policy-program-stats/">API-AFI</a> (developed by Alberto Fraile Infantes)</li>
                         <li>eu-payment-info: <a href="https://sos2324-19.appspot.com/api/v2/eu-payment-info/">API-PHT</a> (developed by Pedro Heredia Torres)</li>
+                        <li>esif-payments: <a href="https://sos2324-19.appspot.com/api/v2/esif-payments/">API-JPR</a> (developed by Jose Manuel Peña Ramírez)</li>
                     </ul>
             <p>Postman:</p>
                 <p>V1:</p>
@@ -74,12 +76,14 @@
                     <ul>
                         <li>policy-program-stats: <a href="https://sos2324-19.appspot.com/api/v2/policy-program-stats/docs">Postman-AFI</a> (developed by Alberto Fraile Infantes)</li>
                         <li>eu-payment-info: <a href="https://sos2324-19.appspot.com/api/v2/eu-payment-info/docs">Postman-PHT</a> (developed by Pedro Heredia Torres)</li>
+                        <li>esif-payments: <a href="https://sos2324-19.appspot.com/api/v2/esif-payments/docs">Postman-JPR</a> (developed by Jose Manuel Peña Ramírez)</li>
 
                     </ul>
             <p>Frontends:</p>
                 <ul>
                     <li>policy-program-stats: <a href="https://sos2324-19.appspot.com/policy-program-stats">FRONTEND-AFI</a> (developed by Alberto Fraile Infantes)</li>
-                    <li>eu-payment-info: <a href="https://sos2324-19.appspot.com/eu-payment-info">FRONTEND-PHT</a> (developed by Pedro Heredia Torres)</li>
+                    <li>eu-payment-info: <a href="https://sos2324-19.appspot.com/eu-payment-info">FRONTEND-PHT</a> (developed by Pedro Heredia Torres)</li>ç
+                    <li>esif-payments: <a href="https://sos2324-19.appspot.com/esif-payments">API-JPR</a> (developed by Jose Manuel Peña Ramírez)</li>
 
                 </ul>
         </div>
