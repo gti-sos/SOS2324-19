@@ -177,24 +177,6 @@
         }
         
     }
-    // async function getStatsTotal() {
-	// 	try {
-	// 		let response = await fetch(API, {
-	// 			method: 'GET',
-	// 			headers: {
-	// 				'Cache-Control': 'no-cache',
-	// 				Pragma: 'no-cache'
-	// 			}
-	// 		});
-	// 		let data = await response.json();
-	// 		totalDatos = data.length;
-	// 		console.log("datos totales: "+totalDatos);
-	// 		totalPages =totalDatos/10;
-	// 		console.log("Total páginas: "+totalPages);
-	// 	} catch (e) {
-	// 		errorMsg = e;
-	// 	}
-	// }
     async function getStats() {
         try {
             let response = await fetch(API,{
@@ -208,6 +190,9 @@
                 errorMsg = "";
             } else {
                 if(response.status == 404){
+                    let data = await response.json();
+                    stats = data;
+                    console.log(data);
                     errorMsg = "No hay datos en la base de datos";
                 } else {
                     errorMsg = `Error ${response.status}: ${response.statusText}`;
