@@ -7,7 +7,10 @@
     let country = $page.params.ms_name;
     let year = $page.params.year;
     let errorMsg = '';
-    
+    let newData=[];
+    let data = [];
+    let message = '';
+    let err = '';
     let countryData = {
         ms: '',
         ms_name: '',
@@ -29,11 +32,31 @@
         eu_payment_rate_init_plan_eu_amt: 0,
         eu_payment_rate_actual_plan_eu_amt: 0
     };
-
+    let structure={
+        ms: 'DE',
+        ms_name: 'Germany',
+        cci: '2024DE987654321',
+        title: 'Bavaria - Innovation and Entrepreneurship',
+        fund: 'EAFRD',
+        category_of_region: 'More developed',
+        year: 2024,
+        init_plan_eu_amt_1_adoption: 55000000,
+        transfers: 0,
+        actual_plan_eu_amt_latest_adop: 55000000,
+        pre_fin: 1375000,
+        recovery_of_pre_financing: 0,
+        net_pre_financing: 1375000,
+        interim_payments: 6500000,
+        recovery_of_expenses: 0,
+        net_interim_payments: 6500000,
+        total_net_payments: 7875000,
+        eu_payment_rate_init_plan_eu_amt: 0.025,
+        eu_payment_rate_actual_plan_eu_amt: 0.025
+    };
     
 
-    onMount(async () => {
-        await loadCountry();
+    onMount( () => {
+         loadCountry();
     });
 
     async function loadCountry() {
@@ -51,25 +74,32 @@
         }
     }
 
-    async function updateCountry() {
-        console.log(country+year);
-        try {
-            let response = await fetch(`${API}/${country}/${year}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(countryData)
-            });
-            if (response.ok) {
-                console.log('Country data updated successfully');
-                await loadCountry();
-            } else {
-                errorMsg = 'Error: ' + response.statusText;
-            }
-        } catch (error) {
-            errorMsg = 'Error: ' + error;
-        }
+    async function putPayment() {
+        let response = await fetch(API + '/' + country + '/' + year, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(countryData)
+        });
+        if (response.status === 200) {
+			newData = JSON.stringify(countryData)
+			message = 'Se han actualizado los datos correctamente';
+			err = '';
+        }else if (response.status === 404) {
+			message = '';
+			err = 'No se ha encontrado el dato';} 
+        else if (response.status === 400) {
+			message = '';
+			err = 'Los datos no son correctos';
+		} else if (response.status === 409) {
+			message = '';
+			err = 'Ya existe ese dato';
+		} else {
+			message = '';
+			err = 'Ha ocurrido un error en el servidor';
+		}
+        loadCountry()
     }
 
     console.log(country+year);
@@ -77,27 +107,26 @@
 
 <h1>Payments details of {country}</h1>
 
-<div class="container mx-auto mt-5" style="width: 60%;">
-    <h2 class="title">Data of {country} - {year}</h2>
-    console.log(country+year);
-    <p>MS: <input type="text" bind:value="{countryData.ms}" /></p>
-    <p>MS Name: <input type="text" bind:value="{countryData.ms_name}" /></p>
-    <p>CCI: <input type="text" bind:value="{countryData.cci}" /></p>
-    <p>Title: <input type="text" bind:value="{countryData.title}" /></p>
-    <p>Fund: <input type="text" bind:value="{countryData.fund}" /></p>
-    <p>Category of Region: <input type="text" bind:value="{countryData.category_of_region}" /></p>
-    <p>Year: <input type="number" bind:value="{countryData.year}" /></p>
-    <p>Initial Plan EU Amount 1 Adoption: <input type="number" bind:value="{countryData.init_plan_eu_amt_1_adoption}" /></p>
-    <p>Transfers: <input type="number" bind:value="{countryData.transfers}" /></p>
-    <p>Actual Plan EU Amount Latest Adoption: <input type="number" bind:value="{countryData.actual_plan_eu_amt_latest_adop}" /></p>
-    <p>Pre-Fin: <input type="number" bind:value="{countryData.pre_fin}" /></p>
-    <p>Recovery of Pre-Financing: <input type="number" bind:value="{countryData.recovery_of_pre_financing}" /></p>
-    
-    <div class="button-center">
-        <button on:click={updateCountry} class="btn btn-primary">Save</button>
-    </div>
 
-    {#if errorMsg}
-        <p>{errorMsg}</p>
-    {/if}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    Actualizar Datos
+                </div>
+                <div class="card-body">
+                    {#each Object.entries(structure) as [key, value]}
+                        <div class="form-group">
+                            <label for={key}>{key}</label>
+                            <input type="text" class="form-control" id={key} bind:value={countryData[key]} />
+                        </div>
+                    {/each}
+                    <div class="text-center">
+                        <button class="btn btn-primary" on:click={putPayment}>Actualizar dato</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

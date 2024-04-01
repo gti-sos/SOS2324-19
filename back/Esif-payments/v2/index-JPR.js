@@ -176,7 +176,7 @@ function LoadBackendv2JPR(app, db){
     //POSTMAN documentation
     app.get(API_BASE + "/docs", (req, res) => {
         console.log("Redirection to Postman documentation");
-        res.redirect("https://documenter.getpostman.com/view/32953613/2sA2xcZa6Y");
+        res.redirect("https://documenter.getpostman.com/view/32953613/2sA35HVzrt");
     });
     app.post(API_BASE + "/:country", (req, res) => {
         //Can´t post in a resource

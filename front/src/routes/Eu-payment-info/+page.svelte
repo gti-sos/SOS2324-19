@@ -134,10 +134,15 @@
             });
             
             if (response.status == 200) {
+                
 				getPaymentInfo();
+                Msg = 'Ya estan borrados todos los datos';
                 console.log("Se borraron todos los datos")
+                setTimeout(() => {
+                window.location.reload();
+            }, 3000);
 			} else {
-				errorMsg = 'Ya estan borrados todos los datos';
+				Msg = 'Ya estan borrados todos los datos';
 				alert(errorMsg);
 			}
         } catch(e) {
@@ -303,9 +308,12 @@
 
 
 
-{#if errorMsg!=""}
-
-{errorMsg}
-
+{#if errorMsg != ""}
+    {errorMsg}
 {/if}
+<br>
+{#if Msg != ""}
+    {Msg}
+{/if}
+
 
