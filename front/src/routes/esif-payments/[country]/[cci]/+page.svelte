@@ -3,15 +3,17 @@
     import { dev } from '$app/environment';
     import { onMount } from 'svelte';
 
-    let API = 'api/v2/esif-payments';
+    let API = '/api/v2/esif-payments';
 
-    if (dev) API = 'http://localhost:10000/' + API;
+    if (dev) API = 'http://localhost:10000/api/v2/esif-payments';
 
     let message = '';
     let err = '';
     let data = [];
     let country = $page.params.country;
+    console.log(country);
     let cci = $page.params.cci;
+    console.log(cci);
     let newData = [];
     let structure = {
         ms: 'PLE',
@@ -41,6 +43,9 @@
     });
 
     async function getPayment() {
+        console.log(API);
+        console.log(country);
+        console.log(cci);
         let response = await fetch(API + '/' + country + '/' + cci, {
             method: 'GET'
         });
