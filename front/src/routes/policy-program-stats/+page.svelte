@@ -435,12 +435,6 @@
             <button
                 style="background-color: #FF0000; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
                 on:click={() => {
-                     DeleteAllStats();
-                }}>Eliminar Todos Los Datos
-            </button>
-            <button
-                style="background-color: #FF0000; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
-                on:click={() => {
                     DeleteAllStats();
                 }}>Eliminar Todos</button
             >
