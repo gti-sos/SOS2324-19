@@ -46,10 +46,10 @@
     <h1>Proyecto SOS2324-19</h1>
     <p>Team:</p>
     <ul class="list-group">
-      <li class="list-group-item">Alberto Fraile Infantes</li>
-      <li class="list-group-item">Raul Sequera Gomez</li>
-      <li class="list-group-item">Jose Manuel Peña Ramirez</li>
-      <li class="list-group-item">Pedro Heredia Torres</li>
+      <li class="list-group-item">Alberto Fraile Infantes - policy-program-stats</li>
+      <li class="list-group-item">Raul Sequera Gomez - covid-testings</li>
+      <li class="list-group-item">Jose Manuel Peña Ramirez - esif-payments</li>
+      <li class="list-group-item">Pedro Heredia Torres - eu-payment-info</li>
     </ul>
     <p>Project description: Our sources of information are aimed at analyzing the relationship that exists between payments made in the US and what has been invested from those payments in the cohesion policy programs and in the Covid 19 alert period.</p>
     <p>Repository: <a href="https://github.com/gti-sos/SOS2324-19">https://github.com/gti-sos/SOS2324-19</a></p>
