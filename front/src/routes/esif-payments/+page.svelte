@@ -413,4 +413,3 @@
 		border-bottom: 1px solid #ddd;
 	}
 </style>
-export {getInitialPayments()}

@@ -2,7 +2,6 @@
     import { page } from '$app/stores';
     import { dev } from '$app/environment';
     import { onMount } from 'svelte';
-    import {getInitialPayments} from "../../+page.svelte";
 
     let API = 'api/v2/esif-payments';
 
@@ -38,12 +37,10 @@
     };
 
     onMount(() => {
-        getInitialPayments();
         getPayment();
     });
 
     async function getPayment() {
-        getInitialPayments();
         let response = await fetch(API + '/' + country + '/' + cci, {
             method: 'GET'
         });
@@ -56,7 +53,6 @@
     }
 
     async function putPayment() {
-        getInitialPayments();
         let response = await fetch(API + '/' + country + '/' + cci, {
             method: 'PUT',
             headers: {
@@ -70,7 +66,7 @@
 			err = '';
         }else if (response.status === 404) {
 			message = '';
-			err = 'No se ha encontrado el dato';} 
+			err = 'No se ha encontrado el dato';}
         else if (response.status === 400) {
 			message = '';
 			err = 'Los datos no son correctos';
