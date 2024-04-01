@@ -45,10 +45,12 @@
             method: 'GET'
         });
         if (response.ok) {
+            alert('Se ha cargado el dato correctamente')
             data = await response.json();
             structure = data
         } else {
             err = 'Ha ocurrido un error en el servidor';
+            alert(err);
         }
     }
 
@@ -64,18 +66,22 @@
 			newData = JSON.stringify(structure)
 			message = 'Se han actualizado los datos correctamente';
 			err = '';
+            alert(message);
         }else if (response.status === 404) {
 			message = '';
-			err = 'No se ha encontrado el dato';}
+			err = 'No se ha encontrado el dato';
+            alert(err);}
         else if (response.status === 400) {
 			message = '';
 			err = 'Los datos no son correctos';
 		} else if (response.status === 409) {
 			message = '';
 			err = 'Ya existe ese dato';
+            alert(err);
 		} else {
 			message = '';
 			err = 'Ha ocurrido un error en el servidor';
+            alert(err);
 		}
         getPayment()
     }

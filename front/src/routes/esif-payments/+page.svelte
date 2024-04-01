@@ -46,12 +46,15 @@
 			getPayments();
 			message = 'Se han cargado los datos correctamente';
 			err = '';
+			alert(message);
 		} else if (response.status === 405) {
 			message = '';
 			err = 'Los datos iniciales ya están cargados';
+			alert(err);
 		} else {
 			message = '';
 			err = 'Ha ocurrido un error en el servidor';
+			alert(err);
 		}
 	}
 
@@ -63,12 +66,15 @@
 			data = await response.json();
 			message = 'Se han cargado los datos correctamente';
 			err = '';
+			alert(message);
 		} else if (response.status === 404) {
 			message = '';
 			err = 'No se han encontrado datos';
+			alert(err);
 		} else {
 			message = '';
 			err = 'Ha ocurrido un error en el servidor';
+			alert(err);
 		}
 	}
 	async function deletePayment(ms_name, cci) {
@@ -79,12 +85,15 @@
 			getPayments();
 			message = 'Se han eliminado los datos correctamente';
 			err = '';
+			alert(message);
 		} else if (response.status === 404) {
 			message = '';
 			err = 'No se han encontrado datos';
+			alert(err);
 		} else {
 			message = '';
 			err = 'Ha ocurrido un error en el servidor';
+			alert(err);
 		}
 	}
 	async function deleteAllPayments() {
@@ -95,12 +104,15 @@
 			getPayments();
 			message = 'Se han eliminado los datos correctamente';
 			err = '';
+			alert(message);
 		} else if (response.status === 404) {
 			message = '';
 			err = 'No se han encontrado datos';
+			alert(err);
 		} else {
 			message = '';
 			err = 'Ha ocurrido un error en el servidor';
+			alert(err);
 		}
 	}
 	async function createPayment() {
@@ -116,15 +128,19 @@
 			getPayments();
 			message = 'Se han creado los datos correctamente';
 			err = '';
+			alert(message);
 		} else if (response.status === 400) {
 			message = '';
 			err = 'Los datos no son correctos';
+			alert(err);
 		} else if (response.status === 409) {
 			message = '';
 			err = 'Ya existe ese dato';
+			alert(err);
 		} else {
 			message = '';
 			err = 'Ha ocurrido un error en el servidor';
+			alert(err);
 		}
 	}
 	function toggleForm() {
