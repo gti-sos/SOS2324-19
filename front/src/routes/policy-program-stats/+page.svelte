@@ -200,7 +200,6 @@
             let response = await fetch(API,{
                                       method: "GET"
             });
-
             if(response.ok){
                 let data = await response.json();
                 stats = data;
