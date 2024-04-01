@@ -3,8 +3,9 @@
     import { onMount } from 'svelte';
     import {dev} from "$app/environment";
 
+    let API = '/api/v2/eu-payment-info';
 
-	let API = 'http://localhost:10000/api/v2/eu-payment-info';
+    if (dev) API = 'http://localhost:10000/api/v2/eu-payment-info';
 
     let country = $page.params.ms_name;
     let year = $page.params.year;
