@@ -50,7 +50,7 @@
                 body: JSON.stringify(toEdit)
             });
             if (response.ok) {
-                console.log('Testing editado correctamente');
+                console.log('Testing edited ok');
                 await loadTesting();
             } else {
                 errorMsg = 'Error: ' + response.statusText;
@@ -62,9 +62,8 @@
 </script>
 
 
-
 <div class="container mx-auto mt-5" style="width: 60%;">
-    <h2 class="title">Datos de {country} - {year_week}</h2>
+    <h2 class="title">Data of {country} - {year_week}</h2>
     <p>Country Code: <input type="text" bind:value="{toEdit.country_code}" /></p>
     <p>Level: <input type="text" bind:value="{toEdit.level}" /></p>
     <p>Region: <input type="text" bind:value="{toEdit.region}" /></p>
@@ -77,7 +76,7 @@
     <p>Testing Data Source: <input type="text" bind:value="{toEdit.testing_data_source}" /></p>
 
     <div class="button-center">
-        <button on:click={editTesting} class="btn btn-primary">Guardar</button>
+        <button on:click={editTesting} class="btn btn-primary">Save</button>
     </div>
 
     {#if errorMsg}

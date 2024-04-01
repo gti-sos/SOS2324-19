@@ -1,9 +1,11 @@
 <script>
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
+	import { get } from 'express/lib/response';
 
 	let API = 'api/v2/esif-payments';
-	if (dev) API = 'http://localhost:10000/' + API;
+    if(dev)
+        API = "http://localhost:10000"+API;
 
 	let message = '';
 	let err = '';
@@ -48,7 +50,7 @@
 			err = '';
 		} else if (response.status === 405) {
 			message = '';
-			err = 'Los datos iniciales ya están cargados';
+			err = 'Los datos iniciales ya estan cargados';
 		} else {
 			message = '';
 			err = 'Ha ocurrido un error en el servidor';
@@ -128,6 +130,7 @@
 			err = 'Ha ocurrido un error en el servidor';
 		}
 	}
+<<<<<<< HEAD
 
 	let showDetails = false;
 	let selectedData = {};
@@ -142,11 +145,64 @@
 			formData = { ...structure }; // Reset form data
 		}
 	}
+=======
+>>>>>>> refs/remotes/origin/main
 </script>
 
 <div class="container-fluid">
-	<div class="row">
+	<table>
+		<thead>
+			<th>ms</th>
+			<th>ms_name</th>
+			<th>cci</th>
+			<th>title</th>
+			<th>fund</th>
+			<th>category_of_region</th>
+			<th>year</th>
+			<th>net_planned_eu_amount</th>
+			<th>cumulative_initial_pre_financing</th>
+			<th>cumulative_additional_initial_pre_financing</th>
+			<th>recovery_of_initial_pre_financing</th>
+			<th>cumulative_annual_pre_financing</th>
+			<th>pre_financing_covered_by_expenditure</th>
+			<th>recovery_of_annual_pre_financing</th>
+			<th>net_pre_financing</th>
+			<th>cumulative_interim_payments</th>
+			<th>recovery_of_expenses</th>
+			<th>net_interim_payments</th>
+			<th>total_net_payments</th>
+			<th>eu_payment_rate</th>
+			<th>eu_payment_rate_on_planned_eu_amount</th>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input bind:value={structure.ms} /></td>
+				<td><input bind:value={structure.ms_name} /></td>
+				<td><input bind:value={structure.cci} /></td>
+				<td><input bind:value={structure.title} /></td>
+				<td><input bind:value={structure.fund} /></td>
+				<td><input bind:value={structure.category_of_region} /></td>
+				<td><input bind:value={structure.year} /></td>
+				<td><input bind:value={structure.net_planned_eu_amount} /></td>
+				<td><input bind:value={structure.cumulative_initial_pre_financing} /></td>
+				<td><input bind:value={structure.cumulative_additional_initial_pre_financing} /></td>
+				<td><input bind:value={structure.recovery_of_initial_pre_financing} /></td>
+				<td><input bind:value={structure.cumulative_annual_pre_financing} /></td>
+				<td><input bind:value={structure.pre_financing_covered_by_expenditure} /></td>
+				<td><input bind:value={structure.recovery_of_annual_pre_financing} /></td>
+				<td><input bind:value={structure.net_pre_financing} /></td>
+				<td><input bind:value={structure.cumulative_interim_payments} /></td>
+				<td><input bind:value={structure.recovery_of_expenses} /></td>
+				<td><input bind:value={structure.net_interim_payments} /></td>
+				<td><input bind:value={structure.total_net_payments} /></td>
+				<td><input bind:value={structure.eu_payment_rate} /></td>
+				<td><input bind:value={structure.eu_payment_rate_on_planned_eu_amount} /></td>
+			</tr>
+		</tbody>
+	</table>
+	<ul>
 		{#each data as dato}
+<<<<<<< HEAD
 			<div class="col-md-4 mb-3">
 				<div class="card custom-card">
 					<div class="card-header">
@@ -184,9 +240,17 @@
 					</div>
 				</div>
 			</div>
+=======
+			<li>
+				<a href="/esif-payments/{dato.ms_name}">
+					{dato.ms_name}
+				</a>
+			</li>
+>>>>>>> refs/remotes/origin/main
 		{/each}
-	</div>
+	</ul>
 </div>
+<<<<<<< HEAD
 <div class="container">
 	<button class="btn btn-primary" on:click={getInitialPayments}>Cargar datos Iniciales</button>
 	<button class="btn btn-primary" on:click={getPayments}>Obtener todos los datos</button>
@@ -424,3 +488,11 @@
         margin-left: 10px; /* Margen izquierdo */
     }
 </style>
+=======
+<div>
+    <button on:click={getInitialPayments}>Cargar datos</button>
+    <button on:click={getPayments}>Obtener todos los datos</button>
+    <button on:click={createPayment}>Crear un nuevo dato</button>
+    <button on:click={deleteAllPayments}>Eliminar todos los datos </button>
+</div>
+>>>>>>> refs/remotes/origin/main

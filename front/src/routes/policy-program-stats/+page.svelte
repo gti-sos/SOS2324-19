@@ -72,7 +72,7 @@
     }
 
     onMount(async() => {
-        await getInitial();
+        await getStats();
     })
 
     async function getStatsFilter() {
@@ -160,7 +160,7 @@
                                       method: "GET"
                 });
 
-                if(response.status == 200){
+                if(response.ok){
                     getStats();
                     Msg = "Datos cargados correctamente";
                     errorMsg = "";
@@ -176,18 +176,35 @@
         }
         
     }
-   
+    // async function getStatsTotal() {
+	// 	try {
+	// 		let response = await fetch(API, {
+	// 			method: 'GET',
+	// 			headers: {
+	// 				'Cache-Control': 'no-cache',
+	// 				Pragma: 'no-cache'
+	// 			}
+	// 		});
+	// 		let data = await response.json();
+	// 		totalDatos = data.length;
+	// 		console.log("datos totales: "+totalDatos);
+	// 		totalPages =totalDatos/10;
+	// 		console.log("Total páginas: "+totalPages);
+	// 	} catch (e) {
+	// 		errorMsg = e;
+	// 	}
+	// }
     async function getStats() {
         try {
             let response = await fetch(API,{
                                       method: "GET"
             });
 
-            if(response.status == 200){
+            if(response.ok){
                 let data = await response.json();
                 stats = data;
-                Msg = "Se han cargado los stats";
                 console.log(data);
+                Msg = "Se han cargado los stats";
                 errorMsg = "";
             } else {
                 if(response.status == 404){
@@ -255,6 +272,7 @@
                 Msg = "Se eliminaron todas las stats";
 			} else {
 				errorMsg = 'Ya estan borrados todas las stats';
+				alert(errorMsg);
 			}
         } catch(e) {
             errorMsg = e;
@@ -300,6 +318,17 @@
 
 </script>
 
+{#if stats.length==0}
+<div class="modal">
+    <div class="modal-content">
+        <button
+            style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
+            on:click="{getInitial}"
+            >Cargar datos
+        </button>
+    </div>
+</div>
+{/if}
 
 {#if stats && stats.length > 0}
 	<div class="container">
@@ -427,19 +456,14 @@
                 style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
                 on:click={() => {
                     showForm = true;
-                }}>Crear Nuevo Dato
-            </button>
-            <button
-                style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
-                on:click="{getInitial}"
-                >Cargar Los Datos
-            </button>
+                }}>Crear Nuevo Dato</button
+            >
             <button
                 style="background-color: #FF0000; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
                 on:click={() => {
                     DeleteAllStats();
-                }}>Eliminar Todos Los Datos
-            </button>
+                }}>Eliminar Todos</button
+            >
         </div>
 </div>
 <!-- Popup para crear nuevo objeto -->

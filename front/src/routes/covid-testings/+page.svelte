@@ -34,13 +34,13 @@
         try {
             let response = await fetch(API, { method: 'GET' });
             if (!response.ok) {
-                errorMsg = 'HTTP error! estado: '+ response.status;
+                errorMsg = 'HTTP error! status: '+ response.status;
             }
             let data = await response.json();
             testings = data;
             console.log(data);
         } catch (error) {
-            errorMsg = 'Error fetching datos:' + error;
+            errorMsg = 'Error fetching data:' + error;
         }
     }
 
@@ -58,14 +58,14 @@
                 errorMsg = response.status;
             }
 
-            console.log('Testing creado correctamente');
+            console.log('Testing created successfully');
         } catch (error) {
             errorMsg = 'Se ha producido un error al crear un testing: '+ error;
         }
     }
 
     async function deleteTesting(country, year_week) {
-        console.log(`Eliminando testings de ${year_week}`);
+        console.log(`Deleting testing for year and week ${year_week}`);
 
         try {
             let response = await fetch(API+"/"+ country + "/"+ year_week,
@@ -75,10 +75,10 @@
             );
 
             if (response.status === 200) {
-                console.log('Testing eliminado');
+                console.log('Testing deleted');
                 getTestings();
             } else {
-                errorMsg = "codigo" + response.status;
+                errorMsg = "code" + response.status;
             }
         } catch (e) {
             errorMsg = "Error: " + e;
@@ -96,9 +96,9 @@
             );
 
             if (response.status === 200) {
-                console.log('Testings eliminado');
+                console.log('Testings deleted');
             } else {
-                errorMsg = "codigo" + response.status;
+                errorMsg = "code" + response.status;
             }
         } catch (e) {
             errorMsg = "Error: " + e;
