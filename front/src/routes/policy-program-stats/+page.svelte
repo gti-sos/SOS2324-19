@@ -3,8 +3,7 @@
     import { dev } from "$app/environment";
     import {Styles,Button, Col, Row,Table,Input} from '@sveltestrap/sveltestrap';
     
-    let API = 'api/v2/policy-program-stats';
-	if (dev) API = 'http://localhost:10000/' + API;
+    let API = "http://localhost:10000/api/v2/policy-program-stats"
    
     let stats = []
     let errorMsg = "";

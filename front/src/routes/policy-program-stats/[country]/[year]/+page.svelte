@@ -4,8 +4,9 @@
     import { Button, Col, Row, Input} from '@sveltestrap/sveltestrap';
     import { onMount } from 'svelte';
 
-    let API = 'api/v2/policy-program-stats';
-	if (dev) API = 'http://localhost:10000/' + API;
+
+	let API = "http://localhost:10000/api/v2/policy-program-stats"
+   
    
     let stat = {};
     let errorMsg = '';
