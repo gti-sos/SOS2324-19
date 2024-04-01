@@ -86,6 +86,7 @@
             if (response.status == 201) {
             getTestings();
             console.log("Creado correctamente. Codigo: " + response.status);
+            alert('Creado correctamente');
         } else {
             if (response.status == 400) {
                 errorMsg = 'Error en la estructura de los datos';
@@ -187,8 +188,8 @@
                 <td>{testing.positivity_rate}</td>
                 <td>{testing.testing_data_source}</td>
                 <td>
-                    <button class="delete-button" on:click="{() => deleteTesting(testing.country, testing.year_week)}">Delete</button>
-                    <button class="edit-button" on:click="{() => window.location.href=`/covid-testings/${testing.country}/${testing.year_week}`}">Edit</button>
+                    <button class="delete-button" on:click="{() => deleteTesting(testing.country, testing.year_week)}">Eliminar</button>
+                    <button class="edit-button" on:click="{() => window.location.href=`/covid-testings/${testing.country}/${testing.year_week}`}">Editar</button>
 
                 </td>
             </tr>
