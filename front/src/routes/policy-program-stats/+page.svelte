@@ -268,8 +268,9 @@
                 method: "DELETE"
             });
             if (response.status == 200) {
-                await getStats();
                 alert("Todas las entradas han sido eliminadas");
+                getStats();
+                location.reload();
 			} else {
 				errorMsg = 'Ya estan borrados todas las stats';
 				alert(errorMsg);
@@ -719,6 +720,7 @@
         Cargar Los Datos
     </button>
 </div>
+<p class="container">No hay datos disponibles</p>
 {/if}
 
 <style>
