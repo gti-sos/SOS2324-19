@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
 
-	let API = 'api/v2/esif-payments';
+	let API = '/api/v2/esif-payments';
 	if (dev) API = 'http://localhost:10000/' + API;
 
 	let message = '';
