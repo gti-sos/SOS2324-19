@@ -435,21 +435,8 @@
             <button
                 style="background-color: #FF0000; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
                 on:click={() => {
-<<<<<<< HEAD
-=======
-                     DeleteAllStats();
-                }}>Eliminar Todos Los Datos
-            </button>
-<<<<<<< HEAD
-=======
-            <button
-                style="background-color: #FF0000; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
-                on:click={() => {
->>>>>>> c4c714dcf01ad517a25ab551ea7a23edc2422a15
                     DeleteAllStats();
-                }}>Eliminar Todos</button
-            >
->>>>>>> 5b41d661fadd9198175db98d1edc602e41334987
+                }}>Eliminar Todos</button>
         </div>
     </div>
 
