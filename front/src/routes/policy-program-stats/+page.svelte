@@ -162,8 +162,9 @@
 
                 if(response.status == 200){
                     getStats();
-                    Msg = "Datos cargados correctamente";
+                    alert('Datos Cargados Correctamente');
                     errorMsg = "";
+					
                 } else {
                     errorMsg = "Error al cargar los datos";
                 }
@@ -251,8 +252,8 @@
                 method: "DELETE"
             });
             if (response.status == 200) {
-				getStats();
-                Msg = "Se eliminaron todas las stats";
+                alert("Todas las entradas han sido eliminadas");
+                getStats();
 			} else {
 				errorMsg = 'Ya estan borrados todas las stats';
 			}
@@ -430,276 +431,278 @@
                 }}>Crear Nuevo Dato
             </button>
             <button
-                style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
-                on:click="{getInitial}"
-                >Cargar Los Datos
-            </button>
-            <button
                 style="background-color: #FF0000; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
                 on:click={() => {
-                    DeleteAllStats();
+                     DeleteAllStats();
                 }}>Eliminar Todos Los Datos
             </button>
         </div>
-</div>
-<!-- Popup para crear nuevo objeto -->
-{#if showForm}
-<div class="modal">
-    <div class="modal-content">
-        <span
-            class="close"
-            on:click={() => {
-                showForm = false;
-            }}>&times;</span>
-        <h2 style="color: #0366d6;">Crear Nueva Entrada</h2>
-        <form on:submit|preventDefault={CreateStat}>
-            <label>
-                Pais:
-                <input type="text" bind:value={newStat.country} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Cci:
-                <input type="text" bind:value={newStat.cci} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Titulo Corto:
-                <input type="text" bind:value={newStat.short_title} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Año:
-                <input type="number" bind:value={newStat.year} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Prioridad:
-                <input type="text" bind:value={newStat.priority} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Fondo:
-                <input type="text" bind:value={newStat.fund} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Donde va dirigido:
-                <input type="text" bind:value={newStat.to} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Nombre del Fondo:
-                <input type="text" bind:value={newStat.fi_name} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Dirección del Fondo:
-                <input type="text" bind:value={newStat.fi_address} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Configuración de nivel de Unión:
-                <input type="text" bind:value={newStat.is_set_up_at_union_level} style="margin-bottom: 10px;" required/>
-
-            </label>
-            <label>
-                Tipo de Fondo:
-                <input type="text" bind:value={newStat.fi_type} style="margin-bottom: 10px;" required/>
-
-            </label>
-            <label>
-                Fecha de emisión de financiamiento:
-                <input bind:value={newStat.ex_ante_completion_date} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Fecha de acuerdo de financiamiento:
-                <input bind:value={newStat.funding_agreement_signature_date} style="margin-bottom: 10px;" required/>
-
-            </label>
-            <label>
-                Cantidad total comprometido al fondo:
-                <input type="number" bind:value={newStat.total_amount_committed_to_fi} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Cantidad total promedio comprometido al fondo:
-                <input type="number" bind:value={newStat.esif_amount_committed_to_fi} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Cantidad total pagado al fondo:
-                <input type="number" bind:value={newStat.total_amount_paid_to_fi} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Cantidad total promedio pagado al fondo:
-                <input type="number" bind:value={newStat.esif_amount_paid_to_fi} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Cantidad de costos de gestión:
-                <input type="number" bind:value={newStat.management_costs_amount} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Cantidad base de remuneración:
-                <input type="number" bind:value={newStat.base_renumeration_amount} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Cantidad de remuneración basado en el desempeño pagado:
-                <input type="number" bind:value={newStat.performance_based_renumeration_paid_amount} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Cantidad total comprometido a los destinatarios finales:
-                <input type="number" bind:value={newStat.total_amount_committed_to_final_recipients} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Cantidad promedio comprometido a los destinatarios finales:
-                <input type="number" bind:value={newStat.esif_amount_committed_to_final_recipients} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Cantidad total pagado a los destinatarios finales:
-                <input type="number" bind:value={newStat.total_amount_paid_to_final_recipients} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Cantidad promedio pagado a los destinatarios finales:
-                <input type="number" bind:value={newStat.esif_amount_paid_to_final_recipients} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Código de Título Corto:
-                <input type="text" bind:value={newStat.to_code_short_title} style="margin-bottom: 10px;" required/>
-            </label>
-            <label>
-                Título Largo:
-                <input type="text" bind:value={newStat.to_long_title} style="margin-bottom: 10px;" required/>
-            </label>
-            <button
-                type="submit"
-                style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
-                >Crear</button
-            >
-        </form>
     </div>
-</div>
-{/if}
 
-{#if showFilter}
-		<div class="modal">
-			<div class="modal-content">
-				<span
-					class="close"
-					on:click={() => {
-						showFilter = false;
-					}}>&times;</span>
-				<h2 style="color: #0366d6;">Aplicar filtros</h2>
-				<form on:submit|preventDefault={getStatsFilter}>
-					<label>
-                        Pais:
-                        <input type="text" bind:value={selectedFilter.country} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Cci:
-                        <input type="text" bind:value={selectedFilter.cci} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Titulo Corto:
-                        <input type="text" bind:value={selectedFilter.short_title} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Año:
-                        <input type="number" bind:value={selectedFilter.year} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Prioridad:
-                        <input type="text" bind:value={selectedFilter.priority} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Fondo:
-                        <input type="text" bind:value={selectedFilter.fund} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Donde va dirigido:
-                        <input type="text" bind:value={selectedFilter.to} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Nombre del Fondo:
-                        <input type="text" bind:value={selectedFilter.fi_name} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Dirección del Fondo:
-                        <input type="text" bind:value={selectedFilter.fi_address} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Configuración de nivel de Unión:
-                        <input type="text" bind:value={selectedFilter.is_set_up_at_union_level} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Tipo de Fondo:
-                        <input type="text" bind:value={selectedFilter.fi_type} style="margin-bottom: 5px;" />
-        
-                    </label>
-                    <label>
-                        Fecha de emisión de financiamiento:
-                        <input bind:value={selectedFilter.ex_ante_completion_date} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Fecha de acuerdo de financiamiento:
-                        <input bind:value={selectedFilter.funding_agreement_signature_date} style="margin-bottom: 5px;" />
-        
-                    </label>
-                    <label>
-                        Cantidad total comprometido al fondo:
-                        <input type="number" bind:value={selectedFilter.total_amount_committed_to_fi} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Cantidad total promedio comprometido al fondo:
-                        <input type="number" bind:value={selectedFilter.esif_amount_committed_to_fi} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Cantidad total pagado al fondo:
-                        <input type="number" bind:value={selectedFilter.total_amount_paid_to_fi} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Cantidad total promedio pagado al fondo:
-                        <input type="number" bind:value={selectedFilter.esif_amount_paid_to_fi} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Cantidad de costos de gestión:
-                        <input type="number" bind:value={selectedFilter.management_costs_amount} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Cantidad base de remuneración:
-                        <input type="number" bind:value={selectedFilter.base_renumeration_amount} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Cantidad de remuneración basado en el desempeño pagado:
-                        <input type="number" bind:value={selectedFilter.performance_based_renumeration_paid_amount} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Cantidad total comprometido a los destinatarios finales:
-                        <input type="number" bind:value={selectedFilter.total_amount_committed_to_final_recipients} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Cantidad promedio comprometido a los destinatarios finales:
-                        <input type="number" bind:value={selectedFilter.esif_amount_committed_to_final_recipients} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Cantidad total pagado a los destinatarios finales:
-                        <input type="number" bind:value={selectedFilter.total_amount_paid_to_final_recipients} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Cantidad promedio pagado a los destinatarios finales:
-                        <input type="number" bind:value={selectedFilter.esif_amount_paid_to_final_recipients} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Código de Título Corto:
-                        <input type="text" bind:value={selectedFilter.to_code_short_title} style="margin-bottom: 5px;" />
-                    </label>
-                    <label>
-                        Título Largo:
-                        <input type="text" bind:value={selectedFilter.to_long_title} style="margin-bottom: 5px;" />
-                    </label>
-					<button 
-						type="submit"
-						style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
-						>Filtrar</button
-					>
-				</form>
-			</div>
-		</div>
-	{/if}
-	{#if errorMsg != ''}
-		ERROR: {errorMsg}
-	{/if}
+
+    {#if showForm}
+            <div class="modal">
+                <div class="modal-content">
+                    <span
+                        class="close"
+                        on:click={() => {
+                            showForm = false;
+                        }}>&times;</span>
+                    <h2 style="color: #0366d6;">Crear Nueva Entrada</h2>
+                    <form on:submit|preventDefault={CreateStat}>
+                        <label>
+                            Pais:
+                            <input type="text" bind:value={newStat.country} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Cci:
+                            <input type="text" bind:value={newStat.cci} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Titulo Corto:
+                            <input type="text" bind:value={newStat.short_title} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Año:
+                            <input type="number" bind:value={newStat.year} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Prioridad:
+                            <input type="text" bind:value={newStat.priority} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Fondo:
+                            <input type="text" bind:value={newStat.fund} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Donde va dirigido:
+                            <input type="text" bind:value={newStat.to} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Nombre del Fondo:
+                            <input type="text" bind:value={newStat.fi_name} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Dirección del Fondo:
+                            <input type="text" bind:value={newStat.fi_address} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Configuración de nivel de Unión:
+                            <input type="text" bind:value={newStat.is_set_up_at_union_level} style="margin-bottom: 10px;" required/>
+
+                        </label>
+                        <label>
+                            Tipo de Fondo:
+                            <input type="text" bind:value={newStat.fi_type} style="margin-bottom: 10px;" required/>
+
+                        </label>
+                        <label>
+                            Fecha de emisión de financiamiento:
+                            <input bind:value={newStat.ex_ante_completion_date} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Fecha de acuerdo de financiamiento:
+                            <input bind:value={newStat.funding_agreement_signature_date} style="margin-bottom: 10px;" required/>
+
+                        </label>
+                        <label>
+                            Cantidad total comprometido al fondo:
+                            <input type="number" bind:value={newStat.total_amount_committed_to_fi} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Cantidad total promedio comprometido al fondo:
+                            <input type="number" bind:value={newStat.esif_amount_committed_to_fi} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Cantidad total pagado al fondo:
+                            <input type="number" bind:value={newStat.total_amount_paid_to_fi} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Cantidad total promedio pagado al fondo:
+                            <input type="number" bind:value={newStat.esif_amount_paid_to_fi} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Cantidad de costos de gestión:
+                            <input type="number" bind:value={newStat.management_costs_amount} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Cantidad base de remuneración:
+                            <input type="number" bind:value={newStat.base_renumeration_amount} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Cantidad de remuneración basado en el desempeño pagado:
+                            <input type="number" bind:value={newStat.performance_based_renumeration_paid_amount} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Cantidad total comprometido a los destinatarios finales:
+                            <input type="number" bind:value={newStat.total_amount_committed_to_final_recipients} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Cantidad promedio comprometido a los destinatarios finales:
+                            <input type="number" bind:value={newStat.esif_amount_committed_to_final_recipients} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Cantidad total pagado a los destinatarios finales:
+                            <input type="number" bind:value={newStat.total_amount_paid_to_final_recipients} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Cantidad promedio pagado a los destinatarios finales:
+                            <input type="number" bind:value={newStat.esif_amount_paid_to_final_recipients} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Código de Título Corto:
+                            <input type="text" bind:value={newStat.to_code_short_title} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <label>
+                            Título Largo:
+                            <input type="text" bind:value={newStat.to_long_title} style="margin-bottom: 10px;" required/>
+                        </label>
+                        <button
+                            type="submit"
+                            style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
+                            >Crear</button
+                        >
+                    </form>
+                </div>
+            </div>
+    {/if}
+
+    {#if showFilter}
+            <div class="modal">
+                <div class="modal-content">
+                    <span
+                        class="close"
+                        on:click={() => {
+                            showFilter = false;
+                        }}>&times;</span>
+                    <h2 style="color: #0366d6;">Aplicar filtros</h2>
+                    <form on:submit|preventDefault={getStatsFilter}>
+                        <label>
+                            Pais:
+                            <input type="text" bind:value={selectedFilter.country} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Cci:
+                            <input type="text" bind:value={selectedFilter.cci} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Titulo Corto:
+                            <input type="text" bind:value={selectedFilter.short_title} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Año:
+                            <input type="number" bind:value={selectedFilter.year} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Prioridad:
+                            <input type="text" bind:value={selectedFilter.priority} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Fondo:
+                            <input type="text" bind:value={selectedFilter.fund} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Donde va dirigido:
+                            <input type="text" bind:value={selectedFilter.to} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Nombre del Fondo:
+                            <input type="text" bind:value={selectedFilter.fi_name} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Dirección del Fondo:
+                            <input type="text" bind:value={selectedFilter.fi_address} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Configuración de nivel de Unión:
+                            <input type="text" bind:value={selectedFilter.is_set_up_at_union_level} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Tipo de Fondo:
+                            <input type="text" bind:value={selectedFilter.fi_type} style="margin-bottom: 5px;" />
+            
+                        </label>
+                        <label>
+                            Fecha de emisión de financiamiento:
+                            <input bind:value={selectedFilter.ex_ante_completion_date} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Fecha de acuerdo de financiamiento:
+                            <input bind:value={selectedFilter.funding_agreement_signature_date} style="margin-bottom: 5px;" />
+            
+                        </label>
+                        <label>
+                            Cantidad total comprometido al fondo:
+                            <input type="number" bind:value={selectedFilter.total_amount_committed_to_fi} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Cantidad total promedio comprometido al fondo:
+                            <input type="number" bind:value={selectedFilter.esif_amount_committed_to_fi} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Cantidad total pagado al fondo:
+                            <input type="number" bind:value={selectedFilter.total_amount_paid_to_fi} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Cantidad total promedio pagado al fondo:
+                            <input type="number" bind:value={selectedFilter.esif_amount_paid_to_fi} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Cantidad de costos de gestión:
+                            <input type="number" bind:value={selectedFilter.management_costs_amount} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Cantidad base de remuneración:
+                            <input type="number" bind:value={selectedFilter.base_renumeration_amount} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Cantidad de remuneración basado en el desempeño pagado:
+                            <input type="number" bind:value={selectedFilter.performance_based_renumeration_paid_amount} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Cantidad total comprometido a los destinatarios finales:
+                            <input type="number" bind:value={selectedFilter.total_amount_committed_to_final_recipients} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Cantidad promedio comprometido a los destinatarios finales:
+                            <input type="number" bind:value={selectedFilter.esif_amount_committed_to_final_recipients} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Cantidad total pagado a los destinatarios finales:
+                            <input type="number" bind:value={selectedFilter.total_amount_paid_to_final_recipients} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Cantidad promedio pagado a los destinatarios finales:
+                            <input type="number" bind:value={selectedFilter.esif_amount_paid_to_final_recipients} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Código de Título Corto:
+                            <input type="text" bind:value={selectedFilter.to_code_short_title} style="margin-bottom: 5px;" />
+                        </label>
+                        <label>
+                            Título Largo:
+                            <input type="text" bind:value={selectedFilter.to_long_title} style="margin-bottom: 5px;" />
+                        </label>
+                        <button 
+                            type="submit"
+                            style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
+                            >Filtrar</button
+                        >
+                    </form>
+                </div>
+            </div>
+        {/if}
+        {#if errorMsg != ''}
+            ERROR: {errorMsg}
+        {/if}
 {:else}
-	<p class="container">No hay datos disponibles</p>
+<div style="justify-content: center; text-align: center; margin-top: 20px">
+    <button
+        style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
+        on:click={() => getInitial()}>
+        Cargar Los Datos
+    </button>
+</div>
 {/if}
 
 <style>
@@ -789,260 +792,3 @@
 		border: 3px solid #555;
 	}
 </style>
-<!-- 
-{#if stats && stats.length > 0}    
-<div class="container">
-    <table>
-        <thead>
-            <tr>
-                <th>
-                    País
-                </th>
-                <th>
-                    CCI
-                </th>
-                <th>
-                    Título Corto
-                </th>
-                <th>
-                    Año
-                </th>
-                <th>
-                    Prioridad
-                </th>
-                <th>
-                    Fondo
-                </th>
-                <th>
-                    Donde va dirigido el fondo
-                </th>
-                <th>
-                    Nombre del Fondo
-                </th>
-                <th>
-                    Dirección del Fondo
-                </th>
-                <th>
-                    Configuración de nivel de Unión
-                </th>
-                <th>
-                    Tipo de Fondo
-                </th>
-                <th>
-                    Fecha de emisión de financiamiento
-                </th>
-                <th>
-                    Fecha de acuerdo de financiamiento
-                </th>
-                <th>
-                    Cantidad total comprometido al fondo
-                </th>
-                <th>
-                    Cantidad total promedio comprometido al fondo
-                </th>
-                <th>
-                    Cantidad total pagado al fondo
-                </th>
-                <th>
-                    Cantidad total promedio pagado al fondo
-                </th>
-                <th>
-                    Cantidad de costos de gestión
-                </th>
-                <th>
-                    Cantidad base de remuneración
-                </th>
-                <th>
-                    Cantidad de remuneración basado en el desempeño pagado
-                </th>
-                <th>
-                    Cantidad total comprometido a los destinatarios finales
-                </th>
-                <th>
-                    Cantidad promedio comprometido a los destinatarios finales
-                </th>
-                <th>
-                    Cantidad total pagado a los destinatarios finales
-                </th>
-                <th>
-                    Cantidad promedio pagado a los destinatarios finales
-                </th>
-                <th>
-                    Código de Título Corto
-                </th>
-                <th>
-                    Título Largo
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            {#each stats as g, index}
-                    <tr>
-                        <td><a href="/policy-program-stats/{g.country}/{g.year}">{g.country}</a></td>
-                        <td>{g.cci}</td>
-                        <td>{g.short_title}</td>
-                        <td>{g.year}</td>
-                        <td>{g.priority}</td>
-                        <td>{g.fund}</td>
-                        <td>{g.to}</td>
-                        <td>{g.fi_name}</td>
-                        <td>{g.fi_address}</td>
-                        <td>{g.is_set_up_at_union_level}</td>
-                        <td>{g.fi_type}</td>
-                        <td>{g.ex_ante_completion_date}</td>
-                        <td>{g.funding_agreement_signature_date}</td>
-                        <td>{g.total_amount_committed_to_fi}</td>
-                        <td>{g.esif_amount_committed_to_fi}</td>
-                        <td>{g.total_amount_paid_to_fi}</td>
-                        <td>{g.esif_amount_paid_to_fi}</td>
-                        <td>{g.management_costs_amount}</td>
-                        <td>{g.base_renumeration_amount}</td>
-                        <td>{g.performance_based_renumeration_paid_amount}</td>
-                        <td>{g.total_amount_committed_to_final_recipients}</td>
-                        <td>{g.esif_amount_committed_to_final_recipients}</td>
-                        <td>{g.total_amount_paid_to_final_recipients}</td>
-                        <td>{g.esif_amount_paid_to_final_recipients}</td>
-                        <td>{g.to_code_short_title}</td>
-                        <td>{g.to_long_title}</td>
-                        <td><button class="delete-button" on:click={() => DeleteStat(g.country, g.year)}>Borrar dato</button></td>
-                    </tr>
-            {/each}
-        </tbody>
-    </table>
-</div>
-{#if showForm}
-    <div class="modal">
-        <div class="modal-content">
-            <h2 style="color: #0366d6;">Crear Nueva Entrada</h2>
-            <form on:submit|preventDefault={CreateStat}>
-                <label>
-                    Pais:
-                    <input type="text" bind:value={newStat.country} required/>
-                </label>
-                <label>
-                    Cci:
-                    <input type="text" bind:value={newStat.cci} required/>
-                </label>
-                <label>
-                    Titulo Corto:
-                    <input type="text" bind:value={newStat.short_title}/>
-                </label>
-                <label>
-                    Año:
-                    <input type="number" bind:value={newStat.year} required/>
-                </label>
-                <label>
-                    Prioridad:
-                    <input type="text" bind:value={newStat.priority}/>
-                </label>
-                <label>
-                    Fondo:
-                    <input type="text" bind:value={newStat.fund} required/>
-                </label>
-                <label>
-                    Donde va dirigido:
-                    <input type="text" bind:value={newStat.to}/>
-                </label>
-                <label>
-                    Nombre del Fondo:
-                    <input type="text" bind:value={newStat.fi_name} required/>
-                </label>
-                <label>
-                    Dirección del Fondo:
-                    <input type="text" bind:value={newStat.fi_address} required/>
-                </label>
-                <label>
-                    Configuración de nivel de Unión:
-                    <input type="text" bind:value={newStat.is_set_up_at_union_level} required/>
-
-                </label>
-                <label>
-                    Tipo de Fondo:
-                    <input type="text" bind:value={newStat.fi_type} required/>
-
-                </label>
-                <label>
-                    Fecha de emisión de financiamiento:
-                    <input bind:value={newStat.ex_ante_completion_date}/>
-                </label>
-                <label>
-                    Fecha de acuerdo de financiamiento:
-                    <input bind:value={newStat.funding_agreement_signature_date}/>
-
-                </label>
-                <label>
-                    Cantidad total comprometido al fondo:
-                    <input type="number" bind:value={newStat.total_amount_committed_to_fi}/>
-                </label>
-                <label>
-                    Cantidad total promedio comprometido al fondo:
-                    <input type="number" bind:value={newStat.esif_amount_committed_to_fi}/>
-                </label>
-                <label>
-                    Cantidad total pagado al fondo:
-                    <input type="number" bind:value={newStat.total_amount_paid_to_fi}/>
-                </label>
-                <label>
-                    Cantidad total promedio pagado al fondo:
-                    <input type="number" bind:value={newStat.esif_amount_paid_to_fi}/>
-                </label>
-                <label>
-                    Cantidad de costos de gestión:
-                    <input type="number" bind:value={newStat.management_costs_amount}/>
-                </label>
-                <label>
-                    Cantidad base de remuneración:
-                    <input type="number" bind:value={newStat.base_renumeration_amount}/>
-                </label>
-                <label>
-                    Cantidad de remuneración basado en el desempeño pagado:
-                    <input type="number" bind:value={newStat.performance_based_renumeration_paid_amount}/>
-                </label>
-                <label>
-                    Cantidad total comprometido a los destinatarios finales:
-                    <input type="number" bind:value={newStat.total_amount_committed_to_final_recipients}/>
-                </label>
-                <label>
-                    Cantidad promedio comprometido a los destinatarios finales:
-                    <input type="number" bind:value={newStat.esif_amount_committed_to_final_recipients}/>
-                </label>
-                <label>
-                    Cantidad total pagado a los destinatarios finales:
-                    <input type="number" bind:value={newStat.total_amount_paid_to_final_recipients}/>
-                </label>
-                <label>
-                    Cantidad promedio pagado a los destinatarios finales:
-                    <input type="number" bind:value={newStat.esif_amount_paid_to_final_recipients}/>
-                </label>
-                <label>
-                    Código de Título Corto:
-                    <input type="text" bind:value={newStat.to_code_short_title}/>
-                </label>
-                <label>
-                    Título Largo:
-                    <input type="text" bind:value={newStat.to_long_title}/>
-                </label>
-                <button type="submit" style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Crear</button>
-            </form>
-        </div>
-    </div>
-{/if}
-
-{#if errorMsg != ""}
-        <hr>ERROR: {errorMsg}
-{:else}
-    {#if Msg != ""}
-        <hr>EXITO: {Msg}
-    {/if}
-{/if}
-
-{:else}
-	<p class="container">No hay datos disponibles</p>
-{/if}
-
-<div style="margin-top: 20px; display: flex; justify-content: space-between;">
-    <button on:click={() => {showForm = true;}}>Crear Nuevo Dato</button>
-    <button on:click="{DeleteAllStats}">Borrar Todos los Datos</button>
-    <button on:click="{getInitial}">Cargar Datos</button>
-</div> -->
-
