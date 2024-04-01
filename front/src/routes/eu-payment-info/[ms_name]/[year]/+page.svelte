@@ -3,6 +3,7 @@
     import { onMount } from 'svelte';
     import {dev} from "$app/environment";
 
+
     let API = 'api/v2/eu-payment-info';
 	if (dev) API = 'http://localhost:10000/' + API;
     
