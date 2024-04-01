@@ -11,7 +11,7 @@
     let errorMsg = "";
     let Msg = ""; 
     let payment=[];
-    let newDato=
+    let newDato= 
     {
         ms: 'DE',
         ms_name: 'Germany',
