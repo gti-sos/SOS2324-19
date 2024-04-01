@@ -135,23 +135,6 @@ let structure = {
 };
 
 function LoadBackendv2JPR(app, db){
- /*   db.count({}, (err, n) => {
-        if (err) {
-            console.error("Error al enumerar los datos iniciales:", err);
-        } else {
-            if (n === 0) {
-                db.insert(initial_data, (err, data) => {
-                    if (err) {
-                        console.error("Error al cargar los datos iniciales:", err);
-                    } else {
-                        console.error("Error al enumerar los datos iniciales:", err);
-                    }
-                });
-            } else {
-                res.sendStatus(405, "Method not allowed");
-            }
-        }
-    });*/
     //POST petition
     app.post(API_BASE + "/", (req, res) => {
         let cci_atempt = req.body.cci;
@@ -181,7 +164,7 @@ function LoadBackendv2JPR(app, db){
     //POSTMAN documentation
     app.get(API_BASE + "/docs", (req, res) => {
         console.log("Redirection to Postman documentation");
-        res.redirect("https://documenter.getpostman.com/view/32953613/2sA35HVzrt");
+        res.redirect("https://documenter.getpostman.com/view/32953613/2sA2xcZa6Y");
     });
     app.post(API_BASE + "/:country", (req, res) => {
         //Can´t post in a resource

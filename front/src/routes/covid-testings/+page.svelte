@@ -1,7 +1,11 @@
 <script>
     import { onMount } from 'svelte';
+    import { dev } from '$app/environment';
 
-    let API = 'http://localhost:10000/api/v2/covid-testings';
+    let API = '/api/v2/covid-testings';
+
+    if(dev)
+        API = "http://localhost:10000" + API;
 
     let testings = [];
 
@@ -30,7 +34,7 @@
         try {
             let response = await fetch(API, { method: 'GET' });
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                errorMsg = 'HTTP error! status: '+ response.status;
             }
             let data = await response.json();
             testings = data;
@@ -61,11 +65,10 @@
     }
 
     async function deleteTesting(country, year_week) {
-        console.log(`Deleting ${country} for year and week ${year_week}`);
+        console.log(`Deleting testing for year and week ${year_week}`);
 
         try {
-            let response = await fetch(
-                `${API}/country/${encodeURIComponent(country)}/${encodeURIComponent(year_week)}`,
+            let response = await fetch(API+"/"+ country + "/"+ year_week,
                 {
                     method: 'DELETE'
                 }
@@ -73,6 +76,27 @@
 
             if (response.status === 200) {
                 console.log('Testing deleted');
+                getTestings();
+            } else {
+                errorMsg = "code" + response.status;
+            }
+        } catch (e) {
+            errorMsg = "Error: " + e;
+        }
+    }
+
+    async function deleteAllTestings() {
+        console.log(`Deleting all testings`);
+
+        try {
+            let response = await fetch(API,
+                {
+                    method: 'DELETE'
+                }
+            );
+
+            if (response.status === 200) {
+                console.log('Testings deleted');
             } else {
                 errorMsg = "code" + response.status;
             }
@@ -82,13 +106,100 @@
     }
 </script>
 
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                Country
+            </th>
+            <th>
+                Country Code
+            </th>
+            <th>
+                Year Week
+            </th>
+            <th>
+                Level
+            </th>
+            <th>
+                Region
+            </th>
+            <th>
+                Region Name
+            </th>
+            <th>
+                New Cases
+            </th>
+            <th>
+                Tests Done
+            </th>
+            <th>
+                Population
+            </th>
+            <th>
+                Testing Rate
+            </th>
+            <th>
+                Positivity Rate
+            </th>
+            <th>
+                Testing Data Source
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <input bind:value="{newTesting.country}">
+            </td>
+            <td>
+                <input bind:value="{newTesting.country_code}">
+            </td>
+            <td>
+                <input bind:value="{newTesting.year_week}">
+            </td>
+            <td>
+                <input bind:value="{newTesting.level}">
+            </td>
+            <td>
+                <input bind:value="{newTesting.region}">
+            </td>
+            <td>
+                <input bind:value="{newTesting.region_name}">
+            </td>
+            <td>
+                <input bind:value="{newTesting.new_cases}">
+            </td>
+            <td>
+                <input bind:value="{newTesting.tests_done}">
+            </td>
+            <td>
+                <input bind:value="{newTesting.population}">
+            </td>
+            <td>
+                <input bind:value="{newTesting.testing_rate}">
+            </td>
+            <td>
+                <input bind:value="{newTesting.positivity_rate}">
+            </td>
+            <td>
+                <input bind:value="{newTesting.testing_data_source}">
+            </td>
+        </tr>
+    </tbody>
+    
+    
+</table>
+
 <ul>
     {#each testings as testing}
-        <li>{testing.country}</li>
+        <li><a href="/covid-testings/{testing.country}/{testing.year_week}">{testing.country}</a> {testing.year_week} <button on:click="{deleteTesting(testing.country,testing.year_week)}">Delete</button></li>
     {/each}
 </ul>
 
 <button on:click="{createTesting}">Create</button>
+<button on:click="{deleteAllTestings}">Delete All</button>
 
 {#if errorMsg != ""}
     ERROR: {errorMsg}

@@ -18,11 +18,10 @@ let datos1 =
                 { country: 'Norway', country_code: 'NO', year_week: '2022-W01', level: 'national', region: 'NO', region_name: 'Norway', new_cases: 46620, tests_done: 298912, population: 5425270, testing_rate: 5509.624405789942, positivity_rate: 15.59656353709453, testing_data_source: 'TESSy COVID-19' }
             
             ];
-
+            
 function LoadBackendRSGv2(app, db_RSG){
-        //carga los datos al iniciarlo
-        db_RSG.insert(datos1);
 
+        db_RSG.insert(datos1);
         //POSTMAN
         app.get(API_BASE + "/docs", (req, res) => {
             console.log("Redirecting to POSTMAN documentation");
