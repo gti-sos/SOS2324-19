@@ -48,10 +48,11 @@
                 let response = await fetch(API+"/loadInitialData",{
                                       method: "GET"
                 });
+                let status = await response.status;
 
-                if(response.ok){
+                if(status==200){
                     getPaymentInfo();
-                    errorMsg = "Datos cargados correctamente";
+                    errorMsg = "Datos cargados correctamente "+ "Status code"+status;
                 } else {
                     errorMsg = "Error al cargar los datos";
                 }
@@ -84,10 +85,11 @@
             method:"DELETE"
         });
 
-        
-        if(response.ok){
+        let status = await response.status;
+
+        if(status==200){
                     getPaymentInfo();
-                    errorMsg = "Dato con cci "+n+" borrado correctamente";
+                    errorMsg = "Dato con cci "+n+" borrado correctamente "+"Status code"+ status;
                 } else {
                     errorMsg = "Error al cargar los datos";
                 }
@@ -132,17 +134,18 @@
             let response = await fetch(API,{
                 method: "DELETE"
             });
-            
-            if (response.status == 200) {
+            let status = await response.status;
+
+            if (status == 200) {
                 
 				getPaymentInfo();
-                Msg = 'Ya estan borrados todos los datos';
+				Msg = 'Borrando datos, por favor espere '+" Status code "+ status;
                 console.log("Se borraron todos los datos")
                 setTimeout(() => {
                 window.location.reload();
             }, 3000);
 			} else {
-				Msg = 'Ya estan borrados todos los datos';
+				Msg = 'Borrando datos, por favor espere '+" Status code "+ status;
 				alert(errorMsg);
 			}
         } catch(e) {

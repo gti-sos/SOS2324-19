@@ -306,45 +306,61 @@ function LoadBackendPHT2(app, db_PHT){
             }
         });
     });
-    
-    
-// PUT año y pais
-app.put(API_BASE + "/:country/:year", (req, res) => {
-    const country = req.params.country;
-    const year = parseInt(req.params.year);
-    const data = req.body;
 
-    const Fields = ["ms", "ms_name", "cci", "title", "fund", "category_of_region", "year", "init_plan_eu_amt_1_adoption", "transfers", "actual_plan_eu_amt_latest_adop", "pre_fin", "recovery_of_pre_financing", "net_pre_financing", "interim_payments", "recovery_of_expenses", "net_interim_payments", "total_net_payments", "eu_payment_rate_init_plan_eu_amt", "eu_payment_rate_actual_plan_eu_amt"];
+
+    //put conuntry year
+    app.put(API_BASE + "/:country/:year", (req, res) => {
+        const pais = req.params.country;
+        const ano = parseInt(req.params.year);
+        let data = req.body;
+        const Fields = ["ms", "ms_name", "cci", "title", "fund", "category_of_region", "year", "init_plan_eu_amt_1_adoption", "transfers", "actual_plan_eu_amt_latest_adop", "pre_fin", "recovery_of_pre_financing", "net_pre_financing", "interim_payments", "recovery_of_expenses", "net_interim_payments", "total_net_payments", "eu_payment_rate_init_plan_eu_amt", "eu_payment_rate_actual_plan_eu_amt"];
     
-    // Verificar si la estructura de los datos es válida
-    const isValidStructure = Fields.every(key => Object.prototype.hasOwnProperty.call(data, key));
-
-    if (!isValidStructure || Object.keys(data).length !== Fields.length) {
-        // No se pueden actualizar los datos si la estructura no es válida
-        return res.status(400).send("Bad Request");
-    }
-
-    // Verificar si el país y el año existen antes de actualizar
-    db_PHT.findOne({ ms_name: country, year: year }, (err, existingData) => {
-        if (err) {
-            return res.status(500).send("Internal Server Error");
-        } else {
-            if (!existingData) {
-                // El país y el año no existen en la base de datos
-                return res.status(404).send("Not Found");
-            } else {
-                // El país y el año existen, proceder con la actualización
-                db_PHT.update({ ms_name: country, year: year }, { $set: data }, {}, (err) => {
-                    if (err) {
-                        return res.status(500).send("Internal Server Error");
-                    } else {
-                        return res.status(200).send("OK");
-                    }
-                });
-            }
+        // Verificar si la estructura de los datos es válida
+        const isValidStructure = Fields.every(key => Object.prototype.hasOwnProperty.call(data, key));
+    
+        if (!isValidStructure || Object.keys(data).length !== Fields.length) {
+            return res.status(400).send("Bad Request");
         }
+    
+        // Verificar si se intenta cambiar el país o el año
+        if (data.ms_name !== pais || data.year !== ano) {
+            return res.status(400).send("Bad Request: Cannot change country or year");
+        }
+    
+        // Verificar si el país y el año existen antes de actualizar
+        db_PHT.findOne({ ms_name: pais, year: ano }, (err, existingData) => {
+            if (err) {
+                return res.status(500).send("Internal Server Error");
+            } else {
+                if (!existingData) {
+                    return res.status(404).send("Not Found");
+                } else {
+                    // Verificar si hay otro dato con el mismo cci (excluyendo el del propio dato)
+                    db_PHT.findOne({ cci: data.cci, _id: { $ne: existingData._id } }, (err, existingCCI) => {
+                        if (err) {
+                            return res.status(500).send("Internal Server Error");
+                        } else {
+                            if (existingCCI) {
+                                return res.status(409).send("Conflict: Duplicated CCI");
+                            } else {
+                                // No hay otro dato con el mismo cci (excluyendo el del propio dato), proceder con la actualización
+                                db_PHT.update({ _id: existingData._id }, data, {}, (error) => {
+                                    if (error) {
+                                        return res.status(500).send("Internal Server Error");
+                                    } else {
+                                        return res.status(200).send("OK");
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+        });
     });
-});
+    
+
+
 
 
 

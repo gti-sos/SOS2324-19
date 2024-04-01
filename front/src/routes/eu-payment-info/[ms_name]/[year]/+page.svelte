@@ -32,27 +32,7 @@
         eu_payment_rate_init_plan_eu_amt: 0,
         eu_payment_rate_actual_plan_eu_amt: 0
     };
-    let structure={
-        ms: 'DE',
-        ms_name: 'Germany',
-        cci: '2024DE987654321',
-        title: 'Bavaria - Innovation and Entrepreneurship',
-        fund: 'EAFRD',
-        category_of_region: 'More developed',
-        year: 2024,
-        init_plan_eu_amt_1_adoption: 55000000,
-        transfers: 0,
-        actual_plan_eu_amt_latest_adop: 55000000,
-        pre_fin: 1375000,
-        recovery_of_pre_financing: 0,
-        net_pre_financing: 1375000,
-        interim_payments: 6500000,
-        recovery_of_expenses: 0,
-        net_interim_payments: 6500000,
-        total_net_payments: 7875000,
-        eu_payment_rate_init_plan_eu_amt: 0.025,
-        eu_payment_rate_actual_plan_eu_amt: 0.025
-    };
+    
     
 
     onMount( () => {
@@ -75,32 +55,41 @@
     }
 
     async function putPayment() {
-        let response = await fetch(API + '/' + country + '/' + year, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(countryData)
-        });
-        if (response.status === 200) {
-			newData = JSON.stringify(countryData)
-			message = 'Se han actualizado los datos correctamente';
-			err = '';
-        }else if (response.status === 404) {
-			message = '';
-			err = 'No se ha encontrado el dato';} 
-        else if (response.status === 400) {
-			message = '';
-			err = 'Los datos no son correctos';
-		} else if (response.status === 409) {
-			message = '';
-			err = 'Ya existe ese dato';
-		} else {
-			message = '';
-			err = 'Ha ocurrido un error en el servidor';
-		}
-        loadCountry()
+        try {
+            let response = await fetch(API + '/' + country + '/' + year, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(countryData)
+            });
+
+            if (response.status === 200) {
+                newData = JSON.stringify(countryData);
+                errorMsg = 'Se han actualizado los datos correctamente';
+                err = '';
+            } else if (response.status === 404) {
+                message = '';
+                errorMsg = 'No se ha encontrado el dato';
+            } else if (response.status === 400) {
+                message = '';
+                errorMsg = 'Los datos no son correctos (400) Bad request';
+            } else if (response.status === 409) {
+                message = '';
+                errorMsg = 'Ya existe ese dato';
+            } else {
+                message = '';
+                errorMsg = 'Ha ocurrido un error en el servidor';
+            }
+        } catch (error) {
+            console.error(error);
+            err = 'Ha ocurrido un error en la solicitud';
+        }
+
+        // Llama a loadCountry() solo después de procesar la respuesta
+        await loadCountry();
     }
+        
 
     console.log(country+year);
 </script>
@@ -116,7 +105,7 @@
                     Actualizar Datos
                 </div>
                 <div class="card-body">
-                    {#each Object.entries(structure) as [key, value]}
+                    {#each Object.entries(countryData) as [key, value]}
                         <div class="form-group">
                             <label for={key}>{key}</label>
                             <input type="text" class="form-control" id={key} bind:value={countryData[key]} />
@@ -130,3 +119,6 @@
         </div>
     </div>
 </div>
+{#if errorMsg != ""}
+    {errorMsg}
+{/if}
