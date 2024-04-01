@@ -268,8 +268,8 @@
                 method: "DELETE"
             });
             if (response.status == 200) {
+                await getStats();
                 alert("Todas las entradas han sido eliminadas");
-                getStats();
 			} else {
 				errorMsg = 'Ya estan borrados todas las stats';
 				alert(errorMsg);
@@ -317,18 +317,6 @@
     }
 
 </script>
-
-{#if stats.length==0}
-<div class="modal">
-    <div class="modal-content">
-        <button
-            style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
-            on:click="{getInitial}"
-            >Cargar datos
-        </button>
-    </div>
-</div>
-{/if}
 
 {#if stats && stats.length > 0}
 	<div class="container">
@@ -779,12 +767,12 @@
 		width: 100%;
 		height: 100%;
 		overflow: auto;
-		background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro */
+		background-color: rgba(0, 0, 0, 0.4); 
 	}
 
 	.modal-content {
-		background-color: #fefefe; /* Color de fondo */
-		margin: 15% auto; /* Centrar el popup verticalmente */
+		background-color: #fefefe;
+		margin: 15% auto;
 		padding: 20px;
 		border: 1px solid #888;
 		width: 50%;

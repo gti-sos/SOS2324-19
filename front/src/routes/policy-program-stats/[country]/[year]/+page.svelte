@@ -138,9 +138,7 @@
 
 <h2>Stat details from {country}:{year}</h2>
 
-<!-- Vista de detalles del vehículo -->
 {#if !showForm}
-    <!-- Vista de detalles del vehículo -->
     {#if Object.keys(stat).length > 0}
         <div class="container">
             <div class="card">
