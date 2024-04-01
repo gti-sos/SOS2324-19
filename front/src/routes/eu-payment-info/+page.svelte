@@ -257,8 +257,7 @@
 <ul>
     {#each payment as pepe}
         <li>
-            <a href={`/eu-payment-info/${pepe.ms_name}/${pepe.year}`}>
-
+            <a href="/eu-payment-info/{pepe.ms_name}/{pepe.year}">
                 {pepe.ms_name}
             </a> - {pepe.cci}
             <button style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" on:click={() => deletePaymentInfo(pepe.cci)}>DELETE</button>
