@@ -256,7 +256,7 @@
 
 <ul>
     {#each payment as pepe}
-        <li>
+        <li> 
             <a href="/eu-payment-info/{pepe.ms_name}/{pepe.year}">
                 {pepe.ms_name}
             </a> - {pepe.cci}
