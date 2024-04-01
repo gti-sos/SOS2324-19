@@ -247,15 +247,17 @@
 
 
 <ul>
-    {#each payment as payment}
-        <li><a href="/eu-payment-info/{payment.ms_name}/{payment.year}">{payment.ms_name}</a> - {payment.cci}<button  style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
-            on:click="{deletePaymentInfo(payment.cci)}">DELETE</button>
-            <button  style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
-            on:click="{showCountryData(payment.cci)}">SHOW</button>
+    {#each payment as pepe}
+        <li>
+            <a href="/eu-payment-info/{pepe.ms_name}/{pepe.year}">
+                {pepe.ms_name}
+            </a> - {pepe.cci}
+            <button style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" on:click={() => deletePaymentInfo(pepe.cci)}>DELETE</button>
+            <button style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" on:click={() => showCountryData(pepe.cci)}>SHOW</button>
         </li>
     {/each}
-   
 </ul>
+
 <button
             style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
             on:click="{getInitial}"

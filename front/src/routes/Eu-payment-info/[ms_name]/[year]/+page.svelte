@@ -30,14 +30,14 @@
         eu_payment_rate_actual_plan_eu_amt: 0
     };
 
-    let modificado = {};
- 
+    
 
     onMount(async () => {
         await loadCountry();
     });
 
     async function loadCountry() {
+        console.log(country+year);
         try {
             let response = await fetch(`${API}/${country}/${year}`);
             if (response.ok) {
@@ -52,6 +52,7 @@
     }
 
     async function updateCountry() {
+        console.log(country+year);
         try {
             let response = await fetch(`${API}/${country}/${year}`, {
                 method: 'PUT',
@@ -70,12 +71,15 @@
             errorMsg = 'Error: ' + error;
         }
     }
+
+    console.log(country+year);
 </script>
 
 <h1>Payments details of {country}</h1>
 
 <div class="container mx-auto mt-5" style="width: 60%;">
     <h2 class="title">Data of {country} - {year}</h2>
+    console.log(country+year);
     <p>MS: <input type="text" bind:value="{countryData.ms}" /></p>
     <p>MS Name: <input type="text" bind:value="{countryData.ms_name}" /></p>
     <p>CCI: <input type="text" bind:value="{countryData.cci}" /></p>
@@ -88,14 +92,7 @@
     <p>Actual Plan EU Amount Latest Adoption: <input type="number" bind:value="{countryData.actual_plan_eu_amt_latest_adop}" /></p>
     <p>Pre-Fin: <input type="number" bind:value="{countryData.pre_fin}" /></p>
     <p>Recovery of Pre-Financing: <input type="number" bind:value="{countryData.recovery_of_pre_financing}" /></p>
-    <p>Net Pre-Financing: <input type="number" bind:value="{countryData.net_pre_financing}" /></p>
-    <p>Interim Payments: <input type="number" bind:value="{countryData.interim_payments}" /></p>
-    <p>Recovery of Expenses: <input type="number" bind:value="{countryData.recovery_of_expenses}" /></p>
-    <p>Net Interim Payments: <input type="number" bind:value="{countryData.net_interim_payments}" /></p>
-    <p>Total Net Payments: <input type="number" bind:value="{countryData.total_net_payments}" /></p>
-    <p>EU Payment Rate Initial Plan EU Amount: <input type="number" bind:value="{countryData.eu_payment_rate_init_plan_eu_amt}" /></p>
-    <p>EU Payment Rate Actual Plan EU Amount: <input type="number" bind:value="{countryData.eu_payment_rate_actual_plan_eu_amt}" /></p>
-
+    
     <div class="button-center">
         <button on:click={updateCountry} class="btn btn-primary">Save</button>
     </div>
