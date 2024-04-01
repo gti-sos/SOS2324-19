@@ -177,24 +177,6 @@
         }
         
     }
-    // async function getStatsTotal() {
-	// 	try {
-	// 		let response = await fetch(API, {
-	// 			method: 'GET',
-	// 			headers: {
-	// 				'Cache-Control': 'no-cache',
-	// 				Pragma: 'no-cache'
-	// 			}
-	// 		});
-	// 		let data = await response.json();
-	// 		totalDatos = data.length;
-	// 		console.log("datos totales: "+totalDatos);
-	// 		totalPages =totalDatos/10;
-	// 		console.log("Total páginas: "+totalPages);
-	// 	} catch (e) {
-	// 		errorMsg = e;
-	// 	}
-	// }
     async function getStats() {
         try {
             let response = await fetch(API,{
@@ -208,6 +190,9 @@
                 errorMsg = "";
             } else {
                 if(response.status == 404){
+                    let data = await response.json();
+                    stats = data;
+                    console.log(data);
                     errorMsg = "No hay datos en la base de datos";
                 } else {
                     errorMsg = `Error ${response.status}: ${response.statusText}`;
@@ -270,6 +255,7 @@
             if (response.status == 200) {
                 alert("Todas las entradas han sido eliminadas");
                 getStats();
+                location.reload();
 			} else {
 				errorMsg = 'Ya estan borrados todas las stats';
 				alert(errorMsg);
@@ -317,18 +303,6 @@
     }
 
 </script>
-
-{#if stats.length==0}
-<div class="modal">
-    <div class="modal-content">
-        <button
-            style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
-            on:click="{getInitial}"
-            >Cargar datos
-        </button>
-    </div>
-</div>
-{/if}
 
 {#if stats && stats.length > 0}
 	<div class="container">
@@ -464,6 +438,15 @@
                      DeleteAllStats();
                 }}>Eliminar Todos Los Datos
             </button>
+<<<<<<< HEAD
+=======
+            <button
+                style="background-color: #FF0000; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
+                on:click={() => {
+                    DeleteAllStats();
+                }}>Eliminar Todos</button
+            >
+>>>>>>> 5b41d661fadd9198175db98d1edc602e41334987
         </div>
     </div>
 
@@ -731,6 +714,7 @@
         Cargar Los Datos
     </button>
 </div>
+<p class="container">No hay datos disponibles</p>
 {/if}
 
 <style>
@@ -773,12 +757,12 @@
 		width: 100%;
 		height: 100%;
 		overflow: auto;
-		background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro */
+		background-color: rgba(0, 0, 0, 0.4); 
 	}
 
 	.modal-content {
-		background-color: #fefefe; /* Color de fondo */
-		margin: 15% auto; /* Centrar el popup verticalmente */
+		background-color: #fefefe;
+		margin: 15% auto;
 		padding: 20px;
 		border: 1px solid #888;
 		width: 50%;

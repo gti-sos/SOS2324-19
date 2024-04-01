@@ -102,11 +102,7 @@ function LoadBackendAFI2(app, db_AFI){
                 if(error){
                     res.sendStatus(500, "Internal Error"); // Error interno del servidoR
                 }else{
-                    if(nremov>0){
-                        res.sendStatus(200,"OK");
-                    }else{
-                        res.sendStatus(400, "Not Found");
-                    }
+                    res.sendStatus(200);
                 }
             });
         });
