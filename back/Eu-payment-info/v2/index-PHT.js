@@ -132,7 +132,7 @@ function LoadBackendPHT2(app, db_PHT){
         let datoss =
             [{
                 ms: 'EL', ms_name: 'Greece', cci: '2021EL16FFPR008', title: 'Thessalia - ERDF/ESF+', fund: 'ESF+',
-                category_of_region: 'Less developed', year: 2023, init_plan_eu_amt_1_adoption: 121971450,
+                category_of_region: 'Less developed', year: 2020, init_plan_eu_amt_1_adoption: 121971450,
                 transfers: 0, actual_plan_eu_amt_latest_adop: 121971450, pre_fin: 3049286.25, recovery_of_pre_financing: 0,
                 net_pre_financing: 3049286.25, interim_payments: 3056694.49, recovery_of_expenses: 0, net_interim_payments: 3056694.49,
                 total_net_payments: 6105980.74, eu_payment_rate_init_plan_eu_amt: 0.0500607374922574, eu_payment_rate_actual_plan_eu_amt: 0.0500607374922574
@@ -140,7 +140,7 @@ function LoadBackendPHT2(app, db_PHT){
 
             {
                 ms: 'EL', ms_name: 'Greece', cci: '2021EL16FFPR018', title: 'Notio Aigaio - ERDF/ESF+', fund: 'ESF+',
-                category_of_region: 'Transition', year: 2023, init_plan_eu_amt_1_adoption: 36901682,
+                category_of_region: 'Transition', year: 2021, init_plan_eu_amt_1_adoption: 36901682,
                 transfers: 0, actual_plan_eu_amt_latest_adop: 36901682, pre_fin: 922542.05, recovery_of_pre_financing: 0,
                 net_pre_financing: 922542.05, interim_payments: 2331102.22, recovery_of_expenses: 0, net_interim_payments: 2331102.22,
                 total_net_payments: 3253644.27, eu_payment_rate_init_plan_eu_amt: 0.0881706224122792, eu_payment_rate_actual_plan_eu_amt: 0.0881706224122792
@@ -148,7 +148,7 @@ function LoadBackendPHT2(app, db_PHT){
 
             {
                 ms: 'EL', ms_name: 'Greece', cci: '2021EL16FFPR014', title: 'Ionia Nisia - ERDF/ESF+', fund: 'ESF+',
-                category_of_region: 'Less developed', year: 2023, init_plan_eu_amt_1_adoption: 63331330,
+                category_of_region: 'Less developed', year: 2022, init_plan_eu_amt_1_adoption: 63331330,
                 transfers: 0, actual_plan_eu_amt_latest_adop: 63331330, pre_fin: 1583283.25, recovery_of_pre_financing: 0,
                 net_pre_financing: 1583283.25, interim_payments: 1868313.45, recovery_of_expenses: 0, net_interim_payments: 1868313.45,
                 total_net_payments: 3451596.7, eu_payment_rate_init_plan_eu_amt: 0.0545006192037969, eu_payment_rate_actual_plan_eu_amt: 0.0545006192037969
@@ -164,7 +164,7 @@ function LoadBackendPHT2(app, db_PHT){
 
             {
                 ms: 'CY', ms_name: 'Cyprus', cci: '2021CY65ISPR002', title: 'Cyprus - ISF', fund: 'ISF',
-                category_of_region: 'VOID', year: 2023, init_plan_eu_amt_1_adoption: 24982738,
+                category_of_region: 'VOID', year: 2022, init_plan_eu_amt_1_adoption: 24982738,
                 transfers: 611.646, actual_plan_eu_amt_latest_adop: 25594384.12, pre_fin: 2997928.56, recovery_of_pre_financing: 0,
                 net_pre_financing: 2997928.56, interim_payments: 0, recovery_of_expenses: 0, net_interim_payments: 0, total_net_payments: 2997928.56,
                 eu_payment_rate_init_plan_eu_amt: 0.12, eu_payment_rate_actual_plan_eu_amt: 0.117132279719806
@@ -188,7 +188,7 @@ function LoadBackendPHT2(app, db_PHT){
 
             {
                 ms: 'FR', ms_name: 'France', cci: '2021FR16FFPR017', title: 'Bourgogne-Franche-Comté - ERDF - ESF + ', fund: 'ERDF',
-                category_of_region: 'Transition', year: 2023, init_plan_eu_amt_1_adoption: 401454687,
+                category_of_region: 'Transition', year: 2022, init_plan_eu_amt_1_adoption: 401454687,
                 transfers: 0, actual_plan_eu_amt_latest_adop: 401454687, pre_fin: 10036367.2, recovery_of_pre_financing: 0,
                 net_pre_financing: 10036367.2, interim_payments: 7915467.06, recovery_of_expenses: 0, net_interim_payments: 7915467.06, total_net_payments: 17951834.26,
                 eu_payment_rate_init_plan_eu_amt: 0.0447169626892412, eu_payment_rate_actual_plan_eu_amt: 0.0447169626892412
@@ -204,7 +204,7 @@ function LoadBackendPHT2(app, db_PHT){
 
             {
                 ms: 'BG', ms_name: 'Bulgaria', cci: '2021BG05SFPR004', title: 'Food and Basic Material Support - BG - ESF + ', fund: 'ESF + ',
-                category_of_region: 'Transition', year: 2023, init_plan_eu_amt_1_adoption: 31575000,
+                category_of_region: 'Transition', year: 2022, init_plan_eu_amt_1_adoption: 31575000,
                 transfers: 0, actual_plan_eu_amt_latest_adop: 31575000, pre_fin: 789375, recovery_of_pre_financing: 0,
                 net_pre_financing: 789375, interim_payments: 1896252.83, recovery_of_expenses: 0, net_interim_payments: 1896252.83, total_net_payments: 2685627.83,
                 eu_payment_rate_init_plan_eu_amt: 0.0850555132224861, eu_payment_rate_actual_plan_eu_amt: 0.0850555132224861

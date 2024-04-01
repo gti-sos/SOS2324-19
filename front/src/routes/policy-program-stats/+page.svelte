@@ -456,7 +456,6 @@
                 style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
                 on:click={() => {
                     showForm = true;
-<<<<<<< HEAD
                 }}>Crear Nuevo Dato
             </button>
             <button
@@ -465,16 +464,6 @@
                      DeleteAllStats();
                 }}>Eliminar Todos Los Datos
             </button>
-=======
-                }}>Crear Nuevo Dato</button
-            >
-            <button
-                style="background-color: #FF0000; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
-                on:click={() => {
-                    DeleteAllStats();
-                }}>Eliminar Todos</button
-            >
->>>>>>> 41f63276568b1bb9e9239e24879ca62c5860b8a5
         </div>
     </div>
 
