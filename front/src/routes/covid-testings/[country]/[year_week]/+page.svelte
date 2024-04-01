@@ -56,7 +56,8 @@
             if (response.ok) {
                 console.log('Testing edited ok');
                 await loadTesting();
-                alert('Datos actualizados')
+                alert('Datos actualizados');
+                window.history.back(); 
             } else {
                 errorMsg = 'Error: ' + response.statusText;
             }
