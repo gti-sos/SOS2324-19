@@ -2,7 +2,9 @@
     import { page } from '$app/stores';
     import { onMount } from 'svelte';
 
-    let API = 'http://localhost:10000/api/v2/covid-testings';
+    let API = '/api/v2/covid-testings';
+
+if (dev) API = 'http://localhost:10000/api/v2/covid-testings';
 
     let country = $page.params.country;
     let year_week = $page.params.year_week;
