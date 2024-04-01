@@ -5,8 +5,8 @@
     import {dev} from "$app/environment";
     let showCountryDetails = false;
 
-    let API = 'api/v2/eu-payment-info';
-	if (dev) API = 'http://localhost:10000/' + API;
+    let API = 'http://localhost:10000/api/v2/eu-payment-info';
+
     
     let errorMsg = "";
     let Msg = ""; 
