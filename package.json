@@ -20,7 +20,7 @@
     "test-esif-payments": "npx newman run ./tests/API_JPR.json -e ./tests/environments/local.json",
     "test-eu-payment-info": "npx newman run ./tests/API_PHT.json -e ./tests/environments/local.json",
     "test-covid-testings": "npx newman run ./tests/API_RSG.json -e ./tests/environments/local.json",
-    "test": " npm run test-policy-program-stats && npm run test-eu-payment-info && npm run test-esif-payments && test-covid-testings"
+    "test": " npm run test-policy-program-stats && npm run test-eu-payment-info && npm run test-esif-payments && npm run test-covid-testings"
   },
   "repository": {
     "type": "git",
