@@ -136,7 +136,7 @@
             );
 
             if (response.status === 200) {
-                await getTestings();
+                getTestings();
                 console.log('Testings deleted');
             } else {
                 errorMsg = "code" + response.status;
@@ -195,6 +195,10 @@
 <button class="load-button" on:click="{getinitialTestings}">Cargar Datos</button>
 <button class="create-button" on:click="{createTesting}">Crear</button>
 <button class="delete-button" on:click="{deleteAllTestings}">Eliminar todo</button>
+
+{#if errorMsg != ""}
+    {errorMsg}
+{/if}
 
 <style>
     table {
