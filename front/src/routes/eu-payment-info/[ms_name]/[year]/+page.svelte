@@ -6,7 +6,6 @@
 
     let API = 'api/v2/eu-payment-info';
 	if (dev) API = 'http://localhost:10000/' + API;
-    
     let country = $page.params.ms_name;
     let year = $page.params.year;
     let errorMsg = '';

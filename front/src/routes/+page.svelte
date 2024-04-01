@@ -62,6 +62,8 @@
           <li class="list-group-item">policy-program-stats: <a href="https://sos2324-19.appspot.com/api/v1/policy-program-stats/">API-AFI</a> (developed by Alberto Fraile Infantes)</li>
           <li class="list-group-item">eu-payment-info: <a href="https://sos2324-19.appspot.com/api/v1/eu-payment-info/">API-PHT</a> (developed by Pedro Heredia Torres)</li>
           <li class="list-group-item">esif-payments: <a href="https://sos2324-19.appspot.com/api/v1/esif-payments/">API-JPR</a> (developed by Jose Manuel Peña Ramírez)</li>
+          <li class="list-group-item">covid-testings: <a href="https://sos2324-19.appspot.com/api/v1/covid-testings/">API-RSG</a> (developed by Raúl Sequera Gómez)</li>
+
         </ul>
       </li>
       <li class="list-group-item">
@@ -70,6 +72,8 @@
           <li class="list-group-item">policy-program-stats: <a href="https://sos2324-19.appspot.com/api/v2/policy-program-stats/">API-AFI</a> (developed by Alberto Fraile Infantes)</li>
           <li class="list-group-item">eu-payment-info: <a href="https://sos2324-19.appspot.com/api/v2/eu-payment-info/">API-PHT</a> (developed by Pedro Heredia Torres)</li>
           <li class="list-group-item">esif-payments: <a href="https://sos2324-19.appspot.com/api/v2/esif-payments/">API-JPR</a> (developed by Jose Manuel Peña Ramírez)</li>
+          <li class="list-group-item">covid-testings: <a href="https://sos2324-19.appspot.com/api/v2/covid-testings/">API-RSG</a> (developed by Raúl Sequera Gómez)</li>
+
         </ul>
       </li>
     </ul>
@@ -90,6 +94,8 @@
           <li class="list-group-item">policy-program-stats: <a href="https://sos2324-19.appspot.com/api/v2/policy-program-stats/docs">Postman-AFI</a> (developed by Alberto Fraile Infantes)</li>
           <li class="list-group-item">eu-payment-info: <a href="https://sos2324-19.appspot.com/api/v2/eu-payment-info/docs">Postman-PHT</a> (developed by Pedro Heredia Torres)</li>
           <li class="list-group-item">esif-payments: <a href="https://sos2324-19.appspot.com/api/v2/esif-payments/docs">Postman-JPR</a> (developed by Jose Manuel Peña Ramírez)</li>
+          <li class="list-group-item">covid-testings: <a href="https://sos2324-19.appspot.com/api/v2/covid-testings/docs">Postman-RSG</a> (developed by Raul Sequera Gomez)</li>
+
         </ul>
       </li>
     </ul>
@@ -98,6 +104,8 @@
       <li class="list-group-item">policy-program-stats: <a href="https://sos2324-19.appspot.com/policy-program-stats">FRONTEND-AFI</a> (developed by Alberto Fraile Infantes)</li>
       <li class="list-group-item">eu-payment-info: <a href="https://sos2324-19.appspot.com/eu-payment-info">FRONTEND-PHT</a> (developed by Pedro Heredia Torres)</li>
       <li class="list-group-item">esif-payments: <a href="https://sos2324-19.appspot.com/esif-payments">FRONTEND-JPR</a> (developed by Jose Manuel Peña Ramírez)</li>
+      <li class="list-group-item">covid-testings: <a href="https://sos2324-19.appspot.com/covid-testings">FRONTEND-RSG</a> (developed by Raúl Sequera Gómez)</li>
+
     </ul>
   </div>
 </body>

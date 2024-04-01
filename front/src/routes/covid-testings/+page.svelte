@@ -183,11 +183,14 @@
                 <td>{testing.testing_data_source}</td>
                 <td>
                     <button class="delete-button" on:click="{() => deleteTesting(testing.country, testing.year_week)}">Delete</button>
+                    <button class="edit-button" on:click="{() => window.location.href=`/covid-testings/${testing.country}/${testing.year_week}`}">Edit</button>
+
                 </td>
             </tr>
         {/each}
     </tbody>
 </table>
+
 
 <button class="load-button" on:click="{getinitialTestings}">Cargar Datos</button>
 <button class="create-button" on:click="{createTesting}">Crear</button>
@@ -250,6 +253,19 @@
     }
     
     .load-button:hover {
+        background-color: #1e87db;
+    }
+
+    .edit-button {
+        background-color: #2196F3;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    
+    .edit-button:hover {
         background-color: #1e87db;
     }
 </style>
