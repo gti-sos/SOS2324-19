@@ -2,10 +2,7 @@
     import { onMount } from 'svelte';
     import { dev } from '$app/environment';
 
-    let API = '/api/v2/covid-testings';
-
-    if(dev)
-        API = "http://localhost:10000" + API;
+    let API = 'http://localhost:10000/api/v2/covid-testings';
 
     let testings = [];
 
@@ -50,12 +47,16 @@
     async function getinitialTestings() {
         try {
             let response = await fetch(API + '/loadInitialData', { method: 'GET' });
-            if (response.ok) {
+            if (response.status === 201) {
                 getTestings();
+                alert('Datos iniciales cargados correctamente');
                 errorMsg = 'Datos cargados correctamente';
-            }
+            }else if (response.status === 200) {
+			alert('Los datos iniciales ya están cargados');
+		}
             else{
                 errorMsg = 'No se han podido cargar los datos';
+                alert('No se han podido cargar los datos')
             }
             let data = await response.json();
             testings = data;
@@ -112,13 +113,15 @@
             if (response.status === 200) {
                 getTestings();
                 console.log('Testing deleted');
+                alert('Testing eliminado')
             } else {
                 errorMsg = "code" + response.status;
             }
         } catch (e) {
             if (testings.length === 0){
                 errorMsg='';
-                console.log("No hay datos disponibles")
+                alert("No hay datos disponibles")
+                console.log('There are no data')
             }else{
                 errorMsg = "Error: " + e;
             }
@@ -138,6 +141,8 @@
             if (response.status === 200) {
                 getTestings();
                 console.log('Testings deleted');
+                alert('Testings eliminados');
+                location.reload();
             } else {
                 errorMsg = "code" + response.status;
             }
@@ -195,10 +200,6 @@
 <button class="load-button" on:click="{getinitialTestings}">Cargar Datos</button>
 <button class="create-button" on:click="{createTesting}">Crear</button>
 <button class="delete-button" on:click="{deleteAllTestings}">Eliminar todo</button>
-
-{#if errorMsg != ""}
-    {errorMsg}
-{/if}
 
 <style>
     table {

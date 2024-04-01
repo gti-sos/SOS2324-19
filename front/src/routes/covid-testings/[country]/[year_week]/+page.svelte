@@ -76,7 +76,7 @@
     <p>Testing Data Source: <input type="text" bind:value="{toEdit.testing_data_source}" /></p>
 
     <div class="button-center">
-        <button on:click={editTesting} class="btn btn-primary">Save</button>
+        <button on:click={editTesting} class="btn btn-primary">Guardar</button>
     </div>
 
     {#if errorMsg}
