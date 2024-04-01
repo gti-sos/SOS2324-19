@@ -151,99 +151,105 @@
 <table>
     <thead>
         <tr>
-            <th>
-                Country
-            </th>
-            <th>
-                Country Code
-            </th>
-            <th>
-                Year Week
-            </th>
-            <th>
-                Level
-            </th>
-            <th>
-                Region
-            </th>
-            <th>
-                Region Name
-            </th>
-            <th>
-                New Cases
-            </th>
-            <th>
-                Tests Done
-            </th>
-            <th>
-                Population
-            </th>
-            <th>
-                Testing Rate
-            </th>
-            <th>
-                Positivity Rate
-            </th>
-            <th>
-                Testing Data Source
-            </th>
+            <th>Country</th>
+            <th>Country Code</th>
+            <th>Year Week</th>
+            <th>Level</th>
+            <th>Region</th>
+            <th>Region Name</th>
+            <th>New Cases</th>
+            <th>Tests Done</th>
+            <th>Population</th>
+            <th>Testing Rate</th>
+            <th>Positivity Rate</th>
+            <th>Testing Data Source</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>
-                <input bind:value="{newTesting.country}">
-            </td>
-            <td>
-                <input bind:value="{newTesting.country_code}">
-            </td>
-            <td>
-                <input bind:value="{newTesting.year_week}">
-            </td>
-            <td>
-                <input bind:value="{newTesting.level}">
-            </td>
-            <td>
-                <input bind:value="{newTesting.region}">
-            </td>
-            <td>
-                <input bind:value="{newTesting.region_name}">
-            </td>
-            <td>
-                <input bind:value="{newTesting.new_cases}">
-            </td>
-            <td>
-                <input bind:value="{newTesting.tests_done}">
-            </td>
-            <td>
-                <input bind:value="{newTesting.population}">
-            </td>
-            <td>
-                <input bind:value="{newTesting.testing_rate}">
-            </td>
-            <td>
-                <input bind:value="{newTesting.positivity_rate}">
-            </td>
-            <td>
-                <input bind:value="{newTesting.testing_data_source}">
-            </td>
-        </tr>
+        {#each testings as testing}
+            <tr>
+                <td>{testing.country}</td>
+                <td>{testing.country_code}</td>
+                <td>{testing.year_week}</td>
+                <td>{testing.level}</td>
+                <td>{testing.region}</td>
+                <td>{testing.region_name}</td>
+                <td>{testing.new_cases}</td>
+                <td>{testing.tests_done}</td>
+                <td>{testing.population}</td>
+                <td>{testing.testing_rate}</td>
+                <td>{testing.positivity_rate}</td>
+                <td>{testing.testing_data_source}</td>
+                <td>
+                    <button class="delete-button" on:click="{() => deleteTesting(testing.country, testing.year_week)}">Delete</button>
+                </td>
+            </tr>
+        {/each}
     </tbody>
-    
-    
 </table>
 
-<ul>
-    {#each testings as testing}
-        <li><a href="/covid-testings/{testing.country}/{testing.year_week}">{testing.country}</a> {testing.year_week} <button on:click="{deleteTesting(testing.country,testing.year_week)}">Delete</button></li>
-    {/each}
-</ul>
+<button class="load-button" on:click="{getinitialTestings}">Cargar Datos</button>
+<button class="create-button" on:click="{createTesting}">Crear</button>
+<button class="delete-button" on:click="{deleteAllTestings}">Eliminar todo</button>
 
-<button on:click="{getinitialTestings}">Cargar Datos</button>
-<button on:click="{createTesting}">Crear</button>
-<button on:click="{deleteAllTestings}">Eliminar todo</button>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+        background-color: #f2f2f2;
+    }
+    
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+    
+    .delete-button {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    
+    .delete-button:hover {
+        background-color: #d32f2f;
+    }
 
+    .create-button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    
+    .create-button:hover {
+        background-color: #45a049;
+    }
 
-{#if errorMsg != ""}
-    ERROR: {errorMsg}
-{/if}
+    .load-button {
+        background-color: #2196F3;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    
+    .load-button:hover {
+        background-color: #1e87db;
+    }
+</style>
