@@ -33,14 +33,42 @@
     async function getTestings() {
         try {
             let response = await fetch(API, { method: 'GET' });
-            if (!response.ok) {
-                errorMsg = 'HTTP error! status: '+ response.status;
-            }
             let data = await response.json();
             testings = data;
             console.log(data);
         } catch (error) {
-            errorMsg = 'Error fetching data:' + error;
+            if (testings.length === 0){
+                errorMsg='';
+                console.log("No hay datos disponibles")
+            }else{
+                errorMsg = error;
+
+            }
+        }
+    }
+
+    async function getinitialTestings() {
+        try {
+            let response = await fetch(API + '/loadInitialData', { method: 'GET' });
+            if (response.ok) {
+                getTestings();
+                errorMsg = 'Datos cargados correctamente';
+            }
+            else{
+                errorMsg = 'No se han podido cargar los datos';
+            }
+            let data = await response.json();
+            testings = data;
+            console.log(data);
+            
+        } catch (error) {
+            if (testings.length === 0){
+                errorMsg='';
+                console.log("No hay datos disponibles")
+            }
+            else{
+                errorMsg = 'Error cargando los datos:' + error;
+            }
         }
     }
 
@@ -54,12 +82,19 @@
                 body: JSON.stringify(newTesting)
             });
 
-            if (!response.ok) {
-                errorMsg = response.status;
+            if (response.status == 201) {
+            getTestings();
+            console.log("Creado correctamente. Codigo: " + response.status);
+        } else {
+            if (response.status == 400) {
+                errorMsg = 'Error en la estructura de los datos';
+                alert(errorMsg);
+            } else if (response.status == 409) {
+                errorMsg = 'Datos ya registrados';
+                alert(errorMsg);
             }
-
-            console.log('Testing created successfully');
-        } catch (error) {
+        }
+    } catch (error) {
             errorMsg = 'Se ha producido un error al crear un testing: '+ error;
         }
     }
@@ -75,13 +110,18 @@
             );
 
             if (response.status === 200) {
-                console.log('Testing deleted');
                 getTestings();
+                console.log('Testing deleted');
             } else {
                 errorMsg = "code" + response.status;
             }
         } catch (e) {
-            errorMsg = "Error: " + e;
+            if (testings.length === 0){
+                errorMsg='';
+                console.log("No hay datos disponibles")
+            }else{
+                errorMsg = "Error: " + e;
+            }
         }
     }
 
@@ -96,6 +136,7 @@
             );
 
             if (response.status === 200) {
+                await getTestings();
                 console.log('Testings deleted');
             } else {
                 errorMsg = "code" + response.status;
@@ -198,8 +239,10 @@
     {/each}
 </ul>
 
-<button on:click="{createTesting}">Create</button>
-<button on:click="{deleteAllTestings}">Delete All</button>
+<button on:click="{getinitialTestings}">Cargar Datos</button>
+<button on:click="{createTesting}">Crear</button>
+<button on:click="{deleteAllTestings}">Eliminar todo</button>
+
 
 {#if errorMsg != ""}
     ERROR: {errorMsg}

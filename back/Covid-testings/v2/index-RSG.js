@@ -20,8 +20,6 @@ let datos1 =
             ];
             
 function LoadBackendRSGv2(app, db_RSG){
-
-        db_RSG.insert(datos1);
         //POSTMAN
         app.get(API_BASE + "/docs", (req, res) => {
             console.log("Redirecting to POSTMAN documentation");
