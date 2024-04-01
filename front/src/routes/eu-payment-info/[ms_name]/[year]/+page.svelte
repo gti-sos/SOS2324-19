@@ -3,16 +3,8 @@
     import { onMount } from 'svelte';
     import {dev} from "$app/environment";
 
-<<<<<<< HEAD
-    import { dev } from "$app/environment";
     let API = 'api/v2/eu-payment-info';
 	if (dev) API = 'http://localhost:10000/' + API;
-   
-=======
-    let API = 'api/v2/eu-payment-info';
-	if (dev) API = 'http://localhost:10000/' + API;
-    
->>>>>>> 5e7f80e9977e93a2cb6cfe53c2460f8bb6ccbf35
     let country = $page.params.ms_name;
     let year = $page.params.year;
     let errorMsg = '';
