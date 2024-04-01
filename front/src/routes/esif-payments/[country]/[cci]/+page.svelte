@@ -2,6 +2,7 @@
     import { page } from '$app/stores';
     import { dev } from '$app/environment';
     import { onMount } from 'svelte';
+    import {getInitialPayments} from "../../+page.svelte";
 
     let API = 'api/v2/esif-payments';
 
@@ -37,10 +38,12 @@
     };
 
     onMount(() => {
+        getInitialPayments();
         getPayment();
     });
 
     async function getPayment() {
+        getInitialPayments();
         let response = await fetch(API + '/' + country + '/' + cci, {
             method: 'GET'
         });
@@ -53,6 +56,7 @@
     }
 
     async function putPayment() {
+        getInitialPayments();
         let response = await fetch(API + '/' + country + '/' + cci, {
             method: 'PUT',
             headers: {
