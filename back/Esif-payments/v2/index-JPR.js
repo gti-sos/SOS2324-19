@@ -23,17 +23,6 @@ let initial_data = [
     },
 
     {
-        ms: "TC", ms_name: "Interreg", cci: "2014TC16I5CB010", title: "IPA CBC Greece - Albania", fund: "PAE-contribution from ERDF",
-        category_of_region: "", year: 2023, net_planned_eu_amount: 22982611,
-        cumulative_initial_pre_financing: 3716776.5, cumulative_additional_initial_pre_financing: 0,
-        recovery_of_initial_pre_financing: 0, cumulative_annual_pre_financing: 0,
-        pre_financing_covered_by_expenditure: 0, recovery_of_annual_pre_financing: 0,
-        net_pre_financing: 3716776.5, cumulative_interim_payments: 18046057.46, recovery_of_expenses: 0,
-        net_interim_payments: 18046057.46, total_net_payments: 21762833.96, eu_payment_rate: 946926089468251,
-        eu_payment_rate_on_planned_eu_amount: 946926089468251
-    },
-
-    {
         ms: "FR", ms_name: "France", cci: "2014FR16M0OP011", title: "Martinique - ERDF/ESF/YEI", fund: "ERDF",
         category_of_region: "Less developed", year: 2023, net_planned_eu_amount: 351959114,
         cumulative_initial_pre_financing: 9925247.01, cumulative_additional_initial_pre_financing: 0,
@@ -108,7 +97,30 @@ let initial_data = [
         net_pre_financing: 18321017.86, cumulative_interim_payments: 227111465.82, recovery_of_expenses: 187779.74,
         net_interim_payments: 238458013.14, total_net_payments: 256779031, eu_payment_rate: 100,
         eu_payment_rate_on_planned_eu_amount: 100
-    }
+    },
+    {
+        ms: "TC",
+        ms_name: "Interreg",
+        cci: "2014TC16RFIR001",
+        title: "Interreg Europe",
+        fund: "ERDF",
+        category_of_region: null,
+        year: "2021",
+        net_planned_eu_amount: "359326320",
+        cumulative_initial_pre_financing: "10779789.6",
+        cumulative_additional_initial_pre_financing: "0",
+        recovery_of_initial_pre_financing: "0",
+        cumulative_annual_pre_financing: "54797263.8",
+        pre_financing_covered_by_expenditure: "14893717.06",
+        recovery_of_annual_pre_financing: "27013181.84",
+        net_pre_financing: "23670154.5",
+        cumulative_interim_payments: "212859878.39",
+        recovery_of_expenses: "0",
+        net_interim_payments: "227753595.45",
+        total_net_payments: "251423749.95",
+        eu_payment_rate: "69.9708693618658",
+        eu_payment_rate_on_planned_eu_amount: "69.9708693618658"
+      }
 ];
 let structure = {
     "ms": "string",
