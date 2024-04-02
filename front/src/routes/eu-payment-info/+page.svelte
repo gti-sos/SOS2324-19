@@ -53,7 +53,7 @@
 
                 if(status==200){
                     getPaymentInfo();
-                    errorMsg = "Datos cargados correctamente "+ "Status code"+status;
+                    alert(`Datos iniciales cargados correctamente ${status}`);
                 } else {
                     errorMsg = "Error al cargar los datos";
                 }
@@ -90,8 +90,8 @@
 
         if(status==200){
                     getPaymentInfo();
-                    errorMsg = "Dato con cci "+n+" borrado correctamente "+"Status code"+ status;
-                } else {
+                    errorMsg = "Dato con cci "+n+" borrado correctamente "+" Codigo: "+ status;
+                    } else {
                     errorMsg = "Error al cargar los datos";
                 }
         }catch(e){
@@ -114,7 +114,8 @@
 
         if (status == 201) {
             getPaymentInfo();
-            errorMsg = "Dato creado correctamente Status code: " + status;
+            errorMsg = "Dato creado correctamente  Codigo:  " + status;
+            alert(errorMsg);
         } else {
             if (response.status == 400) {
                 errorMsg = 'Error en la estructura de los datos';
@@ -140,13 +141,14 @@
             if (status == 200) {
                 
 				getPaymentInfo();
-				Msg = 'Borrando datos, por favor espere '+" Status code "+ status;
+				errorMsg = 'Borrando datos, la pagina se actualizara automaticamente '+" Codigo: "+ status;
+                alert(errorMsg);
                 console.log("Se borraron todos los datos")
                 setTimeout(() => {
                 window.location.reload();
-            }, 3000);
+            }, 1000);
 			} else {
-				Msg = 'Borrando datos, por favor espere '+" Status code "+ status;
+				errorMsg = 'Borrando datos, la pagina se actualizara automaticamente '+" Codigo: "+ status;
 				alert(errorMsg);
 			}
         } catch(e) {
@@ -261,8 +263,8 @@
             <a href="/eu-payment-info/{pepe.ms_name}/{pepe.year}">
                 {pepe.ms_name}
             </a> - {pepe.cci}
-            <button style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" on:click={() => deletePaymentInfo(pepe.cci)}>DELETE</button>
-            <button style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" on:click={() => showCountryData(pepe.cci)}>SHOW</button>
+            <button style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" on:click={() => deletePaymentInfo(pepe.cci)}>BORRAR</button>
+            <button style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" on:click={() => showCountryData(pepe.cci)}>MOSTRAR</button>
         </li>
     {/each}
 </ul>
@@ -311,13 +313,5 @@
 {/if}
 
 
-
-{#if errorMsg != ""}
-    {errorMsg}
-{/if}
-<br>
-{#if Msg != ""}
-    {Msg}
-{/if}
 
 

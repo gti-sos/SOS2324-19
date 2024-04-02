@@ -70,7 +70,8 @@
             if (response.status === 200) {
                 newData = JSON.stringify(countryData);
                 errorMsg = 'Se han actualizado los datos correctamente';
-                err = '';
+                alert(errorMsg);
+                window.history.back();
             } else if (response.status === 404) {
                 message = '';
                 errorMsg = 'No se ha encontrado el dato';
