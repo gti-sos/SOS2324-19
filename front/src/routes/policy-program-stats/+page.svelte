@@ -169,9 +169,11 @@
 					
                 } else {
                     errorMsg = "Error al cargar los datos";
+                    alert('Error al cargar los datos');
                 }
             } else {
                 errorMsg = "Ya existen datos en la base de datos";
+                alert('Ya existen datos en la base de datos');
             }
             
         } catch(e){
@@ -196,6 +198,7 @@
                     stats = data;
                     console.log(data);
                     errorMsg = "No hay datos en la base de datos";
+                    alert('No hay datos en la base de datos');
                 } else {
                     errorMsg = `Error ${response.status}: ${response.statusText}`;
                 }
@@ -237,8 +240,10 @@
             await getStats();
             if (stats.length === 0) {
                     errorMsg = "No hay datos disponibles";
+                    alert('No hay datos disponibles');
                 }
                 Msg = "Dato eliminado correctamente";
+                alert(`Dato eliminado con el pais ${c} en el año ${y}`);
                 errorMsg = "";
         } else {
 			errorMsg = 'No se ha podido borrar';
@@ -285,6 +290,7 @@
             showForm = false;
             await getStats();
             Msg = "Dato creado correctamente";
+            alert(Msg);
             errorMsg = "";
         } else {
             if (response.status == 400) {
