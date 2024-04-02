@@ -22,7 +22,7 @@
 		year: '',
 		priority: '',
 		fund: '',
-		to: '',
+		too: '',
 		fi_name: '',
 		fi_address: '',
         is_set_up_at_union_level:'', 
@@ -51,7 +51,7 @@
 		year: '',
 		priority: '',
 		fund: '',
-		to: '',
+		too: '',
 		fi_name: '',
 		fi_address: '',
         is_set_up_at_union_level:'', 
@@ -89,7 +89,7 @@
                     year: '',
                     priority: '',
                     fund: '',
-                    to: '',
+                    too: '',
                     fi_name: '',
                     fi_address: '',
                     is_set_up_at_union_level:'', 
@@ -479,7 +479,7 @@
                         </label>
                         <label>
                             Donde va dirigido:
-                            <input type="text" bind:value={newStat.to} style="margin-bottom: 10px;" required/>
+                            <input type="text" bind:value={newStat.too} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Nombre del Fondo:
@@ -606,7 +606,7 @@
                         </label>
                         <label>
                             Donde va dirigido:
-                            <input type="text" bind:value={selectedFilter.to} style="margin-bottom: 5px;" />
+                            <input type="text" bind:value={selectedFilter.too} style="margin-bottom: 5px;" />
                         </label>
                         <label>
                             Nombre del Fondo:
