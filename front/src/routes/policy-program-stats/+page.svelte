@@ -6,15 +6,16 @@
     let API = 'api/v2/policy-program-stats';
 	if (dev) API = 'http://localhost:10000/' + API;
 
-
+    
     let stats = []
     let errorMsg = "";
     let Msg = ""; 
     let showForm = false;
 	let showFilter = false;
-	let page = 1;
-	let totalPages = 1;
-	let totalDatos = 0;
+
+    let currentPage = 1;
+    let totalItems = 0;
+    const pageSize = 10;
 	let selectedFilter = {
 		country: '',
 		cci: '',
@@ -76,7 +77,6 @@
     onMount(async() => {
         await getStats();
     })
-
     async function getStatsFilter() {
 		try {
 			// Construye la URL de búsqueda a partir de los filtros proporcionados
@@ -181,15 +181,18 @@
         }
         
     }
+    
     async function getStats() {
         try {
-            let response = await fetch(API,{
-                                      method: "GET"
+            let offset = (currentPage - 1) * pageSize;
+            let response = await fetch(`${API}?limit=${pageSize}&offset=${offset}`,{
+                    method: "GET",
             });
             if(response.ok){
-                let data = await response.json();
+                let {data, total}  = await response.json();
                 stats = data;
                 console.log(data);
+                totalItems = total;
                 Msg = "Se han cargado los stats";
                 errorMsg = "";
             } else {
@@ -208,27 +211,19 @@
         }
             
     }
-    function goToPreviousPage() {
-    if (currentPage > 1) {
-      currentPage--;
-      getStats(currentPage);
+    async function nextPage() {
+        if ((currentPage * pageSize) < totalItems) {
+            currentPage++;
+            getStats();
+        }
     }
-  }
 
-  // Función para ir a la página siguiente
-  function goToNextPage() {
-    if (currentPage < totalPages) {
-      currentPage++;
-      getStats(currentPage);
+    async function prevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            getStats();
+        }
     }
-  }
-  function goToPage(page) {
-    if (page >= 1 && page <= totalPages) {
-      currentPage = page;
-      getStats();
-    }
-  }
-
     async function DeleteStat(c,y) {
         try {
             let response = await fetch(API+'/'+c+'/'+y,{
@@ -433,6 +428,18 @@
 				{/each}
 			</tbody>
 		</table>
+        <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+			<button
+				style="background-color: #0366d6; color: white; padding: 5px 20px; border: none; border-radius: 5px; cursor: pointer;"
+				on:click={() => prevPage()}
+				>Anterior
+			</button>
+			<button
+				style="background-color: #0366d6; color: white; padding: 5px 20px; border: none; border-radius: 5px; cursor: pointer;"
+				on:click={() => nextPage()}
+				> Siguiente
+			</button>
+		</div>
         <div style="margin-top: 20px; display: flex; justify-content: space-between;">
             <button
                 style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
