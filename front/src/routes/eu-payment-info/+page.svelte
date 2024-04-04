@@ -53,7 +53,7 @@
 
                 if(status==200){
                     getPaymentInfo();
-                    alert(`Datos iniciales cargados correctamente ${status}`);
+                    //alert(`Datos iniciales cargados correctamente ${status}`);
                 } else {
                     errorMsg = "Error al cargar los datos";
                 }
@@ -259,7 +259,7 @@
 
 <ul>
     {#each payment as pepe}
-        <li> 
+        <li class="countryItem"> 
             <a href="/eu-payment-info/{pepe.ms_name}/{pepe.year}">
                 {pepe.ms_name}
             </a> - {pepe.cci}
@@ -269,11 +269,13 @@
     {/each}
 </ul>
 
-<button
-            style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
-            on:click="{getInitial}"
-            >Cargar datos
+<button id="cargarDatos"
+        style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
+        on:click="{getInitial}">
+    Cargar datos
 </button>
+
+
 <div style="margin-top: 20px; display: flex; justify-content: space-between;">
     <button
         style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
