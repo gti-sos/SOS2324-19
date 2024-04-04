@@ -12,7 +12,8 @@ function LoadBackendAFI2(app, db_AFI){
         //POST1
         app.post(API_BASE + "/", (req, res) => {
             let newdata = req.body;
-            const ccc=req.body.cci;
+            const co=req.body.country;
+            const ye=req.body.year;
             const Fields = ["country", "cci", "short_title", "year", "priority", "fund", "too", "fi_name", "fi_address", "is_set_up_at_union_level", "fi_type", 
             "ex_ante_completion_date", "funding_agreement_signature_date", "total_amount_committed_to_fi", "esif_amount_committed_to_fi", "total_amount_paid_to_fi", 
             "esif_amount_paid_to_fi", "management_costs_amount", "base_renumeration_amount", "performance_based_renumeration_paid_amount", 
@@ -24,7 +25,7 @@ function LoadBackendAFI2(app, db_AFI){
             if (!isvalid) {
                 return res.sendStatus(400, "Bad request");
             }else{
-                db_AFI.find({cci: ccc}, (error,existdata)=>{
+                db_AFI.find({country:co, year:ye}, (error,existdata)=>{
                     if(error){
                         res.sendStatus(500, "Internal Error");
                     }else{
@@ -43,13 +44,16 @@ function LoadBackendAFI2(app, db_AFI){
         });
         //GET1
         app.get(API_BASE + "/", (req, res) => {
-            const limit = parseInt(req.query.limit) || 0;
-            const offset = parseInt(req.query.offset) || 0;
             const params = req.query;
+            const offset = parseInt(req.query.offset) || 0;
+            const limit = parseInt(req.query.limit) || 20;
+            const from = parseInt(req.query.from);
+            const to = parseInt(req.query.to);
             let query = {};
-        
+            
+
             Object.keys(params).forEach(key => {
-                if (key !== 'limit' && key !== 'offset') {
+                if (key !== 'limit' && key !== 'offset'&& key !== 'from' && key !== 'to') {
                     let value = req.query[key];
                     // Verifica si el valor es numérico
                     if (!isNaN(value)) {
@@ -66,28 +70,50 @@ function LoadBackendAFI2(app, db_AFI){
                     query[key] = value;
                 }
             });
-            db_AFI.find(query).skip(offset).limit(limit).exec((error, data) => {
+            db_AFI.find(query).skip(offset).limit(limit).exec((error, retur) => {
                 if (error) {
-                    res.sendStatus(500, "Internal Error");
-                } else {
-                    if (data.length > 0) {
-                        if (data.length === 1) {
-                            let c = data[0];
+                    res.sendStatus(500);
+                }else if (from && to && !error) {
+                    const pagi = retur.filter(x => {return x.year >= from && x.year <= to}); 
+                    if (from >= to) {
+                        res.status(400).json("El rango de años especificado es inválido");
+                    
+                    }else{
+                        res.status(200);
+                        res.json(pagi.map((c)=>{
                             delete c._id;
-                            res.send(c);
-                        } else {
-                            res.send(data.map((c)=> {
-                                delete c._id;
-                                return c;
-                            }));
-                        }
-                    } else {
-                        res.sendStatus(404, "Not Found");
+                            return c;
+                        }));
+                        console.log(`GET en /policy-program-stats?from=${from}&to=${to}`); 
                     }
+                } else if (retur.length === 0) {
+                    res.sendStatus(404);
+                } else {
+                    db_AFI.count(query, (countError, totalCount) => {
+                        if (countError) {
+                            res.sendStatus(500);
+                        } else {
+                            // Enviar resultados paginados y el total de resultados
+                            res.status(200).json({ data: retur, total: totalCount });
+                        }
+                    });
                 }
             });
         });
-        
+        // if (data.length > 0) {
+        //     if (data.length === 1) {
+        //         let c = data[0];
+        //         delete c._id;
+        //         res.send(c);
+        //     } else {
+        //         res.send(data.map((c)=> {
+        //             delete c._id;
+        //             return c;
+        //         }));
+        //     }
+        // } else {
+        //     res.sendStatus(404, "Not Found");
+        // }
         //PUT1
         app.put(API_BASE + "/", (req, res) => {
             //Si se intenta usar alguno de los métodos no permitidos 
@@ -113,19 +139,19 @@ function LoadBackendAFI2(app, db_AFI){
         app.get(API_BASE + "/loadInitialData", (req, res) => {
             let datoss =
             [
-                { country: "AT", cci: "2014AT16RFOP001", short_title: "Investments in Growth and Employment - AT - ERDF", year: 2021, priority: "AA 2", fund: "ERDF", too: 1, fi_name: "OA Hightechfonds", fi_address: "OA Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2016-02-25T00:00:00.000", funding_agreement_signature_date: "2015-06-30T00:00:00.000", total_amount_committed_to_fi: 9000000.00, esif_amount_committed_to_fi: 3000000.00, total_amount_paid_to_fi: 9000000.00, esif_amount_paid_to_fi: 3000000.00, management_costs_amount: 133081.00, base_renumeration_amount: 133081.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 450000.00, esif_amount_committed_to_final_recipients: 150000.00, total_amount_paid_to_final_recipients: 450000.00, esif_amount_paid_to_final_recipients: 150000.00, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
-                { country: "AT", cci: "2014AT16RFOP002", short_title: "Investments in Growth and Employment - AT - ERDF", year: 2022, priority: "AA 2", fund: "ERDF", too: 3, fi_name: "OA Hightechfonds", fi_address: "OA Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2015-01-15T00:00:00.000", funding_agreement_signature_date: "2015-06-30T00:00:00.000", total_amount_committed_to_fi: 9000000.00, esif_amount_committed_to_fi: 3000000.00, total_amount_paid_to_fi: 9000000.00, esif_amount_paid_to_fi: 3000000.00, management_costs_amount: 304000.00, base_renumeration_amount: 304000.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 950000.00, esif_amount_committed_to_final_recipients: 316667.00, total_amount_paid_to_final_recipients: 950000.00, esif_amount_paid_to_final_recipients: 316667.00, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
-                { country: "AT", cci: "2014AT16RFOP003", short_title: "Investments in Growth and Employment - AT - ERDF", year: 2023, priority: "AA 2", fund: "ERDF", too: 3, fi_name: "OA Hightechfonds", fi_address: "OA Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2015-01-15T00:00:00.000", funding_agreement_signature_date: "2015-06-30T00:00:00.000", total_amount_committed_to_fi: 9000000.00, esif_amount_committed_to_fi: 3000000.00, total_amount_paid_to_fi: 9000000.00, esif_amount_paid_to_fi: 3000000.00, management_costs_amount: 448000.00, base_renumeration_amount: 445000.00, performance_based_renumeration_paid_amount: 2000.00, total_amount_committed_to_final_recipients: 1522555.00, esif_amount_committed_to_final_recipients: 507518.00, total_amount_paid_to_final_recipients: 1522555.00, esif_amount_paid_to_final_recipients: 507518.00, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
-                { country: "AT", cci: "2014AT16RFOP004", short_title: "Investments in Growth and Employment - AT - ERDF", year: 2019, priority: "AA 2", fund: "ERDF", too: 3, fi_name: "OA Hightechfonds", fi_address: "OA Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz", is_set_up_at_union_level: "-", fi_type: "Specific fund", ex_ante_completion_date: "2015-01-15T00:00:00.000", funding_agreement_signature_date: "2015-06-30T00:00:00.000", total_amount_committed_to_fi: 9000000.00, esif_amount_committed_to_fi: 3000000.00, total_amount_paid_to_fi: 8250000.00, esif_amount_paid_to_fi: 2250000.00, management_costs_amount: 631000.00, base_renumeration_amount: 535000.00, performance_based_renumeration_paid_amount: 96000.00, total_amount_committed_to_final_recipients: 6236298.00, esif_amount_committed_to_final_recipients: 2078766.00, total_amount_paid_to_final_recipients: 5569510.20, esif_amount_paid_to_final_recipients: 1856503.40, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
-                { country: "AT", cci: "2014AT16RFOP005", short_title: "Investments in Growth and Employment - AT - ERDF", year: 2018, priority: "AA 2", fund: "ERDF", too: 3, fi_name: "OA Hightechfonds", fi_address: "OA Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2015-01-15T00:00:00.000", funding_agreement_signature_date: "2015-07-01T00:00:00.000", total_amount_committed_to_fi: 9000000.00, esif_amount_committed_to_fi: 3000000.00, total_amount_paid_to_fi: 9000000.00, esif_amount_paid_to_fi: 3000000.00, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 6886814.75, esif_amount_committed_to_final_recipients: 2295604.92, total_amount_paid_to_final_recipients: 6430814.75, esif_amount_paid_to_final_recipients: 2143604.92, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
-                { country: "AT", cci: "2014AT16RFOP006", short_title: "Investments in Growth and Employment - AT - ERDF", year: 2020, priority: "AA 2", fund: "ERDF", too: 3, fi_name: "OA Hightechfonds", fi_address: "OA Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2015-01-15T00:00:00.000", funding_agreement_signature_date: "2015-07-01T00:00:00.000", total_amount_committed_to_fi: 9000000.00, esif_amount_committed_to_fi: 3000000.00, total_amount_paid_to_fi: 9000000.00, esif_amount_paid_to_fi: 3000000.00, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 7756185.76, esif_amount_committed_to_final_recipients: 2585395.25, total_amount_paid_to_final_recipients: 7456185.76, esif_amount_paid_to_final_recipients: 2485395.25, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
-                { country: "AT", cci: "2014AT16RFOP007", short_title: "Investments in Growth and Employment - AT - ERDF", year: 2017, priority: "AA 2", fund: "ERDF", too: 3, fi_name: "OA Hightechfonds", fi_address: "OA Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2015-01-15T00:00:00.000", funding_agreement_signature_date: "2015-07-01T00:00:00.000", total_amount_committed_to_fi: 9000000.00, esif_amount_committed_to_fi: 3000000.00, total_amount_paid_to_fi: 9000000.00, esif_amount_paid_to_fi: 3000000.00, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 7256185.76, esif_amount_committed_to_final_recipients: 2418728.59, total_amount_paid_to_final_recipients: 7256185.76, esif_amount_paid_to_final_recipients: 2418728.59, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
-                { country: "AT", cci: "2014AT16RFOP008", short_title: "Investments in Growth and Employment - AT - ERDF", year: 2016, priority: "AA 2", fund: "ERDF", too: 3, fi_name: "OA Hightechfonds", fi_address: "OA Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2015-01-15T00:00:00.000", funding_agreement_signature_date: "2015-07-01T00:00:00.000", total_amount_committed_to_fi: 9000000.00, esif_amount_committed_to_fi: 3000000.00, total_amount_paid_to_fi: 9000000.00, esif_amount_paid_to_fi: 3000000.00, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 7756185.76, esif_amount_committed_to_final_recipients: 2585395.25, total_amount_paid_to_final_recipients: 7756185.76, esif_amount_paid_to_final_recipients: 2585395.25, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
-                { country: "BE", cci: "2014BE16RFOP001", short_title: "Brussels Capital Region - ERDF", year: 2021, priority: "Axe 1", fund: "ERDF", too: 1, fi_name: "Outil de prise de capital pour entreprises innovantes en early-stage", fi_address: "Belgique, Bruxelles", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2017-05-31T00:00:00.000", funding_agreement_signature_date: "2018-05-23T00:00:00.000", total_amount_committed_to_fi: 6085703.00, esif_amount_committed_to_fi: 2253964.00, total_amount_paid_to_fi: 1803171.20, esif_amount_paid_to_fi: 901585.60, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 0.00, esif_amount_committed_to_final_recipients: 0.00, total_amount_paid_to_final_recipients: 0.00, esif_amount_paid_to_final_recipients: 0.00, to_code_short_title: "TO 1 RTDI", to_long_title: "Strengthening research, technological development and innovation" },
-                { country: "BE", cci: "2014BE16RFOP002", short_title: "Brussels Capital Region - ERDF", year: 2020, priority: "Axe 2", fund: "ERDF", too: 3, fi_name: "Outil de microcrÃ©dits", fi_address: "Belgique, Bruxelles", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2017-05-31T00:00:00.000", funding_agreement_signature_date: "2018-05-23T00:00:00.000", total_amount_committed_to_fi: 4554057.00, esif_amount_committed_to_fi: 1830857.00, total_amount_paid_to_fi: 1647771.30, esif_amount_paid_to_fi: 823885.65, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 0.00, esif_amount_committed_to_final_recipients: 0.00, total_amount_paid_to_final_recipients: 0.00, esif_amount_paid_to_final_recipients: 0.00, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
-                { country: "BE", cci: "2014BE16RFOP003", short_title: "Brussels Capital Region - ERDF", year: 2017, priority: "Axe 2", fund: "ERDF", too: 3, fi_name: "Outil de prÃªts avantageux Ã destination des entreprises de l'Ã©conomie sociale, d'insertion ou coopÃ©rative", fi_address: "Belgique, Bruxelles", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2017-05-31T00:00:00.000", funding_agreement_signature_date: "2018-05-23T00:00:00.000", total_amount_committed_to_fi: 6591086.00, esif_amount_committed_to_fi: 2746286.00, total_amount_paid_to_fi: 2526583.12, esif_amount_paid_to_fi: 1263291.56, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 0.00, esif_amount_committed_to_final_recipients: 0.00, total_amount_paid_to_final_recipients: 0.00, esif_amount_paid_to_final_recipients: 0.00, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
-                { country: "BE", cci: "2014BE16RFOP004", short_title: "Brussels Capital Region - ERDF", year: 2022, priority: "Axe 1", fund: "ERDF", too: 1, fi_name: "Outil de prise de capital pour entreprises innovantes en early-stage", fi_address: "Belgique, Bruxelles", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2017-05-31T00:00:00.000", funding_agreement_signature_date: "2018-05-23T00:00:00.000", total_amount_committed_to_fi: 6085703.00, esif_amount_committed_to_fi: 2253964.00, total_amount_paid_to_fi: 2704756.80, esif_amount_paid_to_fi: 1352378.40, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 0.00, esif_amount_committed_to_final_recipients: 1550000.00, total_amount_paid_to_final_recipients: 775000.00, esif_amount_paid_to_final_recipients: 0.00, to_code_short_title: "TO 1 RTDI", to_long_title: "Strengthening research, technological development and innovation" },
-                { country: "BE", cci: "2014BE16RFOP005", short_title: "Brussels Capital Region - ERDF", year: 2023, priority: "Axe 2", fund: "ERDF", too: 3, fi_name: "Outil de microcrÃ©dits", fi_address: "Belgique, Bruxelles", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2017-05-31T00:00:00.000", funding_agreement_signature_date: "2018-05-23T00:00:00.000", total_amount_committed_to_fi: 4554057.00, esif_amount_committed_to_fi: 1830857.00, total_amount_paid_to_fi: 1647771.30, esif_amount_paid_to_fi: 823885.65, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 494400.00, esif_amount_committed_to_final_recipients: 247200.00, total_amount_paid_to_final_recipients: 494400.00, esif_amount_paid_to_final_recipients: 247200.00, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" }
+                { country: "AT", cci: "2014AT16RFOP001", short_title: "Investments in Growth and Employment - AT - ERDF", year: 2015, priority: "A.2", fund: "ERDF", to: 3, fi_name: "OÃ–. Hightechfonds", fi_address: "BetlehemstraÃŸe 3, 4020 Linz, Austria", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2016-02-25T00:00:00.000", funding_agreement_signature_date: "2015-06-30T00:00:00.000", total_amount_committed_to_fi: 9000000.00, esif_amount_committed_to_fi: 3000000.00, total_amount_paid_to_fi: 9000000.00, esif_amount_paid_to_fi: 3000000.00, management_costs_amount: 133081.00, base_renumeration_amount: 133081.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 450000.00, esif_amount_committed_to_final_recipients: 150000.00, total_amount_paid_to_final_recipients: 450000.00, esif_amount_paid_to_final_recipients: 150000.00, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
+                { country: "AT", cci: "2014AT16RFOP001", short_title: "Investments in Growth and Employment - AT - ERDF", year: 2016, priority: "A.2", fund: "ERDF", to: 3, fi_name: "OÃ–. Hightechfonds", fi_address: "OÃ¶ Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2015-01-15T00:00:00.000", funding_agreement_signature_date: "2015-06-30T00:00:00.000", total_amount_committed_to_fi: 9000000.00, esif_amount_committed_to_fi: 3000000.00, total_amount_paid_to_fi: 9000000.00, esif_amount_paid_to_fi: 3000000.00, management_costs_amount: 304000.00, base_renumeration_amount: 304000.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 950000.00, esif_amount_committed_to_final_recipients: 316667.00, total_amount_paid_to_final_recipients: 950000.00, esif_amount_paid_to_final_recipients: 316667.00, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
+                { country: "AT", cci: "2014AT16RFOP001", short_title: "Investments in Growth and Employment - AT - ERDF", year: 2017, priority: "A.2", fund: "ERDF", to: 3, fi_name: "OÃ–. Hightechfonds", fi_address: "OÃ¶ Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2015-01-15T00:00:00.000", funding_agreement_signature_date: "2015-06-30T00:00:00.000", total_amount_committed_to_fi: 9000000.00, esif_amount_committed_to_fi: 3000000.00, total_amount_paid_to_fi: 9000000.00, esif_amount_paid_to_fi: 3000000.00, management_costs_amount: 448000.00, base_renumeration_amount: 445000.00, performance_based_renumeration_paid_amount: 2000.00, total_amount_committed_to_final_recipients: 1522555.00, esif_amount_committed_to_final_recipients: 507518.00, total_amount_paid_to_final_recipients: 1522555.00, esif_amount_paid_to_final_recipients: 507518.00, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
+                { country: "AT", cci: "2014AT16RFOP001", short_title: "Investments in Growth and Employment - AT - ERDF", year: 2018, priority: "A.2", fund: "ERDF", to: 3, fi_name: "OÃ–. Hightechfonds", fi_address: "OÃ¶ Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz", is_set_up_at_union_level: "-", fi_type: "Specific fund", ex_ante_completion_date: "2015-01-15T00:00:00.000", funding_agreement_signature_date: "2015-06-30T00:00:00.000", total_amount_committed_to_fi: 9000000.00, esif_amount_committed_to_fi: 3000000.00, total_amount_paid_to_fi: 8250000.00, esif_amount_paid_to_fi: 2250000.00, management_costs_amount: 631000.00, base_renumeration_amount: 535000.00, performance_based_renumeration_paid_amount: 96000.00, total_amount_committed_to_final_recipients: 6236298.00, esif_amount_committed_to_final_recipients: 2078766.00, total_amount_paid_to_final_recipients: 5569510.20, esif_amount_paid_to_final_recipients: 1856503.40, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
+                { country: "AT", cci: "2014AT16RFOP001", short_title: "Investments in Growth and Employment - AT - ERDF", year: 2019, priority: "A.2", fund: "ERDF", to: 3, fi_name: "OÃ–. Hightechfonds", fi_address: "OÃ¶ Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2015-01-15T00:00:00.000", funding_agreement_signature_date: "2015-07-01T00:00:00.000", total_amount_committed_to_fi: 9000000.00, esif_amount_committed_to_fi: 3000000.00, total_amount_paid_to_fi: 9000000.00, esif_amount_paid_to_fi: 3000000.00, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 6886814.75, esif_amount_committed_to_final_recipients: 2295604.92, total_amount_paid_to_final_recipients: 6430814.75, esif_amount_paid_to_final_recipients: 2143604.92, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
+                { country: "AT", cci: "2014AT16RFOP001", short_title: "Investments in Growth and Employment - AT - ERDF", year: 2020, priority: "A.2", fund: "ERDF", to: 3, fi_name: "OÃ–. Hightechfonds", fi_address: "OÃ¶ Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2015-01-15T00:00:00.000", funding_agreement_signature_date: "2015-07-01T00:00:00.000", total_amount_committed_to_fi: 9000000.00, esif_amount_committed_to_fi: 3000000.00, total_amount_paid_to_fi: 9000000.00, esif_amount_paid_to_fi: 3000000.00, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 7756185.76, esif_amount_committed_to_final_recipients: 2585395.25, total_amount_paid_to_final_recipients: 7456185.76, esif_amount_paid_to_final_recipients: 2485395.25, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
+                { country: "AT", cci: "2014AT16RFOP001", short_title: "Investments in Growth and Employment - AT - ERDF", year: 2021, priority: "A.2", fund: "ERDF", to: 3, fi_name: "OÃ–. Hightechfonds", fi_address: "OÃ¶ Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2015-01-15T00:00:00.000", funding_agreement_signature_date: "2015-07-01T00:00:00.000", total_amount_committed_to_fi: 9000000.00, esif_amount_committed_to_fi: 3000000.00, total_amount_paid_to_fi: 9000000.00, esif_amount_paid_to_fi: 3000000.00, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 7256185.76, esif_amount_committed_to_final_recipients: 2418728.59, total_amount_paid_to_final_recipients: 7256185.76, esif_amount_paid_to_final_recipients: 2418728.59, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
+                { country: "AT", cci: "2014AT16RFOP001", short_title: "Investments in Growth and Employment - AT - ERDF", year: 2022, priority: "A.2", fund: "ERDF", to: 3, fi_name: "OÃ–. Hightechfonds", fi_address: "OÃ¶ Hightechfonds GmbH, BethlehemstraÃŸe 3, 4020 Linz", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2015-01-15T00:00:00.000", funding_agreement_signature_date: "2015-07-01T00:00:00.000", total_amount_committed_to_fi: 9000000.00, esif_amount_committed_to_fi: 3000000.00, total_amount_paid_to_fi: 9000000.00, esif_amount_paid_to_fi: 3000000.00, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 7756185.76, esif_amount_committed_to_final_recipients: 2585395.25, total_amount_paid_to_final_recipients: 7756185.76, esif_amount_paid_to_final_recipients: 2585395.25, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
+                { country: "BE", cci: "2014BE16RFOP001", short_title: "Brussels Capital Region - ERDF", year: 2018, priority: "Axe 1", fund: "ERDF", to: 1, fi_name: "Outil de prise de capital pour entreprises innovantes en early-stage", fi_address: "Belgique, Bruxelles", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2017-05-31T00:00:00.000", funding_agreement_signature_date: "2018-05-23T00:00:00.000", total_amount_committed_to_fi: 6085703.00, esif_amount_committed_to_fi: 2253964.00, total_amount_paid_to_fi: 1803171.20, esif_amount_paid_to_fi: 901585.60, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 0.00, esif_amount_committed_to_final_recipients: 0.00, total_amount_paid_to_final_recipients: 0.00, esif_amount_paid_to_final_recipients: 0.00, to_code_short_title: "TO 1 RTDI", to_long_title: "Strengthening research, technological development and innovation" },
+                { country: "BE", cci: "2014BE16RFOP001", short_title: "Brussels Capital Region - ERDF", year: 2019, priority: "Axe 2", fund: "ERDF", to: 3, fi_name: "Outil de microcrÃ©dits", fi_address: "Belgique, Bruxelles", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2017-05-31T00:00:00.000", funding_agreement_signature_date: "2018-05-23T00:00:00.000", total_amount_committed_to_fi: 4554057.00, esif_amount_committed_to_fi: 1830857.00, total_amount_paid_to_fi: 1647771.30, esif_amount_paid_to_fi: 823885.65, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 0.00, esif_amount_committed_to_final_recipients: 0.00, total_amount_paid_to_final_recipients: 0.00, esif_amount_paid_to_final_recipients: 0.00, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
+                { country: "BE", cci: "2014BE16RFOP001", short_title: "Brussels Capital Region - ERDF", year: 2020, priority: "Axe 2", fund: "ERDF", to: 3, fi_name: "Outil de prÃªts avantageux Ã destination des entreprises de l'Ã©conomie sociale, d'insertion ou coopÃ©rative", fi_address: "Belgique, Bruxelles", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2017-05-31T00:00:00.000", funding_agreement_signature_date: "2018-05-23T00:00:00.000", total_amount_committed_to_fi: 6591086.00, esif_amount_committed_to_fi: 2746286.00, total_amount_paid_to_fi: 2526583.12, esif_amount_paid_to_fi: 1263291.56, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 0.00, esif_amount_committed_to_final_recipients: 0.00, total_amount_paid_to_final_recipients: 0.00, esif_amount_paid_to_final_recipients: 0.00, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" },
+                { country: "BE", cci: "2014BE16RFOP001", short_title: "Brussels Capital Region - ERDF", year: 2021, priority: "Axe 1", fund: "ERDF", to: 1, fi_name: "Outil de prise de capital pour entreprises innovantes en early-stage", fi_address: "Belgique, Bruxelles", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2017-05-31T00:00:00.000", funding_agreement_signature_date: "2018-05-23T00:00:00.000", total_amount_committed_to_fi: 6085703.00, esif_amount_committed_to_fi: 2253964.00, total_amount_paid_to_fi: 2704756.80, esif_amount_paid_to_fi: 1352378.40, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 0.00, esif_amount_committed_to_final_recipients: 1550000.00, total_amount_paid_to_final_recipients: 775000.00, esif_amount_paid_to_final_recipients: 0.00, to_code_short_title: "TO 1 RTDI", to_long_title: "Strengthening research, technological development and innovation" },
+                { country: "BE", cci: "2014BE16RFOP001", short_title: "Brussels Capital Region - ERDF", year: 2022, priority: "Axe 2", fund: "ERDF", to: 3, fi_name: "Outil de microcrÃ©dits", fi_address: "Belgique, Bruxelles", is_set_up_at_union_level: "N", fi_type: "Specific fund", ex_ante_completion_date: "2017-05-31T00:00:00.000", funding_agreement_signature_date: "2018-05-23T00:00:00.000", total_amount_committed_to_fi: 4554057.00, esif_amount_committed_to_fi: 1830857.00, total_amount_paid_to_fi: 1647771.30, esif_amount_paid_to_fi: 823885.65, management_costs_amount: 0.00, base_renumeration_amount: 0.00, performance_based_renumeration_paid_amount: 0.00, total_amount_committed_to_final_recipients: 494400.00, esif_amount_committed_to_final_recipients: 247200.00, total_amount_paid_to_final_recipients: 494400.00, esif_amount_paid_to_final_recipients: 247200.00, to_code_short_title: "TO 3 SMEs", to_long_title: "Enhancing the competitiveness of small and medium-sized enterprises (SMEs)" }
             ]
         db_AFI.count({}, (error,count) =>{
             if(error) {
@@ -220,34 +246,30 @@ function LoadBackendAFI2(app, db_AFI){
             //const isValidStructure = Fields.every(key => Object.prototype.hasOwnProperty.call(data, key));
             if(isNaN(ano)){
                 return res.sendStatus(400, "Bad Request");
-            }
-            if (missingfiels.length>0) {
+            }else if (missingfiels.length>0) {
                 return res.sendStatus(400, "Bad Request");
 
-            }
-            if(country!==data.country || year!==data.year){
-                return res.status(400).send("Internal Server Error");
-            } 
-                // if (data.country !== pais || data.year !== ano) {
-                //     return res.status(400).send("Bad Request: Cannot change country or year");
-                // }
+            }else if(country!==data.country || year!==data.year){
+                return res.status(400).send("Bad Request");
+            }else{
                 db_AFI.findOne({ country: pais, year: ano }, (err, existingData) => {
-                    if (err) {
-                        return res.status(500).send("Internal Server Error");
-                    } else {
-                        if (!existingData) {
-                            return res.status(404).send("Not Found");
-                        }else{
-                            db_AFI.update({country: pais, year: ano}, data, {}, (error)=>{
-                                if(error){
-                                    res.sendStatus(500, "Internal Server Error");
-                                }else{
-                                    res.sendStatus(200, "Ok");
-                                }
+                if (err) {
+                    return res.status(500).send("Internal Server Error");
+                } else {
+                    if (!existingData) {
+                        return res.status(404).send("Not Found");
+                    }else{
+                        db_AFI.update({country: pais, year: ano}, data, {}, (error)=>{
+                            if(error){
+                                res.sendStatus(500, "Internal Server Error");
+                            }else{
+                                res.sendStatus(200, "Ok");
+                            }
                             });
                         }
                     }
                 });
+            }
             
         });
         //PUT2

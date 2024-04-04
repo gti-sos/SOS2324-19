@@ -86,8 +86,7 @@
                 },
                 body: JSON.stringify(stat)
             });
-            if (response.status == 500) {
-                showForm = true;
+            if (response.status == 400) {
                 errorMsg = 'No puedes cambiar ni el país ni el año';
                 alert(errorMsg);
             } else {
