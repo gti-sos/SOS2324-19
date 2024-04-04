@@ -8,28 +8,56 @@
 
     if (dev) API = 'http://localhost:10000/api/v2/policy-program-stats';
    
-    let stat = {};
+    //let stat = {};
     let errorMsg = '';
     let showForm = false;
-    let modifiedData = {}; // Para almacenar los datos modificados
 
+    
     let country = $page.params.country;
     let year = $page.params.year;
 
+    let stat = [];
+    let modifiedData = {
+        country: country,
+		cci: '',
+		short_title: '',
+		year: year,
+		priority: '',
+		fund: '',
+		too: 0,
+		fi_name: '',
+		fi_address: '',
+        is_set_up_at_union_level:'', 
+        fi_type: '', 
+        ex_ante_completion_date: '', 
+        funding_agreement_signature_date: '', 
+        total_amount_committed_to_fi:0, 
+        esif_amount_committed_to_fi:0, 
+        total_amount_paid_to_fi: 0, 
+        esif_amount_paid_to_fi: 0, 
+        management_costs_amount: 0, 
+        base_renumeration_amount:0, 
+        performance_based_renumeration_paid_amount:0, 
+        total_amount_committed_to_final_recipients:0, 
+        esif_amount_committed_to_final_recipients:0, 
+        total_amount_paid_to_final_recipients: 0, 
+        esif_amount_paid_to_final_recipients: 0, 
+        to_code_short_title: '', 
+        to_long_title: ''
+    };
+    
+
 
     onMount(async () => {
-        await getStat(country,year);
+        await getStat();
     })
 
-    async function getStat(country,year) {
+    async function getStat() {
         try {
-            let response = await fetch(API + '/' + country + '/' + year, {
-                method: 'GET'
-            });
-
+            let response = await fetch(`${API}/${country}/${year}`);
             if (response.status == 200) {
                 let res = await response.json();
-                stat = res[0];
+                stat = { ...stat, ...res };
             } else {
                 if (response.status == 400) {
                 errorMsg = 'Error en la estructura de los datos';
@@ -51,29 +79,29 @@
       async function putStat() {
         try {
 			
-            let response = await fetch(API + '/' + country + '/' + year, {
+            let response = await fetch(`${API}/${country}/${year}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(stat)
             });
-
-            if (response.status == 200) {
-				modifiedData = JSON.stringify(stat);
-                showForm = false; // Cerrar el formulario después de modificar
-                await getStat(country, year); // Volver a cargar los datos actualizados
-            } else {
-				if (response.status == 400) {
+            if (response.status == 500) {
+                showForm = true;
                 errorMsg = 'No puedes cambiar ni el país ni el año';
                 alert(errorMsg);
-            } else if (response.status == 409) {
-                errorMsg = 'Ya existe una entrada con ese país y año';
-                alert(errorMsg);
-            } else if(response.status == 404){
-				errorMsg = "Dato no encontrado";
-				alert(errorMsg);
-			}
+            } else {
+				if (response.status == 200) {
+                    modifiedData = JSON.stringify(stat);
+                    showForm = false; // Cerrar el formulario después de modificar
+                    await getStat(country, year); // Volver a cargar los datos actualizados
+                } else if (response.status == 409) {
+                    errorMsg = 'Ya existe una entrada con ese país y año';
+                    alert(errorMsg);
+                } else if(response.status == 404){
+                    errorMsg = "Dato no encontrado";
+                    alert(errorMsg);
+			    }
             }
 			
 			console.log("Datos Modificados: "+JSON.stringify(modifiedData));
