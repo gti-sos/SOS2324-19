@@ -166,7 +166,6 @@
     </thead>
     <tbody>
         {#each testings as testing}
-		<li class="testingItem">
             <tr>
                 <td>{testing.country}</td>
                 <td>{testing.country_code}</td>
@@ -186,7 +185,6 @@
 
                 </td>
             </tr>
-        </li>
         {/each}
     </tbody>
 </table>
@@ -245,9 +243,9 @@
     </form>
 {/if}
 
-<button id="loadData" class="load-button" on:click="{getinitialTestings}">Cargar Datos</button>
-<button id="createTesting" class="create-button" on:click="{createTesting}">Crear</button>
-<button id="deleteAll" class="delete-button" on:click="{deleteAllTestings}">Eliminar todo</button>
+<button class="load-button" on:click="{getinitialTestings}">Cargar Datos</button>
+<button class="create-button" on:click="{createTesting}">Crear</button>
+<button class="delete-button" on:click="{deleteAllTestings}">Eliminar todo</button>
 
 <style>
     table {
