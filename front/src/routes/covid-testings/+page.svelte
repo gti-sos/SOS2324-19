@@ -7,20 +7,8 @@
 
     let testings = [];
 
-    let newTesting = {
-        country: 'China',
-        country_code: 'CN',
-        year_week: '2023-W39',
-        level: 'national',
-        region: 'CN',
-        region_name: 'China',
-        new_cases: 555,
-        tests_done: 555,
-        population: 555555,
-        testing_rate: 55.555,
-        positivity_rate: 55.555,
-        testing_data_source: 'TESSy COVID-19'
-    };
+    let formData = {};
+    let showForm = false; 
 
     let errorMsg = "";
 
@@ -75,32 +63,35 @@
     }
 
     async function createTesting() {
+        showForm = true;
+        
         try {
             let response = await fetch(API, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(newTesting)
+                body: JSON.stringify(formData)
             });
 
             if (response.status == 201) {
-            getTestings();
-            console.log("Creado correctamente. Codigo: " + response.status);
-            alert('Creado correctamente');
-        } else {
-            if (response.status == 400) {
-                errorMsg = 'Error en la estructura de los datos';
-                alert(errorMsg);
-            } else if (response.status == 409) {
-                errorMsg = 'Datos ya registrados';
-                alert(errorMsg);
+                getTestings();
+                console.log("Creado correctamente. Codigo: " + response.status);
+                alert('Creado correctamente');
+            } else {
+                if (response.status == 400) {
+                    errorMsg = 'Todos los campos son obligatorios';
+                    alert(errorMsg);
+                }  else if (response.status == 409) {
+                    errorMsg = 'Datos ya registrados';
+                    alert(errorMsg);
+                }
             }
-        }
-    } catch (error) {
+            } catch (error) {
             errorMsg = 'Se ha producido un error al crear un testing: '+ error;
         }
     }
+
 
     async function deleteTesting(country, year_week) {
         console.log(`Deleting testing for year and week ${year_week}`);
@@ -198,6 +189,59 @@
     </tbody>
 </table>
 
+{#if showForm}
+    <form on:submit|preventDefault="{() => createTesting(formData)}">
+        <label>
+            Country:
+            <input type="text" bind:value="{formData.country}">
+        </label>
+        <label>
+            Country Code:
+            <input type="text" bind:value="{formData.country_code}">
+        </label>
+        <label>
+            Year Week:
+            <input type="text" bind:value="{formData.year_week}">
+        </label>
+        <label>
+            Level:
+            <input type="text" bind:value="{formData.level}">
+        </label>
+        <label>
+            Region:
+            <input type="text" bind:value="{formData.region}">
+        </label>
+        <label>
+            Region Name:
+            <input type="text" bind:value="{formData.region_name}">
+        </label>
+        <label>
+            New Cases:
+            <input type="text" bind:value="{formData.new_cases}">
+        </label>
+        <label>
+            Tests Done:
+            <input type="text" bind:value="{formData.tests_done}">
+        </label>
+        <label>
+            Population:
+            <input type="text" bind:value="{formData.population}">
+        </label>
+        <label>
+            Testing Rate:
+            <input type="text" bind:value="{formData.testing_rate}">
+        </label>
+        <label>
+            Positivity Rate:
+            <input type="text" bind:value="{formData.positivity_rate}">
+        </label>
+        <label>
+            Testing Data Source:
+            <input type="text" bind:value="{formData.testing_data_source}">
+        </label>
+        <button type="submit" class="create-button">Crear</button>
+    </form>
+{/if}
 
 <button class="load-button" on:click="{getinitialTestings}">Cargar Datos</button>
 <button class="create-button" on:click="{createTesting}">Crear</button>
