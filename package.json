@@ -21,7 +21,8 @@
     "test-eu-payment-info": "npx newman run ./tests/integration/API_PHT.json -e ./tests/integration/environments/local.json",
     "test-covid-testings": "npx newman run ./tests/integration/API_RSG.json -e ./tests/integration/environments/local.json",
     "test-e2e": "npx playwright test",
-    "test": " npm run test-policy-program-stats && npm run test-eu-payment-info && npm run test-esif-payments && npm run test-covid-testings && npm run test-e2e"
+    "test-integration": " npm run test-policy-program-stats && npm run test-eu-payment-info && npm run test-esif-payments && npm run test-covid-testings",
+    "test": "npm run test-integration && npm run test-e2e"
   },
   "repository": {
     "type": "git",
