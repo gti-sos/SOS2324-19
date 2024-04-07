@@ -70,19 +70,6 @@
 		getPayments();
 	});
 
-	const cargarRecursos = async () => {
-		try {
-			const response = await fetch(`${API}?limit=${limit}&offset=${offset}`);
-			if (response.status === 404) {
-				resources = []; // No hay más recursos disponibles
-			} else {
-				resources = await response.json();
-			}
-		} catch (error) {
-			console.error('Error al cargar los recursos:', error);
-		}
-	};
-
 	async function getInitialPayments() {
 		let response = await fetch(API + '/loadInitialData', {
 			method: 'GET'
@@ -103,7 +90,6 @@
 		}
 	}
 	async function searchPayments() {
-		// Construir la cadena de búsqueda
 		searchQuery = '';
 		for (let key in searchFormData) {
 			if (searchFormData[key] !== '') {
@@ -271,7 +257,7 @@
 
 <div class="container-fluid">
     <div class="d-flex justify-content-between mb-3">
-        <button class="btn btn-primary mr-auto" on:click={() => nextPage()}>Página Anterior</button>
+        <button class="btn btn-primary mr-auto" on:click={() => previousPage()}>Página Anterior</button>
         <button id = "nxtButton" class="btn btn-primary ml-auto"on:click={() => nextPage()}>Página Siguiente</button>
     </div>
 	<div class="row">
