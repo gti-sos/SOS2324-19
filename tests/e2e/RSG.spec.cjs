@@ -81,7 +81,7 @@ test('edit testing', async ({ page }) => {
   await page.click('.load-button');
 
   await page.goto(`http://localhost:10000/covid-testings/Spain/2022-W39`);
-  
+
 
   // Modificar los valores de los campos de entrada
   await page.fill('#countryCodeInput', 'NewCountryCode');
@@ -98,10 +98,13 @@ test('edit testing', async ({ page }) => {
   // Hacer clic en el botón de guardar
   await page.click('#editButton');
 
-  // Esperar un tiempo prudencial para que se realice la edición (puedes ajustar este tiempo según la velocidad de tu aplicación)
-  await page.waitForTimeout(1000);
+  // Esperar a que se cargue la página nuevamente después de la edición
+  await page.waitForTimeout(5000);
 
-  // Comprobar si la edición se realizó correctamente (puedes agregar aquí cualquier verificación adicional necesaria)
+  // Esperar a que el elemento #levelInput esté presente en el DOM
+  await page.waitForSelector('#levelInput');
+
+  // Comprobar si la edición se realizó correctamente
   const updatedCountryCode = await page.$eval('#levelInput', (input) => input.value);
   expect(updatedCountryCode).toEqual('NewLevel');
 });

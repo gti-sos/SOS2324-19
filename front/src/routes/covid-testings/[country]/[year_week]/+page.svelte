@@ -57,6 +57,7 @@
                 await loadTesting();
                 alert('Datos actualizados');
                 window.history.back();
+                location.reload()
             } else {
                 errorMsg = 'Error: ' + response.statusText;
             }
