@@ -11,10 +11,7 @@
     let err = '';
     let data = [];
     let country = $page.params.country;
-    console.log(country);
     let cci = $page.params.cci;
-    console.log(cci);
-    let newData = [];
     let structure = {
         ms: 'PLE',
         ms_name: 'Poland',
@@ -38,23 +35,21 @@
         eu_payment_rate_on_planned_eu_amount: 967391405294658
     };
 
+    let isEditing = false; // Variable para controlar si se está editando o no
+
     onMount(() => {
         getPayment();
     });
 
     async function getPayment() {
-        console.log(API);
-        console.log(country);
-        console.log(cci);
         let response = await fetch(API + '/' + country + '/' + cci, {
             method: 'GET'
         });
         if (response.ok) {
-            alert('Se ha cargado el dato correctamente')
             data = await response.json();
             structure = data
         } else {
-            err = 'Ha ocurrido un error en el servidor';
+            err = `No se ha encontrado el dato con  ${ms_name} , ${cci}`;
             alert(err);
         }
     }
@@ -68,27 +63,27 @@
             body: JSON.stringify(structure)
         });
         if (response.status === 200) {
-			newData = JSON.stringify(structure)
-			message = 'Se han actualizado los datos correctamente';
-			err = '';
+            message = 'Se han actualizado los datos correctamente';
+            err = '';
             alert(message);
-        }else if (response.status === 404) {
-			message = '';
-			err = 'No se ha encontrado el dato';
-            alert(err);}
-        else if (response.status === 400) {
-			message = '';
-			err = 'Los datos no son correctos';
-		} else if (response.status === 409) {
-			message = '';
-			err = 'Ya existe ese dato';
+            isEditing = false; // Después de editar, cambiar a no editar
+            history.back(); // Redirigir a la página anterior
+        } else if (response.status === 404) {
+            message = '';
+            err = 'No se ha encontrado el dato';
             alert(err);
-		} else {
-			message = '';
-			err = 'Ha ocurrido un error en el servidor';
+        } else if (response.status === 400) {
+            message = '';
+            err = 'Los datos no son correctos';
+        } else if (response.status === 409) {
+            message = '';
+            err = 'Ya existe ese dato';
             alert(err);
-		}
-        getPayment()
+        } else {
+            message = '';
+            err = 'Ha ocurrido un error en el servidor';
+            alert(err);
+        }
     }
 </script>
 
@@ -103,11 +98,15 @@
                     {#each Object.entries(structure) as [key, value]}
                         <div class="form-group">
                             <label for={key}>{key}</label>
-                            <input type="text" class="form-control" id={key} bind:value={structure[key]} />
+                            <input type="text" class="form-control" id={key} bind:value={structure[key]} readonly={!isEditing} />
                         </div>
                     {/each}
                     <div class="text-center">
-                        <button class="btn btn-primary" on:click={putPayment}>Actualizar dato</button>
+                        {#if isEditing}
+                            <button class="btn btn-primary" on:click={putPayment}>Guardar</button>
+                        {:else}
+                            <button class="btn btn-primary" on:click={() => isEditing = true}>Editar</button>
+                        {/if}
                     </div>
                 </div>
             </div>
