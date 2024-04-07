@@ -57,7 +57,7 @@ test('create testing', async ({ page }) => {
   await page.waitForTimeout(4000);
 
   let Newdata = (await page.locator('#DataItem').all());
-  let Newlen = data.length;
+  let Newlen = Newdata.length;
 
   expect(Newlen).toBeGreaterThan(len);
 });
