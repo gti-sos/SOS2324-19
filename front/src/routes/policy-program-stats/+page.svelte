@@ -424,7 +424,7 @@
 			</thead>
 			<tbody>
 				{#each stats as dato}
-					<tr>
+					<tr class="statsItem">
 						<td>
 							<!-- Botón de eliminar -->
 							<a
@@ -736,7 +736,8 @@
         {/if}
 {:else}
 <div style="justify-content: center; text-align: center; margin-top: 20px">
-    <button
+    <button 
+        id="cargarDatos"
         style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
         on:click={() => getInitial()}>
         Cargar Los Datos

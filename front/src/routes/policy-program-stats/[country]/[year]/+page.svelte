@@ -234,10 +234,4 @@
     input[type='text']:focus {
         border: 3px solid #555;
     }
-
-    /* Estilo para los mensajes de error */
-    .error {
-        color: red;
-        font-weight: bold;
-    }
 </style>
