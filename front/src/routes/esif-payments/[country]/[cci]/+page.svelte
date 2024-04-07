@@ -105,7 +105,7 @@
                         {#if isEditing}
                             <button class="btn btn-primary" on:click={putPayment}>Guardar</button>
                         {:else}
-                            <button class="btn btn-primary" on:click={() => isEditing = true}>Editar</button>
+                            <button id = "SendButton" class="btn btn-primary" on:click={() => isEditing = true}>Editar</button>
                         {/if}
                     </div>
                 </div>
