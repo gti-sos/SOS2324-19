@@ -12,8 +12,9 @@
 	let errorMsg = '';
 	let newData = [];
 	let data = [];
-	let message = '';
-	let err = '';
+	
+	
+
 	let countryData = {
 		ms: '',
 		ms_name: '',
@@ -36,9 +37,13 @@
 		eu_payment_rate_actual_plan_eu_amt: 0
 	};
 
+	
+
 	onMount(() => {
 		loadCountry();
 	});
+
+	
 
 	async function loadCountry() {
 		console.log(country + year);
@@ -91,7 +96,7 @@
 				messageText.style.top = '20px';
 				messageText.style.left = '20px';
 				messageText.style.zIndex = '9999';
-				
+
 				document.body.appendChild(messageText);
 				setTimeout(() => {
 					document.body.removeChild(messageText);
@@ -106,7 +111,7 @@
 				messageText.style.top = '20px';
 				messageText.style.left = '20px';
 				messageText.style.zIndex = '9999';
-				
+
 				document.body.appendChild(messageText);
 				setTimeout(() => {
 					document.body.removeChild(messageText);
@@ -121,7 +126,7 @@
 				messageText.style.top = '20px';
 				messageText.style.left = '20px';
 				messageText.style.zIndex = '9999';
-				
+
 				document.body.appendChild(messageText);
 				setTimeout(() => {
 					document.body.removeChild(messageText);
@@ -137,7 +142,7 @@
 				messageText.style.left = '20px';
 				messageText.style.zIndex = '9999';
 				document.body.appendChild(messageText);
-				
+
 				document.body.appendChild(messageText);
 				setTimeout(() => {
 					document.body.removeChild(messageText);
