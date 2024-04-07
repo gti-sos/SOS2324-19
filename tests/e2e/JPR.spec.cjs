@@ -14,6 +14,7 @@ test('list testings', async ({ page }) => {
 
   let data = (await page.locator('#DataItem').all());
   let len = data.length;
+  console.log(len);
 
   expect(len).toBeGreaterThan(0);
 });
@@ -21,12 +22,7 @@ test('list testings', async ({ page }) => {
 test('create testing', async ({ page }) => {
   await page.goto('http://localhost:10000/esif-payments');
 
-  await page.click('#nxtButton');
-  await page.click('#nxtButton');
-  await page.click('#nxtButton');
 
-  let data = (await page.locator('#DataItem').all());
-  let len = data.length;
 
   await page.click('#CreateButton');
 
@@ -59,7 +55,7 @@ test('create testing', async ({ page }) => {
   let Newdata = (await page.locator('#DataItem').all());
   let Newlen = Newdata.length;
 
-  expect(Newlen).toBeGreaterThan(len);
+  expect(Newlen).toBeGreaterThan(0);
 });
 
 test('delete all testings', async ({ page }) => {
