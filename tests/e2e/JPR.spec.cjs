@@ -59,7 +59,7 @@ test('create testing', async ({ page }) => {
   let Newdata = (await page.locator('#DataItem').all());
   let Newlen = data.length;
 
-  expect(len).toBeGreaterThan(Newlen);
+  expect(Newlen).toBeGreaterThan(len);
 });
 
 test('delete all testings', async ({ page }) => {
