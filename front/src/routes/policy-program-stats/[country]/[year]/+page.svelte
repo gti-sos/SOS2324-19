@@ -10,67 +10,41 @@
    
     //let stat = {};
     let errorMsg = '';
+    let Msg = '';
     let showForm = false;
-
+    let modifiedData = {};
     
     let country = $page.params.country;
     let year = $page.params.year;
 
-    let stat = [];
-    let modifiedData = {
-        country: country,
-		cci: '',
-		short_title: '',
-		year: year,
-		priority: '',
-		fund: '',
-		too: 0,
-		fi_name: '',
-		fi_address: '',
-        is_set_up_at_union_level:'', 
-        fi_type: '', 
-        ex_ante_completion_date: '', 
-        funding_agreement_signature_date: '', 
-        total_amount_committed_to_fi:0, 
-        esif_amount_committed_to_fi:0, 
-        total_amount_paid_to_fi: 0, 
-        esif_amount_paid_to_fi: 0, 
-        management_costs_amount: 0, 
-        base_renumeration_amount:0, 
-        performance_based_renumeration_paid_amount:0, 
-        total_amount_committed_to_final_recipients:0, 
-        esif_amount_committed_to_final_recipients:0, 
-        total_amount_paid_to_final_recipients: 0, 
-        esif_amount_paid_to_final_recipients: 0, 
-        to_code_short_title: '', 
-        to_long_title: ''
-    };
-    
-
+    let dato = [];
 
     onMount(async () => {
-        await getStat();
+        await getStat(country,year);
     })
 
-    async function getStat() {
+    async function getStat(country,year) {
         try {
-            let response = await fetch(`${API}/${country}/${year}`);
+            let response = await fetch(API + '/' + country + '/' + year, {
+                method: 'GET',
+                headers: {
+					'Content-Type': 'application/json'
+				}
+            });
             if (response.status == 200) {
                 let res = await response.json();
-                stat = { ...stat, ...res };
+                dato = res;
+                console.log("Dato: "+ dato);
             } else {
                 if (response.status == 400) {
                 errorMsg = 'Error en la estructura de los datos';
-                alert(errorMsg);
             } else if (response.status == 409) {
                 errorMsg = 'Ya existe una entrada con ese país y año';
-                alert(errorMsg);
             } else if(response.status == 404){
 				errorMsg = "Dato no encontrado";
-				alert(errorMsg);
 			}
             }
-			console.log("Datos Originales: " + JSON.stringify(stat))
+			console.log("Datos Originales: " + JSON.stringify(dato))
         } catch (e) {
             errorMsg = e;
         }
@@ -79,30 +53,23 @@
       async function putStat() {
         try {
 			
-            let response = await fetch(`${API}/${country}/${year}`, {
+            let response = await fetch(API+'/'+country+'/'+year, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(stat)
+                body: JSON.stringify(dato)
             });
-            if (response.status == 400) {
-                errorMsg = 'No puedes cambiar ni el país ni el año';
-                alert(errorMsg);
+            if (response.status == 200) {
+				modifiedData = JSON.stringify(dato);
+                showForm = false; // Cerrar el formulario después de modificar
+                await getStat(country, year);
+                Msg=`Datos modificados con exito del stat ${country} y ${year}`;
             } else {
-				if (response.status == 200) {
-                    modifiedData = JSON.stringify(stat);
-                    showForm = false; // Cerrar el formulario después de modificar
-                    await getStat(country, year); // Volver a cargar los datos actualizados
-                } else if (response.status == 409) {
-                    errorMsg = 'Ya existe una entrada con ese país y año';
-                    alert(errorMsg);
-                } else if(response.status == 404){
+				if(response.status == 404){
                     errorMsg = "Dato no encontrado";
-                    alert(errorMsg);
-			    }
+                }
             }
-			
 			console.log("Datos Modificados: "+JSON.stringify(modifiedData));
         } catch (e) {
             errorMsg = e;
@@ -114,7 +81,7 @@
 <h2>Stat details from {country}:{year}</h2>
 
 {#if !showForm}
-    {#if Object.keys(stat).length > 0}
+    {#if Object.keys(dato).length > 0}
         <div class="container">
             <div class="card">
                 <table>
@@ -123,7 +90,7 @@
                         <th> Valor </th>
                     </thead>
                     <tbody>
-                        {#each Object.entries(stat) as [key, value]}
+                        {#each Object.entries(dato) as [key, value]}
                             <tr>
                                 <td class="attribute">{key}:</td>
                                 <td class="value">
@@ -145,6 +112,13 @@
                     >
                         Modificar Datos
                     </button>
+                    <button
+                        style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
+                        
+						on:click={() => { window.location.href = 'http://localhost:10000/policy-program-stats'; }}
+                    >
+                        Ir a la pagina principal
+                    </button>
                 </div>
             </div>
         </div>
@@ -159,11 +133,15 @@
             <form on:submit|preventDefault={putStat}>
 				<table>
 					<tbody>
-						{#each Object.entries(stat) as [key, value]}
+						{#each Object.entries(dato) as [key, value]}
 							<tr>
 								<td class="attribute">{key}:</td>
 								<td class="value">
-									<input type="text" bind:value={stat[key]} />
+									{#if key=="country" || key=="year"}
+                                        {dato[key]}
+                                    {:else}
+									    <input type="text" bind:value={dato[key]} />
+                                    {/if}
 								</td>
 							</tr>
 						{/each}
@@ -190,10 +168,13 @@
     </div>
 {/if}
 
-{#if errorMsg}
-    <p class="error">ERROR: {errorMsg}</p>
+{#if errorMsg != ""}
+        <hr>ERROR: {errorMsg}
+{:else}
+    {#if Msg != ""}
+        <hr>EXITO: {Msg}
+    {/if}
 {/if}
-
 <style>
 	
 	.card {

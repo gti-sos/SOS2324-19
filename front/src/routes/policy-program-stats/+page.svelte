@@ -12,38 +12,11 @@
     let Msg = ""; 
     let showForm = false;
 	let showFilter = false;
-
-    let currentPage = 1;
-    let totalItems = 0;
-    const pageSize = 10;
-	let selectedFilter = {
-		country: '',
-		cci: '',
-		short_title: '',
-		year: '',
-		priority: '',
-		fund: '',
-		too: '',
-		fi_name: '',
-		fi_address: '',
-        is_set_up_at_union_level:'', 
-        fi_type: '', 
-        ex_ante_completion_date: '', 
-        funding_agreement_signature_date: '', 
-        total_amount_committed_to_fi:'', 
-        esif_amount_committed_to_fi:'', 
-        total_amount_paid_to_fi: '', 
-        esif_amount_paid_to_fi: '', 
-        management_costs_amount: '', 
-        base_renumeration_amount:'', 
-        performance_based_renumeration_paid_amount:'', 
-        total_amount_committed_to_final_recipients:'', 
-        esif_amount_committed_to_final_recipients:'', 
-        total_amount_paid_to_final_recipients: '', 
-        esif_amount_paid_to_final_recipients: '', 
-        to_code_short_title: '', 
-        to_long_title: ''
-	};
+    let limit = 10;
+    // let currentPage = 1;
+    // let totalItems = 0;
+    // const pageSize = 10;
+    let selectedFilter = {};
 
     const newStat = { 
         country: '',
@@ -75,7 +48,7 @@
     }
 
     onMount(async() => {
-        await getStats();
+        getStats();
     })
     async function getStatsFilter() {
 		try {
@@ -134,18 +107,16 @@
 				// Actualiza los datos después de una búsqueda exitosa
 				let data = await response.json();
 				stats = data;
+                Msg='busqueda realizada con exito';
 				console.log(data);
 			} else {
 				// Manejo de errores
 				if (response.status == 400) {
 					errorMsg = 'Error en la estructura de los datos';
-					alert(errorMsg);
 				} else if (response.status == 409) {
 					errorMsg = 'Ya existe una entrada con ese país y año';
-					alert(errorMsg);
 				} else if (response.status == 404) {
 					errorMsg = 'Dato no encontrado';
-					alert(errorMsg);
 				}
 			}
 		} catch (error) {
@@ -161,19 +132,22 @@
                 let response = await fetch(API+"/loadInitialData",{
                                       method: "GET"
                 });
-
-                if(response.ok){
+                try {
+                    const dat = await response.json();
+                    stats = dat;
+                } catch (error) {
+                    console.log(`Error al parsear el resultado: ${error}`);
+                }
+                if(response.status==200){
                     getStats();
-                    alert('Datos Cargados Correctamente');
+                    Msg='Datos Cargados Correctamente';
                     errorMsg = "";
 					
                 } else {
                     errorMsg = "Error al cargar los datos";
-                    alert('Error al cargar los datos');
                 }
             } else {
                 errorMsg = "Ya existen datos en la base de datos";
-                alert('Ya existen datos en la base de datos');
             }
             
         } catch(e){
@@ -181,27 +155,66 @@
         }
         
     }
-    
+    async function getNextPage() {
+        let response = await fetch(API+`?offset=10&&limit=${limit}`, {
+            method: "GET",
+        });
+        try {
+            let dat = await response.json();
+            stats = dat;
+            console.log(dat);
+        } catch (error) {
+            console.log(`Error al parsear el resultado: ${error}`);
+        }
+    }
+    let getFrom = null;
+    let getTo = null;
+    async function getFromTo(getFrom,getTo) {
+            let response = await fetch(API+`?from=${getFrom}&to=${getTo}`, {
+                method: "GET",
+            });
+            try {
+                let dat = await response.json();
+                stats = dat;
+                console.log(stats);
+            } catch (error) {
+                console.log(`Error al parsear el resultado: ${error}`);
+            }
+            let status = await response.status;
+            if (status == 200) {
+                Msg = "Se ha realizado la petición correctamente";
+            } else if (status == 400) {
+                Msg = "La petición no es correcta."
+            } else if (status == 500) {
+                Msg = "Error del servidor";
+            } 
+    }
+
     async function getStats() {
         try {
-            let offset = (currentPage - 1) * pageSize;
-            let response = await fetch(`${API}?limit=${pageSize}&offset=${offset}`,{
-                    method: "GET",
-            });
-            if(response.ok){
-                let {data, total}  = await response.json();
-                stats = data;
-                console.log(data);
-                totalItems = total;
+            let response = await fetch(API+`?offset=0&&limit=${limit}`, {
+                                method: "GET"
+                        });
+            // let offset = (currentPage - 1) * pageSize;
+            // let response = await fetch(`${API}?limit=${pageSize}&offset=${offset}`,{
+            //         method: "GET",
+            // });
+            let status = await response.status;
+            if(status == 200){
+                //let {data, total}  = await response.json();
+                let dat = await response.json();
+                stats = dat;
+                // stats = data;
+                // console.log(data);
+                // totalItems = total;
                 Msg = "Se han cargado los stats";
                 errorMsg = "";
             } else {
-                if(response.status == 404){
+                if(status == 404){
                     let data = await response.json();
                     stats = data;
                     console.log(data);
                     errorMsg = "No hay datos en la base de datos";
-                    alert('No hay datos en la base de datos');
                 } else {
                     errorMsg = `Error ${response.status}: ${response.statusText}`;
                 }
@@ -211,19 +224,19 @@
         }
             
     }
-    async function nextPage() {
-        if ((currentPage * pageSize) < totalItems) {
-            currentPage++;
-            getStats();
-        }
-    }
+    // async function nextPage() {
+    //     if ((currentPage * pageSize) < totalItems) {
+    //         currentPage++;
+    //         getStats();
+    //     }
+    // }
 
-    async function prevPage() {
-        if (currentPage > 1) {
-            currentPage--;
-            getStats();
-        }
-    }
+    // async function prevPage() {
+    //     if (currentPage > 1) {
+    //         currentPage--;
+    //         getStats();
+    //     }
+    // }
     async function DeleteStat(c,y) {
         try {
             let response = await fetch(API+'/'+c+'/'+y,{
@@ -235,14 +248,11 @@
             await getStats();
             if (stats.length === 0) {
                     errorMsg = "No hay datos disponibles";
-                    alert('No hay datos disponibles');
                 }
-                Msg = "Dato eliminado correctamente";
-                alert(`Dato eliminado con el pais ${c} en el año ${y}`);
+                Msg = `Dato eliminado con el pais ${c} en el año ${y}`;
                 errorMsg = "";
         } else {
-			errorMsg = 'No se ha podido borrar';
-			alert(errorMsg);	
+			errorMsg = 'No se ha podido borrar';	
 		}
         } catch(e) {
             errorMsg = e;
@@ -255,12 +265,11 @@
                 method: "DELETE"
             });
             if (response.status == 200) {
-                alert("Todas las entradas han sido eliminadas");
+                Msg="Todas las stats han sido eliminadas"
                 getStats();
                 location.reload();
 			} else {
 				errorMsg = 'Ya estan borrados todas las stats';
-				alert(errorMsg);
 			}
         } catch(e) {
             errorMsg = e;
@@ -285,18 +294,14 @@
             showForm = false;
             await getStats();
             Msg = "Dato creado correctamente";
-            alert(Msg);
             errorMsg = "";
         } else {
             if (response.status == 400) {
                 errorMsg = 'Error en la estructura de los datos';
-                alert(errorMsg);
             } else if (response.status == 409) {
                 errorMsg = 'Ya existe un stat con los mismos datos';
-                alert(errorMsg);
             } else if (response.status == 404) {
                 errorMsg = 'Dato no encontrado';
-                alert(errorMsg);
             }
         }
         } catch(e) {
@@ -317,6 +322,20 @@
 				}}
 				>Filtros
 			</button>
+		</div>
+        <div style="margin-bottom: 20px; display: flex; justify-content: space-between;">
+			<label>
+                Desde:
+                <input type="number" bind:value={getFrom}>
+            </label>
+            <label>
+                Hasta:
+                <input type="number" bind:value={getTo}>
+            </label>
+            <button
+                style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
+                on:click={getFromTo(getFrom,getTo)}>Buscar
+            </button>
 		</div>
 		<table>
 			<thead>
@@ -431,12 +450,12 @@
         <div style="margin-top: 20px; display: flex; justify-content: space-between;">
 			<button
 				style="background-color: #0366d6; color: white; padding: 5px 20px; border: none; border-radius: 5px; cursor: pointer;"
-				on:click={() => prevPage()}
+				on:click={() => getStats()}
 				>Anterior
 			</button>
 			<button
 				style="background-color: #0366d6; color: white; padding: 5px 20px; border: none; border-radius: 5px; cursor: pointer;"
-				on:click={() => nextPage()}
+				on:click={() => getNextPage()}
 				> Siguiente
 			</button>
 		</div>
@@ -464,7 +483,7 @@
                         on:click={() => {
                             showForm = false;
                         }}>&times;</span>
-                    <h2 style="color: #0366d6;">Crear Nueva Entrada</h2>
+                    <h2 style="color: #0366d6;">Crear Nueva Stat</h2>
                     <form on:submit|preventDefault={CreateStat}>
                         <label>
                             Pais:
@@ -708,8 +727,12 @@
                 </div>
             </div>
         {/if}
-        {#if errorMsg != ''}
-            ERROR: {errorMsg}
+        {#if errorMsg != ""}
+                <hr>ERROR: {errorMsg}
+        {:else}
+            {#if Msg != ""}
+                <hr>EXITO: {Msg}
+            {/if}
         {/if}
 {:else}
 <div style="justify-content: center; text-align: center; margin-top: 20px">
