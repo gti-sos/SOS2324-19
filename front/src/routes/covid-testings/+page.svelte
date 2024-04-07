@@ -143,7 +143,6 @@
 </script>
 
 <table>
-<<<<<<< HEAD
 	<thead>
 		<tr>
 			<th>Country</th>
@@ -193,48 +192,6 @@
 			</tr>
 		{/each}
 	</tbody>
-=======
-    <thead>
-        <tr>
-            <th>Country</th>
-            <th>Country Code</th>
-            <th>Year Week</th>
-            <th>Level</th>
-            <th>Region</th>
-            <th>Region Name</th>
-            <th>New Cases</th>
-            <th>Tests Done</th>
-            <th>Population</th>
-            <th>Testing Rate</th>
-            <th>Positivity Rate</th>
-            <th>Testing Data Source</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {#each testings as testing}
-            <tr>
-                <td>{testing.country}</td>
-                <td>{testing.country_code}</td>
-                <td>{testing.year_week}</td>
-                <td>{testing.level}</td>
-                <td>{testing.region}</td>
-                <td>{testing.region_name}</td>
-                <td>{testing.new_cases}</td>
-                <td>{testing.tests_done}</td>
-                <td>{testing.population}</td>
-                <td>{testing.testing_rate}</td>
-                <td>{testing.positivity_rate}</td>
-                <td>{testing.testing_data_source}</td>
-                <td>
-                    <button class="delete-button" on:click="{() => deleteTesting(testing.country, testing.year_week)}">Eliminar</button>
-                    <button class="edit-button" on:click="{() => window.location.href=`/covid-testings/${testing.country}/${testing.year_week}`}">Editar</button>
-
-                </td>
-            </tr>
-        {/each}
-    </tbody>
->>>>>>> e0ee156224ee152ec4bdb9661e27b69ef0ab3ffc
 </table>
 
 {#if showForm}
@@ -291,15 +248,9 @@
 	</form>
 {/if}
 
-<<<<<<< HEAD
 <button id="loadData" class="load-button" on:click={getinitialTestings}>Cargar Datos</button>
 <button id="createButton" class="create-button" on:click={createTesting}>Crear</button>
 <button id="deleteAllButton" class="delete-button" on:click={deleteAllTestings}>Eliminar todo</button>
-=======
-<button class="load-button" on:click="{getinitialTestings}">Cargar Datos</button>
-<button class="create-button" on:click="{createTesting}">Crear</button>
-<button class="delete-button" on:click="{deleteAllTestings}">Eliminar todo</button>
->>>>>>> e0ee156224ee152ec4bdb9661e27b69ef0ab3ffc
 
 <div>
 	<button class="page-button" on:click="{() => navigateToPage(currentPage - 1)}" disabled="{currentPage === 1}">Página anterior</button>
