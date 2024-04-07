@@ -83,8 +83,7 @@
 			} else {
 				if (response.status == 400) {
 					errorMsg = 'Todos los campos son obligatorios';
-					alert(errorMsg);
-				} else if (response.status == 409) {
+					} else if (response.status == 409) {
 					errorMsg = 'Datos ya registrados';
 					alert(errorMsg);
 				}
@@ -162,7 +161,7 @@
 	</thead>
 	<tbody>
 		{#each testings as testing}
-			<tr class="testingItem">
+			<tr id="testingItem">
 				<td>{testing.country}</td>
 				<td>{testing.country_code}</td>
 				<td>{testing.year_week}</td>
@@ -256,6 +255,7 @@
 	<button class="page-button" on:click="{() => navigateToPage(currentPage - 1)}" disabled="{currentPage === 1}">Página anterior</button>
 	<button class="page-button" on:click="{() => navigateToPage(currentPage + 1)}" disabled="{currentPage === totalPages}">Página siguiente</button>
 </div>
+
 <style>
 	table {
 		width: 100%;

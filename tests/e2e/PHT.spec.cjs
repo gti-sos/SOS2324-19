@@ -14,11 +14,12 @@ test('list countries', async ({ page }) => {
 
   // Click the get started link.
   await page.click('#cargarDatos');
-  
+  await page.waitForTimeout(3000);
+
   // Expects page to have a heading with the name of Installation.
   //await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
   let countries= (await page.locator('.countryItem').all())
-  let coutriesNumber = countries.length;
+  let coutriesNumber = countries.length; 
 
   expect(coutriesNumber).toBeGreaterThan(0);
 });

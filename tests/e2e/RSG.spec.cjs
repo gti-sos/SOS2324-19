@@ -1,5 +1,3 @@
-/*
-// @ts-check
 const { test, expect } = require('@playwright/test');
 
 test('has title', async ({ page }) => {
@@ -8,42 +6,15 @@ test('has title', async ({ page }) => {
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Menú de Navegación/);
 });
-
-test('list testings', async ({ page }) => {
-  await page.goto('http://localhost:10000/covid-testings');
-
-  // Click the get started link.
-  await page.click('.load-button');
-  
-  // Expects page to have a heading with the name of Installation.
-  //await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
-  let countries= (await page.locator('.testingItem').all())
-  let coutriesNumber = countries.length;
-
-  expect(coutriesNumber).toBeGreaterThan(0);
-});
-*/
-/////////////////////////////////////////
-
-const { test, expect } = require('@playwright/test');
-
-test('has title', async ({ page }) => {
-  await page.goto('http://localhost:10000');
-
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Menú de Navegación/);
-});
-
 
 test('list testings', async ({ page }) => {
   await page.goto('http://localhost:10000/covid-testings');
 
   // Click the "Cargar Datos" button.
-  await page.click('.load-button');
+  await page.click('#loadData');
+  await page.waitForTimeout(3000);
 
-  // Expects page to have a heading with the name of Installation.
-  //await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
-  let countries = (await page.locator('.testingItem').all());
+  let countries = (await page.locator('#testingItem').all());
   let coutriesNumber = countries.length;
 
   expect(coutriesNumber).toBeGreaterThan(0);
@@ -52,7 +23,9 @@ test('list testings', async ({ page }) => {
 test('create testing', async ({ page }) => {
   await page.goto('http://localhost:10000/covid-testings');
 
-  // Click the "Crear" button.
+  let data = (await page.locator('#testingItem').all());
+  let len = data.length;
+
   await page.click('.create-button');
 
   // Fill out the form
@@ -67,11 +40,16 @@ test('create testing', async ({ page }) => {
   await page.fill('#positivityRateInput', '2');
   await page.fill('#testingDataSourceInput', 'Example Source');
 
-  // Submit the form
+  await page.waitForTimeout(2000);
   await page.click('#submitButton');
+  await page.waitForTimeout(4000);
 
-  // Expect some behavior after submitting the form, such as a new testing being added to the list.
+  let Newdata = (await page.locator('#testingItem').all());
+  let Newlen = Newdata.length;
+
+  expect(Newlen).toBeGreaterThan(len);
 });
+
 
 test('edit testing', async ({ page }) => {
 
@@ -114,8 +92,12 @@ test('edit testing', async ({ page }) => {
 test('delete all testings', async ({ page }) => {
   await page.goto('http://localhost:10000/covid-testings');
 
-  // Click the "Eliminar todo" button.
-  await page.click('.delete-button');
+  await page.click('#deleteAllButton');
 
-  // Expect some behavior after clicking the delete button, such as all testings being removed from the list.
+  await page.waitForTimeout(1000);
+
+
+  let countries = (await page.locator('#testingItem').all());
+
+  expect(countries.length).toEqual(0);
 });
