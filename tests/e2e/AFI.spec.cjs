@@ -18,7 +18,7 @@ test('list stats', async ({ page }) => {
   // Expects page to have a heading with the name of Installation.
   //await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
   await page.waitForTimeout(2000);
-  let stats= (await page.locator('.statsItem').all())
+  let stats= (await page.locator('#testingItem').all())
   let statsNumber = stats.length;
 
   expect(statsNumber).toBeGreaterThan(0);
@@ -61,7 +61,12 @@ test('create testing', async ({ page }) => {
 
   // Submit the form
   await page.click('.submit-button');
+  await page.waitForTimeout(200);
 
+  let Newdata = (await page.locator('#testingItem').all());
+  let Newlen = Newdata.length;
+
+  expect(Newlen).toBeGreaterThan(0);
   // Expect some behavior after submitting the form, such as a new testing being added to the list.
 });
 
@@ -71,7 +76,6 @@ test('create testing', async ({ page }) => {
 //   await page.goto('http://localhost:10000/policy-program-stats');
 
 //   // Click the "Cargar Datos" button.
-//   await page.click('#cargarDatos');
 
 //   await page.goto(`http://localhost:10000/policy-program-stats/AT/2020`);
 
@@ -82,15 +86,7 @@ test('create testing', async ({ page }) => {
 //   // Hacer clic en el botón de guardar
 //   await page.click('#editButton');
 
-//   // Esperar a que se cargue la página nuevamente después de la edición
-//   await page.waitForTimeout(5000);
-
-//   // Esperar a que el elemento #levelInput esté presente en el DOM
-//   await page.waitForSelector('#cciimpute');
-
-//   // Comprobar si la edición se realizó correctamente
-//   const updatedCountryCode = await page.$eval('#cciimpute', (input) => input.value);
-//   expect(updatedCountryCode).toEqual('DG77273737');
+//   await page.click('.delete-button');
 // });
 
 test('delete all testings', async ({ page }) => {
@@ -99,6 +95,12 @@ test('delete all testings', async ({ page }) => {
   // Click the "Eliminar todo" button.
   await page.click('.delete-button');
 
+  await page.waitForTimeout(1000);
+
+
+  let countries = (await page.locator('#testingItem').all());
+
+  expect(countries.length).toEqual(0);
   // Expect some behavior after clicking the delete button, such as all testings being removed from the list.
 });
 
