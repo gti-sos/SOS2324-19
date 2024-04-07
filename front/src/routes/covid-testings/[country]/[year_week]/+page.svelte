@@ -3,7 +3,6 @@
     import { onMount } from 'svelte';
     import { dev } from '$app/environment';
 
-
     let API = '/api/v2/covid-testings';
 
     if (dev) API = 'http://localhost:10000/api/v2/covid-testings';
@@ -23,7 +22,7 @@
         testing_rate: 0.0,
         positivity_rate: 0.0,
         testing_data_source: ''
-    }; 
+    };
     let errorMsg = '';
 
     onMount(async () => {
@@ -57,7 +56,7 @@
                 console.log('Testing edited ok');
                 await loadTesting();
                 alert('Datos actualizados');
-                window.history.back(); 
+                window.history.back();
             } else {
                 errorMsg = 'Error: ' + response.statusText;
             }
@@ -67,22 +66,21 @@
     }
 </script>
 
-
 <div class="container mx-auto mt-5" style="width: 60%;">
     <h2 class="title">Datos de {country} - {year_week}</h2>
-    <p>Country Code: <input type="text" bind:value="{toEdit.country_code}" /></p>
-    <p>Level: <input type="text" bind:value="{toEdit.level}" /></p>
-    <p>Region: <input type="text" bind:value="{toEdit.region}" /></p>
-    <p>Region Name: <input type="text" bind:value="{toEdit.region_name}" /></p>
-    <p>New Cases: <input type="number" bind:value="{toEdit.new_cases}" /></p>
-    <p>Tests Done: <input type="number" bind:value="{toEdit.tests_done}" /></p>
-    <p>Population: <input type="number" bind:value="{toEdit.population}" /></p>
-    <p>Testing Rate: <input type="number" bind:value="{toEdit.testing_rate}" /></p>
-    <p>Positivity Rate: <input type="number" bind:value="{toEdit.positivity_rate}" /></p>
-    <p>Testing Data Source: <input type="text" bind:value="{toEdit.testing_data_source}" /></p>
+    <p>Country Code: <input id="countryCodeInput" type="text" bind:value="{toEdit.country_code}" /></p>
+    <p>Level: <input id="levelInput" type="text" bind:value="{toEdit.level}" /></p>
+    <p>Region: <input id="regionInput" type="text" bind:value="{toEdit.region}" /></p>
+    <p>Region Name: <input id="regionNameInput" type="text" bind:value="{toEdit.region_name}" /></p>
+    <p>New Cases: <input id="newCasesInput" type="number" bind:value="{toEdit.new_cases}" /></p>
+    <p>Tests Done: <input id="testsDoneInput" type="number" bind:value="{toEdit.tests_done}" /></p>
+    <p>Population: <input id="populationInput" type="number" bind:value="{toEdit.population}" /></p>
+    <p>Testing Rate: <input id="testingRateInput" type="number" bind:value="{toEdit.testing_rate}" /></p>
+    <p>Positivity Rate: <input id="positivityRateInput" type="number" bind:value="{toEdit.positivity_rate}" /></p>
+    <p>Testing Data Source: <input id="testingDataSourceInput" type="text" bind:value="{toEdit.testing_data_source}" /></p>
 
     <div class="button-center">
-        <button on:click={editTesting} class="btn btn-primary">Guardar</button>
+        <button id="editButton" on:click={editTesting} class="btn btn-primary">Guardar</button>
     </div>
 
     {#if errorMsg}
