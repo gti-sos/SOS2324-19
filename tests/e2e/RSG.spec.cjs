@@ -9,7 +9,6 @@ test('has title', async ({ page }) => {
   await expect(page).toHaveTitle(/Menú de Navegación/);
 });
 
-
 test('list testings', async ({ page }) => {
   await page.goto('http://localhost:10000/covid-testings');
 
