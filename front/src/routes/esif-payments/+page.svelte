@@ -272,7 +272,7 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-between mb-3">
         <button class="btn btn-primary mr-auto" on:click={() => nextPage()}>Página Anterior</button>
-        <button id = "nxtButton" class="btn btn-primary ml-auto"on:click={() => previousPage()}>Página Siguiente</button>
+        <button id = "nxtButton" class="btn btn-primary ml-auto"on:click={() => nextPage()}>Página Siguiente</button>
     </div>
 	<div class="row">
 		{#if !esArray(data)}
