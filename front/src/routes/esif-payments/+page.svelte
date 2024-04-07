@@ -272,7 +272,7 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-between mb-3">
         <button class="btn btn-primary mr-auto">Página Anterior</button>
-        <button class="btn btn-primary ml-auto">Página Siguiente</button>
+        <button id = "nxtButton" class="btn btn-primary ml-auto">Página Siguiente</button>
     </div>
 	<div class="row">
 		{#if !esArray(data)}
