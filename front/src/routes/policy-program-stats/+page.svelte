@@ -424,7 +424,7 @@
 			</thead>
 			<tbody>
 				{#each stats as dato}
-					<tr>
+					<tr class="statsItem">
 						<td>
 							<!-- Botón de eliminar -->
 							<a
@@ -460,13 +460,14 @@
 			</button>
 		</div>
         <div style="margin-top: 20px; display: flex; justify-content: space-between;">
-            <button
+            <button class="create-button"
                 style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
                 on:click={() => {
                     showForm = true;
                 }}>Crear Nuevo Dato
             </button>
             <button
+                class="delete-button"
                 style="background-color: #FF0000; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
                 on:click={() => {
                     DeleteAllStats();
@@ -487,112 +488,113 @@
                     <form on:submit|preventDefault={CreateStat}>
                         <label>
                             Pais:
-                            <input type="text" bind:value={newStat.country} style="margin-bottom: 10px;" required/>
+                            <input id="countryimput" type="text" bind:value={newStat.country} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Cci:
-                            <input type="text" bind:value={newStat.cci} style="margin-bottom: 10px;" required/>
+                            <input id="cciimput" type="text" bind:value={newStat.cci} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Titulo Corto:
-                            <input type="text" bind:value={newStat.short_title} style="margin-bottom: 10px;" required/>
+                            <input id="short_titleimput" type="text" bind:value={newStat.short_title} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Año:
-                            <input type="number" bind:value={newStat.year} style="margin-bottom: 10px;" required/>
+                            <input id="yearimput" type="number" bind:value={newStat.year} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Prioridad:
-                            <input type="text" bind:value={newStat.priority} style="margin-bottom: 10px;" required/>
+                            <input id="priorityimput" type="text" bind:value={newStat.priority} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Fondo:
-                            <input type="text" bind:value={newStat.fund} style="margin-bottom: 10px;" required/>
+                            <input id="fundimput" type="text" bind:value={newStat.fund} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Donde va dirigido:
-                            <input type="text" bind:value={newStat.too} style="margin-bottom: 10px;" required/>
+                            <input id="tooimput" type="text" bind:value={newStat.too} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Nombre del Fondo:
-                            <input type="text" bind:value={newStat.fi_name} style="margin-bottom: 10px;" required/>
+                            <input id="fi_nameimput" type="text" bind:value={newStat.fi_name} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Dirección del Fondo:
-                            <input type="text" bind:value={newStat.fi_address} style="margin-bottom: 10px;" required/>
+                            <input id="fi_addressimput" type="text" bind:value={newStat.fi_address} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Configuración de nivel de Unión:
-                            <input type="text" bind:value={newStat.is_set_up_at_union_level} style="margin-bottom: 10px;" required/>
+                            <input id="is_set_up_at_union_levelimput" type="text" bind:value={newStat.is_set_up_at_union_level} style="margin-bottom: 10px;" required/>
 
                         </label>
                         <label>
                             Tipo de Fondo:
-                            <input type="text" bind:value={newStat.fi_type} style="margin-bottom: 10px;" required/>
+                            <input id="fi_typeimput" type="text" bind:value={newStat.fi_type} style="margin-bottom: 10px;" required/>
 
                         </label>
                         <label>
                             Fecha de emisión de financiamiento:
-                            <input bind:value={newStat.ex_ante_completion_date} style="margin-bottom: 10px;" required/>
+                            <input id="ex_ante_completion_dateimput" bind:value={newStat.ex_ante_completion_date} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Fecha de acuerdo de financiamiento:
-                            <input bind:value={newStat.funding_agreement_signature_date} style="margin-bottom: 10px;" required/>
+                            <input id="funding_agreement_signature_dateimput" bind:value={newStat.funding_agreement_signature_date} style="margin-bottom: 10px;" required/>
 
                         </label>
                         <label>
                             Cantidad total comprometido al fondo:
-                            <input type="number" bind:value={newStat.total_amount_committed_to_fi} style="margin-bottom: 10px;" required/>
+                            <input id="total_amount_committed_to_fiimput" type="number" bind:value={newStat.total_amount_committed_to_fi} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Cantidad total promedio comprometido al fondo:
-                            <input type="number" bind:value={newStat.esif_amount_committed_to_fi} style="margin-bottom: 10px;" required/>
+                            <input id="esif_amount_committed_to_fiimput" type="number" bind:value={newStat.esif_amount_committed_to_fi} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Cantidad total pagado al fondo:
-                            <input type="number" bind:value={newStat.total_amount_paid_to_fi} style="margin-bottom: 10px;" required/>
+                            <input id="total_amount_paid_to_fiimput" type="number" bind:value={newStat.total_amount_paid_to_fi} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Cantidad total promedio pagado al fondo:
-                            <input type="number" bind:value={newStat.esif_amount_paid_to_fi} style="margin-bottom: 10px;" required/>
+                            <input id="esif_amount_paid_to_fiimput" type="number" bind:value={newStat.esif_amount_paid_to_fi} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Cantidad de costos de gestión:
-                            <input type="number" bind:value={newStat.management_costs_amount} style="margin-bottom: 10px;" required/>
+                            <input id="management_costs_amountimput" type="number" bind:value={newStat.management_costs_amount} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Cantidad base de remuneración:
-                            <input type="number" bind:value={newStat.base_renumeration_amount} style="margin-bottom: 10px;" required/>
+                            <input id="base_renumeration_amountimput" type="number" bind:value={newStat.base_renumeration_amount} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Cantidad de remuneración basado en el desempeño pagado:
-                            <input type="number" bind:value={newStat.performance_based_renumeration_paid_amount} style="margin-bottom: 10px;" required/>
+                            <input id="performance_based_renumeration_paid_amountimput" type="number" bind:value={newStat.performance_based_renumeration_paid_amount} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Cantidad total comprometido a los destinatarios finales:
-                            <input type="number" bind:value={newStat.total_amount_committed_to_final_recipients} style="margin-bottom: 10px;" required/>
+                            <input id="total_amount_committed_to_final_recipientsimput" type="number" bind:value={newStat.total_amount_committed_to_final_recipients} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Cantidad promedio comprometido a los destinatarios finales:
-                            <input type="number" bind:value={newStat.esif_amount_committed_to_final_recipients} style="margin-bottom: 10px;" required/>
+                            <input id="esif_amount_committed_to_final_recipientsimput" type="number" bind:value={newStat.esif_amount_committed_to_final_recipients} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Cantidad total pagado a los destinatarios finales:
-                            <input type="number" bind:value={newStat.total_amount_paid_to_final_recipients} style="margin-bottom: 10px;" required/>
+                            <input id="total_amount_paid_to_final_recipientsimput" type="number" bind:value={newStat.total_amount_paid_to_final_recipients} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Cantidad promedio pagado a los destinatarios finales:
-                            <input type="number" bind:value={newStat.esif_amount_paid_to_final_recipients} style="margin-bottom: 10px;" required/>
+                            <input id="esif_amount_paid_to_final_recipientsimput" type="number" bind:value={newStat.esif_amount_paid_to_final_recipients} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Código de Título Corto:
-                            <input type="text" bind:value={newStat.to_code_short_title} style="margin-bottom: 10px;" required/>
+                            <input id="to_code_short_titleimput" type="text" bind:value={newStat.to_code_short_title} style="margin-bottom: 10px;" required/>
                         </label>
                         <label>
                             Título Largo:
-                            <input type="text" bind:value={newStat.to_long_title} style="margin-bottom: 10px;" required/>
+                            <input id="to_long_titleimput" type="text" bind:value={newStat.to_long_title} style="margin-bottom: 10px;" required/>
                         </label>
                         <button
+                            class="submit-button"
                             type="submit"
                             style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
                             >Crear</button
@@ -736,7 +738,8 @@
         {/if}
 {:else}
 <div style="justify-content: center; text-align: center; margin-top: 20px">
-    <button
+    <button 
+        class="cargarDatos"
         style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
         on:click={() => getInitial()}>
         Cargar Los Datos

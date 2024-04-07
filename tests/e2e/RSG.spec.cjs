@@ -74,11 +74,14 @@ test('create testing', async ({ page }) => {
 });
 
 test('edit testing', async ({ page }) => {
-  // Ir a la página de edición del testing específico
-  const country = 'Sweden'; // Reemplaza 'NombreDelPais' con el país correspondiente
-  const year_week = '2023-W39'; // Reemplaza '2024-W15' con el año y la semana correspondiente
 
-  await page.goto(`http://localhost:10000/covid-testings/${country}/${year_week}`);
+  await page.goto('http://localhost:10000/covid-testings');
+
+  // Click the "Cargar Datos" button.
+  await page.click('.load-button');
+
+  await page.goto(`http://localhost:10000/covid-testings/Spain/2022-W39`);
+
 
   // Modificar los valores de los campos de entrada
   await page.fill('#countryCodeInput', 'NewCountryCode');
@@ -95,10 +98,13 @@ test('edit testing', async ({ page }) => {
   // Hacer clic en el botón de guardar
   await page.click('#editButton');
 
-  // Esperar un tiempo prudencial para que se realice la edición (puedes ajustar este tiempo según la velocidad de tu aplicación)
-  await page.waitForTimeout(1000);
+  // Esperar a que se cargue la página nuevamente después de la edición
+  await page.waitForTimeout(5000);
 
-  // Comprobar si la edición se realizó correctamente (puedes agregar aquí cualquier verificación adicional necesaria)
+  // Esperar a que el elemento #levelInput esté presente en el DOM
+  await page.waitForSelector('#levelInput');
+
+  // Comprobar si la edición se realizó correctamente
   const updatedCountryCode = await page.$eval('#levelInput', (input) => input.value);
   expect(updatedCountryCode).toEqual('NewLevel');
 });

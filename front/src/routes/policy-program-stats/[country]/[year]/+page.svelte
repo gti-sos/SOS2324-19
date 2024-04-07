@@ -140,7 +140,11 @@
 									{#if key=="country" || key=="year"}
                                         {dato[key]}
                                     {:else}
-									    <input type="text" bind:value={dato[key]} />
+                                        {#if key=="cci"}
+                                            <input id="cciimpute" type="text" bind:value={dato[key]} />
+                                        {:else}
+                                            <input id="${key}impute" type="text" bind:value={dato[key]} />
+                                        {/if}
                                     {/if}
 								</td>
 							</tr>
@@ -148,7 +152,7 @@
 					</tbody>
 				</table>
 				<div style="margin-top: 20px; display: flex; justify-content: space-between;">
-					<button
+					<button id="editButton"
 						type="submit"
 						style="text-align:center ;background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
 						on:click={() => { showForm = false; putStat(); }}
@@ -233,11 +237,5 @@
 
     input[type='text']:focus {
         border: 3px solid #555;
-    }
-
-    /* Estilo para los mensajes de error */
-    .error {
-        color: red;
-        font-weight: bold;
     }
 </style>
