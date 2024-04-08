@@ -23,26 +23,9 @@ test('list testings', async ({ page }) => {
 test('create testing', async ({ page }) => {
   await page.goto('http://localhost:10000/covid-testings');
 
-  await page.click('#deleteAllButton');
+  await page.click('#loadData');
 
-  await page.waitForTimeout(2000);
-
-  await page.click('#createButton');
-
-  // Fill out the form
-  await page.fill('#countryCodeInput', 'ExampleCountry');
-  await page.fill('#levelInput', 'High');
-  await page.fill('#regionInput', 'RegionX');
-  await page.fill('#regionNameInput', 'Region Name X');
-  await page.fill('#newCasesInput', '100');
-  await page.fill('#testsDoneInput', '500');
-  await page.fill('#populationInput', '10000');
-  await page.fill('#testingRateInput', '5');
-  await page.fill('#positivityRateInput', '2');
-  await page.fill('#testingDataSourceInput', 'Example Source');
-
-  await page.click('#submitButton');
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(200);
 
   await page.click('#createButton');
 
@@ -60,36 +43,6 @@ test('create testing', async ({ page }) => {
 
   await page.click('#submitButton');
   await page.waitForTimeout(2000);
-
-  await page.click('#createButton');
-
-  // Fill out the form
-  await page.fill('#countryCodeInput', 'ExampleCountry');
-  await page.fill('#levelInput', 'High');
-  await page.fill('#regionInput', 'RegionX');
-  await page.fill('#regionNameInput', 'Region Name X');
-  await page.fill('#newCasesInput', '100');
-  await page.fill('#testsDoneInput', '500');
-  await page.fill('#populationInput', '10000');
-  await page.fill('#testingRateInput', '5');
-  await page.fill('#positivityRateInput', '2');
-  await page.fill('#testingDataSourceInput', 'Example Source');
-
-  await page.click('#submitButton');
-  await page.waitForTimeout(4000);
-
-  await page.fill('#countryCodeInput', 'ExampleCountry');
-  await page.fill('#levelInput', 'High');
-  await page.fill('#regionInput', 'RegionX');
-  await page.fill('#regionNameInput', 'Region Name X');
-  await page.fill('#newCasesInput', '100');
-  await page.fill('#testsDoneInput', '500');
-  await page.fill('#populationInput', '10000');
-  await page.fill('#testingRateInput', '5');
-  await page.fill('#positivityRateInput', '2');
-  await page.fill('#testingDataSourceInput', 'Example Source');
-
-  await page.click('#submitButton');
 
   let Newdata = (await page.locator('#testingItem').all());
   let Newlen = Newdata.length;
