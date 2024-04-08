@@ -105,7 +105,7 @@
 			if (response.status === 200) {
 				getTestings();
 				console.log('Testing deleted');
-				alert('Testing eliminado');
+				alert('Dato eliminado');
 				location.reload();
 			} else {
 				errorMsg = 'code' + response.status;
@@ -136,6 +136,7 @@
 				location.reload();
 			} else {
 				errorMsg = 'code' + response.status;
+				alert("Error al eliminar los datos");
 			}
 		} catch (e) {
 			errorMsg = 'Error: ' + e;
