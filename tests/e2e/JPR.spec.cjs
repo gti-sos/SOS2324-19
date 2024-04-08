@@ -22,7 +22,9 @@ test('list testings', async ({ page }) => {
 test('create testing', async ({ page }) => {
   await page.goto('http://localhost:10000/esif-payments');
 
+  await page.click('#DeleteDataButton');
 
+  await page.waitForTimeout(1000);
 
   await page.click('#CreateButton');
 
