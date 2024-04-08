@@ -8,6 +8,7 @@ function LoadBackendAFI2(app, db_AFI){
             console.log("Redirection to Postman documentation");
             //hacer uno con v2
             res.redirect("https://documenter.getpostman.com/view/32953689/2sA35G4Mse");
+            
         });
         //POST1
         app.post(API_BASE + "/", (req, res) => {
