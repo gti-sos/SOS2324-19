@@ -548,43 +548,43 @@
 		<form on:submit|preventDefault={submitSearch} class="search-form">
 			<div class="form-group">
 				<label for="ms">MS:</label>
-				<input type="text" id="ms" bind:value={formData.ms} class="form-control" />
+				<input type="text" id="ms" bind:value={searchFormData.ms} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="ms_name">MS Name:</label>
-				<input type="text" id="ms_name" bind:value={formData.ms_name} class="form-control" />
+				<input type="text" id="ms_name" bind:value={searchFormData.ms_name} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="cci">CCI:</label>
-				<input type="text" id="cci" bind:value={formData.cci} class="form-control" />
+				<input type="text" id="cci" bind:value={searchFormData.cci} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="title">Title:</label>
-				<input type="text" id="title" bind:value={formData.title} class="form-control" />
+				<input type="text" id="title" bind:value={searchFormData.title} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="fund">Fund:</label>
-				<input type="text" id="fund" bind:value={formData.fund} class="form-control" />
+				<input type="text" id="fund" bind:value={searchFormData.fund} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="category_of_region">Category of Region:</label>
-				<input type="text" id="category_of_region" bind:value={formData.category_of_region} class="form-control" />
+				<input type="text" id="category_of_region" bind:value={searchFormData.category_of_region} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="year">Year:</label>
-				<input type="number" id="year" bind:value={formData.year} class="form-control" />
+				<input type="number" id="year" bind:value={searchFormData.year} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="net_planned_eu_amount">Net Planned EU Amount:</label>
-				<input type="number" id="net_planned_eu_amount" step="any" bind:value={formData.net_planned_eu_amount} class="form-control" />
+				<input type="number" id="net_planned_eu_amount" step="any" bind:value={searchFormData.net_planned_eu_amount} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="cumulative_initial_pre_financing">Cumulative Initial Pre Financing:</label>
-				<input type="number" id="cumulative_initial_pre_financing" step="any" bind:value={formData.cumulative_initial_pre_financing} class="form-control" />
+				<input type="number" id="cumulative_initial_pre_financing" step="any" bind:value={searchFormData.cumulative_initial_pre_financing} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="cumulative_additional_initial_pre_financing">Cumulative Additional Initial Pre Financing:</label>
-				<input type="number" id="cumulative_additional_initial_pre_financing" step="any" bind:value={formData.cumulative_additional_initial_pre_financing} class="form-control" />
+				<input type="number" id="cumulative_additional_initial_pre_financing" step="any" bind:value={searchFormData.cumulative_additional_initial_pre_financing} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="recovery_of_initial_pre_financing">Recovery of Initial Pre Financing:</label>
@@ -592,43 +592,43 @@
 			</div>
 			<div class="form-group">
 				<label for="cumulative_annual_pre_financing">Cumulative Annual Pre Financing:</label>
-				<input type="number" id="cumulative_annual_pre_financing" step="any" bind:value={formData.cumulative_annual_pre_financing} class="form-control" />
+				<input type="number" id="cumulative_annual_pre_financing" step="any" bind:value={searchFormData.cumulative_annual_pre_financing} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="pre_financing_covered_by_expenditure">Pre Financing Covered by Expenditure:</label>
-				<input type="number" id="pre_financing_covered_by_expenditure" step="any" bind:value={formData.pre_financing_covered_by_expenditure} class="form-control" />
+				<input type="number" id="pre_financing_covered_by_expenditure" step="any" bind:value={searchFormData.pre_financing_covered_by_expenditure} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="recovery_of_annual_pre_financing">Recovery of Annual Pre Financing:</label>
-				<input type="number" id="recovery_of_annual_pre_financing" step="any" bind:value={formData.recovery_of_annual_pre_financing} class="form-control" />
+				<input type="number" id="recovery_of_annual_pre_financing" step="any" bind:value={searchFormData.recovery_of_annual_pre_financing} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="net_pre_financing">Net Pre Financing:</label>
-				<input type="number" id="net_pre_financing" step="any" bind:value={formData.net_pre_financing} class="form-control" />
+				<input type="number" id="net_pre_financing" step="any" bind:value={searchFormData.net_pre_financing} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="cumulative_interim_payments">Cumulative Interim Payments:</label>
-				<input type="number" id="cumulative_interim_payments" step="any" bind:value={formData.cumulative_interim_payments} class="form-control" />
+				<input type="number" id="cumulative_interim_payments" step="any" bind:value={searchFormData.cumulative_interim_payments} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="recovery_of_expenses">Recovery of Expenses:</label>
-				<input type="number" id="recovery_of_expenses" step="any" bind:value={formData.recovery_of_expenses} class="form-control" />
+				<input type="number" id="recovery_of_expenses" step="any" bind:value={searchFormData.recovery_of_expenses} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="net_interim_payments">Net Interim Payments:</label>
-				<input type="number" id="net_interim_payments" step="any" bind:value={formData.net_interim_payments} class="form-control" />
+				<input type="number" id="net_interim_payments" step="any" bind:value={searchFormData.net_interim_payments} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="total_net_payments">Total Net Payments:</label>
-				<input type="number" id="total_net_payments" step="any" bind:value={formData.total_net_payments} class="form-control" />
+				<input type="number" id="total_net_payments" step="any" bind:value={searchFormData.total_net_payments} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="eu_payment_rate">EU Payment Rate:</label>
-				<input type="number" id="eu_payment_rate" step="any" bind:value={formData.eu_payment_rate} class="form-control" />
+				<input type="number" id="eu_payment_rate" step="any" bind:value={searchFormData.eu_payment_rate} class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="eu_payment_rate_on_planned_eu_amount">EU Payment Rate on Planned EU Amount:</label>
-				<input type="number" id="eu_payment_rate_on_planned_eu_amount" step="any" bind:value={formData.eu_payment_rate_on_planned_eu_amount} class="form-control" />
+				<input type="number" id="eu_payment_rate_on_planned_eu_amount" step="any" bind:value={searchFormData.eu_payment_rate_on_planned_eu_amount} class="form-control" />
 			</div>
 			<button type="submit" class="btn btn-primary">Buscar</button>
 		</form>
