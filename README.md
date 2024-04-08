@@ -44,4 +44,5 @@ List of projects registered in the course of **Service Oriented Systems** (2023/
 
 -  **Frontends**:
     - [https://sos2324-19.appspot.com/policy-program-stats] (https://sos2324-19.appspot.com/policy-program-stats)(developed by Alberto Fraile Infantes)
+    - [https://sos2324-19.appspot.com/eu-payment-info] (developed by Pedro Heredia Torres)
          
