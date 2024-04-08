@@ -53,39 +53,21 @@ function LoadBackendRSGv2(app, db_RSG) {
         }
     });
     //GET1
-    //GET1
     app.get(API_BASE + "/", (req, res) => {
-        const limit = parseInt(req.query.limit) || 10; // Obtener el parámetro de límite o establecer un valor predeterminado de 10
-        const offset = parseInt(req.query.offset) || 0; // Obtener el parámetro de desplazamiento o establecer un valor predeterminado de 0
-        const minNewCases = parseFloat(req.query.min_new_cases);
-        const maxNewCases = parseFloat(req.query.max_new_cases);
+        const limit = parseInt(req.query.limit) || 10;
+        const offset = parseInt(req.query.offset) || 0;
         const params = req.query;
         let query = {};
-
-        Object.keys(params).forEach(key => {
-            if (key !== 'limit' && key !== 'offset' && key !== 'min_new_cases' && key !== 'max_new_cases') {
-                let value = req.query[key];
-                // Verifica si el valor es numérico
-                if (!isNaN(value)) {
-                    if (Number.isInteger(parseFloat(value))) {
-                        value = parseInt(value);
-                    } else {
-                        // Si es flotante, transforma a flotante
-                        value = parseFloat(value);
-                    }
-                }
-                // Agrega el parámetro a la consulta
-                query[key] = value;
-            }
-        });
-
-        // Agregar filtros de rango de new_cases si se proporcionan
-        if (!isNaN(minNewCases)) {
-            query['new_cases'] = { $gte: minNewCases, ...(isNaN(maxNewCases) ? {} : { $lte: maxNewCases }) };
-        } else if (!isNaN(maxNewCases)) {
-            query['new_cases'] = { $lte: maxNewCases };
+    
+        // Verificar si existen los parámetros 'from' y 'to'
+        if (params.from && params.to) {
+            // Convertir los valores 'from' y 'to' a números enteros
+            const from = parseInt(params.from);
+            const to = parseInt(params.to);
+            // Agregar condiciones de filtro para los años
+            query.year_week = { $gte: `${from}-W01`, $lte: `${to}-W52` };
         }
-
+    
         db_RSG.find(query).skip(offset).limit(limit).exec((error, data) => {
             if (error) {
                 res.sendStatus(500, "Internal Error");
@@ -107,6 +89,7 @@ function LoadBackendRSGv2(app, db_RSG) {
             }
         });
     });
+    
 
 
     //PUT1

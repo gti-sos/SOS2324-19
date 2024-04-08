@@ -25,10 +25,14 @@ List of projects registered in the course of **Service Oriented Systems** (2023/
     - **V1**
         - [https://sos2324-19.appspot.com/api/v1/policy-program-stats](https://sos2324-19.appspot.com/api/v1/policy-program-stats) (developed by Alberto Fraile Infantes)
         - [https://sos2324-19.appspot.com/api/v1/eu-payment-info](https://sos2324-19.appspot.com/api/v1/eu-payment-info) (developed by Pedro Heredia Torres)
+        - [https://sos2324-19.appspot.com/api/v1/covid-testings](https://sos2324-19.appspot.com/api/v1/covid-testings) (developed by Raul Sequera Gomez)
+        - [https://sos2324-19.appspot.com/api/v1/esif-payments](https://sos2324-19.appspot.com/api/v1/esif-payments) (developed by Jose Manuel Peña Ramírez)
 
     - **V2**
         - [https://sos2324-19.appspot.com/api/v2/policy-program-stats](https://sos2324-19.appspot.com/api/v2/policy-program-stats) (developed by Alberto Fraile Infantes)
         - [https://sos2324-19.appspot.com/api/v2/eu-payment-info](https://sos2324-19.appspot.com/api/v2/eu-payment-info) (developed by Pedro Heredia Torres)
+        - [https://sos2324-19.appspot.com/api/v2/covid-testings](https://sos2324-19.appspot.com/api/v2/covid-testings) (developed by Raul Sequera Gomez)
+        - [https://sos2324-19.appspot.com/api/v2/esif-payments](https://sos2324-19.appspot.com/api/v2/esif-payments) (developed by Jose Manuel Peña Ramírez)
 
 
 -  **Postman**:
@@ -40,9 +44,15 @@ List of projects registered in the course of **Service Oriented Systems** (2023/
     - **V2**
         - [https://sos2324-19.appspot.com/api/v2/policy-program-stats/docs](https://sos2324-19.appspot.com/api/v2/policy-program-stats/docs) (developed by Alberto Fraile Infantes)
         - [https://sos2324-19.appspot.com/api/v2/eu-payment-info/docs](https://sos2324-19.appspot.com/api/v2/eu-payment-info/docs) (developed by Pedro Heredia Torres)
+        - [https://sos2324-19.appspot.com/api/v2/covid-testings/docs](https://sos2324-19.appspot.com/api/v2/covid-testings/docs) (developed by Raul Sequera Gomez)
+        - [https://sos2324-19.appspot.com/api/v2/esif-payments/docs](https://sos2324-19.appspot.com/api/v2/esif-payments/docs) (developed by Jose Manuel Peña Ramírez)
 
 
 -  **Frontends**:
     - [https://sos2324-19.appspot.com/policy-program-stats] (https://sos2324-19.appspot.com/policy-program-stats)(developed by Alberto Fraile Infantes)
     - [https://sos2324-19.appspot.com/eu-payment-info] (developed by Pedro Heredia Torres)
+    - [https://sos2324-19.appspot.com/covid-testings] (developed by Raul Sequera)
+    - [https://sos2324-19.appspot.com/esif-payments] (developed by Jose Manuel Peña Ramírez)
+         
+
          

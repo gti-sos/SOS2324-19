@@ -44,6 +44,11 @@
     }
 
     async function editTesting() {
+        if (Object.values(toEdit).some(value => value === '' || value === null)) {
+            errorMsg = 'Por favor, completa todos los campos.';
+            alert(errorMsg);
+            return;
+        }
         try {
             let response = await fetch(`${API}/${country}/${year_week}`, {
                 method: 'PUT',

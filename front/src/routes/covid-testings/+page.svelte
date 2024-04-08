@@ -20,20 +20,28 @@
 
 	async function getTestings() {
         try {
-            let response = await fetch(API + `?limit=10&offset=${(currentPage - 1) * 10}`, { method: 'GET' });
+            let response = await fetch(`${API}?from=${from}&to=${to}`, { method: 'GET' });
             let data = await response.json();
             testings = data;
             console.log(data);
-            // Calcular el número total de páginas
-            totalPages = Math.ceil(data.totalCount / 10);
         } catch (error) {
             if (testings.length === 0){
                 errorMsg='';
                 console.log("No hay datos disponibles")
-            } else {
+            }else{
                 errorMsg = error;
             }
         }
+    }
+
+    let from = ''; // Variable para almacenar el año de inicio de la búsqueda
+    let to = ''; // Variable para almacenar el año final de la búsqueda
+
+    function handleSearch() {
+        from = document.getElementById('from').value;
+        to = document.getElementById('to').value;
+
+        getTestings();
     }
 
     async function navigateToPage(page) {
@@ -143,6 +151,16 @@
 		}
 	}
 </script>
+
+<label>
+    From:
+    <input type="text" id="from">
+</label>
+<label>
+    To:
+    <input type="text" id="to">
+</label>
+<button on:click="{handleSearch}">Buscar</button>
 
 <table>
 	<thead>
