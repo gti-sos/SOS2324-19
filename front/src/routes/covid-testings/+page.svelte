@@ -80,6 +80,7 @@
 				getTestings();
 				console.log('Creado correctamente. Codigo: ' + response.status);
 				alert('Creado correctamente');
+				location.reload();
 			} else {
 				if (response.status == 400) {
 					errorMsg = 'Todos los campos son obligatorios';
@@ -105,6 +106,7 @@
 				getTestings();
 				console.log('Testing deleted');
 				alert('Testing eliminado');
+				location.reload();
 			} else {
 				errorMsg = 'code' + response.status;
 			}

@@ -23,9 +23,11 @@ test('list testings', async ({ page }) => {
 test('create testing', async ({ page }) => {
   await page.goto('http://localhost:10000/covid-testings');
 
-  await page.click('#loadData');
+  await page.click('#deleteAllButton');
 
-  await page.click('.create-button');
+  await page.waitForTimeout(200);
+
+  await page.click('#createButton');
 
   // Fill out the form
   await page.fill('#countryCodeInput', 'ExampleCountry');
