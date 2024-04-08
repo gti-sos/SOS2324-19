@@ -310,9 +310,9 @@ function LoadBackendAFI2(app, db_AFI){
             if (!isValidStructure || Object.keys(data).length !== Fields.length) {
                 return res.status(400).send("Bad Request");
             }
-            if (data.country !== pais || data.year !== ano) {
-                return res.status(400).send("Bad Request: Cannot change country or year");
-            }
+            // if (data.country !== pais || parseInt(data.year) !== ano) {
+            //     return res.status(400).send("Bad Request: Cannot change country or year");
+            // }
 
                 db_AFI.findOne({ country: pais, year: ano }, (err, existingData) => {
                 if (err) {

@@ -12,11 +12,8 @@ test('has title', async ({ page }) => {
 test('list stats', async ({ page }) => {
   await page.goto('http://localhost:10000/policy-program-stats');
 
-  // Click the get started link.
   await page.click('.cargarDatos');
 
-  // Expects page to have a heading with the name of Installation.
-  //await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
   await page.waitForTimeout(2000);
   let stats= (await page.locator('#testingItem').all())
   let statsNumber = stats.length;
@@ -67,7 +64,7 @@ test('create testing', async ({ page }) => {
   let Newlen = Newdata.length;
 
   expect(Newlen).toBeGreaterThan(0);
-  // Expect some behavior after submitting the form, such as a new testing being added to the list.
+
 });
 
 
@@ -92,7 +89,7 @@ test('create testing', async ({ page }) => {
 test('delete all testings', async ({ page }) => {
   await page.goto('http://localhost:10000/policy-program-stats');
 
-  // Click the "Eliminar todo" button.
+
   await page.click('.delete-button');
 
   await page.waitForTimeout(1000);
@@ -101,7 +98,7 @@ test('delete all testings', async ({ page }) => {
   let countries = (await page.locator('#testingItem').all());
 
   expect(countries.length).toEqual(0);
-  // Expect some behavior after clicking the delete button, such as all testings being removed from the list.
+
 });
 
 
