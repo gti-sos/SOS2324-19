@@ -20,7 +20,6 @@ let datos1 =
         { country: 'Italy', country_code: 'IT', year_week: '2024-W12', level: 'national', region: 'IT', region_name: 'Italy', new_cases: 45000, tests_done: 300000, population: 60367460, testing_rate: 4968.47, positivity_rate: 15.0, testing_data_source: 'Ministry of Health COVID-19' },
         { country: 'France', country_code: 'FR', year_week: '2024-W12', level: 'national', region: 'FR', region_name: 'France', new_cases: 33000, tests_done: 250000, population: 65273511, testing_rate: 3830.14, positivity_rate: 13.2, testing_data_source: 'Santé publique France COVID-19' }
 
-
     ];
 
 function LoadBackendRSGv2(app, db_RSG) {
