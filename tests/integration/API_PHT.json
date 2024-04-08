@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "9b56026d-4721-46e8-bebc-057c39aefc37",
-		"name": "API SOS",
+		"_postman_id": "3d262da8-3995-4ca7-830c-fbffcce95675",
+		"name": "API SOS V2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "32952835"
 	},
@@ -27,12 +27,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/loadInitialData",
+					"raw": "{{SERVER}}api/v2/eu-payment-info/loadInitialData",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"eu-payment-info",
 						"loadInitialData"
 					]
@@ -60,12 +60,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info",
+					"raw": "{{SERVER}}api/v2/eu-payment-info",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"eu-payment-info"
 					]
 				}
@@ -96,49 +96,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/2021ES65AMPR001",
+					"raw": "{{SERVER}}api/v2/eu-payment-info/2021ES65AMPR001",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"eu-payment-info",
 						"2021ES65AMPR001"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Datos de country/pais",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/Greece/2023",
-					"host": [
-						"{{SERVER}}api"
-					],
-					"path": [
-						"v1",
-						"eu-payment-info",
-						"Greece",
-						"2023"
 					]
 				}
 			},
@@ -173,12 +138,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/",
+					"raw": "{{SERVER}}api/v2/eu-payment-info/",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"eu-payment-info",
 						""
 					]
@@ -215,12 +180,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/England",
+					"raw": "{{SERVER}}api/v2/eu-payment-info/England",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"eu-payment-info",
 						"England"
 					]
@@ -249,7 +214,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"ms\": \"FR\",\r\n        \"ms_name\": \"France\",\r\n        \"cci\": \"2021FR65AMPR001\",\r\n        \"title\": \"France - AMIF\",\r\n        \"fund\": \"AMIF\",\r\n        \"category_of_region\": \"VOID\",\r\n        \"year\": 2021,\r\n        \"init_plan_eu_amt_1_adoption\": 910485391,\r\n        \"transfers\": 15900000,\r\n        \"actual_plan_eu_amt_latest_adop\": 926385391,\r\n        \"pre_fin\": 109258246.92,\r\n        \"recovery_of_pre_financing\": 0,\r\n        \"net_pre_financing\": 109258246.92,\r\n        \"interim_payments\": 0,\r\n        \"recovery_of_expenses\": 0,\r\n        \"net_interim_payments\": 0,\r\n        \"total_net_payments\": 109258246.92,\r\n        \"eu_payment_rate_init_plan_eu_amt\": 0.12,\r\n        \"eu_payment_rate_actual_plan_eu_amt\": 0.117940382028326\r\n    }",
+					"raw": "{\r\n        \"ms\": \"FR\",\r\n        \"ms_name\": \"France\",\r\n        \"cci\": \"2021FR65AMPR001\",\r\n        \"title\": \"France - AMIF\",\r\n        \"fund\": \"AMIF\",\r\n        \"category_of_region\": \"VOID\",\r\n        \"year\": 2023,\r\n        \"init_plan_eu_amt_1_adoption\": 910485391,\r\n        \"transfers\": 15900000,\r\n        \"actual_plan_eu_amt_latest_adop\": 926385391,\r\n        \"pre_fin\": 109258246.92,\r\n        \"recovery_of_pre_financing\": 0,\r\n        \"net_pre_financing\": 109258246.92,\r\n        \"interim_payments\": 0,\r\n        \"recovery_of_expenses\": 0,\r\n        \"net_interim_payments\": 0,\r\n        \"total_net_payments\": 109258246.92,\r\n        \"eu_payment_rate_init_plan_eu_amt\": 0.12,\r\n        \"eu_payment_rate_actual_plan_eu_amt\": 0.117940382028326\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -257,12 +222,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/France/2023",
+					"raw": "{{SERVER}}api/v2/eu-payment-info/France/2023",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"eu-payment-info",
 						"France",
 						"2023"
@@ -300,14 +265,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/England",
+					"raw": "{{SERVER}}api/v2/eu-payment-info/2021ES65AMPR002",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"eu-payment-info",
-						"England"
+						"2021ES65AMPR002"
 					]
 				}
 			},
@@ -342,12 +307,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/Chile",
+					"raw": "{{SERVER}}api/v2/eu-payment-info/Chile",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"eu-payment-info",
 						"Chile"
 					]
@@ -384,12 +349,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/",
+					"raw": "{{SERVER}}api/v2/eu-payment-info/",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"eu-payment-info",
 						""
 					]
@@ -426,12 +391,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/",
+					"raw": "{{SERVER}}api/v2/eu-payment-info/",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"eu-payment-info",
 						""
 					]
@@ -459,12 +424,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/Chile",
+					"raw": "{{SERVER}}api/v2/eu-payment-info/Chile",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"eu-payment-info",
 						"Chile"
 					]
@@ -501,12 +466,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/Chile",
+					"raw": "{{SERVER}}api/v2/eu-payment-info/Chile",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"eu-payment-info",
 						"Chile"
 					]
@@ -538,12 +503,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/?limit=2&offset=2",
+					"raw": "{{SERVER}}api/v2/eu-payment-info/?limit=2&offset=2",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"eu-payment-info",
 						""
 					],
@@ -581,12 +546,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/?year=2023",
+					"raw": "{{SERVER}}api/v2/eu-payment-info/?year=2023",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"eu-payment-info",
 						""
 					],
@@ -620,12 +585,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info/Spain/2023",
+					"raw": "{{SERVER}}api/v2/eu-payment-info/Spain/2023",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"eu-payment-info",
 						"Spain",
 						"2023"
@@ -654,12 +619,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/eu-payment-info",
+					"raw": "{{SERVER}}api/v2/eu-payment-info",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"eu-payment-info"
 					]
 				}
