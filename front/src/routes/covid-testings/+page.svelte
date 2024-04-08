@@ -92,6 +92,7 @@
 			} else {
 				if (response.status == 400) {
 					errorMsg = 'Todos los campos son obligatorios';
+					alert(errorMsg);
 					} else if (response.status == 409) {
 					errorMsg = 'Datos ya registrados';
 					alert(errorMsg);
