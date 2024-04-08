@@ -424,7 +424,7 @@
 			</thead>
 			<tbody>
 				{#each stats as dato}
-					<tr class="statsItem">
+					<tr id="testingItem">
 						<td>
 							<!-- Botón de eliminar -->
 							<a
