@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "b98288a4-0a38-461e-b1fd-74019fc3ceab",
-		"name": "Esif-payments API-Testing",
+		"_postman_id": "c735c81f-f22e-47b5-a20c-01b1395149ef",
+		"name": "Esif-payments API-Testing v2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "32953613"
 	},
@@ -26,12 +26,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/loadInitialData",
+					"raw": "{{SERVER}}api/v2/esif-payments/loadInitialData",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						"loadInitialData"
 					]
@@ -59,12 +59,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/loadInitialData",
+					"raw": "{{SERVER}}api/v2/esif-payments/loadInitialData",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						"loadInitialData"
 					]
@@ -96,12 +96,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/",
+					"raw": "{{SERVER}}api/v2/esif-payments/",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						""
 					]
@@ -133,12 +133,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/Interreg/?ms=TC",
+					"raw": "{{SERVER}}api/v2/esif-payments/Interreg/?ms=TC",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						"Interreg",
 						""
@@ -177,66 +177,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/Interreg",
+					"raw": "{{SERVER}}api/v2/esif-payments/Interreg",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						"Interreg"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GET Limityoffset",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"})\r",
-							"pm.test(\"Your test name\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.length).equals(3);\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/Interreg/?limit=2&&offset=2",
-					"host": [
-						"{{SERVER}}api"
-					],
-					"path": [
-						"v1",
-						"esif-payments",
-						"Interreg",
-						""
-					],
-					"query": [
-						{
-							"key": "limit",
-							"value": "2"
-						},
-						{
-							"key": null,
-							"value": null
-						},
-						{
-							"key": "offset",
-							"value": "2"
-						}
 					]
 				}
 			},
@@ -266,12 +214,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/Poland/2014PL16M2OP008",
+					"raw": "{{SERVER}}api/v2/esif-payments/Poland/2014PL16M2OP008",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						"Poland",
 						"2014PL16M2OP008"
@@ -300,12 +248,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/England",
+					"raw": "{{SERVER}}api/v2/esif-payments/England",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						"England"
 					]
@@ -333,12 +281,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/Poland/2014PL16M2OP",
+					"raw": "{{SERVER}}api/v2/esif-payments/Poland/2014PL16M2OP",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						"Poland",
 						"2014PL16M2OP"
@@ -376,12 +324,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/",
+					"raw": "{{SERVER}}api/v2/esif-payments/",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						""
 					]
@@ -418,12 +366,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/",
+					"raw": "{{SERVER}}api/v2/esif-payments/",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						""
 					]
@@ -460,12 +408,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/",
+					"raw": "{{SERVER}}api/v2/esif-payments/",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						""
 					]
@@ -502,12 +450,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/Interreg",
+					"raw": "{{SERVER}}api/v2/esif-payments/Interreg",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						"Interreg"
 					]
@@ -544,12 +492,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/",
+					"raw": "{{SERVER}}api/v2/esif-payments/",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						""
 					]
@@ -586,12 +534,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/Poland/2014PL16M2OP008",
+					"raw": "{{SERVER}}api/v2/esif-payments/Poland/2014PL16M2OP008",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						"Poland",
 						"2014PL16M2OP008"
@@ -629,12 +577,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/England",
+					"raw": "{{SERVER}}api/v2/esif-payments/England",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						"England"
 					]
@@ -671,12 +619,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/Interreg",
+					"raw": "{{SERVER}}api/v2/esif-payments/Interreg",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						"Interreg"
 					]
@@ -713,12 +661,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/Interreg/2014PL16M2OP008",
+					"raw": "{{SERVER}}api/v2/esif-payments/Interreg/2014PL16M2OP008",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						"Interreg",
 						"2014PL16M2OP008"
@@ -756,12 +704,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/Interreg",
+					"raw": "{{SERVER}}api/v2/esif-payments/Interreg",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						"Interreg"
 					]
@@ -789,12 +737,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/England",
+					"raw": "{{SERVER}}api/v2/esif-payments/England",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						"England"
 					]
@@ -831,12 +779,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/Interreg",
+					"raw": "{{SERVER}}api/v2/esif-payments/Interreg",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						"Interreg"
 					]
@@ -873,12 +821,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/Poland/2014PL16M2OP0",
+					"raw": "{{SERVER}}api/v2/esif-payments/Poland/2014PL16M2OP0",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						"Poland",
 						"2014PL16M2OP0"
@@ -916,12 +864,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/Poland/2014PL16M2OP008",
+					"raw": "{{SERVER}}api/v2/esif-payments/Poland/2014PL16M2OP008",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						"Poland",
 						"2014PL16M2OP008"
@@ -950,12 +898,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}api/v1/esif-payments/",
+					"raw": "{{SERVER}}api/v2/esif-payments/",
 					"host": [
 						"{{SERVER}}api"
 					],
 					"path": [
-						"v1",
+						"v2",
 						"esif-payments",
 						""
 					]
