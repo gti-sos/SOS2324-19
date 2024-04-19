@@ -150,14 +150,11 @@ function LoadBackendPHT2(app, db_PHT) {
     //El recurso debe contener una ruta /api/v1/FFFFF/loadInitialData 
     //que al hacer un GET cree 10 o más datos en el array
     //de NodeJS si está vacío.
-    let initialDataLoaded = false;
+    
 
     app.get(API_BASE + "/loadInitialData", (req, res) => {
         // Verifica si los datos iniciales ya han sido cargados
-        if (initialDataLoaded) {
-            res.status(400).send("Error: Los datos iniciales ya han sido cargados anteriormente.");
-            return;
-        }
+        
         let datoss =
             [{
                 ms: 'EL', ms_name: 'Greece', cci: '2021EL16FFPR008', title: 'Thessalia - ERDF/ESF+', fund: 'ESF+',
@@ -287,7 +284,7 @@ function LoadBackendPHT2(app, db_PHT) {
                 fund: 'Cohesion Fund',
                 category_of_region: 'Transitional',
                 year: 2020,
-                init_plan_eu_amt_1_adoption: 1000000000,
+                init_plan_eu_amt_1_adoption: 1247856,
                 transfers: 25000000,
                 actual_plan_eu_amt_latest_adop: 1025000000,
                 pre_fin: 120000000,
