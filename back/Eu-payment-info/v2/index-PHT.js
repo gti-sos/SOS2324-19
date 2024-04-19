@@ -453,22 +453,11 @@ function LoadBackendPHT2(app, db_PHT) {
                         if (error) {
                             res.sendStatus(500, "Internal error");
                         } else {
-                            // Actualiza la variable datos después de insertar en la base de datos
-                            datos = datoss;
+                            
                             res.sendStatus(200, "OK");
                         }
                     });
-                } else {
-                    // Si ya hay datos en la base de datos, simplemente actualiza la variable datos
-                    db_PHT.find({}, (error, data) => {
-                        if (error) {
-                            res.sendStatus(500, "Internal Error");
-                        } else {
-                            datos = data;
-                            res.status(200).json(data);
-                        }
-                    });
-                }
+                } 
             }
         });
     });
