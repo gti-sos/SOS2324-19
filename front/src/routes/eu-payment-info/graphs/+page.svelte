@@ -47,7 +47,8 @@
     },
     
     xAxis: {
-        categories:[2020,2021,2022,2023,2024],
+        categories:[2020,2021,2022,2023],
+        crosshair: true,
         accessibility: {
                     description: 'Countries'
                 }
