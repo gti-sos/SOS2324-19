@@ -67,9 +67,6 @@
                     {
                     name: 'Bulgaria',
                     data: bulgariaData.map(item => parseFloat(item.init_plan_eu_amt_1_adoption))
-                    },
-                    {name: 'Spain',
-                    data: spainData.map(item => parseFloat(item.init_plan_eu_amt_1_adoption))
                     }
             ]
 });
