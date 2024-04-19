@@ -198,7 +198,7 @@ function LoadBackendPHT2(app, db_PHT) {
 
             {
                 ms: 'ES', ms_name: 'Spain', cci: '2021ES65AMPR001', title: 'Spain - AMIF', fund: 'AMIF',
-                category_of_region: 'VOID', year: 2021, init_plan_eu_amt_1_adoption: 514341793,
+                category_of_region: 'VOID', year: 2023, init_plan_eu_amt_1_adoption: 514341793,
                 transfers: 16960000, actual_plan_eu_amt_latest_adop: 531301793, pre_fin: 61721015.16, recovery_of_pre_financing: 0,
                 net_pre_financing: 61721015.16, interim_payments: 0, recovery_of_expenses: 0, net_interim_payments: 0, total_net_payments: 61721015.16,
                 eu_payment_rate_init_plan_eu_amt: 0.12, eu_payment_rate_actual_plan_eu_amt: 0.116169408748824
@@ -222,7 +222,7 @@ function LoadBackendPHT2(app, db_PHT) {
 
             {
                 ms: 'BG', ms_name: 'Bulgaria', cci: '2021BG05SFPR003', title: 'Food and Basic Material Support - BG - ESF + ', fund: 'ESF + ',
-                category_of_region: 'Less developed', year: 2021, init_plan_eu_amt_1_adoption: 157875000,
+                category_of_region: 'Less developed', year: 2023, init_plan_eu_amt_1_adoption: 157875000,
                 transfers: 0, actual_plan_eu_amt_latest_adop: 157875000, pre_fin: 3946875, recovery_of_pre_financing: 0,
                 net_pre_financing: 3946875, interim_payments: 10299266.83, recovery_of_expenses: 0, net_interim_payments: 10299266.83, total_net_payments: 14246141.83,
                 eu_payment_rate_init_plan_eu_amt: 0.0902368445288995, eu_payment_rate_actual_plan_eu_amt: 0.0902368445288995
@@ -284,7 +284,7 @@ function LoadBackendPHT2(app, db_PHT) {
                 fund: 'Cohesion Fund',
                 category_of_region: 'Transitional',
                 year: 2020,
-                init_plan_eu_amt_1_adoption: 1247856,
+                init_plan_eu_amt_1_adoption: 1024100,
                 transfers: 25000000,
                 actual_plan_eu_amt_latest_adop: 1025000000,
                 pre_fin: 120000000,
@@ -296,29 +296,7 @@ function LoadBackendPHT2(app, db_PHT) {
                 total_net_payments: 129500000,
                 eu_payment_rate_init_plan_eu_amt: 0.12,
                 eu_payment_rate_actual_plan_eu_amt: 0.12682926829
-            }, 
-            {
-                ms: 'ES',
-                ms_name: 'Spain',
-                cci: '2021ESXYZ0013',
-                title: 'Spain - Cohesion Fund',
-                fund: 'Cohesion Fund',
-                category_of_region: 'VOID',
-                year: 2022,
-                init_plan_eu_amt_1_adoption: 12476,
-                transfers: 25000000,
-                actual_plan_eu_amt_latest_adop: 10250,
-                pre_fin: 120000,
-                recovery_of_pre_financing: 0,
-                net_pre_financing: 120000,
-                interim_payments: 10000,
-                recovery_of_expenses: 5000,
-                net_interim_payments: 9500,
-                total_net_payments: 120000,
-                eu_payment_rate_init_plan_eu_amt: 0.12,
-                eu_payment_rate_actual_plan_eu_amt: 0.126829829
-            },
-            {
+            }, {
                 ms: 'UK',
                 ms_name: 'United Kingdom',
                 cci: '2021UKWXYZ001',
