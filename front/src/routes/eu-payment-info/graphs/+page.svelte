@@ -50,7 +50,7 @@ Highcharts.chart('container', {
     xAxis: {
         allowDecimals: false,
         accessibility: {
-            rangeDescription: 'Range: 2020 to 2023.'
+            rangeDescription: 'Range: 2020 to 2022.'
         }
     },
     yAxis: {
@@ -59,7 +59,7 @@ Highcharts.chart('container', {
         }
     },
     tooltip: {
-        pointFormat: '{series.name} had stockpiled <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+        pointFormat: '{series.name} had an initial adaption amount of <b>{point.y:,.0f}</b><br/>M in {point.x}'
     },
     plotOptions: {
         area: {

@@ -158,7 +158,7 @@ function LoadBackendPHT2(app, db_PHT) {
         let datoss =
             [{
                 ms: 'EL', ms_name: 'Greece', cci: '2021EL16FFPR008', title: 'Thessalia - ERDF/ESF+', fund: 'ESF+',
-                category_of_region: 'Less developed', year: 2020, init_plan_eu_amt_1_adoption: 121971450,
+                category_of_region: 'Less developed', year: 2020, init_plan_eu_amt_1_adoption: 121971,
                 transfers: 0, actual_plan_eu_amt_latest_adop: 121971450, pre_fin: 3049286.25, recovery_of_pre_financing: 0,
                 net_pre_financing: 3049286.25, interim_payments: 3056694.49, recovery_of_expenses: 0, net_interim_payments: 3056694.49,
                 total_net_payments: 6105980.74, eu_payment_rate_init_plan_eu_amt: 0.0500607374922574, eu_payment_rate_actual_plan_eu_amt: 0.0500607374922574
@@ -166,7 +166,7 @@ function LoadBackendPHT2(app, db_PHT) {
 
             {
                 ms: 'EL', ms_name: 'Greece', cci: '2021EL16FFPR018', title: 'Notio Aigaio - ERDF/ESF+', fund: 'ESF+',
-                category_of_region: 'Transition', year: 2021, init_plan_eu_amt_1_adoption: 36901682,
+                category_of_region: 'Transition', year: 2021, init_plan_eu_amt_1_adoption: 36901,
                 transfers: 0, actual_plan_eu_amt_latest_adop: 36901682, pre_fin: 922542.05, recovery_of_pre_financing: 0,
                 net_pre_financing: 922542.05, interim_payments: 2331102.22, recovery_of_expenses: 0, net_interim_payments: 2331102.22,
                 total_net_payments: 3253644.27, eu_payment_rate_init_plan_eu_amt: 0.0881706224122792, eu_payment_rate_actual_plan_eu_amt: 0.0881706224122792
@@ -174,7 +174,7 @@ function LoadBackendPHT2(app, db_PHT) {
 
             {
                 ms: 'EL', ms_name: 'Greece', cci: '2021EL16FFPR014', title: 'Ionia Nisia - ERDF/ESF+', fund: 'ESF+',
-                category_of_region: 'Less developed', year: 2022, init_plan_eu_amt_1_adoption: 6333133000,
+                category_of_region: 'Less developed', year: 2022, init_plan_eu_amt_1_adoption: 633312,
                 transfers: 0, actual_plan_eu_amt_latest_adop: 63331330, pre_fin: 1583283.25, recovery_of_pre_financing: 0,
                 net_pre_financing: 1583283.25, interim_payments: 1868313.45, recovery_of_expenses: 0, net_interim_payments: 1868313.45,
                 total_net_payments: 3451596.7, eu_payment_rate_init_plan_eu_amt: 0.0545006192037969, eu_payment_rate_actual_plan_eu_amt: 0.0545006192037969
@@ -310,7 +310,7 @@ function LoadBackendPHT2(app, db_PHT) {
                 fund: 'EAFRD',
                 category_of_region: 'Less Developed',
                 year: 2020,
-                init_plan_eu_amt_1_adoption: 38000,
+                init_plan_eu_amt_1_adoption: 380254,
                 transfers: 8000000,
                 actual_plan_eu_amt_latest_adop: 388000000,
                 pre_fin: 45000000,
@@ -330,7 +330,7 @@ function LoadBackendPHT2(app, db_PHT) {
                 fund: 'EAFRD',
                 category_of_region: 'VOID',
                 year: 2021,
-                init_plan_eu_amt_1_adoption: 38242000,
+                init_plan_eu_amt_1_adoption: 31478,
                 transfers: 8000000,
                 actual_plan_eu_amt_latest_adop: 388000000,
                 pre_fin: 45000000,
