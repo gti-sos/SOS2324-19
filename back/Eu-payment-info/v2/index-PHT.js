@@ -177,7 +177,7 @@ function LoadBackendPHT2(app, db_PHT) {
                 category_of_region: 'Less developed', year: 2022, init_plan_eu_amt_1_adoption: 633312,
                 transfers: 0, actual_plan_eu_amt_latest_adop: 63331330, pre_fin: 1583283.25, recovery_of_pre_financing: 0,
                 net_pre_financing: 1583283.25, interim_payments: 1868313.45, recovery_of_expenses: 0, net_interim_payments: 1868313.45,
-                total_net_payments: 3451596141.7, eu_payment_rate_init_plan_eu_amt: 0.0545006192037969, eu_payment_rate_actual_plan_eu_amt: 0.0545006192037969
+                total_net_payments: 345159.7, eu_payment_rate_init_plan_eu_amt: 0.0545006192037969, eu_payment_rate_actual_plan_eu_amt: 0.0545006192037969
             },
 
             {
@@ -359,7 +359,7 @@ function LoadBackendPHT2(app, db_PHT) {
                 interim_payments: 2000000,
                 recovery_of_expenses: 0,
                 net_interim_payments: 2000000,
-                total_net_payments: 470005,
+                total_net_payments: 47000501,
                 eu_payment_rate_init_plan_eu_amt: 0.118,
                 eu_payment_rate_actual_plan_eu_amt: 0.1206185567
             }

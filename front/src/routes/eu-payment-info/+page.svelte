@@ -721,6 +721,12 @@ Tabla para crear datos
 			createPaymentInfo();
 		}}>Crear Nuevo Dato</button
 	>
+	<a href="https://sos2324-19.appspot.com/eu-payment-info/graphs" style="text-decoration: none;">
+        <button id="verGraficas"
+            style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+            Ver Gráficas
+        </button>
+    </a>
 	<button id="eliminarDatos"
 		style="background-color: #FF0000; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
 		on:click={() => {
