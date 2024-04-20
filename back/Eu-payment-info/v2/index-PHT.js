@@ -161,7 +161,7 @@ function LoadBackendPHT2(app, db_PHT) {
                 category_of_region: 'Less developed', year: 2020, init_plan_eu_amt_1_adoption: 121971,
                 transfers: 0, actual_plan_eu_amt_latest_adop: 121971450, pre_fin: 3049286.25, recovery_of_pre_financing: 0,
                 net_pre_financing: 3049286.25, interim_payments: 3056694.49, recovery_of_expenses: 0, net_interim_payments: 3056694.49,
-                total_net_payments: 6105980.74, eu_payment_rate_init_plan_eu_amt: 0.0500607374922574, eu_payment_rate_actual_plan_eu_amt: 0.0500607374922574
+                total_net_payments: 6105980212.74, eu_payment_rate_init_plan_eu_amt: 0.0500607374922574, eu_payment_rate_actual_plan_eu_amt: 0.0500607374922574
             },
 
             {
@@ -169,7 +169,7 @@ function LoadBackendPHT2(app, db_PHT) {
                 category_of_region: 'Transition', year: 2021, init_plan_eu_amt_1_adoption: 36901,
                 transfers: 0, actual_plan_eu_amt_latest_adop: 36901682, pre_fin: 922542.05, recovery_of_pre_financing: 0,
                 net_pre_financing: 922542.05, interim_payments: 2331102.22, recovery_of_expenses: 0, net_interim_payments: 2331102.22,
-                total_net_payments: 3253644.27, eu_payment_rate_init_plan_eu_amt: 0.0881706224122792, eu_payment_rate_actual_plan_eu_amt: 0.0881706224122792
+                total_net_payments: 325364.27, eu_payment_rate_init_plan_eu_amt: 0.0881706224122792, eu_payment_rate_actual_plan_eu_amt: 0.0881706224122792
             },
 
             {
@@ -177,7 +177,7 @@ function LoadBackendPHT2(app, db_PHT) {
                 category_of_region: 'Less developed', year: 2022, init_plan_eu_amt_1_adoption: 633312,
                 transfers: 0, actual_plan_eu_amt_latest_adop: 63331330, pre_fin: 1583283.25, recovery_of_pre_financing: 0,
                 net_pre_financing: 1583283.25, interim_payments: 1868313.45, recovery_of_expenses: 0, net_interim_payments: 1868313.45,
-                total_net_payments: 3451596.7, eu_payment_rate_init_plan_eu_amt: 0.0545006192037969, eu_payment_rate_actual_plan_eu_amt: 0.0545006192037969
+                total_net_payments: 3451596141.7, eu_payment_rate_init_plan_eu_amt: 0.0545006192037969, eu_payment_rate_actual_plan_eu_amt: 0.0545006192037969
             },
 
             {
@@ -222,7 +222,7 @@ function LoadBackendPHT2(app, db_PHT) {
 
             {
                 ms: 'BG', ms_name: 'Bulgaria', cci: '2021BG05SFPR003', title: 'Food and Basic Material Support - BG - ESF + ', fund: 'ESF + ',
-                category_of_region: 'Less developed', year: 2020, init_plan_eu_amt_1_adoption: 157875000,
+                category_of_region: 'Less developed', year: 2020, init_plan_eu_amt_1_adoption: 157875,
                 transfers: 0, actual_plan_eu_amt_latest_adop: 157875000, pre_fin: 3946875, recovery_of_pre_financing: 0,
                 net_pre_financing: 3946875, interim_payments: 10299266.83, recovery_of_expenses: 0, net_interim_payments: 10299266.83, total_net_payments: 14246141.83,
                 eu_payment_rate_init_plan_eu_amt: 0.0902368445288995, eu_payment_rate_actual_plan_eu_amt: 0.0902368445288995
@@ -319,7 +319,7 @@ function LoadBackendPHT2(app, db_PHT) {
                 interim_payments: 2000000,
                 recovery_of_expenses: 0,
                 net_interim_payments: 2000000,
-                total_net_payments: 47000000,
+                total_net_payments: 47076000,
                 eu_payment_rate_init_plan_eu_amt: 0.118,
                 eu_payment_rate_actual_plan_eu_amt: 0.1206185567
             }, {
@@ -339,7 +339,7 @@ function LoadBackendPHT2(app, db_PHT) {
                 interim_payments: 2000000,
                 recovery_of_expenses: 0,
                 net_interim_payments: 2000000,
-                total_net_payments: 47000000,
+                total_net_payments: 47000,
                 eu_payment_rate_init_plan_eu_amt: 0.118,
                 eu_payment_rate_actual_plan_eu_amt: 0.1206185567
             }, {
@@ -359,7 +359,7 @@ function LoadBackendPHT2(app, db_PHT) {
                 interim_payments: 2000000,
                 recovery_of_expenses: 0,
                 net_interim_payments: 2000000,
-                total_net_payments: 47000000,
+                total_net_payments: 470005766,
                 eu_payment_rate_init_plan_eu_amt: 0.118,
                 eu_payment_rate_actual_plan_eu_amt: 0.1206185567
             }
