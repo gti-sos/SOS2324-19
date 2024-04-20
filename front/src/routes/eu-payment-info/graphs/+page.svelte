@@ -33,30 +33,47 @@
     function createGraph(data) {
     const greeceData = data.filter(item => item.ms_name === "Greece");
     const bulgariaData = data.filter(item => item.ms === "BG");
-    const spainData = data.filter(item => item.ms === "ES");
+    const nederlandData = data.filter(item => item.ms === "NL");
 
     
     
-    Highcharts.chart('container', {
-   
+
+Highcharts.chart('container', {
     chart: {
-        type: 'column'
+        type: 'area'
     },
+    
     title: {
         text: 'Init adoption plan'
     },
     
     xAxis: {
-        categories:[2020,2021,2022,2023],
-        crosshair: true,
+        allowDecimals: false,
         accessibility: {
-                    description: 'Countries'
-                }
+            rangeDescription: 'Range: 2020 to 2023.'
+        }
     },
     yAxis: {
-        allowDecimals: false,
         title: {
             text: 'Total monetary amount'
+        }
+    },
+    tooltip: {
+        pointFormat: '{series.name} had stockpiled <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+    },
+    plotOptions: {
+        area: {
+            pointStart: 2020,
+            marker: {
+                enabled: false,
+                symbol: 'circle',
+                radius: 2,
+                states: {
+                    hover: {
+                        enabled: true
+                    }
+                }
+            }
         }
     },
     series: [
@@ -67,11 +84,13 @@
                     {
                     name: 'Bulgaria',
                     data: bulgariaData.map(item => parseFloat(item.init_plan_eu_amt_1_adoption))
+                    },{
+                        name:'Netherlands',
+                        data:nederlandData.map(item => parseFloat(item.init_plan_eu_amt_1_adoption))
                     }
+
             ]
 });
-
-
 
 }
 
