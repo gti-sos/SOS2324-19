@@ -133,14 +133,14 @@ Highcharts.chart('container', {
         type: 'line'
     },
     title: {
-        text: 'Financiamiento Europeo por País y Año'
+        text: 'European Financing by Country and Year'
     },
     xAxis: {
         categories: Object.keys(countriesData['Greece']) // Tomar las categorías de cualquier país, ya que todos deben tener los mismos años
     },
     yAxis: {
         title: {
-            text: 'Monto de Financiamiento Europeo'
+            text: 'European Financing Amount'
         }
     },
     series: seriesData
