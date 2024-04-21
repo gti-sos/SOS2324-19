@@ -84,7 +84,6 @@
               combinedData[country] = {
                   name: country,
                   esif_amount_committed_to_fi: 0,
-                  total_net_payment: 0,
                   total_net_payments:0,
                   population:0
               };
@@ -99,12 +98,11 @@
               combinedData[country] = {
                   name: country,
                   esif_amount_committed_to_fi: 0,
-                  total_net_payment: 0,
                   total_net_payments:0,
                   population:0
               };
           }
-          combinedData[country].total_net_payment += entry.total_net_payment || 0;
+          combinedData[country].total_net_payments += entry.total_net_payments || 0;
       });
 
       // Procesar datos de la tercera fuente
@@ -114,7 +112,6 @@
               combinedData[country] = {
                   name: country,
                   esif_amount_committed_to_fi: 0,
-                  total_net_payment: 0,
                   total_net_payments:0,
                   population:0
               };
@@ -128,13 +125,14 @@
               combinedData[country] = {
                   name: country,
                   esif_amount_committed_to_fi: 0,
-                  total_net_payment: 0,
                   total_net_payments:0,
                   population:0
               };
           }
           combinedData[country].total_net_payments += entry.total_net_payments || 0;
       });
+
+      countryData = Object.values(combinedData);
 
     }
   // Función para crear el gráfico
@@ -159,11 +157,6 @@
               }
           }, {
               title: {
-                  text: 'total_net_payment'
-              },
-              opposite: true
-          }, {
-              title: {
                   text: 'total_net_payments'
               },
               opposite: true
@@ -176,18 +169,14 @@
           series: [{
               name: 'esif_amount_committed_to_fi',
               data: countryData.map(country => country.esif_amount_committed_to_fi)
-          }, {
-              name: 'total_net_payment',
-              data: countryData.map(country => country.total_net_payment),
-              yAxis: 1
-          }, {
+          },{
               name: 'total_net_payments',
               data: countryData.map(country => country.total_net_payments),
-              yAxis: 2
+              yAxis: 1
           }, {
               name: 'population',
               data: countryData.map(country => country.population),
-              yAxis: 3
+              yAxis: 2
           }]
       });
 
