@@ -324,11 +324,13 @@
 			</button>
 		</div>
         <div style="margin-bottom: 20px; display: flex; justify-content: space-between;">
-			<a href="https://sos2324-19.appspot.com/policy-program-stats/graphs"
-            style="text-decoration: none; background-color: #666666; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; display: inline-block;"
-            >
-                <button>Graficos</button>
-              </a>
+			<button
+				style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
+				on:click={() => {
+					window.location.href = 'https://sos2324-19.appspot.com/policy-program-stats/graphs';
+				}}
+				>Graficos
+			</button>
 		</div>
         <div style="margin-bottom: 20px; display: flex; justify-content: space-between;">
 			<label>

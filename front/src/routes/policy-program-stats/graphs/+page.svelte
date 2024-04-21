@@ -93,16 +93,6 @@
                         parseFloat(item.total_amount_paid_to_fi)
                     )
                 }))
-            // [
-            //     {
-            //         name: 'AT',
-            //         data: atData.map(item => parseFloat(item.total_amount_paid_to_fi))
-            //         },
-            //         {
-            //         name: 'BE',
-            //         data: beData.map(item => parseFloat(item.total_amount_paid_to_fi))
-            //         }
-            // ]
         });
 }
 
