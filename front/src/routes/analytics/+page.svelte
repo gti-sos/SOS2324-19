@@ -32,10 +32,18 @@
     
   }
   async function getInitialtot() {
-    await getInitial(API_AFI);
-    await getInitial(API_PHT);
-    await getInitial(API_RSG);
-    await getInitial(API_JPR);
+    if(!data1.length>0){
+        await getInitial(API_AFI);
+    }
+    if(!data2.length>0){
+        await getInitial(API_PHT);
+    }
+    if(!data3.length>0){
+        await getInitial(API_RSG);
+    }
+    if(!data4.length>0){
+        await getInitial(API_JPR);
+    };
     location.reload();
   }
 
