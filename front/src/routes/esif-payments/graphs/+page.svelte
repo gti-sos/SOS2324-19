@@ -44,7 +44,6 @@
             const res = await fetch(API);
             const data = await res.json();
             if (data.length > 0) {
-                // Llamamos a las funciones después de asegurarnos de que los contenedores existen
                 barGraph(data);
                 pieGraph(data);
             }
