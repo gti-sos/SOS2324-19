@@ -515,7 +515,7 @@ let initial_data = [
             category_of_region: "",
             year: 2020,
             net_planned_eu_amount: 2190589653,
-            cumulative_initial_pre_financing: 76670725.36,
+            cumulative_initial_pre_financing: 7667072.36,
             cumulative_additional_initial_pre_financing: 0,
             recovery_of_initial_pre_financing: 0,
             cumulative_annual_pre_financing: 0,
