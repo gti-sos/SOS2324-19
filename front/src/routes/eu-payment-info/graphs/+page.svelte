@@ -98,51 +98,12 @@ Highcharts.chart('container-bar', {
 
 
 
-async function createGraph2(datoss) {
-    const greeceData = datoss.filter(item => item.ms === 'EL');
-    const cyprusData = datoss.filter(item => item.ms === 'CY');
-    const spainData = datoss.filter(item => item.ms === 'ES');
-    const franceData = datoss.filter(item => item.ms === 'FR');
-    const bulgariaData = datoss.filter(item => item.ms === 'BG');
-    const germanyData = datoss.filter(item => item.ms === 'DE');
-    const ukData = datoss.filter(item => item.ms === 'UK');
-    const netherlandsData = datoss.filter(item => item.ms === 'NL');
+async function createGraph2(data) {
+   
+    const tiposcountry = [...new Set(data.map(item => item.ms_name))];
 
     // Create the chart series
-    const series = [
-        {
-            name: 'Greece',
-            data: greeceData.map(item => parseFloat(item.total_net_payments))
-        },
-        {
-            name: 'Cyprus',
-            data: cyprusData.map(item => parseFloat(item.total_net_payments))
-        },
-        {
-            name: 'Spain',
-            data: spainData.map(item => parseFloat(item.total_net_payments))
-        },
-        {
-            name: 'France',
-            data: franceData.map(item => parseFloat(item.total_net_payments))
-        },
-        {
-            name: 'Bulgaria',
-            data: bulgariaData.map(item => parseFloat(item.total_net_payments))
-        },
-        {
-            name: 'Germany',
-            data: germanyData.map(item => parseFloat(item.total_net_payments))
-        },
-        {
-            name: 'United Kingdom',
-            data: ukData.map(item => parseFloat(item.total_net_payments))
-        },
-        {
-            name: 'Netherlands',
-            data: netherlandsData.map(item => parseFloat(item.total_net_payments))
-        }
-    ];
+    
 
     Highcharts.chart('container', {
         chart: {
@@ -182,7 +143,12 @@ async function createGraph2(datoss) {
                 Highcharts.defaultOptions.legend.backgroundColor || // theme
                 'rgba(255,255,255,0.25)'
         },
-        series: series
+        series: tiposcountry.map(country => ({
+                    name: country,
+                    data: data.filter(item => item.ms_name === country).map(item =>
+                        parseFloat(item.total_net_payments)
+                    )
+                }))
     });
 }
 
