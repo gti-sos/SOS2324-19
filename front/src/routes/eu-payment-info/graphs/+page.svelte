@@ -96,57 +96,95 @@ Highcharts.chart('container-bar', {
 }
 
 
-function createGraph2(datos){
-    // Organizar los datos por país y año
-var countriesData = {};
 
-// Iterar sobre los datos y organizarlos por país y año
-datos.forEach(function(item) {
-    if (!countriesData[item.ms_name]) {
-        countriesData[item.ms_name] = {};
-    }
-    if (!countriesData[item.ms_name][item.year]) {
-        countriesData[item.ms_name][item.year] = 0;
-    }
-    countriesData[item.ms_name][item.year] += parseFloat(item.total_net_payments);
-});
 
-// Crear la serie para Highcharts
-var seriesData = [];
+async function createGraph2(datoss) {
+    const greeceData = datoss.filter(item => item.ms === 'EL');
+    const cyprusData = datoss.filter(item => item.ms === 'CY');
+    const spainData = datoss.filter(item => item.ms === 'ES');
+    const franceData = datoss.filter(item => item.ms === 'FR');
+    const bulgariaData = datoss.filter(item => item.ms === 'BG');
+    const germanyData = datoss.filter(item => item.ms === 'DE');
+    const ukData = datoss.filter(item => item.ms === 'UK');
+    const netherlandsData = datoss.filter(item => item.ms === 'NL');
 
-// Iterar sobre los datos organizados y crear la serie para Highcharts
-for (var country in countriesData) {
-    var countryData = countriesData[country];
-    var countrySeries = {
-        name: country,
-        data: []
-    };
-    for (var year in countryData) {
-        countrySeries.data.push(countryData[year]);
-    }
-    seriesData.push(countrySeries);
-}
-
-// Construir el gráfico de líneas utilizando Highcharts
-Highcharts.chart('container', {
-    chart: {
-        type: 'line'
-    },
-    title: {
-        text: 'European Financing by Country and Year'
-    },
-    xAxis: {
-        categories: Object.keys(countriesData['Greece']) // Tomar las categorías de cualquier país, ya que todos deben tener los mismos años
-    },
-    yAxis: {
-        title: {
-            text: 'European Financing Amount'
+    // Create the chart series
+    const series = [
+        {
+            name: 'Greece',
+            data: greeceData.map(item => parseFloat(item.total_net_payments))
+        },
+        {
+            name: 'Cyprus',
+            data: cyprusData.map(item => parseFloat(item.total_net_payments))
+        },
+        {
+            name: 'Spain',
+            data: spainData.map(item => parseFloat(item.total_net_payments))
+        },
+        {
+            name: 'France',
+            data: franceData.map(item => parseFloat(item.total_net_payments))
+        },
+        {
+            name: 'Bulgaria',
+            data: bulgariaData.map(item => parseFloat(item.total_net_payments))
+        },
+        {
+            name: 'Germany',
+            data: germanyData.map(item => parseFloat(item.total_net_payments))
+        },
+        {
+            name: 'United Kingdom',
+            data: ukData.map(item => parseFloat(item.total_net_payments))
+        },
+        {
+            name: 'Netherlands',
+            data: netherlandsData.map(item => parseFloat(item.total_net_payments))
         }
-    },
-    series: seriesData
-});
+    ];
 
-    }
+    Highcharts.chart('container', {
+        chart: {
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'EU Funding by Country and Year'
+        },
+        xAxis: [{
+            categories: ['2020', '2021', '2022', '2023'],
+            crosshair: true
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value} €',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            title: {
+                text: 'EU Funding',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            }
+        }],
+        tooltip: {
+            shared: true
+        },
+        legend: {
+            align: 'left',
+            x: 80,
+            verticalAlign: 'top',
+            y: 60,
+            floating: true,
+            backgroundColor:
+                Highcharts.defaultOptions.legend.backgroundColor || // theme
+                'rgba(255,255,255,0.25)'
+        },
+        series: series
+    });
+}
 
 
 

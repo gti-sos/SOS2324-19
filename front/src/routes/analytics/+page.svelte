@@ -1,177 +1,189 @@
 <svelte:head>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script src="https://code.highcharts.com/modules/treemap.js"></script>
-    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 </svelte:head>
 
 <script>
-    import { onMount } from 'svelte';
-	import { dev } from '$app/environment';
 
-	let API="https://sos2324-19.appspot.com/api/v2/policy-program-stats";
-	let errorMsg = '';
-	let exitMsg = '';
-	let datos1,
-		datos2,
-		datos3,
-		datos4 = {};
+  import { onMount } from 'svelte';
 
-    onMount(async () => {
-		await loadAllData();
-		datos1 = await getDataAFI();
-		let datos = unificarBD(datos1, datos2, datos3, datos4);
-		console.log('DATOS COMUNES: ' + JSON.stringify(datos));
-		datos = getEstadisticas(datos);
-		getChart(datos);
-	});
-    async function loadInitialAFI() {
-        try {
-            let response = await fetch(API+ "/loadInitialData", {
-                method: "GET",
-            });
+  // Define las URLs de las tres APIs
+  let API_AFI="https://sos2324-19.appspot.com/api/v2/policy-program-stats";
+  let API_PHT="https://sos2324-19.appspot.com/api/v2/eu-payment-info";
+  let API_RSG="https://sos2324-19.appspot.com/api/v2/covid-testings";
+  let API_JPR="https://sos2324-19.appspot.com/api/v2/esif-payments";
 
-            let status = await response.status;
-            console.log(`Status code: ${status}`);
-            if (status === 200) {
-                await getDataAFI();
-            } 
+  let countryData = [];
 
-        } catch (error) {
-            console.log(`Error loading initail GDP data: ${error}`)
-        }
-    }    
+  // Función para obtener datos 
+  async function fetchData(url) {
+    try{
+            const res = await fetch(url);
+            const dat = await res.json();
+            return dat;
+    }catch(error){
+         console.log(`Error fetching data: ${error}`);
+    }
     
-    async function getDataAFI(){
-        try{
-            const res = await fetch(API);
-            const data = await res.json();
-            cconsole.log(data);
-            
-            if (data.length > 0) {
-                createGraph(data);
-                createg2(data);
-            }
-        }catch(error){
-            console.log(`Error fetching data: ${error}`);
-        }
-    }   
+  }
 
-    async function loadAllData() {
-		try {
-			await loadInitialAFI();
-		} catch (error) {
-			errorMsg = error;
-		}
-	}
+  // Función para procesar los datos de las tres fuentes de datos
+  async function processCountryData() {
 
-    //Creamos función que unifique datos
-	function unificarBD(data1) {
-		// Crear conjuntos de países únicos para cada conjunto de datos
-		const countrySet1 = new Set(data1.map((item) => item.country));
-		// const countrySet2 = new Set(data2.map((item) => item.geo));
-		// const countrySet3 = new Set(data3.map((item) => item.geo));
-		// const countrySet4 = new Set(data4.map((item) => item.geo));
+      const data1 = await fetchData(API_AFI);
+      console.log(data1)
+      const data2 = await fetchData(API_PHT);
+      console.log(data2)
+      const data3 = await fetchData(API_RSG);
+      console.log(data3)
+      const data4 = await fetchData(API_JPR);
+      console.log(data4)
 
-		// Encontrar la intersección de países comunes a todas las bases de datos
-		// const commonSet = new Set(
-		// 	[...countrySet1].filter((country) => countrySet2.has(country) && countrySet3.has(country) && countrySet4.has(country))
-		// );
-        const commonSet = new Set(countrySet1);
+      // Combinar los datos de las tres fuentes
+      const combinedData = {};
 
-		// Filtrar datos para incluir solo países comunes
-		const filteredData1 = data1.filter((item) => commonSet.has(item.country));
-		// const filteredData2 = data2.filter((item) => commonSet.has(item.geo));
-		// const filteredData3 = data3.filter((item) => commonSet.has(item.geo));
-		// const filteredData4 = data4.filter((item) => commonSet.has(item.geo));
+      // Procesar datos de la primera fuente
+      data1.forEach(entry => {
+          const country = entry.country;
+          if (!combinedData[country]) {
+              combinedData[country] = {
+                  name: country,
+                  esif_amount_committed_to_fi: 0,
+                  total_net_payment: 0,
+                  total_net_payments:0,
+                  population:0
+              };
+          }
+          combinedData[country].esif_amount_committed_to_fi += entry.esif_amount_committed_to_fi || 0;
+      });
 
-		// Combinar todos los datos filtrados
-		const combinedData = [...filteredData1];
+      // Procesar datos de la segunda fuente
+      data2.forEach(entry => {
+          const country = entry.ms;
+          if (!combinedData[country]) {
+              combinedData[country] = {
+                  name: country,
+                  esif_amount_committed_to_fi: 0,
+                  total_net_payment: 0,
+                  total_net_payments:0,
+                  population:0
+              };
+          }
+          combinedData[country].total_net_payment += entry.total_net_payment || 0;
+      });
 
-		return combinedData;
-	}
+      // Procesar datos de la tercera fuente
+      data3.forEach(entry => {
+          const country = entry.country_code;
+          if (!combinedData[country]) {
+              combinedData[country] = {
+                  name: country,
+                  esif_amount_committed_to_fi: 0,
+                  total_net_payment: 0,
+                  total_net_payments:0,
+                  population:0
+              };
+          }
+          combinedData[country].population += entry.population || 0;
+      });
 
-    const chartData = {
-			categories: sortedData.map((item) => item.country),
-			series: [
-				{
-					name: 'Total monetary amount paid to the fund',
-					data: sortedData.map((item) => parseFloat(item.total_amount_paid_to_fi))
-				},
-				
-			]
-		};
+      data4.forEach(entry => {
+          const country = entry.ms;
+          if (!combinedData[country]) {
+              combinedData[country] = {
+                  name: country,
+                  esif_amount_committed_to_fi: 0,
+                  total_net_payment: 0,
+                  total_net_payments:0,
+                  population:0
+              };
+          }
+          combinedData[country].total_net_payments += entry.total_net_payments || 0;
+      });
 
-        function getChart(datos) {
-            const tiposcountry = [...new Set(datos.map(item => item.country))];
-		Highcharts.chart('container', {
-			chart: {
-				type: 'bar'
-			},
-			title: {
-                text: 'combinacion',
-                align: 'center'
-            },
-            xAxis: {
-                categories: tiposcountry,
-                title: {
-                    text: null
-                },
-                gridLineWidth: 1,
-                lineWidth: 0
-            },
-			yAxis: [
-                {
-                    min: 0,
-                    title: {
-                        text: 'Total monetary amount paid to the fund',
-                        align: 'high'
-                    },
-                    gridLineWidth: 0
-				}
-			],
-			tooltip: {
-				shared: true
-			},
-            plotOptions: {
-                bar: {
-                    borderRadius: '50%',
-                    dataLabels: {
-                        enabled: true
-                    },
-                    groupPadding: 0.1
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -40,
-                y: 80,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor:
-                    Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-                shadow: true
-            },
-            credits: {
-                enabled: false
-            },
-			series: [
-				{
-					name: 'Policy-program',
-					data: datos.series[0].data,
-					tooltip: {
-						valueSuffix: 'euro'
-					}
-				}
-			]
-		});
-	}
+    }
+  // Función para crear el gráfico
+  function createChart() {
+
+      Highcharts.chart('chart-container', {
+          chart: {
+              type: 'column'
+          },
+          title: {
+              text: 'Datos de los países'
+          },
+          xAxis: {
+              title: {
+                  text: 'País'
+              },
+              categories: countryData.map(country => country.name)
+          },
+          yAxis: [{
+              title: {
+                  text: 'esif_amount_committed_to_fi'
+              }
+          }, {
+              title: {
+                  text: 'total_net_payment'
+              },
+              opposite: true
+          }, {
+              title: {
+                  text: 'total_net_payments'
+              },
+              opposite: true
+          }, {
+              title: {
+                  text: 'population'
+              },
+              opposite: true
+          }],
+          series: [{
+              name: 'esif_amount_committed_to_fi',
+              data: countryData.map(country => country.esif_amount_committed_to_fi)
+          }, {
+              name: 'total_net_payment',
+              data: countryData.map(country => country.total_net_payment),
+              yAxis: 1
+          }, {
+              name: 'total_net_payments',
+              data: countryData.map(country => country.total_net_payments),
+              yAxis: 2
+          }, {
+              name: 'population',
+              data: countryData.map(country => country.population),
+              yAxis: 3
+          }]
+      });
+
+  }
+
+  onMount(async () => {
+
+    try {
+      await processCountryData();
+      createChart();
+
+    } catch (error) {
+      console.error('Error al obtener datos o crear el gráfico:', error);
+    }
+
+  });
+
 </script>
 
-<div id="container"></div>
-<br>
+<style>
+
+  #chart-container {
+  width: 100%; 
+  max-width: 1000px; 
+  margin: 0 auto; 
+  }
+
+</style>
+
+<div id="chart-container"></div>
