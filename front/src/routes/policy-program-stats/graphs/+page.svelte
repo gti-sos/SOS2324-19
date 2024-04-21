@@ -11,21 +11,38 @@
 <script>
     import {onMount} from "svelte";
 
-    onMount(() => {
-        getData();
-    })
+    onMount(async() => {
+        await loadInitial();
+        await getData();
+    });
 
     let API="https://sos2324-19.appspot.com/api/v2/policy-program-stats";
     let dataAvailable = false;
+    
+    async function loadInitial() {
+        try {
+            let response = await fetch(API+ "/loadInitialData", {
+                method: "GET",
+            });
+
+            let status = await response.status;
+            console.log(`Status code: ${status}`);
+            if (status === 200) {
+                await getData();
+            } 
+
+        } catch (error) {
+            console.log(`Error loading initail GDP data: ${error}`)
+        }
+    }    
     
     async function getData(){
         try{
             const res = await fetch(API);
             const data = await res.json();
-            console.log(`Data received:${JSON.stringify(data, null, 2)}`);
+            cconsole.log(data);
             
             if (data.length > 0) {
-                dataAvailable = true; 
                 createGraph(data);
                 createg2(data);
             }
@@ -34,8 +51,8 @@
         }
     }   
         function createGraph(data){
-                const atData = data.filter(item => item.country === "AT");
-                const beData = data.filter(item => item.country === "BE");
+                const anos=[...new Set(data.map(item => item.year))];
+                const tiposcountry = [...new Set(data.map(item => item.country))];
                 Highcharts.chart('container-bar', {
             chart: {
                 type: 'column'
@@ -45,7 +62,7 @@
                 align: 'center'
             },
             xAxis: {
-                categories:[2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                categories:anos,
                 crosshair: true,
                 accessibility: {
                     description: 'Countries'
@@ -67,16 +84,23 @@
                     borderWidth: 0
                 }
             },
-            series: [
-                {
-                    name: 'AT',
-                    data: atData.map(item => parseFloat(item.total_amount_paid_to_fi))
-                    },
-                    {
-                    name: 'BE',
-                    data: beData.map(item => parseFloat(item.total_amount_paid_to_fi))
-                    }
-            ]
+            series: 
+            tiposcountry.map(country => ({
+                    name: country,
+                    data: data.filter(item => item.country === country).map(item =>
+                        parseFloat(item.total_amount_paid_to_fi)
+                    )
+                }))
+            // [
+            //     {
+            //         name: 'AT',
+            //         data: atData.map(item => parseFloat(item.total_amount_paid_to_fi))
+            //         },
+            //         {
+            //         name: 'BE',
+            //         data: beData.map(item => parseFloat(item.total_amount_paid_to_fi))
+            //         }
+            // ]
         });
 }
 
