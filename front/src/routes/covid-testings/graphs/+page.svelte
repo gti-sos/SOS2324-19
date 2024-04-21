@@ -18,8 +18,26 @@
 	if (dev) DATAAPI = 'http://localhost:10000' + DATAAPI; 
 
 	onMount(async () => {
-		await getData();
+		await getInitial();
 	});
+
+
+	async function getInitial() {
+        try {
+            let response = await fetch(DATAAPI.split("?")[0]+ "/loadInitialData", {
+                method: "GET",
+            });
+
+            let status = await response.status;
+            console.log(`Status code: ${status}`);
+            if (status === 200) {
+                await getData();
+            } 
+
+        } catch (error) {
+            console.log(`Error loading initail data: ${error}`)
+        }
+    } 
 
 	async function getData() {
 		try {
