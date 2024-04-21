@@ -96,55 +96,68 @@ Highcharts.chart('container-bar', {
 }
 
 
-function createGraph2(datos){
+function createGraph2(datoss){
     // Organizar los datos por país y año
-var countriesData = {};
+    const countriesData = datoss.map(data => ({
+        code: data.ms, // Código del país
+        amount: data.total_net_payments // Cantidad de fondos recibidos
+    }));
 
-// Iterar sobre los datos y organizarlos por país y año
-datos.forEach(function(item) {
-    if (!countriesData[item.ms_name]) {
-        countriesData[item.ms_name] = {};
-    }
-    if (!countriesData[item.ms_name][item.year]) {
-        countriesData[item.ms_name][item.year] = 0;
-    }
-    countriesData[item.ms_name][item.year] += parseFloat(item.total_net_payments);
-});
+    // Mapear los datos al formato requerido por Highcharts
+    const seriesData = countriesData.map(country => ({
+        code: country.code,
+        value: country.amount
+    }));
 
-// Crear la serie para Highcharts
-var seriesData = [];
-
-// Iterar sobre los datos organizados y crear la serie para Highcharts
-for (var country in countriesData) {
-    var countryData = countriesData[country];
-    var countrySeries = {
-        name: country,
-        data: []
-    };
-    for (var year in countryData) {
-        countrySeries.data.push(countryData[year]);
-    }
-    seriesData.push(countrySeries);
-}
-
-// Construir el gráfico de líneas utilizando Highcharts
-Highcharts.chart('container', {
-    chart: {
-        type: 'line'
-    },
-    title: {
-        text: 'European Financing by Country and Year'
-    },
-    xAxis: {
-        categories: Object.keys(countriesData['Greece']) // Tomar las categorías de cualquier país, ya que todos deben tener los mismos años
-    },
-    yAxis: {
+    // Configuración de la gráfica
+    Highcharts.mapChart('container', {
+        chart: {
+            map: topology,
+            spacingBottom: 20
+        },
         title: {
-            text: 'European Financing Amount'
-        }
-    },
-    series: seriesData
-});
+            text: 'Financiamiento de la Unión Europea por país'
+        },
+        legend: {
+            title: {
+                text: 'Millones de euros'
+            },
+            layout: 'vertical',
+            align: 'right',
+            floating: true,
+            valueDecimals: 2
+        },
+        colorAxis: {
+            min: 0,
+            minColor: '#FFFFFF',
+            maxColor: Highcharts.getOptions().colors[0]
+        },
+        mapNavigation: {
+            enabled: true,
+            buttonOptions: {
+                verticalAlign: 'bottom'
+            }
+        },
+        series: [{
+            data: seriesData,
+            mapData: topology,
+            joinBy: ['iso-a2', 'code'],
+            name: 'Financiamiento',
+            states: {
+                hover: {
+                    color: '#BADA55'
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}'
+            },
+            tooltip: {
+                pointFormat: '{point.name}: {point.value} millones de euros'
+            }
+        }]
+    });
+
 
     }
 
