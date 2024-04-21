@@ -32,36 +32,27 @@
     
   }
   async function getInitialtot() {
-    if(!data1.length>0){
-        await getInitial(API_AFI);
-    }
-    if(!data2.length>0){
-        await getInitial(API_PHT);
-    }
-    if(!data3.length>0){
-        await getInitial(API_RSG);
-    }
-    if(!data4.length>0){
-        await getInitial(API_JPR);
+    await getInitial(API_AFI);
+    await getInitial(API_PHT);
+    await getInitial(API_RSG);
+    await getInitial(API_JPR);
+    location.reload();
+  }
+
+  async function getInitial(rt) {
+    try {
+      let response = await fetch(rt+ "/loadInitialData", { method: "GET" });
+      let status = await response.status;
+      console.log(`Status code: ${status}`);
+      if (status === 200) {
+        const data = await fetchData(rt);
+        console.log(data);
+      }
+    } catch (error) {
+      console.log(`Error loading initial data: ${error}`);
     }
   }
-  async function getInitial(rt) {
-        try {
-            let response = await fetch(rt+ "/loadInitialData", {
-                method: "GET",
-            });
-
-            let status = await response.status;
-            console.log(`Status code: ${status}`);
-            if (status === 200) {
-                const data= await fetchData(rt);
-                console.log(data)
-            } 
-
-        } catch (error) {
-            console.log(`Error loading initail data: ${error}`)
-        }
-    }  
+  
 
   // Función para procesar los datos de las tres fuentes de datos
   async function processCountryData() {
@@ -146,6 +137,8 @@
 
       countryData = Object.values(combinedData);
 
+      createChart();
+
     }
   // Función para crear el gráfico
   function createChart() {
@@ -207,7 +200,6 @@
 
     try {
       await processCountryData();
-      createChart();
 
     } catch (error) {
       console.error('Error al obtener datos o crear el gráfico:', error);
