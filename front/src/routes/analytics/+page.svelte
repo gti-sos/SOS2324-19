@@ -10,6 +10,7 @@
 <script>
 
   import { onMount } from 'svelte';
+  let dataAvailable = false;
 
   // Define las URLs de las tres APIs
   let API_AFI="https://sos2324-19.appspot.com/api/v2/policy-program-stats";
@@ -17,7 +18,7 @@
   let API_RSG="https://sos2324-19.appspot.com/api/v2/covid-testings";
   let API_JPR="https://sos2324-19.appspot.com/api/v2/esif-payments";
 
-  let countryData = [];
+  let countryData,data1,data2,data3,data4 = [];
 
   // Función para obtener datos 
   async function fetchData(url) {
@@ -30,18 +31,48 @@
     }
     
   }
+  async function getInitialtot() {
+    await getInitial(API_AFI);
+    await getInitial(API_PHT);
+    await getInitial(API_RSG);
+    await getInitial(API_JPR);
+  }
+  async function getInitial(rt) {
+        try {
+            let response = await fetch(rt+ "/loadInitialData", {
+                method: "GET",
+            });
+
+            let status = await response.status;
+            console.log(`Status code: ${status}`);
+            if (status === 200) {
+                const data= await fetchData(rt);
+                console.log(data)
+            } 
+
+        } catch (error) {
+            console.log(`Error loading initail data: ${error}`)
+        }
+    }  
 
   // Función para procesar los datos de las tres fuentes de datos
   async function processCountryData() {
 
-      const data1 = await fetchData(API_AFI);
+      const dat1 = await fetchData(API_AFI);
+      data1=dat1;
       console.log(data1)
-      const data2 = await fetchData(API_PHT);
+      const dat2 = await fetchData(API_PHT);
+      data2=dat2;
       console.log(data2)
-      const data3 = await fetchData(API_RSG);
+      const dat3 = await fetchData(API_RSG);
+      data3=dat3;
       console.log(data3)
-      const data4 = await fetchData(API_JPR);
+      const dat4 = await fetchData(API_JPR);
+      data4=dat4;
       console.log(data4)
+      if(data1.length > 0 && data2.length > 0 && data3.length > 0 && data4.length > 0){
+        dataAvailable = true;
+      }
 
       // Combinar los datos de las tres fuentes
       const combinedData = {};
@@ -186,4 +217,16 @@
 
 </style>
 
-<div id="chart-container"></div>
+{#if dataAvailable==false}
+    <div style="justify-content: center; text-align: center; margin-top: 20px">
+        <button 
+            class="cargarDatos"
+            style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
+            on:click={() => getInitialtot()}>
+            Cargar Los Datos
+        </button>
+    </div>
+    <p class="container">No hay datos disponibles</p>
+{/if}
+    <div id="chart-container"></div>
+    <br>

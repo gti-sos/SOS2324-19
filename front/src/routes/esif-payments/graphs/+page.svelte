@@ -8,7 +8,6 @@
 </svelte:head>
 
 <script>
-    import Highcharts from 'highcharts';
     import { onMount } from 'svelte';
     import { dev } from '$app/environment';
 
