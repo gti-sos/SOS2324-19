@@ -9,17 +9,17 @@
 </svelte:head>
 
 <script>
+    let data = []
     import {onMount} from "svelte";
+    let dataAvailable = false;
 
-    onMount(async() => {
-        await loadInitial();
-        await getData();
+    onMount(() => {
+        getData();
     });
 
     let API="https://sos2324-19.appspot.com/api/v2/policy-program-stats";
-    let dataAvailable = false;
     
-    async function loadInitial() {
+    async function getInitial() {
         try {
             let response = await fetch(API+ "/loadInitialData", {
                 method: "GET",
@@ -32,17 +32,19 @@
             } 
 
         } catch (error) {
-            console.log(`Error loading initail GDP data: ${error}`)
+            console.log(`Error loading initail data: ${error}`)
         }
     }    
     
     async function getData(){
         try{
             const res = await fetch(API);
-            const data = await res.json();
-            cconsole.log(data);
+            const dat = await res.json();
+            data=dat
+            console.log(data);
             
             if (data.length > 0) {
+                dataAvailable = true;
                 createGraph(data);
                 createg2(data);
             }
@@ -159,6 +161,25 @@
     }
 </script>
 
-<div id="container"></div>
-<br>
-<div id="container-bar"></div>
+{#if dataAvailable==false}
+    <div style="justify-content: center; text-align: center; margin-top: 20px">
+        <button 
+            class="cargarDatos"
+            style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
+            on:click={() => getInitial()}>
+            Cargar Los Datos
+        </button>
+    </div>
+    <p class="container">No hay datos disponibles</p>
+{/if}
+    <div id="container"></div>
+    <br>
+    <div id="container-bar"></div>
+
+
+    <style>
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+        }
+    </style>

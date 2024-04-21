@@ -324,6 +324,13 @@
 			</button>
 		</div>
         <div style="margin-bottom: 20px; display: flex; justify-content: space-between;">
+			<a href="https://sos2324-19.appspot.com/policy-program-stats/graphs"
+            style="text-decoration: none; background-color: #666666; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; display: inline-block;"
+            >
+                <button>Graficos</button>
+              </a>
+		</div>
+        <div style="margin-bottom: 20px; display: flex; justify-content: space-between;">
 			<label>
                 Desde:
                 <input type="number" bind:value={getFrom}>
