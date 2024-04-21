@@ -96,70 +96,95 @@ Highcharts.chart('container-bar', {
 }
 
 
-function createGraph2(datoss){
-    // Organizar los datos por país y año
-    const countriesData = datoss.map(data => ({
-        code: data.ms, // Código del país
-        amount: data.total_net_payments // Cantidad de fondos recibidos
-    }));
 
-    // Mapear los datos al formato requerido por Highcharts
-    const seriesData = countriesData.map(country => ({
-        code: country.code,
-        value: country.amount
-    }));
 
-    // Configuración de la gráfica
-    Highcharts.mapChart('container', {
+async function createGraph2(datoss) {
+    const greeceData = datoss.filter(item => item.ms === 'EL');
+    const cyprusData = datoss.filter(item => item.ms === 'CY');
+    const spainData = datoss.filter(item => item.ms === 'ES');
+    const franceData = datoss.filter(item => item.ms === 'FR');
+    const bulgariaData = datoss.filter(item => item.ms === 'BG');
+    const germanyData = datoss.filter(item => item.ms === 'DE');
+    const ukData = datoss.filter(item => item.ms === 'UK');
+    const netherlandsData = datoss.filter(item => item.ms === 'NL');
+
+    // Create the chart series
+    const series = [
+        {
+            name: 'Greece',
+            data: greeceData.map(item => parseFloat(item.total_net_payments))
+        },
+        {
+            name: 'Cyprus',
+            data: cyprusData.map(item => parseFloat(item.total_net_payments))
+        },
+        {
+            name: 'Spain',
+            data: spainData.map(item => parseFloat(item.total_net_payments))
+        },
+        {
+            name: 'France',
+            data: franceData.map(item => parseFloat(item.total_net_payments))
+        },
+        {
+            name: 'Bulgaria',
+            data: bulgariaData.map(item => parseFloat(item.total_net_payments))
+        },
+        {
+            name: 'Germany',
+            data: germanyData.map(item => parseFloat(item.total_net_payments))
+        },
+        {
+            name: 'United Kingdom',
+            data: ukData.map(item => parseFloat(item.total_net_payments))
+        },
+        {
+            name: 'Netherlands',
+            data: netherlandsData.map(item => parseFloat(item.total_net_payments))
+        }
+    ];
+
+    Highcharts.chart('container', {
         chart: {
-            map: topology,
-            spacingBottom: 20
+            zoomType: 'xy'
         },
         title: {
-            text: 'Financiamiento de la Unión Europea por país'
+            text: 'EU Funding by Country and Year'
         },
-        legend: {
-            title: {
-                text: 'Millones de euros'
-            },
-            layout: 'vertical',
-            align: 'right',
-            floating: true,
-            valueDecimals: 2
-        },
-        colorAxis: {
-            min: 0,
-            minColor: '#FFFFFF',
-            maxColor: Highcharts.getOptions().colors[0]
-        },
-        mapNavigation: {
-            enabled: true,
-            buttonOptions: {
-                verticalAlign: 'bottom'
-            }
-        },
-        series: [{
-            data: seriesData,
-            mapData: topology,
-            joinBy: ['iso-a2', 'code'],
-            name: 'Financiamiento',
-            states: {
-                hover: {
-                    color: '#BADA55'
+        xAxis: [{
+            categories: ['2020', '2021', '2022', '2023'],
+            crosshair: true
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value} €',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
                 }
             },
-            dataLabels: {
-                enabled: true,
-                format: '{point.name}'
-            },
-            tooltip: {
-                pointFormat: '{point.name}: {point.value} millones de euros'
+            title: {
+                text: 'EU Funding',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
             }
-        }]
+        }],
+        tooltip: {
+            shared: true
+        },
+        legend: {
+            align: 'left',
+            x: 80,
+            verticalAlign: 'top',
+            y: 60,
+            floating: true,
+            backgroundColor:
+                Highcharts.defaultOptions.legend.backgroundColor || // theme
+                'rgba(255,255,255,0.25)'
+        },
+        series: series
     });
-
-
-    }
+}
 
 
 
