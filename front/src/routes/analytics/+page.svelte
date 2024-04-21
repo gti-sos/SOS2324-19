@@ -84,6 +84,7 @@
               combinedData[country] = {
                   name: country,
                   esif_amount_committed_to_fi: 0,
+                  init_plan_eu_amt_1_adoption:0,
                   total_net_payments:0,
                   population:0
               };
@@ -98,11 +99,12 @@
               combinedData[country] = {
                   name: country,
                   esif_amount_committed_to_fi: 0,
+                  init_plan_eu_amt_1_adoption:0,
                   total_net_payments:0,
                   population:0
               };
           }
-          combinedData[country].total_net_payments += entry.total_net_payments || 0;
+          combinedData[country].init_plan_eu_amt_1_adoption += entry.init_plan_eu_amt_1_adoption || 0;
       });
 
       // Procesar datos de la tercera fuente
@@ -112,6 +114,7 @@
               combinedData[country] = {
                   name: country,
                   esif_amount_committed_to_fi: 0,
+                  init_plan_eu_amt_1_adoption:0,
                   total_net_payments:0,
                   population:0
               };
@@ -125,6 +128,7 @@
               combinedData[country] = {
                   name: country,
                   esif_amount_committed_to_fi: 0,
+                  init_plan_eu_amt_1_adoption:0,
                   total_net_payments:0,
                   population:0
               };
@@ -162,6 +166,11 @@
               opposite: true
           }, {
               title: {
+                  text: 'init_plan_eu_amt_1_adoption'
+              },
+              opposite: true
+          }, {
+              title: {
                   text: 'population'
               },
               opposite: true
@@ -173,10 +182,14 @@
               name: 'total_net_payments',
               data: countryData.map(country => country.total_net_payments),
               yAxis: 1
+          },{
+              name: 'init_plan_eu_amt_1_adoption',
+              data: countryData.map(country => country.init_plan_eu_amt_1_adoption),
+              yAxis: 2
           }, {
               name: 'population',
               data: countryData.map(country => country.population),
-              yAxis: 2
+              yAxis: 3
           }]
       });
 
