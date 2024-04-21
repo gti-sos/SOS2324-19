@@ -37,6 +37,7 @@
 			<a href="/eu-payment-info">Eu-payment-info</a>
 			<a href="/esif-payments">Esif-payments</a>
 			<a href="/covid-testings">Covid-testings</a>
+			<a href="/analytics">Vista Global</a>
 		</nav>
 	</body>
 </html>
