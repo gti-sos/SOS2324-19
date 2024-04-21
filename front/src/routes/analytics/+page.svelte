@@ -158,7 +158,7 @@
           },
           yAxis: [{
               title: {
-                  text: 'esif_amount_committed_to_fi'
+                  text: 'Cantidad total promedio comprometido al fondo'
               }
           }, {
               title: {
@@ -177,7 +177,7 @@
               opposite: true
           }],
           series: [{
-              name: 'esif_amount_committed_to_fi',
+              name: 'Cantidad total promedio comprometido al fondo',
               data: countryData.map(country => country.esif_amount_committed_to_fi)
           },{
               name: 'total_net_payments',

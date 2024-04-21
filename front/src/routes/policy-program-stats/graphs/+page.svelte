@@ -55,25 +55,25 @@
         function createGraph(data){
                 const anos=[...new Set(data.map(item => item.year))];
                 const tiposcountry = [...new Set(data.map(item => item.country))];
-                Highcharts.chart('container-bar', {
+                Highcharts.chart('container-column', {
             chart: {
                 type: 'column'
             },
             title: {
-                text: 'Monetary amount paid by each country in each year',
+                text: 'Importe monetario pagado por cada país en cada año',
                 align: 'center'
             },
             xAxis: {
                 categories:anos,
                 crosshair: true,
                 accessibility: {
-                    description: 'Countries'
+                    description: 'Paises'
                 }
             },
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Total monetary amount paid to the fund'
+                    text: 'Importe monetario total pagada al fondo'
                 }
             },
             tooltip: {
@@ -104,7 +104,7 @@
                     type: 'packedbubble'
                 },
                 title: {
-                    text: 'Average total amount committed to the fund by Priority',
+                    text: 'Importe total medio comprometido al fondo por Prioridad',
                     align: 'center'
                 },
                 tooltip: {
@@ -164,7 +164,7 @@
 {/if}
     <div id="container"></div>
     <br>
-    <div id="container-bar"></div>
+    <div id="container-column"></div>
 
 
     <style>
