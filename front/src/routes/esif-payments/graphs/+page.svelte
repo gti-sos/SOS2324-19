@@ -141,7 +141,7 @@
                 type: 'pie'
             },
             title: {
-                text: 'Net Planned EU Amount by Region'
+                text: 'Cantidad planeada a gastar por region'
             },
             tooltip: {
                 valueSuffix: ' €'

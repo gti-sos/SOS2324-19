@@ -169,19 +169,19 @@
 				},
 				{
 					title: {
-						text: 'total_net_payments'
+						text: 'Pagos totales netos'
 					},
 					opposite: true
 				},
 				{
 					title: {
-						text: 'init_plan_eu_amt_1_adoption'
+						text: 'Plan de adopcion inicial'
 					},
 					opposite: true
 				},
 				{
 					title: {
-						text: 'population'
+						text: 'Poblacion'
 					},
 					opposite: true
 				}
@@ -192,17 +192,17 @@
 					data: countryData.map((country) => country.esif_amount_committed_to_fi)
 				},
 				{
-					name: 'total_net_payments',
+					name: 'Pagos totales netos',
 					data: countryData.map((country) => country.total_net_payments),
 					yAxis: 1
 				},
 				{
-					name: 'init_plan_eu_amt_1_adoption',
+					name: 'Plan de adopcion inicial',
 					data: countryData.map((country) => country.init_plan_eu_amt_1_adoption),
 					yAxis: 2
 				},
 				{
-					name: 'population',
+					name: 'Poblacion',
 					data: countryData.map((country) => country.population),
 					yAxis: 3
 				}

@@ -45,7 +45,7 @@ Highcharts.chart('container-bar', {
     },
     
     title: {
-        text: 'Init adoption plan'
+        text: 'Plan de adopcion inicial'
     },
     
     xAxis: {
@@ -56,11 +56,11 @@ Highcharts.chart('container-bar', {
     },
     yAxis: {
         title: {
-            text: 'Total monetary amount'
+            text: 'Cantidad monetaria'
         }
     },
     tooltip: {
-        pointFormat: '{series.name} had an initial adaption amount of <b>{point.y:,.0f}</b><br/>M in {point.x}'
+        pointFormat: '{series.name} Tuvo un monto inicial de adaptación de <b>{point.y:,.0f}</b><br/>M in {point.x}'
     },
     plotOptions: {
         area: {
@@ -110,7 +110,7 @@ async function createGraph2(data) {
             zoomType: 'xy'
         },
         title: {
-            text: 'EU Funding by Country and Year'
+            text: 'Financiamiento de la UE por país y año'
         },
         xAxis: [{
             categories: ['2020', '2021', '2022', '2023'],
@@ -124,7 +124,7 @@ async function createGraph2(data) {
                 }
             },
             title: {
-                text: 'EU Funding',
+                text: 'Financiamiento de la EU',
                 style: {
                     color: Highcharts.getOptions().colors[1]
                 }
