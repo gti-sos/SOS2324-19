@@ -62,7 +62,7 @@
         getTestingsFrom();
     }
 
-    async function navigateToPage(page) {
+    async function navigateToPage(page) { 
         currentPage = page;
         await getTestings();
     }
