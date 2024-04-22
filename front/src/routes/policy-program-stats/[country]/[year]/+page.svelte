@@ -115,7 +115,7 @@
                     <button
                         style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
                         
-						on:click={() => { window.location.href = 'http://localhost:10000/policy-program-stats'; }}
+						on:click={() => { window.location.href = 'https://sos2324-19.appspot.com/policy-program-stats'; }}
                     >
                         Ir a la pagina principal
                     </button>
