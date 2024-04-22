@@ -20,6 +20,24 @@
 
 	async function getTestings() {
         try {
+            let response = await fetch(API + `?limit=10&offset=${(currentPage - 1) * 10}`, { method: 'GET' });
+            let data = await response.json();
+            testings = data;
+            console.log(data);
+            // Calcular el número total de páginas
+            totalPages = Math.ceil(data.totalCount / 10);
+        } catch (error) {
+            if (testings.length === 0){
+                errorMsg='';
+                console.log("No hay datos disponibles")
+            } else {
+                errorMsg = error;
+            }
+        }
+    }
+
+	async function getTestingsFrom() {
+        try {
             let response = await fetch(`${API}?from=${from}&to=${to}`, { method: 'GET' });
             let data = await response.json();
             testings = data;
@@ -32,16 +50,16 @@
                 errorMsg = error;
             }
         }
-    }
+	}
 
-    let from = ''; // Variable para almacenar el año de inicio de la búsqueda
-    let to = ''; // Variable para almacenar el año final de la búsqueda
+    let from = ''; 
+    let to = ''; 
 
     function handleSearch() {
         from = document.getElementById('from').value;
         to = document.getElementById('to').value;
 
-        getTestings();
+        getTestingsFrom();
     }
 
     async function navigateToPage(page) {
@@ -92,7 +110,6 @@
 			} else {
 				if (response.status == 400) {
 					errorMsg = 'Todos los campos son obligatorios';
-					alert(errorMsg);
 					} else if (response.status == 409) {
 					errorMsg = 'Datos ya registrados';
 					alert(errorMsg);
