@@ -10,8 +10,8 @@ let db_PHT = new dataStore();
 let db_PHT2 = new dataStore();
 let db_RSG = new dataStore();
 let db_RSG2 = new dataStore();
-
 let db_JPR = new dataStore();
+let db_JPR2 = new dataStore();
 
 const PORT = (process.env.PORT || 10000);
 
@@ -51,7 +51,7 @@ import {LoadBackendv1JPR} from "./back/Esif-payments/v1/index-JPR.js";
 LoadBackendv1JPR(app,db_JPR);
 
 import {LoadBackendv2JPR} from "./back/Esif-payments/v2/index-JPR.js";
-LoadBackendv2JPR(app,db_JPR);
+LoadBackendv2JPR(app,db_JPR2);
 
 app.use(handler);
 
