@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import dataStore from "nedb";
+import request from "request";
 
 let app = express();
 
@@ -53,9 +54,18 @@ LoadBackendv1JPR(app,db_JPR);
 import {LoadBackendv2JPR} from "./back/Esif-payments/v2/index-JPR.js";
 LoadBackendv2JPR(app,db_JPR2);
 
-app.use(handler);
 
 import path from "path";
+
+//proxy JPR
+app.use("/proxyJPR", function(req,res){
+    var url = "https://sos2324-11.appspot.com/api/v2/structural-payment-data"
+    console.log("piped: " + req.url)
+    req.pipe(request(url)).pipe(res);
+});
+
+app.use(handler);
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
