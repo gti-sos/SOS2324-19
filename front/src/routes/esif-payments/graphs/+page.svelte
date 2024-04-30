@@ -245,6 +245,6 @@
 	<br />
 	<div id="container-pie"></div>
 	<br />
-	<div class="bubble-chart-title">Recuperación de gastos por país</div>4
+	<div class="bubble-chart-title">Recuperación de gastos por país</div>
 	<div id="bubble-chart"></div>
 </div>
