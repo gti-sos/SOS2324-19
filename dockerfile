@@ -14,11 +14,3 @@ RUN npm install
 COPY . .
 EXPOSE 8080
 CMD [ "npm", "start" ]
-
-# Node-specific files
-node_modules
-npm-debug.log
-
-# Other IDE-specific folders
-nbproject
-.vscode
