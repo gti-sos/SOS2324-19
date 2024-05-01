@@ -161,10 +161,10 @@
 			},
 			
 			series: [{
-              name: 'ser2',
+              name: 'API policy-program-stats',
               data: countryData.map(country => country.total_amount_paid_to_fi/10)
           },{
-              name: 'ser1',
+              name: 'API cars-by-motor',
               data: countryData.map(country => country.millions_of_passenger_per_kilometres),
           }],
 			fill: {
