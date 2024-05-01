@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
 	import * as d3 from 'd3';
@@ -109,4 +109,4 @@
 <div class="container-fluid">
 	<h2>Presupuesto neto planteado por País comparada API ITR con la API JPR</h2>
 	<div id="chart-container"></div>
-</div>
+</div> -->
