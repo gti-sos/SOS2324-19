@@ -6,7 +6,6 @@ import {handler} from "./front/build/handler.js";
 import cors from "cors";
 import path from "path";
 
-
 //ALBERTO FRAILE
 import {LoadBackendAFI} from "./back/Policy-program-stats/v1/index-AFI.js";
 import {LoadBackendAFI2} from "./back/Policy-program-stats/v2/index-AFI.js";
