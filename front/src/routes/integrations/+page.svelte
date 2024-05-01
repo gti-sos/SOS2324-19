@@ -251,7 +251,6 @@
             ]
         },
 		options: {
-    //responsive: true,
     plugins: {
       legend: {
         position: 'top',
