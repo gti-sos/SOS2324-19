@@ -64,6 +64,14 @@ app.use("/proxyJPR", function(req,res){
     req.pipe(request(url)).pipe(res);
 });
 
+//proxy JPR
+app.use("/proxyAFI", function(req,res){
+    var url = "https://sos2324-10.appspot.com/api/v2/gdp-growth-rates"
+    console.log("piped: " + req.url)
+    req.pipe(request(url)).pipe(res);
+});
+
+
 app.use(handler);
 
 app.get('/', (req, res) => {

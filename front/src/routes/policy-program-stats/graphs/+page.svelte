@@ -157,8 +157,12 @@
     chart: {
       height: 350,
       type: "treemap",
-    },plotOptions: {
+    },
+    plotOptions: {
       treemap: {
+        dataLabels: {
+            enabled: true,
+            format: 'Foundation name: {point.x}'},
         colorScale: {
           ranges: [
             {

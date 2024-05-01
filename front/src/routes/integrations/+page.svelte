@@ -6,6 +6,9 @@
 	let APIJPR = `/api/v2/esif-payments`;
 	let APIJPRAUX1 = '/proxyJPR';
 
+	let APIAFI = `/api/v2/policy-program-stats`;
+	let APIproxyAFI= '/proxyAFI';
+
 	let datajpr = [];
 	let datajpraux1 = [];
 
@@ -109,4 +112,4 @@
 <div class="container-fluid">
 	<h2>Presupuesto neto planteado por País comparada API ITR con la API JPR</h2>
 	<div id="chart-container"></div>
-</div> -->
+</div>  -->
