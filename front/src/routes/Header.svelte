@@ -38,6 +38,7 @@
 			<a href="/esif-payments">Esif-payments</a>
 			<a href="/covid-testings">Covid-testings</a>
 			<a href="/analytics">Vista Global</a>
+			<a href="/integrations">Vista con API de los compañeros</a>
 		</nav>
 	</body>
 </html>

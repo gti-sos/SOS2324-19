@@ -6,6 +6,7 @@
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://code.highcharts.com/modules/treemap.js"></script>
     <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </svelte:head>
 
 <script>
@@ -47,6 +48,7 @@
                 dataAvailable = true;
                 createGraph(data);
                 createg2(data);
+                createg3();
             }
         }catch(error){
             console.log(`Error fetching data: ${error}`);
@@ -149,6 +151,47 @@
                 }))
             });
     }
+    function createg3() {
+        const tiposfi_name = [...new Set(data.map(item => item.fi_name))];
+        var options = {
+    chart: {
+      height: 350,
+      type: "treemap",
+    },
+    plotOptions: {
+      treemap: {
+        dataLabels: {
+            enabled: true,
+            format: 'Foundation name: {point.x}'},
+        colorScale: {
+          ranges: [
+            {
+              from: 0,
+              to: 1124999,
+              color: '#CD363A'
+            },
+            {
+              from: 1125000,
+              to: 100000000000,
+              color: '#52B12C'
+            }
+          ]
+        }
+      }
+    },
+    series: tiposfi_name.map(finame => ({
+                    data: data.filter(item => item.fi_name === finame).map(item => ({
+                        x: finame,
+                        y: parseFloat(item.total_amount_paid_to_fi)/data.filter(item => item.fi_name === finame).length
+                    }))
+                }))
+  }
+
+var chart = new ApexCharts(document.getElementById('mainnn'), options);
+
+chart.render();
+    }
+
 </script>
 
 {#if dataAvailable==false}
@@ -165,6 +208,8 @@
     <div id="container"></div>
     <br>
     <div id="container-column"></div>
+    <br>
+    <div id="mainnn"></div>
 
 
     <style>
