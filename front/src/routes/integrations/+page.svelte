@@ -348,6 +348,7 @@ function PHT() {
 	<div id="char">
 		<canvas id="afi2" width="400" height="100"></canvas>
 	</div>
+	<h2>Api ni idea</h2>
 	<div id="ct-chart">
 		<style>
 			.ct-chart {
@@ -356,6 +357,6 @@ function PHT() {
 			}
 		  </style>
 	</div>
-	<h2>Api ni idea</h2>
+	
 </div> 
 
