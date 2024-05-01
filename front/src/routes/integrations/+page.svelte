@@ -1,10 +1,10 @@
 <svelte:head>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+	<script src="https://d3js.org/d3.v7.min.js"></script>
 </svelte:head>
 <script>
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
-	import * as d3 from 'd3';
 
 	let APIJPR = `/api/v2/esif-payments`;
 	let APIJPRAUX1 = '/proxyJPR';
