@@ -2,11 +2,15 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 	<script src="https://d3js.org/d3.v7.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartist"></script>
+
+
 </svelte:head>
 <script>
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
 	import { Color, color } from 'highcharts';
+	import { PassThrough } from 'stream';
 
 	let APIJPR = `/api/v2/esif-payments`;
 	let APIJPRAUX1 = '/proxyJPR';
@@ -15,17 +19,26 @@
 	let APIproxyAFI= '/proxyAFI';
 	let APIproxyAFI2=`https://sos2324-11.appspot.com/api/v2/structural-investment-data`;
 
+	let APIPHT=`/api/v2/eu-payment-info`;
+	let APIproxyPHT=`/proxyPHT;`
+
 	let datajpr = [];
 	let datajpraux1 = [];
 	let dataAFI = [];
 	let dataproxyAFI = [];
 	let dataproxyAFI2=[];
+	let dataPHT=[];
+	let dataproxyPHT=[];
+
+
 	// Si estamos en un entorno de desarrollo, apuntamos a la URL local
 	if (dev) {
 		APIJPR = 'http://localhost:10000' + APIJPR;
 		APIJPRAUX1 = 'http://localhost:10000' + APIJPRAUX1;
 		APIAFI='http://localhost:10000' + APIAFI;
 		APIproxyAFI= 'http://localhost:10000' + APIproxyAFI;
+		APIPHT= 'http://localhost:10000' + APIPHT;
+		APIproxyPHT='http://localhost:10000' + APIproxyPHT;
 	}
 
 	onMount(async () => {
@@ -33,6 +46,7 @@
 		drawChart();
 		AFI1();
 		AFI2();
+		PHT();
 	});
 
 	async function fetchData(url) {
@@ -50,6 +64,8 @@
 		dataAFI = await fetchData(APIAFI);
 		dataproxyAFI = await fetchData(APIproxyAFI);
 		dataproxyAFI2 = await fetchData(APIproxyAFI2);
+		dataPHT= await fetchData(APIPHT);
+		dataproxyPHT= await fetchData(APIproxyPHT);
 	}
 
 	function drawChart() {
@@ -260,6 +276,64 @@
     });
 }
 
+function PHT() {
+    const tiposyear1 = [...new Set(dataPHT.map(item => parseInt(item.year)))];
+    const tiposyear2 = [...new Set(dataproxyPHT.map(item => parseInt(item.time_period)))];
+    const res = [...new Set([...tiposyear1, ...tiposyear2])];
+    const combinedData = {};
+    let countryData = [];
+    
+    dataPHT.forEach(entry => {
+        const country = entry.ms;
+        const year = entry.year;
+        if (!combinedData[country]) {
+            combinedData[country] = {
+                name: country,
+                year: year,
+                init_plan_eu_amt_1_adoption: 0,
+                obs_value: 0
+            };
+        }
+        combinedData[country].init_plan_eu_amt_1_adoption += entry.init_plan_eu_amt_1_adoption || 0;
+    });
+
+    dataproxyPHT.forEach(entry => {
+        const country = entry.geo;
+        const year = entry.time_period;
+        if (!combinedData[country]) {
+            combinedData[country] = {
+                name: country,
+                year: year,
+                init_plan_eu_amt_1_adoption: 0,
+                obs_value: 0
+            };
+        }
+        combinedData[country].obs_value += entry.obs_value || 0;
+    });
+
+    countryData = Object.values(combinedData);
+
+    const chartData = {
+        labels: res, // Define las etiquetas del eje x (años)
+        series: [
+            countryData.map(country => country.init_plan_eu_amt_1_adoption), // Datos de una serie
+            countryData.map(country => country.obs_value) // Datos de la otra serie
+        ]
+    };
+
+    const options = {
+        // Define tus opciones de visualización aquí
+        // Por ejemplo:
+        fullWidth: true,
+        chartPadding: {
+            right: 40
+        },
+        // Puedes agregar más opciones según tus necesidades
+    };
+
+    // Crea el gráfico de líneas usando Chartist
+    new Chartist.Line('.ct-chart', chartData, options);
+}
 
 </script>
 
@@ -274,4 +348,14 @@
 	<div id="char">
 		<canvas id="afi2" width="400" height="100"></canvas>
 	</div>
+	<div id="ct-chart">
+		<style>
+			.ct-chart {
+			  width: 100%;
+			  height: 300px;
+			}
+		  </style>
+	</div>
+	<h2>Api ni idea</h2>
 </div> 
+
