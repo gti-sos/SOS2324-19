@@ -66,7 +66,7 @@ app.use("/proxyJPR", function(req,res){
 
 //proxy JPR
 app.use("/proxyAFI", function(req,res){
-    var url = "https://sos2324-10.appspot.com/api/v2/gdp-growth-rates"
+    var url = "https://sos2324-10.appspot.com/api/v2/cars-by-motor"
     console.log("piped: " + req.url)
     req.pipe(request(url)).pipe(res);
 });

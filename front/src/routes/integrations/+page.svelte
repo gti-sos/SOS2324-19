@@ -1,4 +1,7 @@
-<!-- <script>
+<svelte:head>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</svelte:head>
+<script>
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
 	import * as d3 from 'd3';
@@ -11,16 +14,20 @@
 
 	let datajpr = [];
 	let datajpraux1 = [];
-
+	let dataAFI = [];
+	let dataproxyAFI = [];
 	// Si estamos en un entorno de desarrollo, apuntamos a la URL local
 	if (dev) {
 		APIJPR = 'http://localhost:10000' + APIJPR;
 		APIJPRAUX1 = 'http://localhost:10000' + APIJPRAUX1;
+		APIAFI='http://localhost:10000' + APIAFI;
+		APIproxyAFI= 'http://localhost:10000' + APIproxyAFI;
 	}
 
 	onMount(async () => {
 		await getData();
 		drawChart();
+		drawChart2();
 	});
 
 	async function fetchData(url) {
@@ -35,6 +42,8 @@
 	async function getData() {
 		datajpr = await fetchData(APIJPR);
 		datajpraux1 = await fetchData(APIJPRAUX1);
+		dataAFI = await fetchData(APIAFI);
+		dataproxyAFI = await fetchData(APIproxyAFI);
 	}
 
 	function drawChart() {
@@ -107,9 +116,55 @@
 			.attr('height', (d) => height - y(d.net_planned_eu_amount / 100))
 			.attr('fill', 'orange');
 	}
+
+	function drawChart2() {
+		const tiposyear1 = [...new Set(dataAFI.map(item => parseInt(item.year)))];
+		const tiposyear2 = [...new Set(dataproxyAFI.map(item => parseInt(item.time_period)))];
+		const res = [...new Set([...tiposyear1, ...tiposyear2])];
+		const tiposcountry1 = [...new Set(dataAFI.map(item => item.country))];
+        var options = {
+			chart: {
+				height: 280,
+				type: "area"
+			},
+			dataLabels: {
+				enabled: false
+			},
+			
+			series: tiposcountry1.map(country => ({
+					name:country,
+                    data: dataAFI.filter(item => item.country === country).map(item => ({
+                        y: parseFloat(item.total_amount_paid_to_fi)
+                    }))
+                })),
+			fill: {
+				type: "gradient",
+				gradient: {
+				shadeIntensity: 1,
+				opacityFrom: 0.7,
+				opacityTo: 0.9,
+				stops: [0, 90, 100]
+				}
+			},
+			xaxis: {
+				categories: res
+			}
+		};
+
+		var chart = new ApexCharts(document.getElementById('chart-container2'), options);
+
+		chart.render();
+
+
+	}
+
+
+
 </script>
 
 <div class="container-fluid">
 	<h2>Presupuesto neto planteado por País comparada API ITR con la API JPR</h2>
 	<div id="chart-container"></div>
-</div>  -->
+	<h2>AFI</h2>
+	<div id="chart-container2"></div>
+</div> 
