@@ -118,10 +118,39 @@
 	}
 
 	function drawChart2() {
+		
 		const tiposyear1 = [...new Set(dataAFI.map(item => parseInt(item.year)))];
 		const tiposyear2 = [...new Set(dataproxyAFI.map(item => parseInt(item.time_period)))];
 		const res = [...new Set([...tiposyear1, ...tiposyear2])];
-		const tiposcountry1 = [...new Set(dataAFI.map(item => item.country))];
+		const combinedData = {};
+		let countryData=[];
+		dataAFI.forEach(entry => {
+          const country = entry.country;
+		  const year = entry.year;
+          if (!combinedData[country]) {
+              combinedData[country] = {
+                  name: country,
+				  year:year,
+                  total_amount_paid_to_fi: 0,
+                  millions_of_passenger_per_kilometres:0
+              };
+          }
+          combinedData[country].total_amount_paid_to_fi += entry.total_amount_paid_to_fi || 0;
+		});
+		dataproxyAFI.forEach(entry => {
+          const country = entry.geo;
+		  const year = entry.time_period;
+          if (!combinedData[country]) {
+              combinedData[country] = {
+                  name: country,
+				  year:year,
+                  total_amount_paid_to_fi: 0,
+                  millions_of_passenger_per_kilometres:0
+              };
+          }
+          combinedData[country].millions_of_passenger_per_kilometres += entry.millions_of_passenger_per_kilometres || 0;
+      });
+	  countryData = Object.values(combinedData);
         var options = {
 			chart: {
 				height: 280,
@@ -131,19 +160,19 @@
 				enabled: false
 			},
 			
-			series: tiposcountry1.map(country => ({
-					name:country,
-                    data: dataAFI.filter(item => item.country === country).map(item => ({
-                        y: parseFloat(item.total_amount_paid_to_fi)
-                    }))
-                })),
+			series: [{
+              name: 'ser2',
+              data: countryData.map(country => country.total_amount_paid_to_fi/10)
+          },{
+              name: 'ser1',
+              data: countryData.map(country => country.millions_of_passenger_per_kilometres),
+          }],
 			fill: {
 				type: "gradient",
 				gradient: {
 				shadeIntensity: 1,
 				opacityFrom: 0.7,
-				opacityTo: 0.9,
-				stops: [0, 90, 100]
+				opacityTo: 0.9
 				}
 			},
 			xaxis: {
@@ -165,6 +194,7 @@
 <div class="container-fluid">
 	<h2>Presupuesto neto planteado por País comparada API ITR con la API JPR</h2>
 	<div id="chart-container"></div>
-	<h2>AFI</h2>
+	<h2>Cantidad monetaria pagada al fondo por pais y kilometros recorridos por millones de pasajeros clasificados por año</h2>
+	<h2>API cars-by-motor Y API policy-program-stats</h2>
 	<div id="chart-container2"></div>
 </div> 
