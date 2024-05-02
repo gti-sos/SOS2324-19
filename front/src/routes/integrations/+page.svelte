@@ -14,12 +14,21 @@
 	let APIAFI = `/api/v2/policy-program-stats`;
 	let APIproxyAFI= '/proxyAFI';
 	let APIproxyAFI2=`https://sos2324-11.appspot.com/api/v2/structural-investment-data`;
-
+	let APIexport='https://currency-exchange.p.rapidapi.com/listquotes';
+	let optionsexport1=
+	{
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': 'b33bd31facmshcb364f07dd53a09p1c4286jsnab336cf4924b',
+                'X-RapidAPI-Host': 'currency-exchange.p.rapidapi.com'
+            }
+        };
 	let datajpr = [];
 	let datajpraux1 = [];
 	let dataAFI = [];
 	let dataproxyAFI = [];
 	let dataproxyAFI2=[];
+	let dataexportafi=[];
 	// Si estamos en un entorno de desarrollo, apuntamos a la URL local
 	if (dev) {
 		APIJPR = 'http://localhost:10000' + APIJPR;
@@ -43,6 +52,14 @@
 			console.log(`Error fetching data: ${error}`);
 		}
 	}
+	async function fetchData2(url,options) {
+		try {
+			const res = await fetch(url,options);
+			return await res.json();
+		} catch (error) {
+			console.log(`Error fetching data: ${error}`);
+		}
+	}
 
 	async function getData() {
 		datajpr = await fetchData(APIJPR);
@@ -50,6 +67,7 @@
 		dataAFI = await fetchData(APIAFI);
 		dataproxyAFI = await fetchData(APIproxyAFI);
 		dataproxyAFI2 = await fetchData(APIproxyAFI2);
+
 	}
 
 	function drawChart() {
