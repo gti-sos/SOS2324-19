@@ -67,6 +67,12 @@ app.use("/proxyAFI", function(req,res){
     req.pipe(request(url)).pipe(res);
 });
 
+//proxy RSG
+app.use("/proxyRSG", function(req,res){
+    var url = "https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?s=Soccer&c=Spain"
+    console.log("piped: " + req.url)
+    req.pipe(request(url)).pipe(res);
+});
 
 //proxy PHT
 app.use("/proxyPHT", function(req,res){
