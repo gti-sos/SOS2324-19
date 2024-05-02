@@ -38,6 +38,8 @@
 	let dataexportafi=[];
 	let dataPHT=[];
 	let dataproxyPHT=[];
+	let dataRSG=[];
+	let dataproxyRSG=[];
 	// Si estamos en un entorno de desarrollo, apuntamos a la URL local
 	if (dev) {
 		APIJPR = 'http://localhost:10000' + APIJPR;
