@@ -59,13 +59,19 @@ app.use("/proxyJPR", function(req,res){
     req.pipe(request(url)).pipe(res);
 });
 
-//proxy JPR
+//proxy AFI
 app.use("/proxyAFI", function(req,res){
     var url = "https://sos2324-10.appspot.com/api/v2/cars-by-motor"
     console.log("piped: " + req.url)
     req.pipe(request(url)).pipe(res);
 });
 
+//proxy RSG
+app.use("/proxyRSG", function(req,res){
+    var url = "https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?s=Soccer&c=Spain"
+    console.log("piped: " + req.url)
+    req.pipe(request(url)).pipe(res);
+});
 
 //proxy PHT
 app.use("/proxyPHT", function(req,res){
