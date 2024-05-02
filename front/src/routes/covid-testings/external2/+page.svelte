@@ -2,14 +2,14 @@
     //@ts-nocheck
     import { onMount } from 'svelte';
     
-    let cars = [];
+    let cats = [];
 
     onMount(async () => {
-        cars = await getData();
+        cats = await getData();
     });
 
     async function getData(){
-        const url = 'https://api.api-ninjas.com/v1/cars';
+        const url = 'https://api.api-ninjas.com/v1/cats';
         const options = {
             method: 'GET',
             headers: {
@@ -30,7 +30,7 @@
 
 <ul>
 
-    {#each cars as x}
+    {#each cats as x}
         <li>{x.make}</li>
     {/each}
 </ul>

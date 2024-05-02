@@ -69,7 +69,7 @@ app.use("/proxyAFI", function(req,res){
 
 //proxy RSG
 app.use("/proxyRSG", function(req,res){
-    var url = "https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?s=Soccer&c=Spain"
+    var url = "https://api.api-ninjas.com/v1/cars"
     console.log("piped: " + req.url)
     req.pipe(request(url)).pipe(res);
 });

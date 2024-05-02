@@ -9,6 +9,12 @@
 <script>
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
+	import { Color, color } from 'highcharts';
+	import { PassThrough } from 'stream';
+	
+
+	let APIJPR = `/api/v2/esif-payments`;
+	let APIJPRAUX1 = '/proxyJPR';
 
 	let APIAFI = `/api/v2/policy-program-stats`;
 	let APIproxyAFI= '/proxyAFI';
@@ -25,6 +31,12 @@
 
 	let APIPHT=`/api/v2/eu-payment-info`;
 	let APIproxyPHT=`/proxyPHT;`
+	let APIRSG=`/api/v2/covid-testings`;
+	let APIproxyRSG=`/proxyRSG;`
+	let APIextRSG = 'https://api.api-ninjas.com/v1/interestrate'
+
+	let datajpr = [];
+	let datajpraux1 = [];
 	let dataAFI = [];
 	let dataproxyAFI = [];
 	let dataproxyAFI2=[];
@@ -33,19 +45,28 @@
 	let dataproxyPHT=[];
 	let dataRSG=[];
 	let dataproxyRSG=[];
+	let dataextRSG = [];
+
 	// Si estamos en un entorno de desarrollo, apuntamos a la URL local
 	if (dev) {
+		APIJPR = 'http://localhost:10000' + APIJPR;
+		APIJPRAUX1 = 'http://localhost:10000' + APIJPRAUX1;
 		APIAFI='http://localhost:10000' + APIAFI;
 		APIproxyAFI= 'http://localhost:10000' + APIproxyAFI;
 		APIPHT= 'http://localhost:10000' + APIPHT;
 		APIproxyPHT='http://localhost:10000' + APIproxyPHT;
+		APIRSG= 'http://localhost:10000' + APIRSG;
+		APIproxyRSG='http://localhost:10000' + APIproxyRSG;
 	}
 
 	onMount(async () => {
 		await getData();
+		drawChart();
 		AFI1();
 		AFI2();
 		PHT();
+		RSG1();
+		RSG2();
 	});
 
 	async function fetchData(url) {
@@ -67,17 +88,91 @@
 
 	async function getData() {
 		datajpr = await fetchData(APIJPR);
-		//datajpraux1 = await fetchData(APIJPRAUX1);
+		datajpraux1 = await fetchData(APIJPRAUX1);
 		dataAFI = await fetchData(APIAFI);
 		dataproxyAFI = await fetchData(APIproxyAFI);
 		dataproxyAFI2 = await fetchData(APIproxyAFI2);
 		dataPHT= await fetchData(APIPHT);
 		dataproxyPHT= await fetchData(APIproxyPHT);
+		dataRSG= await fetchData(APIRSG);
+		dataproxyRSG= await fetchData(APIproxyRSG);
+		dataextRSG = await fetchData(APIextRSG);
 		dataexportafi=await fetchData2(APIexport,optionsexport1);
 	}
 
-	function AFI1() {
+	function drawChart() {
+		const msValues1 = datajpr.map((d) => d.ms);
+		const msValues2 = datajpraux1.map((d) => d.ms);
 
+		// Encontrar la intersección de las "ms" en ambas API
+		const commonMsValues = msValues1.filter((ms) => msValues2.includes(ms));
+
+		// Filtrar los datos para mostrar solo aquellos con "ms" comunes
+		const filteredDatajpr = datajpr.filter((d) => commonMsValues.includes(d.ms));
+		const filteredDatajpraux1 = datajpraux1.filter((d) => commonMsValues.includes(d.ms));
+
+		const netPlannedEUAmount1 = filteredDatajpr
+			.filter((d) => !isNaN(d.net_planned_eu_amount))
+			.map((d) => d.net_planned_eu_amount / 1000);
+
+		const netPlannedEUAmount2 = filteredDatajpraux1
+			.filter((d) => !isNaN(d.net_planned_eu_amount))
+			.map((d) => d.net_planned_eu_amount / 100);
+
+		const margin = { top: 40, right: 30, bottom: 70, left: 90 };
+		const width = 800 - margin.left - margin.right;
+		const height = 400 - margin.top - margin.bottom;
+
+		const svg = d3
+			.select('#chart-container')
+			.append('svg')
+			.attr('width', width + margin.left + margin.right)
+			.attr('height', height + margin.top + margin.bottom)
+			.append('g')
+			.attr('transform', `translate(${margin.left},${margin.top})`);
+
+		const x = d3.scaleBand().domain(commonMsValues).range([0, width]).padding(0.1);
+
+		const y = d3
+			.scaleLinear()
+			.domain([0, d3.max([...netPlannedEUAmount1, ...netPlannedEUAmount2])])
+			.range([height, 0]);
+
+		svg
+			.append('g')
+			.attr('class', 'x-axis')
+			.attr('transform', `translate(0,${height})`)
+			.call(d3.axisBottom(x));
+
+		svg.append('g').attr('class', 'y-axis').call(d3.axisLeft(y));
+
+		svg
+			.selectAll('.bar1')
+			.data(filteredDatajpr)
+			.enter()
+			.append('rect')
+			.attr('class', 'bar1')
+			.attr('x', (d) => x(d.ms))
+			.attr('y', (d) => y(d.net_planned_eu_amount))
+			.attr('width', x.bandwidth() / 2)
+			.attr('height', (d) => height - y(d.net_planned_eu_amount))
+			.attr('fill', 'steelblue');
+
+		svg
+			.selectAll('.bar2')
+			.data(filteredDatajpraux1)
+			.enter()
+			.append('rect')
+			.attr('class', 'bar2')
+			.attr('x', (d) => x(d.ms) + x.bandwidth() / 2)
+			.attr('y', (d) => y(d.net_planned_eu_amount / 100))
+			.attr('width', x.bandwidth() / 2)
+			.attr('height', (d) => height - y(d.net_planned_eu_amount / 100))
+			.attr('fill', 'orange');
+	}
+
+	function AFI1() {
+		
 		const tiposyear1 = [...new Set(dataAFI.map(item => parseInt(item.year)))];
 		const tiposyear2 = [...new Set(dataproxyAFI.map(item => parseInt(item.time_period)))];
 		const res = [...new Set([...tiposyear1, ...tiposyear2])];
@@ -272,6 +367,88 @@ function PHT() {
     new Chartist.Line('.ct-chart', chartData, options);
 }
 
+function RSG1() {
+    const scatterData = dataproxyRSG.map(car => ({
+        x: car.year,
+        y: car.city_mpg, 
+        name: `${car.make} ${car.model}`, 
+        marker: {
+            symbol: 'circle',
+            radius: 5 
+        }
+    })).concat(dataRSG.map(test => ({
+        x: test.year_week,
+        y: test.new_cases, 
+        name: test.country,
+        marker: {
+            symbol: 'square', 
+            radius: 5 
+        }
+    })));
+
+    const options = {
+        chart: {
+            height: 280,
+            type: "scatter"
+        },
+        series: [{
+            name: 'Cars City MPG',
+            data: scatterData
+        }],
+        xaxis: {
+            type: "category"
+        },
+        markers: {
+            size: 6 
+        }
+    };
+
+    const chart = new ApexCharts(document.getElementById('rsg1'), options);
+    chart.render();
+}
+
+function RSG2() {
+	const polarAreaData = dataRSG.map(test => ({
+        x: test.country,
+        y: test.new_cases, 
+        name: `${test.country} - New Cases`, 
+        marker: {
+            symbol: 'circle', 
+            radius: 5 
+        }
+    })).concat(dataextRSG.map(rate => ({
+        x: rate.country,
+        y: rate.rate_pct, 
+        name: `${rate.country} - Interest Rate`, 
+        marker: {
+            symbol: 'square', 
+            radius: 5 
+        }
+    })));
+
+    const options = {
+        chart: {
+            height: 280,
+            type: "polarArea"
+        },
+        series: [{
+            name: 'Polar Area Data',
+            data: polarAreaData
+        }],
+        xaxis: {
+            type: "category"
+        },
+        markers: {
+            size: 6 
+        }
+    };
+
+    const chart = new ApexCharts(document.getElementById('rsg2'), options);
+    chart.render();
+}
+
+
+
 </script>
 
 <div class="container-fluid">
@@ -285,6 +462,8 @@ function PHT() {
 	<div id="char">
 		<canvas id="afi2" width="400" height="100"></canvas>
 	</div>
+	<div id="rsg1"></div>
+	<div id="rsg2"></div>
 	<h2>Api ni idea</h2>
 	<div id="ct-chart">
 		<style>
