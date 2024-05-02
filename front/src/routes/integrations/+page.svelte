@@ -30,7 +30,7 @@
 
 	onMount(async () => {
 		await getData();
-		drawChart();
+		JPR1();
 		AFI1();
 		AFI2();
 	});
@@ -52,7 +52,7 @@
 		dataproxyAFI2 = await fetchData(APIproxyAFI2);
 	}
 
-	function drawChart() {
+	function JPR1() {
 		const msValues1 = datajpr.map((d) => d.ms);
 		const msValues2 = datajpraux1.map((d) => d.ms);
 
