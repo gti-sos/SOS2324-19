@@ -3,6 +3,8 @@
     <script src="https://code.highcharts.com/modules/data.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartist@0.11.4/dist/chartist.min.js"></script>
+
 </svelte:head>
 
 <script>
@@ -26,6 +28,8 @@
                 dataAvailable = true;
                 createGraph(data);
                 createGraph2(data);
+                createChartistGraph(data);
+
             }
         } catch (error) {
             console.log(`Error fetching data: ${error}`);
@@ -154,6 +158,26 @@ async function createGraph2(data) {
 
 
 
+ function createChartistGraph(data) {
+        const cciLabels = data.map(item => item.cci); // Obtén los CCI
+        const propertyData = data.map(item => parseFloat(item.eu_payment_rate_init_plan_eu_amt)); // Obtén la propiedad que deseas mostrar
+
+        const chartData = {
+            labels: cciLabels,
+            series: [propertyData]
+        };
+
+        const options = {
+            width: '100%',
+            height: '300px',
+            // Aquí puedes personalizar las opciones adicionales de Chartist.js si lo deseas
+        };
+
+        // Renderiza la gráfica utilizando Chartist.js en un elemento con el id "chartist-graph"
+        new Chartist.Bar('#chartist-graph', chartData, options);
+    }
+
+
 
 
 
@@ -161,3 +185,5 @@ async function createGraph2(data) {
 <div id="container"></div>
 <br>
 <div id="container-bar"></div>
+
+<div id="chartist-graph"></div>

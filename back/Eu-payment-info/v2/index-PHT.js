@@ -208,7 +208,7 @@ function LoadBackendPHT2(app, db_PHT) {
                 ms: 'FR', ms_name: 'France', cci: '2021FR65AMPR001', title: 'France - AMIF', fund: 'AMIF',
                 category_of_region: 'VOID', year: 2023, init_plan_eu_amt_1_adoption: 910485391,
                 transfers: 15900000, actual_plan_eu_amt_latest_adop: 926385391, pre_fin: 109258246.92, recovery_of_pre_financing: 0,
-                net_pre_financing: 109258246.92, interim_payments: 0, recovery_of_expenses: 0, net_interim_payments: 0, total_net_payments: 109258246.92,
+                net_pre_financing: 1058246.92, interim_payments: 0, recovery_of_expenses: 0, net_interim_payments: 0, total_net_payments: 109258246.92,
                 eu_payment_rate_init_plan_eu_amt: 0.12, eu_payment_rate_actual_plan_eu_amt: 0.117940382028326
             },
 
@@ -247,7 +247,7 @@ function LoadBackendPHT2(app, db_PHT) {
                 actual_plan_eu_amt_latest_adop: 770000000,
                 pre_fin: 88000000,
                 recovery_of_pre_financing: 1000000,
-                net_pre_financing: 87000000,
+                net_pre_financing: 8700000,
                 interim_payments: 5000000,
                 recovery_of_expenses: 200000,
                 net_interim_payments: 4800000,
