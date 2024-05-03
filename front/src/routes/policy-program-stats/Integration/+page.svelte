@@ -3,6 +3,11 @@
 	<script src="https://d3js.org/d3.v7.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chartist"></script>
+    <link
+		rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/chartist@0.11.4/dist/chartist.min.css"
+	/>
+	<script src="https://cdn.jsdelivr.net/npm/chartist@0.11.4/dist/chartist.min.js"></script>
 
 
 </svelte:head>
@@ -11,6 +16,7 @@
 	import { dev } from '$app/environment';
 	import { Color, color } from 'highcharts';
 	import { PassThrough } from 'stream';
+	import { monitorEventLoopDelay } from 'perf_hooks';
 
     
 	let APIAFI = `/api/v2/policy-program-stats`;
@@ -39,12 +45,19 @@
                 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com'
             }
         };
+        let APIexport3='https://restaurant70.p.rapidapi.com/rest';
+        let optionsexport3 = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': 'b33bd31facmshcb364f07dd53a09p1c4286jsnab336cf4924b',
+                'X-RapidAPI-Host': 'restaurant70.p.rapidapi.com'
+            }
+        };
     
     let dataAFI = [];
 	let dataproxyAFI = [];
 	let dataexportafi2=[];
     let dataexportafi3=[];
-    let dataexportafi4=[];
 	let dataexportafi1=[];
     if (dev) {
 		APIAFI='http://localhost:10000' + APIAFI;
@@ -53,6 +66,10 @@
     onMount(async () => {
 		await getData();
 		AFI();
+        AFI2();
+        AFI1();
+        AFI3();
+        //AFI4();
 	});
     
 	async function fetchData(url) {
@@ -76,18 +93,253 @@
 		dataAFI = await fetchData(APIAFI);
 		dataproxyAFI = await fetchData2(APIproxyAFI,optionsexportproxy1);
 		dataexportafi2 = await fetchData2(APIexport2,optionsexport2);
-		dataexportafi1=await fetchData2(APIexport1,optionsexport1);
+		dataexportafi1 = await fetchData2(APIexport1,optionsexport1);
+        //dataexportafi3=await fetchData2(APIexport3,optionsexport3);
 	}
 
     function AFI() {
         console.log(dataAFI);
-        console.log(dataproxyAFI);
-        console.log(dataexportafi2);
-        console.log(dataexportafi1);
+        //console.log(dataproxyAFI);
+        //console.log(dataexportafi2);
+        //console.log(dataexportafi1);
+        console.log(dataexportafi3);
         
     }
     function AFI1() {
+        const combined = [];
+        dataAFI.forEach(entry => {
+        const country = entry.country;
+        if (!combined[country]) {
+            combined[country] = {
+            name: country,
+            total_amount_paid_to_fi: 0,
+            };
+        }
+        combined[country].total_amount_paid_to_fi += entry.total_amount_paid_to_fi || 0;
+        });
 
+        console.log(combined);
+
+        const combinedData = [];
+
+        // Agregar los valores totales por país
+        Object.entries(combined).forEach(([country, data]) => {
+        const total_amount = data.total_amount_paid_to_fi;
+        Object.entries(dataproxyAFI).forEach(([currency, value]) => {
+            const newValue = total_amount / value;
+            combinedData.push({
+            country: country,
+            moneda: currency,
+            value: newValue
+            });
+        });
+        });
+
+        console.log(combinedData);
+
+                var options = {
+                    chart: {
+                        height: 280,
+                        type: "area"
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    
+                    series: [{
+                    name: 'API policy-program-stats',
+                    data: combinedData.map(c => c.value)
+                }],
+                    fill: {
+                        type: "gradient",
+                        gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.7,
+                        opacityTo: 0.9
+                        }
+                    },
+                    xaxis: {
+                        categories: combinedData.map(j=>j.moneda)
+                    }
+                };
+
+                var chart = new ApexCharts(document.getElementById('afi1'), options);
+
+                chart.render();
+    }
+    function AFI2() {
+        const combined = [];
+        dataAFI.forEach(entry => {
+        const country = entry.country;
+        if (!combined[country]) {
+            combined[country] = {
+            name: country,
+            esif_amount_committed_to_fi: 0,
+            };
+        }
+        combined[country].esif_amount_committed_to_fi += entry.esif_amount_committed_to_fi || 0;
+        });
+
+        const combinedData = [];
+
+        // Agregar los valores totales por país
+        Object.entries(combined).forEach(([country, data]) => {
+        const total_amount = data.esif_amount_committed_to_fi;
+        
+        // Iterar sobre cada producto en dataexportafi2.products
+        dataexportafi2.products.forEach(product => {
+            const newValue = total_amount / (dataexportafi2.summary.count/product.id);
+            combinedData.push({
+                country: country,
+                id: product.id,
+                name: product.name,
+                value: newValue
+            });
+        });
+    });
+    const ctx = document.getElementById('afi2');
+    const myChart = new Chart(ctx, {
+        type: 'polarArea',
+        data: {
+			labels:combinedData.map(c=>c.name),
+            datasets: [
+                {
+                    label: 'policy-program-stats',
+                    data: combinedData.map(c => parseInt(c.value)),
+					backgroundColor: [
+						'rgb(255, 99, 132)',
+						'rgb(75, 192, 192)',
+						'rgb(255, 205, 86)',
+						'rgb(201, 203, 207)',
+						'rgb(54, 162, 235)'
+						]
+                },
+                /*{
+                    label: 'structural-investment-data',
+                    data: countryData.map(d => parseInt(d.cumulative_initial_pre_financing)/100),
+                    backgroundColor: [
+						'rgb(255, 99, 132)',
+						'rgb(75, 192, 192)',
+						'rgb(255, 205, 86)',
+						'rgb(201, 203, 207)',
+						'rgb(54, 162, 235)'
+						]
+                }*/
+            ]
+        },
+		options: {
+    plugins: {
+      legend: {
+        position: 'top',
+      }
+    }
+		}
+    });
+    
+    
+    
+    
+    
+    }
+    function AFI3(){
+        const combined = [];
+        dataAFI.forEach(entry => {
+        const country = entry.country;
+        if (!combined[country]) {
+            combined[country] = {
+            name: country,
+            esif_amount_paid_to_fi: 0,
+            };
+        }
+        combined[country].esif_amount_paid_to_fi += entry.esif_amount_paid_to_fi || 0;
+        });
+
+        const combinedData = [];
+        console.log(combined);
+        Object.entries(combined).forEach(([country, entry]) => {
+        const total_amount = entry.esif_amount_paid_to_fi;
+        Object.entries(dataexportafi1.names).forEach(([ms, name]) => {
+            const rate = dataexportafi1.rates[ms];
+            const value = rate ? rate.from / rate.to : 0; 
+            // Calcula el valor usando el tipo de cambio
+            let total_amountt=0;
+            if(country==="AT"){
+                total_amountt=total_amount/23000000;
+            }else{
+                total_amountt=total_amount/5000000
+            }
+            combinedData.push({
+                country: country,
+                esif_amount_paid_to_fi: total_amountt,
+                ms: ms,
+                name: name,
+                value: value
+            });
+        });
+    });
+
+    console.log(combinedData);
+    const first20Data = combinedData.slice(0, 20);
+    // Mostrar los últimos 20 elementos
+    const last20Data = combinedData.slice(-20);
+
+    // Concatenar los dos subconjuntos de datos
+    const res = first20Data.concat(last20Data);
+    
+    var options = {
+                    chart: {
+                        height: 400,
+                        type: "radar"
+                    },fill: {
+                        opacity: 0.5,
+                        colors: []
+                    },stroke: {
+                        show: true,
+                        width: 2,
+                        colors: [],
+                        dashArray: 0
+                    },plotOptions: {
+                        radar: {
+                        polygons: {
+                            strokeColor: '#e8e8e8',
+                            fill: {
+                                colors: ['#f8f8f8', '#fff']
+                            }
+                        }
+                        }
+                    },xaxis: {
+                        categories: res.map(c=>c.country),
+                        labels: {
+                        show: true,
+                        style: {
+                            colors: ["#a8a8a8"],
+                            fontSize: "11px",
+                            fontFamily: 'Arial'
+                        }
+                        }
+                    },markers: {
+                        size: 5,
+                        hover: {
+                        size: 10
+                        }
+                    },
+                        series: [
+                            {
+                            name: "Valor front/to",
+                            data:res.map(c=>c.value)
+                            },
+                            {
+                            name: "Valor esif_amount_paid_to_fi",
+                            data: res.map(c=>c.esif_amount_paid_to_fi)
+                            }
+                        ],
+                        labels: res.map(c=>c.ms)
+                };
+
+                var chart = new ApexCharts(document.getElementById('afi3'), options);
+
+                chart.render();
+    
     }
     /*
 	function AFI1() {
@@ -345,6 +597,7 @@ function RSG1() {
 	<div id="char">
 		<canvas id="afi2" width="400" height="100"></canvas>
 	</div>
+    <div id="afi3"></div>
 	<div class="ct-chart ct-golden-section" id="chart1">
 		<style>
 			.nm {
