@@ -5,6 +5,7 @@
 	onMount(() => {
 		InitialData();
 		getData();
+		console.log(data)
 	});
 
 	// Si pongo Number.MAX_VALUE da error
@@ -181,18 +182,14 @@
 	function bubbleGraph(data) {
 		const width = 1500;
 		const height = 600;
-
 		const svg = d3
 			.select('#bubble-chart')
 			.append('svg')
 			.attr('width', width)
 			.attr('height', height);
-
 		const maxAmount = d3.max(data, (d) => parseFloat(d.recovery_of_expenses));
 		const radiusScale = d3.scaleLinear().domain([0, maxAmount]).range([20, 100]);
-
 		const getRandomCoord = (min, max) => Math.random() * (max - min) + min;
-
 		const bubbles = svg
 			.selectAll('.bubble')
 			.data(data)
@@ -203,13 +200,11 @@
 				'transform',
 				() => `translate(${getRandomCoord(50, width - 50)}, ${getRandomCoord(50, height - 50)})`
 			);
-
 		bubbles
 			.append('circle')
 			.attr('r', (d) => radiusScale(parseFloat(d.recovery_of_expenses)))
 			.attr('fill', 'darkblue')
 			.attr('opacity', 0.7);
-
 		bubbles
 			.append('text')
 			.text((d) => d.ms_name)
