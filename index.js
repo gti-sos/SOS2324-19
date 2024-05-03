@@ -76,7 +76,7 @@ app.use("/proxyRSG", function(req,res){
 
 //proxy PHT
 app.use("/proxyPHT", function(req,res){
-    var url = "https://sos2324-10.appspot.com/api/v2/tourisms-per-age"
+    var url = "https://api.api-ninjas.com/v1/salestax?zip_code=90210"
     console.log("piped: " + req.url)
     req.pipe(request(url)).pipe(res);
 });

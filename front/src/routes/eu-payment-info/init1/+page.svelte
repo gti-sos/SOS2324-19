@@ -1,20 +1,31 @@
+
+<svelte:head>
+	<script src="https://d3js.org/d3.v7.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartist@0.11.4/dist/chartist.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</svelte:head>
+
 <script>
 	//@ts-nocheck
 	import { onMount } from 'svelte';
 
-	let holidays = [];
 	const APIPHT = 'http://localhost:10000/api/v2/eu-payment-info';
+	const APIproxy= '/proxyPHT'
 	let backendData = [];
 
 	onMount(async () => {
 		const apiData = await getAPIData();
 		const backendData = await getBackendData();
 		const apiData1 = await getAPIData1();
+		const apiData2 = await getAPIData2();
 		console.log(apiData);
 		console.log(backendData);
 
 		createChart(apiData, backendData);
 		createChart1(apiData1, backendData);
+		createChart2(apiData2);
 	});
 
 	async function getAPIData() {
@@ -58,6 +69,28 @@
 		}
 	}
 
+
+	async function getAPIData2() {
+		let pais= "CA";
+		let año=2022;
+		const url = `https://api.api-ninjas.com/v1/holidays?country=${pais}&year=${año}`;
+		const options = {
+			method: 'GET',
+			headers: {
+				'X-Api-Key': 'VJ61uOuNsJFEJA9Q6GHhLQ==SPEs9ghWIyBuN369'
+			}
+		};
+
+		try {
+			const response = await fetch(url, options);
+			const result = await response.json();
+			return result;
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+
 	async function getBackendData() {
 		try {
 			const response = await fetch(APIPHT);
@@ -69,29 +102,29 @@
 		}
 	}
 
+
+
+	//De integracion con mi backend
+	
 	function createChart(apiData, backendData) {
 		const ctx = document.getElementById('chart').getContext('2d');
 
-// Filtrar los países de la API externa que coinciden con los del backend
 const filteredApiData = apiData.filter((apiItem) => {
 	return backendData.some((backendItem) => backendItem.ms === apiItem.country_code);
 });
 console.log("Filtered API Data:", filteredApiData);
 
-// Obtener los países del backend que coinciden con los de la API externa
 const matchingBackendData = backendData.filter((backendItem) => {
 	return filteredApiData.some((apiItem) => apiItem.country_code === backendItem.ms);
 });
 console.log("Matching Backend Data:", matchingBackendData);
 
-// Crear un objeto que mapee el country_code al net_pre_financing del backend
 const netPreFinancingMap = {};
 matchingBackendData.forEach((backendItem) => {
 	netPreFinancingMap[backendItem.ms] = backendItem.net_pre_financing;
 });
 console.log("Net Pre Financing Map:", netPreFinancingMap);
 
-// Preparar los datos para la gráfica
 const bankData = filteredApiData.map((item) => item.bank_name);
 const netPreFinancingData = matchingBackendData.map((item) => netPreFinancingMap[item.ms] || 0);
 console.log("Bank Data:", bankData);
@@ -99,7 +132,6 @@ console.log("Net Pre Financing Data:", netPreFinancingData);
 
 const uniqueBankData = [...new Set(bankData)];
 
-// Crear la gráfica
 new Chart(ctx, {
     type: 'pie',
     data: {
@@ -154,6 +186,12 @@ new Chart(ctx, {
 }
 
 
+
+
+
+
+
+/*
 	function createChart1(apiData1, backendData) {
 		const chartData = backendData.map((item) => {
 			const apiInfo = apiData1.find((apiItem) => apiItem.name === 'Spain');
@@ -209,15 +247,131 @@ new Chart(ctx, {
 
 		const chart = new ApexCharts(document.querySelector('#chart1'), options);
 		chart.render();
-	}
+	}*/
+
+
+	function createChart1(apiData1, backendData) {
+    // Filtrar solo los países que están presentes en ambos conjuntos de datos
+    const countries = backendData.map(item => item.ms_name).filter(country => apiData1.some(data => data.name === country));
+
+    // Filtrar los datos relevantes para los países seleccionados
+    const filteredBackendData = backendData.filter(item => countries.includes(item.ms_name));
+    const filteredApiData = apiData1.filter(item => countries.includes(item.name));
+
+    // Preparar los datos para la gráfica
+    const chartData = filteredBackendData.map(backendItem => {
+        const apiItem = filteredApiData.find(apiDataItem => apiDataItem.name === backendItem.ms_name);
+        return {
+            country: backendItem.ms_name,
+            net_pre_financing: backendItem.net_pre_financing,
+            tourists: apiItem ? apiItem.tourists : null
+        };
+    });
+
+    // Crear la gráfica de dispersión
+    const ctx = document.getElementById('chart1').getContext('2d');
+    new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                label: 'Net Pre Financing vs Tourists',
+                data: chartData.map(item => ({
+                    x: item.tourists,
+                    y: item.net_pre_financing,
+                    country: item.country
+                })),
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Tourists'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Net Pre Financing'
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: (context) => `${context.dataset.label}: ${context.raw.country}`
+                    }
+                }
+            }
+        }
+    });
+}
+
+
+
+	function createChart2(apiData2) {
+		console.log(apiData2)
+    const holidayTypes = {};
+    
+    // Contar la cantidad de días festivos por tipo
+    apiData2.forEach((holiday) => {
+        const type = holiday.type;
+        if (holidayTypes[type]) {
+            holidayTypes[type]++;
+        } else {
+            holidayTypes[type] = 1;
+        }
+    });
+
+    const ctx = document.getElementById('barChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: Object.keys(holidayTypes),
+            datasets: [{
+                label: 'Cantidad de Días Festivos por Tipo',
+                data: Object.values(holidayTypes),
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Tipo de Día Festivo'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Cantidad de Días Festivos'
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+}
+
 </script>
 
-<svelte:head>
-	<script src="https://d3js.org/d3.v7.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chartist@0.11.4/dist/chartist.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</svelte:head>
+
 
 <div style="width: 400px; height: 400px;"><canvas id="chart" width="400" height="400"></canvas></div>
-<div id="chart1" style="width: 550px; height: 550px;"></div>
+<div style="width: 550px; height: 550px;"><canvas id="chart1" width="550" height="550"></canvas></div>
+<div id="barChartContainer" style="height: 600px; width: 100%;"><canvas id="barChart" width="600" height="600"></canvas></div>
+

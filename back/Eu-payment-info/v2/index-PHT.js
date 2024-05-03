@@ -247,7 +247,7 @@ function LoadBackendPHT2(app, db_PHT) {
                 actual_plan_eu_amt_latest_adop: 770000000,
                 pre_fin: 88000000,
                 recovery_of_pre_financing: 1000000,
-                net_pre_financing: 8700000,
+                net_pre_financing: 9755000,
                 interim_payments: 5000000,
                 recovery_of_expenses: 200000,
                 net_interim_payments: 4800000,

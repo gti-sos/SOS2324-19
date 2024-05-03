@@ -3,8 +3,7 @@
     <script src="https://code.highcharts.com/modules/data.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartist@0.11.4/dist/chartist.min.js"></script>
-
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </svelte:head>
 
 <script>
@@ -28,7 +27,7 @@
                 dataAvailable = true;
                 createGraph(data);
                 createGraph2(data);
-                createChartistGraph(data);
+                createGraph3(data);
 
             }
         } catch (error) {
@@ -156,34 +155,62 @@ async function createGraph2(data) {
     });
 }
 
+let chart;
 
 
- function createChartistGraph(data) {
-        const cciLabels = data.map(item => item.cci); // Obtén los CCI
-        const propertyData = data.map(item => parseFloat(item.eu_payment_rate_init_plan_eu_amt)); // Obtén la propiedad que deseas mostrar
+function createGraph3(data) {
+        const ccis = [...new Set(data.map(item => item.cci))];
+        const funds = [...new Set(data.map(item => item.fund))];
 
-        const chartData = {
-            labels: cciLabels,
-            series: [propertyData]
-        };
+        const chartData = ccis.map(cci => ({
+            type: "bar",
+            name: cci,
+            showInLegend: true,
+            dataPoints: funds.map(fund => ({
+                label: fund,
+                y: data
+                    .filter(item => item.cci === cci && item.fund === fund)
+                    .reduce((acc, curr) => acc + parseFloat(curr.net_pre_financing), 0)
+            }))
+        }));
 
-        const options = {
-            width: '100%',
-            height: '300px',
-            // Aquí puedes personalizar las opciones adicionales de Chartist.js si lo deseas
-        };
+        chart = new CanvasJS.Chart("container-canvas", {
+            animationEnabled: true,
+            title: {
+                text: "Net Pre Financing by CCI and Fund"
+            },
+            axisY: {
+                title: "Net Pre Financing"
+            },
+            axisX: {
+                title: "Fund"
+            },
+            legend: {
+                cursor: "pointer",
+                itemclick: toggleDataSeries
+            },
+            toolTip: {
+                shared: true
+            },
+            data: chartData
+        });
 
-        // Renderiza la gráfica utilizando Chartist.js en un elemento con el id "chartist-graph"
-        new Chartist.Bar('#chartist-graph', chartData, options);
+        chart.render();
     }
 
-
-
-
-
+    function toggleDataSeries(e) {
+        if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+        } else {
+            e.dataSeries.visible = true;
+        }
+        chart.render();
+    }
 </script>
+
 <div id="container"></div>
 <br>
 <div id="container-bar"></div>
 
-<div id="chartist-graph"></div>
+
+<div id="container-canvas" style="height: 300px; width: 100%;"></div>
