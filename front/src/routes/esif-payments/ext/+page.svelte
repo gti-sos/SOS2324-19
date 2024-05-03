@@ -893,7 +893,7 @@
 
 			// Añadir título
 			var title = chart.titles.create();
-			title.text = 'City Population Distribution';
+			title.text = 'Numero de ciudades por habitantes';
 			title.fontSize = 20;
 			title.marginBottom = 20;
 		});
@@ -919,7 +919,7 @@
 	<div id="chart2"></div>
 	<h2>Numero de citas por categorias</h2>
 	<div id="chart3"></div>
-	<h2>Ciudades por poblacion</h2>
+	<h2></h2>
 	<div id="chart4"></div>
 </div>
 
