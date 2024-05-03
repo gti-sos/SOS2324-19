@@ -6,6 +6,7 @@ import {handler} from "./front/build/handler.js";
 import cors from "cors";
 import path from "path";
 
+
 //ALBERTO FRAILE
 import {LoadBackendAFI} from "./back/Policy-program-stats/v1/index-AFI.js";
 import {LoadBackendAFI2} from "./back/Policy-program-stats/v2/index-AFI.js";
@@ -53,19 +54,25 @@ LoadBackendv1JPR(app,db_JPR);
 LoadBackendv2JPR(app,db_JPR2);
 
 //proxy JPR
-app.use("/proxyJPR", function(req,res){
-    var url = "https://sos2324-11.appspot.com/api/v2/structural-payment-data"
-    console.log("piped: " + req.url)
-    req.pipe(request(url)).pipe(res);
-});
+// app.use("/proxyJPR", function(req,res){
+//     var url = "https://realtime-stock-data.p.rapidapi.com/price/aapl"
+//     console.log("piped: " + req.url)
+//     req.pipe(request(url)).pipe(res);
+// });
 
-//proxy JPR
+//proxy AFI
 app.use("/proxyAFI", function(req,res){
     var url = "https://sos2324-10.appspot.com/api/v2/cars-by-motor"
     console.log("piped: " + req.url)
     req.pipe(request(url)).pipe(res);
 });
 
+//proxy RSG
+app.use("/proxyRSG", function(req,res){
+    var url = "https://api.api-ninjas.com/v1/cars"
+    console.log("piped: " + req.url)
+    req.pipe(request(url)).pipe(res);
+});
 
 //proxy PHT
 app.use("/proxyPHT", function(req,res){

@@ -11,6 +11,7 @@
 	import { dev } from '$app/environment';
 	import { Color, color } from 'highcharts';
 	import { PassThrough } from 'stream';
+	
 
 	let APIJPR = `/api/v2/esif-payments`;
 	let APIJPRAUX1 = '/proxyJPR';
@@ -27,8 +28,17 @@
             }
         };
 
+<<<<<<< HEAD
 	//let APIPHT=`/api/v2/eu-payment-info`;
 	//let APIproxyPHT=`/proxyPHT;`
+=======
+	let APIPHT=`/api/v2/eu-payment-info`;
+	let APIproxyPHT=`/proxyPHT;`
+	let APIRSG=`/api/v2/covid-testings`;
+	let APIproxyRSG=`/proxyRSG;`
+	let APIextRSG = 'https://api.api-ninjas.com/v1/interestrate'
+
+>>>>>>> bbeb7ff9c7508e16e686a6e0509e05b266fd1110
 	let datajpr = [];
 	let datajpraux1 = [];
 	let dataAFI = [];
@@ -36,15 +46,30 @@
 	let dataproxyAFI2=[];
 	let dataexportafi1=[];
 	let dataPHT=[];
+<<<<<<< HEAD
 	//let dataproxyPHT=[];
+=======
+	let dataproxyPHT=[];
+	let dataRSG=[];
+	let dataproxyRSG=[];
+	let dataextRSG = [];
+
+>>>>>>> bbeb7ff9c7508e16e686a6e0509e05b266fd1110
 	// Si estamos en un entorno de desarrollo, apuntamos a la URL local
 	if (dev) {
 		APIJPR = 'http://localhost:10000' + APIJPR;
 		APIJPRAUX1 = 'http://localhost:10000' + APIJPRAUX1;
 		APIAFI='http://localhost:10000' + APIAFI;
 		APIproxyAFI= 'http://localhost:10000' + APIproxyAFI;
+<<<<<<< HEAD
 		//APIPHT= 'http://localhost:10000' + APIPHT;
 		//APIproxyPHT='http://localhost:10000' + APIproxyPHT;
+=======
+		APIPHT= 'http://localhost:10000' + APIPHT;
+		APIproxyPHT='http://localhost:10000' + APIproxyPHT;
+		APIRSG= 'http://localhost:10000' + APIRSG;
+		APIproxyRSG='http://localhost:10000' + APIproxyRSG;
+>>>>>>> bbeb7ff9c7508e16e686a6e0509e05b266fd1110
 	}
 
 	onMount(async () => {
@@ -52,8 +77,14 @@
 		drawChart();
 		AFI1();
 		AFI2();
+<<<<<<< HEAD
 		AFI3();
 		//PHT();
+=======
+		PHT();
+		RSG1();
+		RSG2();
+>>>>>>> bbeb7ff9c7508e16e686a6e0509e05b266fd1110
 	});
 
 	async function fetchData(url) {
@@ -79,9 +110,18 @@
 		dataAFI = await fetchData(APIAFI);
 		dataproxyAFI = await fetchData(APIproxyAFI);
 		dataproxyAFI2 = await fetchData(APIproxyAFI2);
+<<<<<<< HEAD
 		//dataPHT= await fetchData(APIPHT);
 		//dataproxyPHT= await fetchData(APIproxyPHT);
 		dataexportafi1=await fetchData2(APIexport1,optionsexport1);
+=======
+		dataPHT= await fetchData(APIPHT);
+		dataproxyPHT= await fetchData(APIproxyPHT);
+		dataRSG= await fetchData(APIRSG);
+		dataproxyRSG= await fetchData(APIproxyRSG);
+		dataextRSG = await fetchData(APIextRSG);
+		dataexportafi=await fetchData2(APIexport,optionsexport1);
+>>>>>>> bbeb7ff9c7508e16e686a6e0509e05b266fd1110
 	}
 
 	function drawChart() {
@@ -420,6 +460,88 @@ function AFI3() {
 
 }
 
+function RSG1() {
+    const scatterData = dataproxyRSG.map(car => ({
+        x: car.year,
+        y: car.city_mpg, 
+        name: `${car.make} ${car.model}`, 
+        marker: {
+            symbol: 'circle',
+            radius: 5 
+        }
+    })).concat(dataRSG.map(test => ({
+        x: test.year_week,
+        y: test.new_cases, 
+        name: test.country,
+        marker: {
+            symbol: 'square', 
+            radius: 5 
+        }
+    })));
+
+    const options = {
+        chart: {
+            height: 280,
+            type: "scatter"
+        },
+        series: [{
+            name: 'Cars City MPG',
+            data: scatterData
+        }],
+        xaxis: {
+            type: "category"
+        },
+        markers: {
+            size: 6 
+        }
+    };
+
+    const chart = new ApexCharts(document.getElementById('rsg1'), options);
+    chart.render();
+}
+
+function RSG2() {
+	const polarAreaData = dataRSG.map(test => ({
+        x: test.country,
+        y: test.new_cases, 
+        name: `${test.country} - New Cases`, 
+        marker: {
+            symbol: 'circle', 
+            radius: 5 
+        }
+    })).concat(dataextRSG.map(rate => ({
+        x: rate.country,
+        y: rate.rate_pct, 
+        name: `${rate.country} - Interest Rate`, 
+        marker: {
+            symbol: 'square', 
+            radius: 5 
+        }
+    })));
+
+    const options = {
+        chart: {
+            height: 280,
+            type: "polarArea"
+        },
+        series: [{
+            name: 'Polar Area Data',
+            data: polarAreaData
+        }],
+        xaxis: {
+            type: "category"
+        },
+        markers: {
+            size: 6 
+        }
+    };
+
+    const chart = new ApexCharts(document.getElementById('rsg2'), options);
+    chart.render();
+}
+
+
+
 </script>
 
 <div class="container-fluid">
@@ -433,6 +555,7 @@ function AFI3() {
 	<div id="char">
 		<canvas id="afi2" width="400" height="100"></canvas>
 	</div>
+<<<<<<< HEAD
 	<div class="ct-chart ct-golden-section" id="chart1">
 		<style>
 			.nm {
@@ -442,6 +565,11 @@ function AFI3() {
 		  </style>
 	</div>
 	<!-- <h2>Api ni idea</h2>
+=======
+	<div id="rsg1"></div>
+	<div id="rsg2"></div>
+	<h2>Api ni idea</h2>
+>>>>>>> bbeb7ff9c7508e16e686a6e0509e05b266fd1110
 	<div id="ct-chart">
 		<style>
 			.ct-chart {
@@ -452,4 +580,3 @@ function AFI3() {
 	</div> -->
 	
 </div> 
-
