@@ -47,16 +47,18 @@
 		// Extraer años y países únicos de los datos
 		const years = [...new Set(data.map((item) => item.year))];
 		const countries = [...new Set(data.map((item) => item.ms_name))];
-
+		console.log(data);
+		console.log(years);
+		console.log(countries);
 		// Generar datos de series para el gráfico de barras
 		const seriesData = countries.map((country) => ({
 			name: country,
 			data: years.map((year) => {
 				const item = data.find((d) => d.ms_name === country && d.year === year);
-				return item ? parseFloat(item.cumulative_initial_pre_financing) : 0;
+				return item ? parseFloat(item.cumulative_initial_pre_financing) : null;
 			})
 		}));
-
+		console.log(seriesData);
 		// Configurar el gráfico de barras
 		Highcharts.chart('container-bar', {
 			chart: {
@@ -87,7 +89,6 @@
 			},
 			plotOptions: {
 				bar: {
-					borderRadius: '50%',
 					dataLabels: {
 						enabled: true
 					},
@@ -178,57 +179,45 @@
 		});
 	}
 	function bubbleGraph(data) {
-        const countryData = {};
-        data.forEach((item) => {
-            const country = item.ms_name;
-            if (countryData[country]) {
-                countryData[country] += parseFloat(item.recovery_of_expenses);
-            } else {
-                countryData[country] = parseFloat(item.recovery_of_expenses);
-            }
-        });
-        const bubbleData = Object.keys(countryData).map((country) => ({
-            country: country,
-            recovery_of_expenses: countryData[country]
-        }));
+		const width = 1500;
+		const height = 600;
 
-        const width = 1500;
-        const height = 600;
+		const svg = d3
+			.select('#bubble-chart')
+			.append('svg')
+			.attr('width', width)
+			.attr('height', height);
 
-        const svg = d3
-            .select('#bubble-chart')
-            .append('svg')
-            .attr('width', width)
-            .attr('height', height);
+		const maxAmount = d3.max(data, (d) => parseFloat(d.recovery_of_expenses));
+		const radiusScale = d3.scaleLinear().domain([0, maxAmount]).range([20, 100]);
 
-        const maxAmount = d3.max(bubbleData, (d) => parseFloat(d.recovery_of_expenses));
-        const radiusScale = d3.scaleLinear().domain([0, maxAmount]).range([20, 100]);
+		const getRandomCoord = (min, max) => Math.random() * (max - min) + min;
 
+		const bubbles = svg
+			.selectAll('.bubble')
+			.data(data)
+			.enter()
+			.append('g')
+			.attr('class', 'bubble')
+			.attr(
+				'transform',
+				() => `translate(${getRandomCoord(50, width - 50)}, ${getRandomCoord(50, height - 50)})`
+			);
 
-        const getRandomCoord = (min, max) => Math.random() * (max - min) + min;
+		bubbles
+			.append('circle')
+			.attr('r', (d) => radiusScale(parseFloat(d.recovery_of_expenses)))
+			.attr('fill', 'darkblue')
+			.attr('opacity', 0.7);
 
-        const bubbles = svg
-            .selectAll('.bubble')
-            .data(bubbleData)
-            .enter()
-            .append('g')
-            .attr('class', 'bubble')
-            .attr('transform', () => `translate(${getRandomCoord(50, width - 50)}, ${getRandomCoord(50, height - 50)})`);
-
-        bubbles
-            .append('circle')
-            .attr('r', (d) => radiusScale(parseFloat(d.recovery_of_expenses)))
-            .attr('fill', 'darkblue')
-            .attr('opacity', 0.7);
-
-        bubbles
-            .append('text')
-            .text((d) => d.country)
-            .attr('text-anchor', 'middle')
-            .attr('fill', 'white')
-            .attr('font-size', '10px')
-            .attr('dy', '0.3em');
-    }
+		bubbles
+			.append('text')
+			.text((d) => d.ms_name)
+			.attr('text-anchor', 'middle')
+			.attr('fill', 'white')
+			.attr('font-size', '10px')
+			.attr('dy', '0.3em');
+	}
 </script>
 
 <svelte:head>

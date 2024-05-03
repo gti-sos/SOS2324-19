@@ -54,11 +54,11 @@ LoadBackendv1JPR(app,db_JPR);
 LoadBackendv2JPR(app,db_JPR2);
 
 //proxy JPR
-// app.use("/proxyJPR", function(req,res){
-//     var url = "https://realtime-stock-data.p.rapidapi.com/price/aapl"
-//     console.log("piped: " + req.url)
-//     req.pipe(request(url)).pipe(res);
-// });
+ app.use("/proxyJPR", function(req,res){
+     var url = "https://api.api-ninjas.com/v1/city?country=us&limit=29"
+     console.log("piped: " + req.url)
+     req.pipe(request(url)).pipe(res);
+ });
 
 //proxy AFI
 app.use("/proxyAFI", function(req,res){
