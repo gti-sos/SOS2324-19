@@ -1,6 +1,5 @@
 <script>
 	import { onMount } from 'svelte';
-	import * as d3 from 'd3';
 	import { dev } from '$app/environment';
 
 	let APIJPR = `/api/v2/esif-payments`;
@@ -160,7 +159,7 @@
 	});
 	function aux(datajpraux1, d) {
 		d.forEach((item) => {
-			item.net_pre_financing = item.net_pre_financing / 500000;
+			item.net_pre_financing = item.net_pre_financing / 5000000;
 		});
 		console.log(d);
 		createChart(datajpraux1, d);
@@ -214,7 +213,7 @@
 			.enter()
 			.append('line')
 			.attr('class', 'line')
-			.attr('x1', (d) => x(d.ms_name) )
+			.attr('x1', (d) => x(d.ms_name))
 			.attr('x2', (d) => x(d.ms_name))
 			.attr('y1', height)
 			.attr('y2', (d) => y(d.net_pre_financing))
@@ -257,5 +256,9 @@
 			.text('Net Prefinancing (Mil Millones)');
 	}
 </script>
+
+<svelte:head>
+	<script src="https://d3js.org/d3.v7.min.js"></script>
+</svelte:head>
 
 <div id="chart"></div>
