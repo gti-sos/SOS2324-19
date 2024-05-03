@@ -18,34 +18,33 @@
 	let APIAFI = `/api/v2/policy-program-stats`;
 	let APIproxyAFI= '/proxyAFI';
 	let APIproxyAFI2=`https://sos2324-11.appspot.com/api/v2/structural-investment-data`;
-	let APIexport='https://currency-exchange.p.rapidapi.com/listquotes';
-	let optionsexport1=
-	{
+	let APIexport1='https://currency-converter241.p.rapidapi.com/all';
+	let optionsexport1= {
             method: 'GET',
             headers: {
                 'X-RapidAPI-Key': 'b33bd31facmshcb364f07dd53a09p1c4286jsnab336cf4924b',
-                'X-RapidAPI-Host': 'currency-exchange.p.rapidapi.com'
+                'X-RapidAPI-Host': 'currency-converter241.p.rapidapi.com'
             }
         };
 
-	let APIPHT=`/api/v2/eu-payment-info`;
-	let APIproxyPHT=`/proxyPHT;`
+	//let APIPHT=`/api/v2/eu-payment-info`;
+	//let APIproxyPHT=`/proxyPHT;`
 	let datajpr = [];
 	let datajpraux1 = [];
 	let dataAFI = [];
 	let dataproxyAFI = [];
 	let dataproxyAFI2=[];
-	let dataexportafi=[];
+	let dataexportafi1=[];
 	let dataPHT=[];
-	let dataproxyPHT=[];
+	//let dataproxyPHT=[];
 	// Si estamos en un entorno de desarrollo, apuntamos a la URL local
 	if (dev) {
 		APIJPR = 'http://localhost:10000' + APIJPR;
 		APIJPRAUX1 = 'http://localhost:10000' + APIJPRAUX1;
 		APIAFI='http://localhost:10000' + APIAFI;
 		APIproxyAFI= 'http://localhost:10000' + APIproxyAFI;
-		APIPHT= 'http://localhost:10000' + APIPHT;
-		APIproxyPHT='http://localhost:10000' + APIproxyPHT;
+		//APIPHT= 'http://localhost:10000' + APIPHT;
+		//APIproxyPHT='http://localhost:10000' + APIproxyPHT;
 	}
 
 	onMount(async () => {
@@ -53,7 +52,8 @@
 		drawChart();
 		AFI1();
 		AFI2();
-		PHT();
+		AFI3();
+		//PHT();
 	});
 
 	async function fetchData(url) {
@@ -79,9 +79,9 @@
 		dataAFI = await fetchData(APIAFI);
 		dataproxyAFI = await fetchData(APIproxyAFI);
 		dataproxyAFI2 = await fetchData(APIproxyAFI2);
-		dataPHT= await fetchData(APIPHT);
-		dataproxyPHT= await fetchData(APIproxyPHT);
-		dataexportafi=await fetchData2(APIexport,optionsexport1);
+		//dataPHT= await fetchData(APIPHT);
+		//dataproxyPHT= await fetchData(APIproxyPHT);
+		dataexportafi1=await fetchData2(APIexport1,optionsexport1);
 	}
 
 	function drawChart() {
@@ -293,7 +293,7 @@
 }
 
 function PHT() {
-    const tiposyear1 = [...new Set(dataPHT.map(item => parseInt(item.year)))];
+   /* const tiposyear1 = [...new Set(dataPHT.map(item => parseInt(item.year)))];
     const tiposyear2 = [...new Set(dataproxyPHT.map(item => parseInt(item.time_period)))];
     const res = [...new Set([...tiposyear1, ...tiposyear2])];
     const combinedData = {};
@@ -348,7 +348,76 @@ function PHT() {
     };
 
     // Crea el gráfico de líneas usando Chartist
-    new Chartist.Line('.ct-chart', chartData, options);
+    new Chartist.Line('.ct-chart', chartData, options);*/
+}
+
+function AFI3() {
+	console.log(dataexportafi1);
+
+	let datarates=dataexportafi1.rates;
+	const tiposcountry1 = [...new Set(dataAFI.map(item => item.country))];
+	const tiposcountry2 = [...new Set(dataproxyAFI2.map(item => item.ms))];
+	const res = [...new Set([...tiposcountry1, ...tiposcountry2])];
+	const combinedData = {};
+	let countryData=[];
+	dataAFI.forEach(entry => {
+		const country = entry.country;
+		if (!combinedData[country]) {
+			combinedData[country] = {
+				name: country,
+				rate: 0
+			};
+		}
+		combinedData[country].rate += entry.total_amount_paid_to_fi/10000000 || 0;
+	});
+
+
+	let mergedList = [];
+
+    // Iterar sobre las claves del objeto names
+    for (let currency in dataexportafi1.names) {
+        if (dataexportafi1.names.hasOwnProperty(currency)) {
+            let currencyName = dataexportafi1.names[currency];
+            let currencyRates = dataexportafi1.rates[currency];
+
+            // Verificar si hay tasas de cambio para la moneda actual
+            if (currencyRates) {
+                let rate1 = currencyRates.from;
+				let rate2 = currencyRates.to; // Puedes usar "to" si prefieres
+
+                // Añadir el par (nombre, tasa) a la lista fusionada
+                mergedList.push({ country: currency, moneda: currencyName, rate: rate1+rate2 });
+            }
+        }
+    }
+
+	mergedList.forEach(entry => {
+          const country = entry.country;
+          if (!combinedData[country]) {
+              combinedData[country] = {
+                  name: country,
+                  total_amount_paid_to_fi: 0,
+                  rate:0
+              };
+          }
+          combinedData[country].rate += entry.rate || 0;
+      });
+	countryData = Object.values(combinedData);
+	console.log(countryData);
+
+	new Chartist.Bar('#chart1', {
+			labels: countryData.map(c=>c.country),
+			series: 
+			countryData.map(p =>p.rate)
+			}, {
+			seriesBarDistance: 10,
+			reverseData: true,
+			horizontalBars: true,
+			axisY: {
+				offset: 70
+			}
+			});
+
 }
 
 </script>
@@ -364,7 +433,15 @@ function PHT() {
 	<div id="char">
 		<canvas id="afi2" width="400" height="100"></canvas>
 	</div>
-	<h2>Api ni idea</h2>
+	<div class="ct-chart ct-golden-section" id="chart1">
+		<style>
+			.nm {
+			  width: 100%;
+			  height: 300px;
+			}
+		  </style>
+	</div>
+	<!-- <h2>Api ni idea</h2>
 	<div id="ct-chart">
 		<style>
 			.ct-chart {
@@ -372,7 +449,7 @@ function PHT() {
 			  height: 300px;
 			}
 		  </style>
-	</div>
+	</div> -->
 	
 </div> 
 
