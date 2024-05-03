@@ -62,7 +62,7 @@ LoadBackendv2JPR(app,db_JPR2);
 
 //proxy AFI
 app.use("/proxyAFI", function(req,res){
-    var url = "https://sos2324-10.appspot.com/api/v2/cars-by-motor"
+    var url = "https://tnd-exchange-rate.p.rapidapi.com/api"
     console.log("piped: " + req.url)
     req.pipe(request(url)).pipe(res);
 });
