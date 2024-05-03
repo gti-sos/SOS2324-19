@@ -919,7 +919,7 @@
 	<div id="chart2"></div>
 	<h2>Numero de citas por categorias</h2>
 	<div id="chart3"></div>
-	<h2></h2>
+	<br>
 	<div id="chart4"></div>
 </div>
 
@@ -930,6 +930,16 @@
 		margin: auto;
 	}
 	#chart3 {
+		width: 800px;
+		height: 600px;
+		margin: auto;
+	}
+	#chart2 {
+		width: 800px;
+		height: 600px;
+		margin: auto;
+	}
+	#chart1	 {
 		width: 800px;
 		height: 600px;
 		margin: auto;
