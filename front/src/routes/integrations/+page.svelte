@@ -27,18 +27,11 @@
                 'X-RapidAPI-Host': 'currency-converter241.p.rapidapi.com'
             }
         };
-
-<<<<<<< HEAD
-	//let APIPHT=`/api/v2/eu-payment-info`;
-	//let APIproxyPHT=`/proxyPHT;`
-=======
 	let APIPHT=`/api/v2/eu-payment-info`;
 	let APIproxyPHT=`/proxyPHT;`
 	let APIRSG=`/api/v2/covid-testings`;
 	let APIproxyRSG=`/proxyRSG;`
 	let APIextRSG = 'https://api.api-ninjas.com/v1/interestrate'
-
->>>>>>> bbeb7ff9c7508e16e686a6e0509e05b266fd1110
 	let datajpr = [];
 	let datajpraux1 = [];
 	let dataAFI = [];
@@ -46,30 +39,20 @@
 	let dataproxyAFI2=[];
 	let dataexportafi1=[];
 	let dataPHT=[];
-<<<<<<< HEAD
-	//let dataproxyPHT=[];
-=======
 	let dataproxyPHT=[];
 	let dataRSG=[];
 	let dataproxyRSG=[];
 	let dataextRSG = [];
-
->>>>>>> bbeb7ff9c7508e16e686a6e0509e05b266fd1110
 	// Si estamos en un entorno de desarrollo, apuntamos a la URL local
 	if (dev) {
 		APIJPR = 'http://localhost:10000' + APIJPR;
 		APIJPRAUX1 = 'http://localhost:10000' + APIJPRAUX1;
 		APIAFI='http://localhost:10000' + APIAFI;
 		APIproxyAFI= 'http://localhost:10000' + APIproxyAFI;
-<<<<<<< HEAD
-		//APIPHT= 'http://localhost:10000' + APIPHT;
-		//APIproxyPHT='http://localhost:10000' + APIproxyPHT;
-=======
 		APIPHT= 'http://localhost:10000' + APIPHT;
 		APIproxyPHT='http://localhost:10000' + APIproxyPHT;
 		APIRSG= 'http://localhost:10000' + APIRSG;
 		APIproxyRSG='http://localhost:10000' + APIproxyRSG;
->>>>>>> bbeb7ff9c7508e16e686a6e0509e05b266fd1110
 	}
 
 	onMount(async () => {
@@ -77,14 +60,10 @@
 		drawChart();
 		AFI1();
 		AFI2();
-<<<<<<< HEAD
 		AFI3();
-		//PHT();
-=======
 		PHT();
 		RSG1();
 		RSG2();
->>>>>>> bbeb7ff9c7508e16e686a6e0509e05b266fd1110
 	});
 
 	async function fetchData(url) {
@@ -110,18 +89,13 @@
 		dataAFI = await fetchData(APIAFI);
 		dataproxyAFI = await fetchData(APIproxyAFI);
 		dataproxyAFI2 = await fetchData(APIproxyAFI2);
-<<<<<<< HEAD
-		//dataPHT= await fetchData(APIPHT);
-		//dataproxyPHT= await fetchData(APIproxyPHT);
-		dataexportafi1=await fetchData2(APIexport1,optionsexport1);
-=======
 		dataPHT= await fetchData(APIPHT);
 		dataproxyPHT= await fetchData(APIproxyPHT);
 		dataRSG= await fetchData(APIRSG);
 		dataproxyRSG= await fetchData(APIproxyRSG);
 		dataextRSG = await fetchData(APIextRSG);
 		dataexportafi=await fetchData2(APIexport,optionsexport1);
->>>>>>> bbeb7ff9c7508e16e686a6e0509e05b266fd1110
+
 	}
 
 	function drawChart() {
@@ -555,7 +529,6 @@ function RSG2() {
 	<div id="char">
 		<canvas id="afi2" width="400" height="100"></canvas>
 	</div>
-<<<<<<< HEAD
 	<div class="ct-chart ct-golden-section" id="chart1">
 		<style>
 			.nm {
@@ -565,11 +538,9 @@ function RSG2() {
 		  </style>
 	</div>
 	<!-- <h2>Api ni idea</h2>
-=======
 	<div id="rsg1"></div>
 	<div id="rsg2"></div>
 	<h2>Api ni idea</h2>
->>>>>>> bbeb7ff9c7508e16e686a6e0509e05b266fd1110
 	<div id="ct-chart">
 		<style>
 			.ct-chart {
