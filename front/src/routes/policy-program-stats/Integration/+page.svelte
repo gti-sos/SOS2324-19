@@ -3,6 +3,7 @@
 	<script src="https://d3js.org/d3.v7.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chartist"></script>
+    <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
     <link
 		rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/chartist@0.11.4/dist/chartist.min.css"
@@ -65,11 +66,10 @@
 	}
     onMount(async () => {
 		await getData();
-		AFI();
-        AFI2();
         AFI1();
+        AFI2();
         AFI3();
-        //AFI4();
+        AFI4();
 	});
     
 	async function fetchData(url) {
@@ -92,19 +92,10 @@
 	async function getData() {
 		dataAFI = await fetchData(APIAFI);
 		dataproxyAFI = await fetchData2(APIproxyAFI,optionsexportproxy1);
-		dataexportafi2 = await fetchData2(APIexport2,optionsexport2);
 		dataexportafi1 = await fetchData2(APIexport1,optionsexport1);
-        //dataexportafi3=await fetchData2(APIexport3,optionsexport3);
+        dataexportafi2 = await fetchData2(APIexport2,optionsexport2);
+        dataexportafi3=await fetchData2(APIexport3,optionsexport3);
 	}
-
-    function AFI() {
-        console.log(dataAFI);
-        //console.log(dataproxyAFI);
-        //console.log(dataexportafi2);
-        //console.log(dataexportafi1);
-        console.log(dataexportafi3);
-        
-    }
     function AFI1() {
         const combined = [];
         dataAFI.forEach(entry => {
@@ -136,7 +127,7 @@
         });
 
         console.log(combinedData);
-
+        const tiposfi_name = [...new Set(combinedData.map(c=>c.country))];
                 var options = {
                     chart: {
                         height: 280,
@@ -146,10 +137,10 @@
                         enabled: false
                     },
                     
-                    series: [{
-                    name: 'API policy-program-stats',
-                    data: combinedData.map(c => c.value)
-                }],
+                    series:tiposfi_name.map(c=>({
+                        name:c,
+                        data: combinedData.filter(j=>j.country===c).map(k => k.value)
+                    })),
                     fill: {
                         type: "gradient",
                         gradient: {
@@ -174,58 +165,64 @@
         if (!combined[country]) {
             combined[country] = {
             name: country,
-            esif_amount_committed_to_fi: 0,
+            too: entry.too,
             };
         }
-        combined[country].esif_amount_committed_to_fi += entry.esif_amount_committed_to_fi || 0;
+       // combined[country].too += entry.too || 0;
         });
 
         const combinedData = [];
-
+        console.log(combined)
         // Agregar los valores totales por país
         Object.entries(combined).forEach(([country, data]) => {
-        const total_amount = data.esif_amount_committed_to_fi;
+        const total_amount = data.too;
         
         // Iterar sobre cada producto en dataexportafi2.products
         dataexportafi2.products.forEach(product => {
-            const newValue = total_amount / (dataexportafi2.summary.count/product.id);
+            const ja=product.id%882400;
+            const newValue = ja/total_amount;
             combinedData.push({
                 country: country,
-                id: product.id,
+                id: ja,
                 name: product.name,
                 value: newValue
             });
         });
     });
+
+    console.log(combinedData);
+    const tiposfi_name = [...new Set(combinedData.map(c=>c.name))];
+    const tipos = [...new Set(combinedData.map(c=>c.country))];
     const ctx = document.getElementById('afi2');
+
     const myChart = new Chart(ctx, {
+        height: 280,
         type: 'polarArea',
         data: {
-			labels:combinedData.map(c=>c.name),
-            datasets: [
-                {
-                    label: 'policy-program-stats',
-                    data: combinedData.map(c => parseInt(c.value)),
-					backgroundColor: [
+			labels:tiposfi_name,
+            datasets:tipos.map(k=> ({
+                label:k,
+                data:combinedData.filter(p=>p.country===k).map(i=> parseInt(i.value)),
+                backgroundColor: [
 						'rgb(255, 99, 132)',
 						'rgb(75, 192, 192)',
 						'rgb(255, 205, 86)',
 						'rgb(201, 203, 207)',
 						'rgb(54, 162, 235)'
 						]
-                },
-                /*{
-                    label: 'structural-investment-data',
-                    data: countryData.map(d => parseInt(d.cumulative_initial_pre_financing)/100),
-                    backgroundColor: [
+            }))
+            /*[{
+                label:[...new Set(combinedData.map(c=>c.country))],
+                data: combinedData.map(k=> parseInt(k.value)),
+                backgroundColor: [
 						'rgb(255, 99, 132)',
 						'rgb(75, 192, 192)',
 						'rgb(255, 205, 86)',
 						'rgb(201, 203, 207)',
 						'rgb(54, 162, 235)'
 						]
-                }*/
-            ]
+            }
+            ]*/
         },
 		options: {
     plugins: {
@@ -248,29 +245,25 @@
         if (!combined[country]) {
             combined[country] = {
             name: country,
-            esif_amount_paid_to_fi: 0,
+            too:entry.too,
+            esif_amount_paid_to_fi: entry.esif_amount_paid_to_fi,
             };
         }
         combined[country].esif_amount_paid_to_fi += entry.esif_amount_paid_to_fi || 0;
+        combined[country].too += entry.too || 0;
         });
 
         const combinedData = [];
         console.log(combined);
-        Object.entries(combined).forEach(([country, entry]) => {
+        Object.entries(combined).forEach(([country,entry]) => {
         const total_amount = entry.esif_amount_paid_to_fi;
         Object.entries(dataexportafi1.names).forEach(([ms, name]) => {
             const rate = dataexportafi1.rates[ms];
-            const value = rate ? rate.from / rate.to : 0; 
-            // Calcula el valor usando el tipo de cambio
-            let total_amountt=0;
-            if(country==="AT"){
-                total_amountt=total_amount/23000000;
-            }else{
-                total_amountt=total_amount/5000000
-            }
+            const value = rate ? rate.from * rate.to : 0; 
             combinedData.push({
                 country: country,
-                esif_amount_paid_to_fi: total_amountt,
+                esif_amount_paid_to_fi: total_amount,
+                too:entry.too,
                 ms: ms,
                 name: name,
                 value: value
@@ -279,331 +272,144 @@
     });
 
     console.log(combinedData);
-    const first20Data = combinedData.slice(0, 20);
-    // Mostrar los últimos 20 elementos
-    const last20Data = combinedData.slice(-20);
+    var chart = new CanvasJS.Chart("afi3", {
+	animationEnabled: true,
+	zoomEnabled: true,
+	theme: "light2",
+	title:{
+		text:"Numero de destinos, cantidad monetaria pagado al fondo y ratio from y to de por cada moneda y pais"
+	},
+	axisX: {
+		title:"From y too ratio",
+		minimum: 0,
+		maximum: 3,
+		gridThickness: 1
+	},
+	axisY:{
+		title: "Numero de destinos del fondo",
+		suffix: "und"
+	},
+	data: [{
+		type: "bubble",
+		toolTipContent: "<b>{name}</b><br/>Ratio from y to: {x} <br/> Nº destinos: {y}und sq. km<br/> Cantidad monetaria: {z}$",
+		dataPoints: combinedData.map(g=>({
+            x:g.value,
+            y:g.too,
+            z:g.esif_amount_paid_to_fi,
+            name:g.name+" ("+g.ms+") "+g.country
+        }))
+	}]
+});
+chart.render();
 
-    // Concatenar los dos subconjuntos de datos
-    const res = first20Data.concat(last20Data);
-    
-    var options = {
-                    chart: {
-                        height: 400,
-                        type: "radar"
-                    },fill: {
-                        opacity: 0.5,
-                        colors: []
-                    },stroke: {
-                        show: true,
-                        width: 2,
-                        colors: [],
-                        dashArray: 0
-                    },plotOptions: {
-                        radar: {
-                        polygons: {
-                            strokeColor: '#e8e8e8',
-                            fill: {
-                                colors: ['#f8f8f8', '#fff']
-                            }
-                        }
-                        }
-                    },xaxis: {
-                        categories: res.map(c=>c.country),
-                        labels: {
-                        show: true,
-                        style: {
-                            colors: ["#a8a8a8"],
-                            fontSize: "11px",
-                            fontFamily: 'Arial'
-                        }
-                        }
-                    },markers: {
-                        size: 5,
-                        hover: {
-                        size: 10
-                        }
-                    },
-                        series: [
-                            {
-                            name: "Valor front/to",
-                            data:res.map(c=>c.value)
-                            },
-                            {
-                            name: "Valor esif_amount_paid_to_fi",
-                            data: res.map(c=>c.esif_amount_paid_to_fi)
-                            }
-                        ],
-                        labels: res.map(c=>c.ms)
-                };
-
-                var chart = new ApexCharts(document.getElementById('afi3'), options);
-
-                chart.render();
     
     }
-    /*
-	function AFI1() {
-		
-		const tiposyear1 = [...new Set(dataAFI.map(item => parseInt(item.year)))];
-		const tiposyear2 = [...new Set(dataproxyAFI.map(item => parseInt(item.time_period)))];
-		const res = [...new Set([...tiposyear1, ...tiposyear2])];
-		const combinedData = {};
-		let countryData=[];
-		dataAFI.forEach(entry => {
-          const country = entry.country;
-		  const year = entry.year;
-          if (!combinedData[country]) {
-              combinedData[country] = {
-                  name: country,
-				  year:year,
-                  total_amount_paid_to_fi: 0,
-                  millions_of_passenger_per_kilometres:0
-              };
-          }
-          combinedData[country].total_amount_paid_to_fi += entry.total_amount_paid_to_fi || 0;
-		});
-		dataproxyAFI.forEach(entry => {
-          const country = entry.geo;
-		  const year = entry.time_period;
-          if (!combinedData[country]) {
-              combinedData[country] = {
-                  name: country,
-				  year:year,
-                  total_amount_paid_to_fi: 0,
-                  millions_of_passenger_per_kilometres:0
-              };
-          }
-          combinedData[country].millions_of_passenger_per_kilometres += entry.millions_of_passenger_per_kilometres || 0;
-      });
-	  countryData = Object.values(combinedData);
-        var options = {
-			chart: {
-				height: 280,
-				type: "area"
-			},
-			dataLabels: {
-				enabled: false
-			},
-			
-			series: [{
-              name: 'API policy-program-stats',
-              data: countryData.map(country => country.total_amount_paid_to_fi/10)
-          },{
-              name: 'API cars-by-motor',
-              data: countryData.map(country => country.millions_of_passenger_per_kilometres),
-          }],
-			fill: {
-				type: "gradient",
-				gradient: {
-				shadeIntensity: 1,
-				opacityFrom: 0.7,
-				opacityTo: 0.9
-				}
-			},
-			xaxis: {
-				categories: res
-			}
-		};
+    function AFI4(){
+        const combined = [];
+        dataAFI.forEach(entry => {
+        const country = entry.country;
+        if (!combined[country]) {
+            combined[country] = {
+            name: country,
+            too: entry.too,
+            };
+        }
+        combined[country].too += entry.too || 0;
+        });
 
-		var chart = new ApexCharts(document.getElementById('afi1'), options);
-
-		chart.render();
-	}
-
-	function AFI2() {
-		const tiposcountry1 = [...new Set(dataAFI.map(item => item.country))];
-		const tiposcountry2 = [...new Set(dataproxyAFI2.map(item => item.ms))];
-		const res = [...new Set([...tiposcountry1, ...tiposcountry2])];
-		const combinedData = {};
-		let countryData=[];
-		dataAFI.forEach(entry => {
-          const country = entry.country;
-          if (!combinedData[country]) {
-              combinedData[country] = {
-                  name: country,
-                  total_amount_paid_to_fi: 0,
-                  cumulative_initial_pre_financing:0
-              };
-          }
-          combinedData[country].total_amount_paid_to_fi += entry.total_amount_paid_to_fi || 0;
-		});
-		dataproxyAFI2.forEach(entry => {
-          const country = entry.ms;
-          if (!combinedData[country]) {
-              combinedData[country] = {
-                  name: country,
-                  total_amount_paid_to_fi: 0,
-                  cumulative_initial_pre_financing:0
-              };
-          }
-          combinedData[country].cumulative_initial_pre_financing += entry.cumulative_initial_pre_financing || 0;
-      });
-	  countryData = Object.values(combinedData);
-    const ctx = document.getElementById('afi2');
-    const myChart = new Chart(ctx, {
-        type: 'polarArea',
-        data: {
-			labels:countryData.map(c=>c.name),
-            datasets: [
-                {
-                    label: 'policy-program-stats',
-                    data: countryData.map(c => parseInt(c.total_amount_paid_to_fi)/100),
-					backgroundColor: [
-						'rgb(255, 99, 132)',
-						'rgb(75, 192, 192)',
-						'rgb(255, 205, 86)',
-						'rgb(201, 203, 207)',
-						'rgb(54, 162, 235)'
-						]
-                },
-                {
-                    label: 'structural-investment-data',
-                    data: countryData.map(d => parseInt(d.cumulative_initial_pre_financing)/100),
-                    backgroundColor: [
-						'rgb(255, 99, 132)',
-						'rgb(75, 192, 192)',
-						'rgb(255, 205, 86)',
-						'rgb(201, 203, 207)',
-						'rgb(54, 162, 235)'
-						]
-                }
-            ]
-        },
-		options: {
-    plugins: {
-      legend: {
-        position: 'top',
-      }
-    }
-		}
+        const combinedData = [];
+        console.log(combined);
+        Object.entries(combined).forEach(([country, entry]) => {
+        Object.entries(dataexportafi3.data).forEach(([ms, n]) => {
+            combinedData.push({
+                country: country,
+                too: entry.too/10,
+                id: parseInt(n.id),
+                name: n.first_name,
+            });
+        });
     });
-}
-function AFI3() {
-	console.log(dataexportafi1);
-
-	let datarates=dataexportafi1.rates;
-	const tiposcountry1 = [...new Set(dataAFI.map(item => item.country))];
-	const tiposcountry2 = [...new Set(dataproxyAFI2.map(item => item.ms))];
-	const res = [...new Set([...tiposcountry1, ...tiposcountry2])];
-	const combinedData = {};
-	let countryData=[];
-	dataAFI.forEach(entry => {
-		const country = entry.country;
-		if (!combinedData[country]) {
-			combinedData[country] = {
-				name: country,
-				rate: 0
-			};
-		}
-		combinedData[country].rate += entry.total_amount_paid_to_fi/10000000 || 0;
-	});
-
-
-	let mergedList = [];
-
-    // Iterar sobre las claves del objeto names
-    for (let currency in dataexportafi1.names) {
-        if (dataexportafi1.names.hasOwnProperty(currency)) {
-            let currencyName = dataexportafi1.names[currency];
-            let currencyRates = dataexportafi1.rates[currency];
-
-            // Verificar si hay tasas de cambio para la moneda actual
-            if (currencyRates) {
-                let rate1 = currencyRates.from;
-				let rate2 = currencyRates.to; // Puedes usar "to" si prefieres
-
-                // Añadir el par (nombre, tasa) a la lista fusionada
-                mergedList.push({ country: currency, moneda: currencyName, rate: rate1+rate2 });
-            }
-        }
+    console.log(combinedData);
+    var chart = new CanvasJS.Chart("afi4", {
+            exportEnabled: true,
+            animationEnabled: true,
+            title:{
+                text: "Nombre y id de la persona y pais y destinos"
+            },
+            subtitles: [{
+                text: "Integracion con Api externa 4"
+            }], 
+            axisX: {
+                title: "Nombres y Paises"
+            },
+            axisY: {
+                title: "too",
+                titleFontColor: "#4F81BC",
+                lineColor: "#4F81BC",
+                labelFontColor: "#4F81BC",
+                tickColor: "#4F81BC",
+                includeZero: true
+            },
+            axisY2: {
+                title: "id",
+                titleFontColor: "#C0504E",
+                lineColor: "#C0504E",
+                labelFontColor: "#C0504E",
+                tickColor: "#C0504E",
+                includeZero: true
+            },
+            toolTip: {
+                shared: true
+            },
+            legend: {
+                cursor: "pointer",
+                itemclick: toggleDataSeries
+            },
+            data: [{
+                type: "column",
+                name: "too",
+                showInLegend: true,      
+                yValueFormatString: "#,##0.#",
+                dataPoints: combinedData.map(c=>({
+                    label:c.country+" "+c.name,
+                    y:c.too
+                }))
+            },
+            {
+                type: "column",
+                name: "id",
+                axisYType: "secondary",
+                showInLegend: true,
+                yValueFormatString: "#,##0.#",
+                dataPoints: combinedData.map(c=>({
+                    label:c.country+" "+c.name,
+                    y:c.id
+                }))
+            }]
+        });
+        chart.render();
     }
-
-	mergedList.forEach(entry => {
-          const country = entry.country;
-          if (!combinedData[country]) {
-              combinedData[country] = {
-                  name: country,
-                  total_amount_paid_to_fi: 0,
-                  rate:0
-              };
-          }
-          combinedData[country].rate += entry.rate || 0;
-      });
-	countryData = Object.values(combinedData);
-	console.log(countryData);
-
-	new Chartist.Bar('#chart1', {
-			labels: countryData.map(c=>c.country),
-			series: 
-			countryData.map(p =>p.rate)
-			}, {
-			seriesBarDistance: 10,
-			reverseData: true,
-			horizontalBars: true,
-			axisY: {
-				offset: 70
-			}
-			});
-
+    function toggleDataSeries(e) {
+	if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+		e.dataSeries.visible = false;
+	} else {
+		e.dataSeries.visible = true;
+	}
+	e.chart.render();
 }
-
-function RSG1() {
-    const scatterData = dataproxyRSG.map(car => ({
-        x: car.year,
-        y: car.city_mpg, 
-        name: `${car.make} ${car.model}`, 
-        marker: {
-            symbol: 'circle',
-            radius: 5 
-        }
-    })).concat(dataRSG.map(test => ({
-        x: test.year_week,
-        y: test.new_cases, 
-        name: test.country,
-        marker: {
-            symbol: 'square', 
-            radius: 5 
-        }
-    })));
-
-    const options = {
-        chart: {
-            height: 280,
-            type: "scatter"
-        },
-        series: [{
-            name: 'Cars City MPG',
-            data: scatterData
-        }],
-        xaxis: {
-            type: "category"
-        },
-        markers: {
-            size: 6 
-        }
-    };
-
-    const chart = new ApexCharts(document.getElementById('rsg1'), options);
-    chart.render();
-}*/
 
 </script>
 <div class="container-fluid">
-	<h2>Cantidad monetaria pagada al fondo por pais y kilometros recorridos por millones de pasajeros clasificados por año</h2>
-	<h2>API cars-by-motor Y API policy-program-stats</h2>
+    <h2>API externa 1 con proxy</h2>
+	<h2>Cantidad monetaria pagada al fondo entre el valor de cada moneda clasificado por pais</h2>
 	<div id="afi1"></div>
-	<h2>Cantidad monetaria pagada a un fondo y la cantidad total acumulada pagada a un fondo clasificado por paises</h2>
-	<h2>API structural-investment-data Y API policy-program-stats</h2>
+    <h2>Api externa 2 sin proxy </h2>
+	<h2>Id de cada producto clasificado por el numero de destinos, mostrando el nombre de cada producto y su pais</h2>
 	<div id="char">
-		<canvas id="afi2" width="400" height="100"></canvas>
+		<canvas id="afi2" width="200" height="200"></canvas>
 	</div>
-    <div id="afi3"></div>
-	<div class="ct-chart ct-golden-section" id="chart1">
-		<style>
-			.nm {
-			  width: 100%;
-			  height: 300px;
-			}
-		  </style>
-	</div>
+    <h2>Api externa 3</h2>
+    <div id="afi3" style="height: 300px; width: 100%;"></div>
+    <h2>Api externa 4</h2>
+    <div id="afi4" style="height: 300px; width: 100%;"></div>
 </div>
