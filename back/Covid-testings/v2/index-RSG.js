@@ -18,7 +18,11 @@ let datos1 =
         { country: 'Norway', country_code: 'NO', year_week: '2023-W45', level: 'national', region: 'NO', region_name: 'Norway', new_cases: 11822, tests_done: 144861, population: 5425270, testing_rate: 2670.115957362491, positivity_rate: 8.160926681439449, testing_data_source: 'TESSy COVID-19' },
         { country: 'Germany', country_code: 'DE', year_week: '2024-W12', level: 'national', region: 'DE', region_name: 'Germany', new_cases: 28000, tests_done: 200000, population: 83783942, testing_rate: 2387.132, positivity_rate: 14.0, testing_data_source: 'RKI COVID-19' },
         { country: 'Italy', country_code: 'IT', year_week: '2024-W12', level: 'national', region: 'IT', region_name: 'Italy', new_cases: 45000, tests_done: 300000, population: 60367460, testing_rate: 4968.47, positivity_rate: 15.0, testing_data_source: 'Ministry of Health COVID-19' },
-        { country: 'France', country_code: 'FR', year_week: '2023-W12', level: 'national', region: 'FR', region_name: 'France', new_cases: 33000, tests_done: 250000, population: 65273511, testing_rate: 3830.14, positivity_rate: 13.2, testing_data_source: 'Santé publique France COVID-19' }
+        { country: 'Canada', country_code: 'CA', year_week: '2021-W12', level: 'national', region: 'CA', region_name: 'Canada', new_cases: 33020, tests_done: 250000, population: 65233511, testing_rate: 3830.14, positivity_rate: 13.2, testing_data_source: 'Santé publique France COVID-19' },
+        { country: 'Canada', country_code: 'CA', year_week: '2021-W13', level: 'national', region: 'CA', region_name: 'Canada', new_cases: 33030, tests_done: 250300, population: 65274511, testing_rate: 3830.14, positivity_rate: 13.72, testing_data_source: 'Santé publique France COVID-19' },
+        { country: 'Canada', country_code: 'CA', year_week: '2021-W14', level: 'national', region: 'CA', region_name: 'Canada', new_cases: 33040, tests_done: 250100, population: 65279511, testing_rate: 3830.14, positivity_rate: 13.24, testing_data_source: 'Santé publique France COVID-19' },
+        { country: 'Canada', country_code: 'CA', year_week: '2021-W15', level: 'national', region: 'CA', region_name: 'Canada', new_cases: 33060, tests_done: 250060, population: 65273501, testing_rate: 3830.14, positivity_rate: 13.7, testing_data_source: 'Santé publique France COVID-19' },
+
 
     ];
 
