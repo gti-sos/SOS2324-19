@@ -36,10 +36,7 @@ let datos1 =
         { country: 'Canada', country_code: 'CA', year_week: '2021-W23', level: 'national', region: 'CA', region_name: 'Canada', new_cases: 3301, tests_done: 250000, population: 65273511, testing_rate: 3830.14, positivity_rate: 13.23, testing_data_source: 'Santé publique France COVID-19' },
         { country: 'Canada', country_code: 'CA', year_week: '2021-W54', level: 'national', region: 'CA', region_name: 'Canada', new_cases: 4530, tests_done: 3030000, population: 60367460, testing_rate: 49328.47, positivity_rate: 15.03, testing_data_source: 'Ministry of Health COVID-19' },
         { country: 'Canada', country_code: 'CA', year_week: '2021-W12', level: 'national', region: 'CA', region_name: 'Canada', new_cases: 45000, tests_done: 3003000, population: 60367460, testing_rate: 121312.47, positivity_rate: 12.023, testing_data_source: 'Ministry of Health COVID-19' },
-        { country: 'Canada', country_code: 'CA', year_week: '2021-W25', level: 'national', region: 'CA', region_name: 'Canada', new_cases: 450030, tests_done: 3002000, population: 60367460, testing_rate: 4923268.47, positivity_rate: 15.123, testing_data_source: 'Ministry of Health COVID-19' },
-
-
-
+        { country: 'Canada', country_code: 'CA', year_week: '2021-W25', level: 'national', region: 'CA', region_name: 'Canada', new_cases: 450030, tests_done: 3002000, population: 60367460, testing_rate: 4923268.47, positivity_rate: 15.123, testing_data_source: 'Ministry of Health COVID-19' }
     ];
 
 function LoadBackendRSGv2(app, db_RSG) {
