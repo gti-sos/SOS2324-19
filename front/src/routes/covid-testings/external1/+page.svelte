@@ -123,72 +123,63 @@
 	}
 
 	async function RSG2() {
-		try {
-			const apiData = await getAPIData2();
+    try {
+        const apiData = await getAPIData2();
 
-			// Procesar los datos para contar eventos por mes
-			const monthsData = {};
-			const monthNames = [
-				'Enero',
-				'Febrero',
-				'Marzo',
-				'Abril',
-				'Mayo',
-				'Junio',
-				'Julio',
-				'Agosto',
-				'Septiembre',
-				'Octubre',
-				'Noviembre',
-				'Diciembre'
-			];
-			apiData.forEach((holiday) => {
-				const date = new Date(holiday.date);
-				const month = date.getMonth(); // El mes va de 0 a 11
-				const monthName = monthNames[month];
-				if (!monthsData[monthName]) {
-					monthsData[monthName] = 0;
-				}
-				monthsData[monthName]++;
-			});
+        // Procesar los datos para contar eventos por mes
+        const monthsData = {};
+        const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        apiData.forEach((holiday) => {
+            const date = new Date(holiday.date);
+            const month = date.getMonth(); // El mes va de 0 a 11
+            const monthName = monthNames[month];
+            if (!monthsData[monthName]) {
+                monthsData[monthName] = 0;
+            }
+            monthsData[monthName]++;
+        });
 
-			// Crear arrays separados para etiquetas de meses y valores de eventos
-			const labels = [];
-			const values = [];
-			for (let month = 0; month < 12; month++) {
-				const monthName = monthNames[month];
-				labels.push(monthName);
-				values.push(monthsData[monthName] || 0); // Si no hay eventos en el mes, se establece en 0
-			}
+        // Crear arrays separados para etiquetas de meses y valores de eventos
+        const labels = [];
+        const values = [];
+        const colors = [];
+        for (let month = 0; month < 12; month++) {
+            const monthName = monthNames[month];
+            labels.push(monthName);
+            values.push(monthsData[monthName] || 0); // Si no hay eventos en el mes, se establece en 0
+            // Generar colores aleatorios para cada barra
+            const color = `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 0.2)`;
+            colors.push(color);
+        }
 
-			// Crear el gráfico de barras utilizando Chart.js
-			const ctx = document.getElementById('rsg2').getContext('2d');
-			new Chart(ctx, {
-				type: 'bar',
-				data: {
-					labels: labels,
-					datasets: [
-						{
-							label: 'Eventos por mes',
-							data: values,
-							backgroundColor: 'rgba(54, 162, 235, 0.2)',
-							borderColor: 'rgba(54, 162, 235, 1)',
-							borderWidth: 1
-						}
-					]
-				},
-				options: {
-					scales: {
-						y: {
-							beginAtZero: true
-						}
-					}
-				}
-			});
-		} catch (error) {
-			console.error(error);
-		}
-	}
+        // Crear el gráfico de barras utilizando Chart.js
+        const ctx = document.getElementById('rsg2').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Eventos por mes',
+                    data: values,
+                    backgroundColor: colors,
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 </script>
 
 <svelte:head>
