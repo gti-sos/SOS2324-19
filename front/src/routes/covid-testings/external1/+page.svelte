@@ -4,11 +4,6 @@
 
 	let APIRSG = `/api/v2/covid-testings`;
 	let APIproxyRSG = `/proxyRSG;`;
-	let APIextRSG = 'https://api.api-ninjas.com/v1/cars';
-
-	let dataRSG = [];
-	let dataproxyRSG = [];
-	let dataextRSG = [];
 
 	if (dev) {
 		APIRSG = 'http://localhost:10000' + APIRSG;

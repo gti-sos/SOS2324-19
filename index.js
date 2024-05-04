@@ -69,7 +69,7 @@ app.use("/proxyAFI", function(req,res){
 
 //proxy RSG
 app.use("/proxyRSG", function(req,res){
-    var url = "https://api.api-ninjas.com/v1/cars"
+    var url = "https://www.thesportsdb.com/api/v1/json/3/searchevents.php?e=Arsenal"
     console.log("piped: " + req.url)
     req.pipe(request(url)).pipe(res);
 });
