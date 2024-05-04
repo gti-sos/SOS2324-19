@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
-
+ 
 	let APIRSG = `/api/v2/covid-testings`;
 	let APIproxyRSG = `/proxyRSG`;
 
