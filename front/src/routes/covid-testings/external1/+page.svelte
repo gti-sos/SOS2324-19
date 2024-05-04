@@ -21,7 +21,7 @@
 
 	async function getHolidaysData(country, year) {
 		const url = `https://api.api-ninjas.com/v1/holidays?country=${country}&year=${year}`;
-		try {
+		try { 
 			const response = await fetch(url, {
 				headers: {
 					'X-Api-Key': '+05AagkdJHHc3FZiAo0tEw==6JuQ0BNbd1SfqZsk'
