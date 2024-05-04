@@ -10,22 +10,35 @@
 <script>
 	//@ts-nocheck
 	import { onMount } from 'svelte';
+    import { dev } from '$app/environment';
 
-	const APIPHT = 'http://localhost:10000/api/v2/eu-payment-info';
-	const APIproxy= '/proxyPHT'
+	let APIPHT = '/api/v2/eu-payment-info';
+	let APIproxyPHT = '/proxyPHT';
+
+
+
+	if (dev) {
+		APIPHT = 'http://localhost:10000' + APIPHT;
+		APIproxyPHT = 'http://localhost:10000' + APIproxyPHT;
+	}
+
 	let backendData = [];
 
+    
 	onMount(async () => {
 		const apiData = await getAPIData();
 		const backendData = await getBackendData();
 		const apiData1 = await getAPIData1();
 		const apiData2 = await getAPIData2();
+        const apiData3= await getAPIData3();
 		console.log(apiData);
 		console.log(backendData);
+        console.log(apiData3)
 
 		createChart(apiData, backendData);
 		createChart1(apiData1, backendData);
 		createChart2(apiData2);
+        createChart3(apiData3)
 	});
 
 	async function getAPIData() {
@@ -90,6 +103,23 @@
 		}
 	}
 
+    async function getAPIData3() {
+		const url = '/proxyPHT';
+		const options = {
+			method: 'GET',
+			headers: {
+				'X-Api-Key': 'VJ61uOuNsJFEJA9Q6GHhLQ==SPEs9ghWIyBuN369'
+			}
+		};
+
+		try {
+			const response = await fetch(url, options);
+			const result = await response.json();
+			return result;
+		} catch (error) {
+			console.error(error);
+		}
+	}
 
 	async function getBackendData() {
 		try {
@@ -166,7 +196,7 @@ new Chart(ctx, {
             },
             title: {
                 display: true,
-                text: 'Net Pre Financing by Bank'
+                text: 'Net Pre Financing por banco'
             },
             tooltips: {
                 callbacks: {
@@ -184,9 +214,6 @@ new Chart(ctx, {
     }
 });
 }
-
-
-
 
 
 
@@ -274,7 +301,7 @@ new Chart(ctx, {
         type: 'scatter',
         data: {
             datasets: [{
-                label: 'Net Pre Financing vs Tourists',
+                label: 'Net Pre Financing vs Turistas',
                 data: chartData.map(item => ({
                     x: item.tourists,
                     y: item.net_pre_financing,
@@ -367,6 +394,54 @@ new Chart(ctx, {
     });
 }
 
+function createChart3(apiData3) {
+    const data = {
+        datasets: [{
+            label: 'Informacion del tiempo actual',
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1,
+            data: [{
+                x: 'Year',
+                y: parseInt(apiData3.year)
+            }, {
+                x: 'Month',
+                y: parseInt(apiData3.month)
+            }, {
+                x: 'Day',
+                y: parseInt(apiData3.day)
+            }, {
+                x: 'Hour',
+                y: parseInt(apiData3.hour)
+            }, {
+                x: 'Minute',
+                y: parseInt(apiData3.minute)
+            }, {
+                x: 'Second',
+                y: parseInt(apiData3.second)
+            }]
+        }]
+    };
+
+    const ctx = document.getElementById('chart3').getContext('2d');
+    new Chart(ctx, {
+        type: 'scatter', // Cambiar el tipo de gráfico a 'scatter'
+        data: data,
+        options: {
+            scales: {
+                x: {
+                    type: 'category', // Configurar el eje x como tipo de categoría
+                    labels: ['Year', 'Month', 'Day', 'Hour', 'Minute', 'Second']
+                },
+                y: {
+                    beginAtZero: true // Configurar el eje y para comenzar en cero
+                }
+            }
+        }
+    });
+}
+
+
 </script>
 
 
@@ -374,4 +449,4 @@ new Chart(ctx, {
 <div style="width: 400px; height: 400px;"><canvas id="chart" width="400" height="400"></canvas></div>
 <div style="width: 550px; height: 550px;"><canvas id="chart1" width="550" height="550"></canvas></div>
 <div id="barChartContainer" style="height: 600px; width: 100%;"><canvas id="barChart" width="600" height="600"></canvas></div>
-
+<div  ><canvas id="chart3" width="400" height="200"></canvas></div>
