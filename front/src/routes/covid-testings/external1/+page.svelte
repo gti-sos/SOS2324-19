@@ -1,188 +1,120 @@
 <script>
-	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
+	import { onMount } from 'svelte';
 
-	let APIRSG = `/api/v2/covid-testings`;
-	let APIproxyRSG = `/proxyRSG;`;
+	let isLoading = true; // Variable para controlar el estado de carga
+	let covidData = [];
+	let zipCodeData = [];
+
+	let countries = ['Canada', 'Norway', 'Poland', 'Mexico', 'Denmark'];
+	let covidAPI = '/api/v2/covid-testings';
+	let zipCodeAPI = 'https://api.api-ninjas.com/v1/zipcode?city=';
 
 	if (dev) {
-		APIRSG = 'http://localhost:10000' + APIRSG;
-		APIproxyRSG = 'http://localhost:10000' + APIproxyRSG;
+		covidAPI = 'http://localhost:10000' + covidAPI;
 	}
 
 	onMount(async () => {
-		RSG1();
-		RSG2();
+		try {
+			await fetchData();
+			isLoading = false; // Una vez que los datos se carguen, establecemos isLoading a false
+			drawChart();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+			isLoading = false; // Si hay un error, también establecemos isLoading a false para evitar que el mensaje de carga permanezca para siempre
+		}
 	});
 
-	async function getAPIData1() {
-		const url = 'https://api.api-ninjas.com/v1/cars?fuel_type=gas';
-		const options = {
-			method: 'GET',
-			headers: {
-				'X-Api-Key': '+05AagkdJHHc3FZiAo0tEw==6JuQ0BNbd1SfqZsk'
-			}
-		};
+	async function fetchData() {
+		for (let country of countries) {
+			console.log(`Fetching data for ${country}`);
+			const covidResponse = await getData(`${covidAPI}?country=${country}`);
+			const zipCodeResponse = await getData(zipCodeAPI + country);
 
-		try {
-			const response = await fetch(url, options);
-			const result = await response.json();
-			console.log(result);
-			return result;
-		} catch (error) {
-			console.error(error);
+			console.log('COVID response:', covidResponse);
+			console.log('Zip code response:', zipCodeResponse);
+
+			// Agregar los datos de COVID
+			covidData.push(...covidResponse);
+
+			// Obtener solo el primer elemento de la respuesta de Zip Code API
+			const firstZipCodeEntry = zipCodeResponse[0];
+			if (firstZipCodeEntry) {
+				zipCodeData.push(firstZipCodeEntry);
+			}
 		}
 	}
 
-	async function getAPIData2() {
-		const url = 'https://api.api-ninjas.com/v1/holidays?country=CA&year=2021';
-		const options = {
-			method: 'GET',
-			headers: {
-				'X-Api-Key': '+05AagkdJHHc3FZiAo0tEw==6JuQ0BNbd1SfqZsk'
-			}
-		};
-
+	async function getData(url) {
 		try {
-			const response = await fetch(url, options);
-			const result = await response.json();
-			console.log(result);
-			return result;
-		} catch (error) {
-			console.error(error);
-		}
-	}
-
-	async function RSG1() {
-		try {
-			const apiData = await getAPIData1();
-
-			// Procesar los datos para el gráfico de pie
-			const brandsData = {};
-			apiData.forEach((car) => {
-				const brand = car.make;
-				if (!brandsData[brand]) {
-					brandsData[brand] = 0;
+			const res = await fetch(url, {
+				headers: {
+					'X-Api-Key': '+05AagkdJHHc3FZiAo0tEw==6JuQ0BNbd1SfqZsk'
 				}
-				brandsData[brand]++;
 			});
-
-			const data = Object.entries(brandsData).map(([brand, count]) => ({
-				label: brand,
-				value: count
-			}));
-
-			// Crear el gráfico de pie
-			const width = 400;
-			const height = 400;
-			const radius = Math.min(width, height) / 2;
-
-			const color = d3.scaleOrdinal().range(['#1ab7ea', '#0084ff', '#39539E', '#0077B5']);
-
-			const svg = d3
-				.select('#rsg1')
-				.append('svg')
-				.attr('width', width)
-				.attr('height', height)
-				.append('g')
-				.attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
-
-			const arc = d3.arc().innerRadius(0).outerRadius(radius);
-
-			const pie = d3
-				.pie()
-				.value(function (d) {
-					return d.value;
-				})
-				.sort(null);
-
-			const g = svg.selectAll('.arc').data(pie(data)).enter().append('g').attr('class', 'arc');
-
-			g.append('path')
-				.attr('d', arc)
-				.style('fill', function (d) {
-					return color(d.data.label);
-				});
-
-			g.append('text')
-				.attr('transform', function (d) {
-					return 'translate(' + arc.centroid(d) + ')';
-				})
-				.attr('dy', '.35em')
-				.text(function (d) {
-					return d.data.label;
-				});
+			return await res.json();
 		} catch (error) {
-			console.error(error);
+			console.log(`Error fetching data from ${url}: ${error}`);
+			return [];
 		}
 	}
 
-	async function RSG2() {
-    try {
-        const apiData = await getAPIData2();
+	function drawChart() {
+		// Preparar datos para el gráfico de pirámide
+		let pyramidData = [];
+		let zipCodeCasesMap = new Map(); // Mapa para mantener el recuento acumulado de casos por código postal
+		for (let entry of covidData) {
+			const zipCodeEntry = zipCodeData.find((item) => item.city === entry.country);
+			if (zipCodeEntry) {
+				const zipCode = zipCodeEntry.zip_code;
+				const newCases = entry.new_cases;
+				if (zipCodeCasesMap.has(zipCode)) {
+					zipCodeCasesMap.set(zipCode, zipCodeCasesMap.get(zipCode) + newCases);
+				} else {
+					zipCodeCasesMap.set(zipCode, newCases);
+				}
+			}
+		}
+		// Convertir el mapa a un array de objetos
+		zipCodeCasesMap.forEach((cases, zipCode) => {
+			pyramidData.push({
+				y: cases,
+				indexLabel: zipCode
+			});
+		});
 
-        // Procesar los datos para contar eventos por mes
-        const monthsData = {};
-        const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-        apiData.forEach((holiday) => {
-            const date = new Date(holiday.date);
-            const month = date.getMonth(); // El mes va de 0 a 11
-            const monthName = monthNames[month];
-            if (!monthsData[monthName]) {
-                monthsData[monthName] = 0;
-            }
-            monthsData[monthName]++;
-        });
+		// Ordenar los datos por cantidad de casos de mayor a menor
+		pyramidData.sort((a, b) => b.y - a.y);
 
-        // Crear arrays separados para etiquetas de meses y valores de eventos
-        const labels = [];
-        const values = [];
-        const colors = [];
-        for (let month = 0; month < 12; month++) {
-            const monthName = monthNames[month];
-            labels.push(monthName);
-            values.push(monthsData[monthName] || 0); // Si no hay eventos en el mes, se establece en 0
-            // Generar colores aleatorios para cada barra
-            const color = `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 0.2)`;
-            colors.push(color);
-        }
-
-        // Crear el gráfico de barras utilizando Chart.js
-        const ctx = document.getElementById('rsg2').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Eventos por mes',
-                    data: values,
-                    backgroundColor: colors,
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-    } catch (error) {
-        console.error(error);
-    }
-}
-
+		// Configurar el gráfico de pirámide con CanvasJS
+		var chart = new CanvasJS.Chart('chartContainer', {
+			animationEnabled: true,
+			exportEnabled: true,
+			title: {
+				text: 'New Cases by Zip Code'
+			},
+			data: [
+				{
+					type: 'pyramid',
+					indexLabelFontSize: 18,
+					valueRepresents: 'area',
+					showInLegend: true,
+					legendText: '{indexLabel} ({y})',
+					toolTipContent: '<b>{indexLabel}:</b> {y} new cases',
+					dataPoints: pyramidData
+				}
+			]
+		});
+		chart.render();
+	}
 </script>
 
 <svelte:head>
-	<script src="https://d3js.org/d3.v7.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </svelte:head>
 
-<div class="container-fluid">
-	<div id="rsg1"></div>
-	<canvas id="rsg2"></canvas>
-</div>
+{#if isLoading}
+	<div>Loading data...</div>
+{/if}
+
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
