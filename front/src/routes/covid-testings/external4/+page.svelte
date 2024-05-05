@@ -1,140 +1,127 @@
 <script>
-    import { onMount } from 'svelte';
-    import { dev } from '$app/environment';
+	import { dev } from '$app/environment';
+	import { onMount } from 'svelte';
 
-    let APIRSG = `/api/v2/covid-testings`;
-    let APIRSG1 = `https://api.api-ninjas.com/v1/interestrate?country=United Kingdom`;
+	let isLoading = true; // Variable para controlar el estado de carga
+	let interestRateData = [];
 
-    // Si estás en modo desarrollo, cambia las URLs de la API
-    if (dev) {
-      APIRSG = 'http://localhost:10000' + APIRSG;
-    }
+	let countries = ['Sweden', 'Norway', 'Poland', 'Mexico', 'Denmark'];
+	let covidAPI = '/api/v2/covid-testings';
+	let interestRateAPI = 'https://api.api-ninjas.com/v1/interestrate?country=';
 
-    let covidData = [];
-    let interestRateData = [];
+	if (dev) {
+		covidAPI = 'http://localhost:10000' + covidAPI;
+	}
 
-    onMount(async () => {
-      try {
-        await fetchData();
-        drawChart();
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    });
+	onMount(async () => {
+		try {
+			await fetchData();
+			isLoading = false; // Una vez que los datos se carguen, establecemos isLoading a false
+			drawChart();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+	});
 
-    async function fetchData() {
-      const covidResponse = await getData(APIRSG);
-      const interestRateResponse = await getDataWithApiKey(APIRSG1);
+	async function fetchData() {
+		for (let country of countries) {
+			console.log(`Fetching data for ${country}`);
+			const covidResponse = await getData(`${covidAPI}?country=${country}`);
+			const interestRateResponse = await getData(interestRateAPI + country);
 
-      // Procesamiento de datos de COVID
-      covidData = covidResponse
-        .filter((data) => data.year_week.startsWith('2021'))
-        .map((d) => ({
-          year: parseInt(d.year_week.split('-')[0]),
-          new_cases: d.new_cases
-        }))
-        .sort((a, b) => a.year - b.year);
+			console.log('COVID response:', covidResponse);
+			console.log('Interest rate response:', interestRateResponse);
 
-      // Procesamiento de datos de tasas de interés
-      interestRateData = interestRateResponse
-        .filter((data) => data.last_updated.startsWith('2021'))
-        .map((d) => ({
-          year: new Date(d.last_updated).getFullYear(),
-          rate_pct: d.rate_pct
-        }))
-        .sort((a, b) => a.year - b.year);
-    }
+			// Procesamiento de datos de COVID
+			const totalNewCases =
+				covidResponse.length > 0 ? covidResponse.reduce((acc, cur) => acc + cur.new_cases, 0) : 0;
 
-    async function getData(url) {
-      try {
-        const res = await fetch(url);
-        return await res.json();
-      } catch (error) {
-        console.log(`Error fetching data from ${url}: ${error}`);
-        return [];
-      }
-    }
+			// Procesamiento de datos de tasas de interés
+			const interestRateCountryData = interestRateResponse.central_bank_rates[0]; // Solo toma el primer resultado
+			const ratePct = interestRateCountryData ? interestRateCountryData.rate_pct : 0;
 
-    async function getDataWithApiKey(url) {
-      try {
-        const response = await fetch(url, {
-          headers: {
-            'X-Api-Key': '+05AagkdJHHc3FZiAo0tEw==6JuQ0BNbd1SfqZsk'
-          }
-        });
-        return await response.json();
-      } catch (error) {
-        console.error(`Error fetching data from ${url}: ${error}`);
-        return [];
-      }
-    }
+			// Calcular el cociente entre el total de nuevos casos de COVID y la tasa de interés
+			const ratio = ratePct !== 0 ? (ratePct / totalNewCases) * 1000000 : 0;
 
-    function drawChart() {
-      // Dibujar el gráfico de dispersión
-      const margin = { top: 20, right: 30, bottom: 30, left: 60 };
-      const width = 800 - margin.left - margin.right;
-      const height = 400 - margin.top - margin.bottom;
+			interestRateData.push({
+				country: country,
+				ratio: ratio
+			});
+		}
+	}
 
-      const svg = d3.select('#scatterplot-container')
-                    .append('svg')
-                    .attr('width', width + margin.left + margin.right)
-                    .attr('height', height + margin.top + margin.bottom)
-                    .append('g')
-                    .attr('transform', `translate(${margin.left},${margin.top})`);
+	async function getData(url) {
+		try {
+			const res = await fetch(url, {
+				headers: {
+					'X-Api-Key': '+05AagkdJHHc3FZiAo0tEw==6JuQ0BNbd1SfqZsk'
+				}
+			});
+			return await res.json();
+		} catch (error) {
+			console.log(`Error fetching data from ${url}: ${error}`);
+			return [];
+		}
+	}
 
-      // Escalas para los datos de COVID
-      const x1 = d3.scaleLinear().domain(d3.extent(covidData, d => d.year)).range([0, width]);
-      const y1 = d3.scaleLinear().domain(d3.extent(covidData, d => d.new_cases)).range([height, 0]);
+	function drawChart() {
+		const options = {
+			series: interestRateData.map((item) => item.ratio),
+			labels: interestRateData.map((item) => item.country),
+			chart: {
+				type: 'donut',
+				height: 350
+			},
+			dataLabels: {
+				enabled: true
+			},
+			plotOptions: {
+				pie: {
+					startAngle: -90,
+					endAngle: 90,
+					donut: {
+						size: '80%'
+					}
+				}
+			},
+			grid: {
+				padding: {
+					bottom: 20
+				}
+			},
+			legend: {
+				position: 'bottom'
+			},
+			title: {
+				text: 'Ratio of Total New COVID-19 Cases to Interest Rate by Country'
+			},
+			responsive: [
+				{
+					breakpoint: 480,
+					options: {
+						chart: {
+							width: 200
+						},
+						legend: {
+							position: 'bottom'
+						}
+					}
+				}
+			]
+		};
 
-      // Escalas para los datos de tasas de interés
-      const y2 = d3.scaleLinear().domain(d3.extent(interestRateData, d => d.rate_pct)).range([height, 0]);
-
-      // Ejes
-      const xAxis = d3.axisBottom(x1);
-      const yAxis1 = d3.axisLeft(y1).ticks(5);
-      const yAxis2 = d3.axisRight(y2).ticks(5);
-
-      svg.append('g')
-         .attr('transform', `translate(0,${height})`)
-         .call(xAxis);
-
-      svg.append('g')
-         .call(yAxis1);
-
-      svg.append('g')
-         .attr('transform', `translate(${width},0)`)
-         .call(yAxis2);
-
-      // Puntos de datos para los nuevos casos de COVID-19
-      svg.selectAll('.covid-circle')
-         .data(covidData)
-         .enter()
-         .append('circle')
-         .attr('class', 'covid-circle')
-         .attr('cx', d => x1(d.year))
-         .attr('cy', d => y1(d.new_cases))
-         .attr('r', 5)
-         .style('fill', 'steelblue')
-         .style('opacity', 0.7)
-         .append('title')
-         .text(d => `Year: ${d.year}, New Cases: ${d.new_cases}`);
-
-      // Línea para las tasas de interés
-      const line = d3.line()
-                     .x(d => x1(d.year))
-                     .y(d => y2(d.rate_pct));
-
-      svg.append('path')
-         .datum(interestRateData)
-         .attr('fill', 'none')
-         .attr('stroke', 'red')
-         .attr('stroke-width', 2)
-         .attr('d', line);
-    }
+		const chart = new ApexCharts(document.querySelector('#chart'), options);
+		chart.render();
+	}
 </script>
 
 <svelte:head>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </svelte:head>
 
-<div id="scatterplot-container"></div>
+
+{#if isLoading}
+    <div>Loading data...</div>
+{/if}
+
+<div id="chart"></div>
