@@ -84,13 +84,13 @@
 				labels: years,
 				datasets: [
 					{
-						label: 'New Cases',
+						label: 'Nuevos Casos',
 						data: combinedData.map((data) => data.new_cases),
 						backgroundColor: 'blue',
 						yAxisID: 'left-y-axis'
 					},
 					{
-						label: 'Events',
+						label: 'Holidays',
 						data: combinedData.map((data) => data.events),
 						backgroundColor: 'red',
 						yAxisID: 'right-y-axis'
@@ -102,7 +102,7 @@
 				plugins: {
 					title: {
 						display: true,
-						text: 'COVID Cases and Events in 2021'
+						text: 'Casos de COVID y Holidays en 2021'
 					}
 				},
 				scales: {
@@ -114,7 +114,7 @@
 						},
 						title: {
 							display: true,
-							text: 'Events',
+							text: 'Holidays',
 							color: 'red'
 						},
 						ticks: {
@@ -130,7 +130,7 @@
 						},
 						title: {
 							display: true,
-							text: 'New Cases',
+							text: 'Nuevos Casos',
 							color: 'blue'
 						},
 						ticks: {
@@ -140,7 +140,7 @@
 					x: {
 						title: {
 							display: true,
-							text: 'Year'
+							text: 'Año'
 						}
 					}
 				}
