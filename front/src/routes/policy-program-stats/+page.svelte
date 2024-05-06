@@ -333,6 +333,15 @@
 			</button>
 		</div>
         <div style="margin-bottom: 20px; display: flex; justify-content: space-between;">
+			<button
+				style="background-color: #0366d6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"
+				on:click={() => {
+					window.location.href = 'https://sos2324-19.appspot.com/policy-program-stats/Integration';
+				}}
+				>Integraciones
+			</button>
+		</div>
+        <div style="margin-bottom: 20px; display: flex; justify-content: space-between;">
 			<label>
                 Desde:
                 <input type="number" bind:value={getFrom}>
