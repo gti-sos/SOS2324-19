@@ -2,18 +2,24 @@
 
     <div class="card" style="margin-left: 20px;">
         <div >
-            <a href="https://sos2324-19.appspot.com/policy-program-stats/Integration">Integraciones Alberto Fraile Infantes </a>
+            <a href="https://sos2324-19.appspot.com/policy-program-stats/Integration" class="button">Integraciones Alberto Fraile Infantes</a>
         </div>
         <h2 style="margin-top: 20px;">Alberto Fraile Infantes</h2>
     </div>
     <div class="card" style="margin-left: 20px;">
         <div >
-            <a href="https://sos2324-19.appspot.com/eu-payment-info/init1">Integraciones Pedro Heredia Torres </a>
+            <a href="https://sos2324-19.appspot.com/eu-payment-info/init1" class="button">Integraciones Pedro Heredia Torres</a>
         </div>
         <h2 style="margin-top: 20px;">Pedro Heredia Torres</h2>
     </div>
+    <div class="card" style="margin-left: 20px;">
+        <div>
+            <a href="https://sos2324-19.appspot.com/covid-testings/external" class="button">Integraciones Raul Sequera Gomez</a>
+        </div>
+        <h2 style="margin-top: 20px;">Raul Sequera Gomez</h2>
+    </div>
 </div> 
-
+ 
 <style>
 .container {
     display: grid;
@@ -31,19 +37,23 @@
     background-color: #f9f9f9;
 }
 
-.card a {
-    text-decoration: none;
-    color: #333;
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: grey;
+    color: white;
+    border: none;
+    border-radius: 5px;
     font-size: 18px;
+    text-decoration: none;
 }
 
-.card a:hover {
-    color: #555;
+.button:hover {
+    background-color: #0056b3;
 }
 
-h2 {
+.card h2 {
     margin-top: 20px;
     color: #333;
 }
-
 </style>
