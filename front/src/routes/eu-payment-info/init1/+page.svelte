@@ -342,6 +342,9 @@ new Chart(ctx, {
 
 
 
+
+
+//De uso
 	function createChart2(apiData2) {
 		console.log(apiData2)
     const holidayTypes = {};
@@ -445,8 +448,9 @@ function createChart3(apiData3) {
 </script>
 
 
-
+<div>Graficas con integracion de api propia</div>
 <div style="width: 400px; height: 400px;"><canvas id="chart" width="400" height="400"></canvas></div>
 <div style="width: 550px; height: 550px;"><canvas id="chart1" width="550" height="550"></canvas></div>
+<div>Graficas de solo uso de api externa</div>
 <div id="barChartContainer" style="height: 600px; width: 100%;"><canvas id="barChart" width="600" height="600"></canvas></div>
 <div  ><canvas id="chart3" width="400" height="200"></canvas></div>
