@@ -297,7 +297,7 @@
     const res = [...new Set([...tiposyear1, ...tiposyear2])];
     const combinedData = {};
     let countryData = [];
-    
+
     dataPHT.forEach(entry => {
         const country = entry.ms;
         const year = entry.year;
@@ -499,12 +499,7 @@
 				width: 100%;
 				height: 300px;
 			}
-<<<<<<< HEAD
-		</style>
-	</div>
-</div>
-=======
 		  </style>
 	</div> -->
 </div>
->>>>>>> refs/remotes/origin/main
+*/

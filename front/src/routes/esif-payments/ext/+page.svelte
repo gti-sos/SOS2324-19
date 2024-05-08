@@ -620,6 +620,7 @@
 		//datajpraux3 = await fetchDataNinja(APIJPRAUX3);
 		//datajpraux4 = await fetchDataNinja(APIJPRAUX4);
 		console.log(datajpraux4);
+		//para no gastar llamadas a la API
 		datajpraux1 = simulatedData;
 		datajpraux2 = simulatedData2;
 		datajpraux3 = simulatedData3;
@@ -939,7 +940,7 @@
 		height: 600px;
 		margin: auto;
 	}
-	#chart1	 {
+	#chart	 {
 		width: 800px;
 		height: 600px;
 		margin: auto;
