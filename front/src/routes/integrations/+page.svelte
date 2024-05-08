@@ -1,3 +1,13 @@
+<script>
+	import { dev } from '$app/environment';
+	import { url } from 'inspector';
+
+	let urljpr = "/esif-payments/ext";
+	if (dev) {
+		urljpr = 'http://localhost:10000' + urljpr;
+	}
+</script>
+
 <div class="container">
 
     <div class="card" style="margin-left: 20px;">
@@ -18,8 +28,14 @@
         </div>
         <h2 style="margin-top: 20px;">Raul Sequera Gomez</h2>
     </div>
-</div> 
- 
+	<div class="card" style="margin-left: 20px;">
+        <div>
+            <a href={urljpr} class="button">Integraciones y usos de Jose Manuel Peña Ramirez</a>
+        </div>
+        <h2 style="margin-top: 20px;">Raul Sequera Gomez</h2>
+    </div>
+</div>
+
 <style>
 .container {
     display: grid;

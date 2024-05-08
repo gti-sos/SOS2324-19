@@ -615,16 +615,16 @@
 	async function getData() {
 		APIJPR = APIJPR + `?limit=${1000}`;
 		datajpr = await fetchDataNinja(APIJPR);
-		//datajpraux1 = await fetchDataNinja(APIJPRAUX1);
-		//datajpraux2 = await fetchDataRapidApi(APIJPRAUX2, optionsCOV);
-		//datajpraux3 = await fetchDataNinja(APIJPRAUX3);
-		//datajpraux4 = await fetchDataNinja(APIJPRAUX4);
+		datajpraux1 = await fetchDataNinja(APIJPRAUX1);
+		datajpraux2 = await fetchDataRapidApi(APIJPRAUX2, optionsCOV);
+		datajpraux3 = await fetchDataNinja(APIJPRAUX3);
+		datajpraux4 = await fetchDataNinja(APIJPRAUX4);
 		console.log(datajpraux4);
 		//para no gastar llamadas a la API
-		datajpraux1 = simulatedData;
-		datajpraux2 = simulatedData2;
-		datajpraux3 = simulatedData3;
-		datajpraux4 = simulatedData4;
+		//datajpraux1 = simulatedData;
+		//datajpraux2 = simulatedData2;
+		//datajpraux3 = simulatedData3;
+		//datajpraux4 = simulatedData4;
 	}
 	async function fetchDataNinja(url) {
 		try {
