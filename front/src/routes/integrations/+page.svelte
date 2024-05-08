@@ -32,7 +32,7 @@
         <div>
             <a href={urljpr} class="button">Integraciones y usos de Jose Manuel Peña Ramirez</a>
         </div>
-        <h2 style="margin-top: 20px;">Raul Sequera Gomez</h2>
+        <h2 style="margin-top: 20px;">Jose Manuel Peña Ramirez</h2>
     </div>
 </div>
 
