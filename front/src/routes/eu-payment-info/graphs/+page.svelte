@@ -3,6 +3,7 @@
     <script src="https://code.highcharts.com/modules/data.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </svelte:head>
 
 <script>
@@ -26,6 +27,8 @@
                 dataAvailable = true;
                 createGraph(data);
                 createGraph2(data);
+                createGraph3(data);
+
             }
         } catch (error) {
             console.log(`Error fetching data: ${error}`);
@@ -152,12 +155,62 @@ async function createGraph2(data) {
     });
 }
 
+let chart;
 
 
+function createGraph3(data) {
+        const ccis = [...new Set(data.map(item => item.cci))];
+        const funds = [...new Set(data.map(item => item.fund))];
 
+        const chartData = ccis.map(cci => ({
+            type: "bar",
+            name: cci,
+            showInLegend: true,
+            dataPoints: funds.map(fund => ({
+                label: fund,
+                y: data
+                    .filter(item => item.cci === cci && item.fund === fund)
+                    .reduce((acc, curr) => acc + parseFloat(curr.net_pre_financing), 0)
+            }))
+        }));
 
+        chart = new CanvasJS.Chart("container-canvas", {
+            animationEnabled: true,
+            title: {
+                text: "Net Pre Financing by CCI and Fund"
+            },
+            axisY: {
+                title: "Net Pre Financing"
+            },
+            axisX: {
+                title: "Fund"
+            },
+            legend: {
+                cursor: "pointer",
+                itemclick: toggleDataSeries
+            },
+            toolTip: {
+                shared: true
+            },
+            data: chartData
+        });
 
+        chart.render();
+    }
+
+    function toggleDataSeries(e) {
+        if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+        } else {
+            e.dataSeries.visible = true;
+        }
+        chart.render();
+    }
 </script>
+
 <div id="container"></div>
 <br>
 <div id="container-bar"></div>
+
+
+<div id="container-canvas" style="height: 300px; width: 100%;"></div>

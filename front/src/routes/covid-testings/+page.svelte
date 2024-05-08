@@ -289,6 +289,10 @@
 <button id="loadData" class="load-button" on:click={getinitialTestings}>Cargar Datos</button>
 <button id="createButton" class="create-button" on:click={createTesting}>Crear</button>
 <button id="deleteAllButton" class="delete-button" on:click={deleteAllTestings}>Eliminar todo</button>
+<a href="https://sos2324-19.appspot.com/covid-testings/graphs">
+    <button id="graphs" style="background-color: orange; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Gráficas</button>
+</a>
+
 
 <div>
 	<button class="page-button" on:click="{() => navigateToPage(currentPage - 1)}" disabled="{currentPage === 1}">Página anterior</button>
