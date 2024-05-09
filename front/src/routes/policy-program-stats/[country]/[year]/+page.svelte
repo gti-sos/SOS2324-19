@@ -52,6 +52,7 @@
       // Función para enviar la modificación
       async function putStat() {
         if (Object.values(dato).some(value => value === '' || value === null)) {
+            showForm = false;
             errorMsg = 'Por favor, completa todos los campos.';
             return;
         }
