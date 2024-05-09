@@ -236,51 +236,51 @@
 	<form on:submit|preventDefault={() => createTesting(formData)}>
 		<label>
 			Country:
-			<input id="countryInput" type="text" bind:value={formData.country} />
+			<input id="countryInput" type="text" required=true bind:value={formData.country} />
 		</label>
 		<label>
 			Country Code:
-			<input id="countryCodeInput" type="text" bind:value={formData.country_code} />
+			<input id="countryCodeInput" type="text" required=true bind:value={formData.country_code} />
 		</label>
 		<label>
 			Year Week:
-			<input id="yearWeekInput" type="text" bind:value={formData.year_week} />
+			<input id="yearWeekInput" type="text" required=true bind:value={formData.year_week} />
 		</label>
 		<label>
 			Level:
-			<input id="levelInput" type="text" bind:value={formData.level} />
+			<input id="levelInput" type="text" required=true bind:value={formData.level} />
 		</label>
 		<label>
 			Region:
-			<input id="regionInput" type="text" bind:value={formData.region} />
+			<input id="regionInput" type="text" required=true bind:value={formData.region} />
 		</label>
 		<label>
 			Region Name:
-			<input id="regionNameInput" type="text" bind:value={formData.region_name} />
+			<input id="regionNameInput" type="text" required=true bind:value={formData.region_name} />
 		</label>
 		<label>
 			New Cases:
-			<input id="newCasesInput" type="text" bind:value={formData.new_cases} />
+			<input id="newCasesInput" type="text" required=true bind:value={formData.new_cases} />
 		</label>
 		<label>
 			Tests Done:
-			<input id="testsDoneInput" type="text" bind:value={formData.tests_done} />
+			<input id="testsDoneInput" type="text" required=true bind:value={formData.tests_done} />
 		</label>
 		<label>
 			Population:
-			<input id="populationInput" type="text" bind:value={formData.population} />
+			<input id="populationInput" type="text" required=true bind:value={formData.population} />
 		</label>
 		<label>
 			Testing Rate:
-			<input id="testingRateInput" type="text" bind:value={formData.testing_rate} />
+			<input id="testingRateInput" type="text" required=true bind:value={formData.testing_rate} />
 		</label>
 		<label>
 			Positivity Rate:
-			<input id="positivityRateInput" type="text" bind:value={formData.positivity_rate} />
+			<input id="positivityRateInput" type="text" required=true bind:value={formData.positivity_rate} />
 		</label>
 		<label>
 			Testing Data Source:
-			<input id="testingDataSourceInput" type="text" bind:value={formData.testing_data_source} />
+			<input id="testingDataSourceInput" type="text" required=true bind:value={formData.testing_data_source} />
 		</label>
 		<button id="submitButton" type="submit" class="create-button">Crear</button>
 	</form>

@@ -139,7 +139,7 @@
 			animationEnabled: true,
 			exportEnabled: true,
 			title: {
-				text: 'New Cases by Zip Code'
+				text: 'Nuevos casos por Codigo Postal'
 			},
 			data: [
 				{
@@ -148,7 +148,7 @@
 					valueRepresents: 'area',
 					showInLegend: true,
 					legendText: '{indexLabel} ({y})',
-					toolTipContent: '<b>{indexLabel}:</b> {y} new cases',
+					toolTipContent: '<b>{indexLabel}:</b> {y} nuevos casos',
 					dataPoints: pyramidData
 				}
 			]
@@ -343,7 +343,7 @@
 						yAxisID: 'left-y-axis'
 					},
 					{
-						label: 'Holidays',
+						label: 'Vacaciones',
 						data: combinedData.map((data) => data.events),
 						backgroundColor: 'red',
 						yAxisID: 'right-y-axis'
@@ -355,7 +355,7 @@
 				plugins: {
 					title: {
 						display: true,
-						text: 'Casos de COVID y Holidays en 2021'
+						text: 'Casos de COVID y Vacaciones en 2021'
 					}
 				},
 				scales: {
@@ -367,7 +367,7 @@
 						},
 						title: {
 							display: true,
-							text: 'Holidays',
+							text: 'Vacaciones',
 							color: 'red'
 						},
 						ticks: {
@@ -430,7 +430,7 @@
 				position: 'bottom'
 			},
 			title: {
-				text: 'Ratio of Total New COVID-19 Cases to Interest Rate by Country'
+				text: 'Relación entre el total de nuevos casos de COVID-19 y la tasa de interés por país'
 			},
 			responsive: [
 				{

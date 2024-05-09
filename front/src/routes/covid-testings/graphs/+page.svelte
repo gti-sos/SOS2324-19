@@ -74,7 +74,7 @@
             },
             yAxis: {
                 title: {
-                    text: 'New cases'
+                    text: 'Nuevos Casos'
                 }
             },
             tooltip: {
@@ -82,7 +82,7 @@
                 pointFormat: 'New cases: {point.y}'
             },
             title: {
-                text: 'New cases in 2021',
+                text: 'Nuevos Casos in 2021',
                 align: 'left'
             },
             subtitle: {
@@ -139,7 +139,7 @@
 
         Highcharts.chart('container2', {
             series: [{
-                name: 'Tests Done',
+                name: 'Tests Realizados',
                 type: 'treemap',
                 layoutAlgorithm: 'squarified',
                 allowDrillToNode: true,
@@ -159,11 +159,11 @@
                 data: points
             }],
             subtitle: {
-                text: 'Source: Your Source Here',
+                text: 'Source: COVID-19 testing',
                 align: 'left'
             },
             title: {
-                text: 'Tests Done in 2021',
+                text: 'Tests Realizados in 2021',
                 align: 'left'
             }
         });
@@ -179,7 +179,7 @@
             data: {
                 labels: countries,
                 datasets: [{
-                    label: 'New Cases',
+                    label: 'Nuevos Casos',
                     data: newCases,
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgba(255, 99, 132, 1)',
