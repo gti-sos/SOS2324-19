@@ -252,7 +252,7 @@
         combined[country].esif_amount_paid_to_fi += entry.esif_amount_paid_to_fi || 0;
         combined[country].too += entry.too || 0;
         });
-
+        console.log(dataexportafi1)
         const combinedData = [];
         console.log(combined);
         Object.entries(combined).forEach(([country,entry]) => {
@@ -272,7 +272,7 @@
     });
 
     console.log(combinedData);
-    var chart = new CanvasJS.Chart("afi3", {
+    var chart = new CanvasJS.Chart("afi33", {
 	animationEnabled: true,
 	zoomEnabled: true,
 	theme: "light2",
@@ -401,15 +401,15 @@ chart.render();
 </script>
 <div class="container-fluid">
     <h2>API externa 1 con proxy</h2>
-    <h3>Cantidad monetaria pagada al fondo entre el valor de cada moneda clasificado por país</h3>
-    <div id="afi1" class="chart-container"></div>
-    <h2>API externa 2 sin proxy</h2>
-    <h3>Id de cada producto clasificado por el número de destinos, mostrando el nombre de cada producto y su país</h3>
-    <div class="chart-container">
-        <canvas id="afi2" width="200" height="200"></canvas>
-    </div>
-    <h2>API externa 3</h2>
-    <div id="afi3" class="chart-container"></div>
-    <h2>API externa 4</h2>
-    <div id="afi4" class="chart-container"></div>
+	<h2>Cantidad monetaria pagada al fondo entre el valor de cada moneda clasificado por pais</h2>
+	<div id="afi1"></div>
+    <h2>Api externa 2 sin proxy </h2>
+	<h2>Id de cada producto clasificado por el numero de destinos, mostrando el nombre de cada producto y su pais</h2>
+	<div id="char">
+		<canvas id="afi2" width="200" height="200"></canvas>
+	</div>
+    <h2>Api externa 3</h2>
+    <div id="afi33" style="height: 300px; width: 100%;"></div>
+    <h2>Api externa 4</h2>
+    <div id="afi4" style="height: 300px; width: 100%;"></div>
 </div>
