@@ -4,7 +4,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chartist"></script>
     <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link
 		rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/chartist@0.11.4/dist/chartist.min.css"
@@ -414,19 +413,3 @@ chart.render();
     <h2>API externa 4</h2>
     <div id="afi4" class="chart-container"></div>
 </div>
-
-<style>
-    .container-fluid {
-        padding: 20px;
-    }
-    .chart-container {
-        margin-top: 20px;
-        border: 1px solid #ddd;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    h2, h3 {
-        margin-top: 40px;
-    }
-</style>
