@@ -177,7 +177,7 @@ function createGraph3(data) {
         chart = new CanvasJS.Chart("container-canvas", {
             animationEnabled: true,
             title: {
-                text: "Net Pre Financing by CCI and Fund"
+                text: "Net Pre Financing por cada CCI y su Fund"
             },
             axisY: {
                 title: "Net Pre Financing"
