@@ -31,7 +31,6 @@
 		const apiData1 = await getAPIData1();
 		const apiData2 = await getAPIData2();
         const apiData3= await getAPIData3();
-		console.log(apiData);
 		console.log(backendData);
         console.log(apiData3)
 
@@ -104,19 +103,16 @@
 	}
 
     async function getAPIData3() {
-		const url = '/proxyPHT';
-		const options = {
-			method: 'GET',
-			headers: {
+        try{
+            const res=await fetch(APIproxyPHT,{
+                headers: {
 				'X-Api-Key': 'VJ61uOuNsJFEJA9Q6GHhLQ==SPEs9ghWIyBuN369'
 			}
-		};
-
-		try {
-			const response = await fetch(url, options);
-			const result = await response.json();
-			return result;
-		} catch (error) {
+            });
+            return await res.json();
+        }
+			
+		catch (error) {
 			console.error(error);
 		}
 	}
@@ -425,7 +421,7 @@ function createChart3(apiData3) {
             }]
         }]
     };
-
+    console.log(data)
     const ctx = document.getElementById('chart3').getContext('2d');
     new Chart(ctx, {
         type: 'scatter', // Cambiar el tipo de gráfico a 'scatter'

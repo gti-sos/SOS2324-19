@@ -76,7 +76,7 @@ app.use("/proxyRSG", function(req,res){
 
 //proxy PHT
 app.use("/proxyPHT", function(req,res){
-    var url = "https://api.api-ninjas.com/v1/worldtime?city=Madrid"
+    var url = "https://api.api-ninjas.com/v1/worldtime?timezone=Europe/London"
     console.log("piped: " + req.url)
     req.pipe(request(url)).pipe(res);
 });
