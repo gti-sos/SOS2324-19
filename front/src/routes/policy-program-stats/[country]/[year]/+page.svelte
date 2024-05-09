@@ -51,6 +51,10 @@
     }
       // Función para enviar la modificación
       async function putStat() {
+        if (Object.values(dato).some(value => value === '' || value === null)) {
+            errorMsg = 'Por favor, completa todos los campos.';
+            return;
+        }
         try {
 			
             let response = await fetch(API+'/'+country+'/'+year, {

@@ -157,7 +157,10 @@
     chart: {
       height: 350,
       type: "treemap",
-    },
+    },title: {
+                    text: 'Cantidad monetaria media pagada a cada Fondo',
+                    align: 'center'
+                },
     plotOptions: {
       treemap: {
         dataLabels: {

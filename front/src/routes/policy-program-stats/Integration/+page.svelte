@@ -4,6 +4,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chartist"></script>
     <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link
 		rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/chartist@0.11.4/dist/chartist.min.css"
@@ -401,15 +402,31 @@ chart.render();
 </script>
 <div class="container-fluid">
     <h2>API externa 1 con proxy</h2>
-	<h2>Cantidad monetaria pagada al fondo entre el valor de cada moneda clasificado por pais</h2>
-	<div id="afi1"></div>
-    <h2>Api externa 2 sin proxy </h2>
-	<h2>Id de cada producto clasificado por el numero de destinos, mostrando el nombre de cada producto y su pais</h2>
-	<div id="char">
-		<canvas id="afi2" width="200" height="200"></canvas>
-	</div>
-    <h2>Api externa 3</h2>
-    <div id="afi3" style="height: 300px; width: 100%;"></div>
-    <h2>Api externa 4</h2>
-    <div id="afi4" style="height: 300px; width: 100%;"></div>
+    <h3>Cantidad monetaria pagada al fondo entre el valor de cada moneda clasificado por país</h3>
+    <div id="afi1" class="chart-container"></div>
+    <h2>API externa 2 sin proxy</h2>
+    <h3>Id de cada producto clasificado por el número de destinos, mostrando el nombre de cada producto y su país</h3>
+    <div class="chart-container">
+        <canvas id="afi2" width="200" height="200"></canvas>
+    </div>
+    <h2>API externa 3</h2>
+    <div id="afi3" class="chart-container"></div>
+    <h2>API externa 4</h2>
+    <div id="afi4" class="chart-container"></div>
 </div>
+
+<style>
+    .container-fluid {
+        padding: 20px;
+    }
+    .chart-container {
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2, h3 {
+        margin-top: 40px;
+    }
+</style>
