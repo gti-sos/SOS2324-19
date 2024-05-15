@@ -914,14 +914,14 @@
 	<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 </svelte:head>
 <div class="container-fluid">
-	<h2>Comparacion de la inflaccion con el presupuesto neto</h2>
+	<h2>Comparacion de la inflaccion con el presupuesto neto (Integración 1)</h2>
 	<div id="chart"></div>
-	<h2>Paises con covid que han estado en un fondo</h2>
+	<h2>Paises con covid que han estado en un fondo (Integración 2)</h2>
 	<div id="chart2"></div>
-	<h2>Numero de citas por categorias</h2>
+	<h2>Numero de citas por categorias (Uso 1)</h2>
 	<div id="chart3"></div>
 	<br>
-	<div id="chart4"></div>
+	<div id="chart4">(Uso 2 con proxy)</div>
 </div>
 
 <style>
