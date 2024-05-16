@@ -1,4 +1,3 @@
-console.log("B");
 import express from "express";
 import bodyParser from "body-parser";
 import dataStore from "nedb";
@@ -11,7 +10,7 @@ import path from "path";
 //ALBERTO FRAILE
 import {LoadBackendAFI} from "./back/Policy-program-stats/v1/index-AFI.js";
 import {LoadBackendAFI2} from "./back/Policy-program-stats/v2/index-AFI.js";
-console.log("C");
+
 //PEDRO HEREDIA
 import {LoadBackendPHT} from "./back/Eu-payment-info/v1/index-PHT.js";
 
@@ -36,7 +35,6 @@ let db_RSG = new dataStore();
 let db_RSG2 = new dataStore();
 let db_JPR = new dataStore();
 let db_JPR2 = new dataStore();
-console.log("Ñ");
 
 const PORT = (process.env.PORT || 10000);
 
@@ -45,11 +43,10 @@ app.use(cors());
 app.listen(PORT);
 
 app.use(bodyParser.json());
-console.log("A");
-console.log("P");
+
 LoadBackendAFI(app,db_AFI);
 LoadBackendAFI2(app,db_AFI2);
-console.log("D");
+
 LoadBackendPHT(app,db_PHT);
 LoadBackendPHT2(app,db_PHT2);
 
@@ -90,9 +87,7 @@ app.use("/proxyPHT", function(req,res){
 app.use(handler);
 
 app.get('/', (req, res) => {
-    console.log("F");
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 app.use("/", express.static("./public"));
 console.log(`Server listening on port ${PORT}`);
-console.log("E");
