@@ -39,6 +39,7 @@ const PORT = (process.env.PORT || 10000);
 app.use(cors());
 
 app.listen(PORT);
+console.log("A");
 app.use(bodyParser.json());
 
 LoadBackendAFI(app,db_AFI);

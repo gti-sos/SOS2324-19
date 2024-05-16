@@ -8,7 +8,7 @@ function LoadBackendAFI2(app, db_AFI){
             console.log("Redirection to Postman documentation");
             //hacer uno con v2
             res.redirect("https://documenter.getpostman.com/view/32953689/2sA35G4Mse");
-            
+            console.log("B");
         });
         //POST1
         app.post(API_BASE + "/", (req, res) => {
@@ -96,6 +96,7 @@ function LoadBackendAFI2(app, db_AFI){
                 } else {
                     if (count === 0) {
                         console.error("Data vacio");
+                        console.log("J");
                         res.status(200).json([]);
                     } else {
                         db_AFI.find({}).skip(offset).limit(limit).exec((err, data) => {
@@ -109,6 +110,7 @@ function LoadBackendAFI2(app, db_AFI){
                                     return datWithoutId;
                                 });
                                 console.log("Sending the data");
+                                console.log("l");
                                 res.status(200).json(resultsWithoutId);
                             }
                         });
@@ -225,6 +227,7 @@ function LoadBackendAFI2(app, db_AFI){
                         if(error) {
                             res.sendStatus(500,"Internal error");
                         }else{
+                            console.log("Z");
                             res.sendStatus(200,"OK"); 
                         }
                     });
@@ -247,6 +250,7 @@ function LoadBackendAFI2(app, db_AFI){
         app.post(API_BASE + "/:country", (req, res) => {
             const pais = req.params.country;
             let data = req.body;
+            console.log("H");
             res.sendStatus(405, "Method Not Allowed");
         });
         //GET22
@@ -286,6 +290,7 @@ function LoadBackendAFI2(app, db_AFI){
                             let c = countrydata[0];
                             delete c._id;
                             res.send(c);
+                            console.log("U");
                         } else {
                             res.send(countrydata.map((c) => {
                                 delete c._id;
@@ -326,7 +331,9 @@ function LoadBackendAFI2(app, db_AFI){
                             if(error){
                                 res.sendStatus(500, "Internal Server Error");
                             }else{
+                                
                                 res.sendStatus(200, "Ok");
+                                console.log("F")
                             }
                             });
                         }
@@ -346,6 +353,7 @@ function LoadBackendAFI2(app, db_AFI){
                         if(error){
                             res.sendStatus(500, "Internal Server Error");
                         }else{
+
                             res.sendStatus(200, "Ok");
                         }
                     });
@@ -382,6 +390,7 @@ function LoadBackendAFI2(app, db_AFI){
                     if(numremov>0){
                         //eliminar los datos del filtro espedificado
                         res.sendStatus(200, "Ok");
+                        console.log("J");
                     }else{
                         //Si se intenta acceder a un recurso 
                     //inexistente se debe devolver el código 404
