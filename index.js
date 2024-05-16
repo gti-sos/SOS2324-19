@@ -3,7 +3,6 @@ import bodyParser from "body-parser";
 import dataStore from "nedb";
 import request from "request";
 import {handler} from "./front/build/handler.js";
-console.log("A");
 import cors from "cors";
 import path from "path";
 
@@ -48,11 +47,8 @@ app.use(bodyParser.json());
 LoadBackendAFI(app,db_AFI);
 LoadBackendAFI2(app,db_AFI2);
 
-
-LoadBackendPHT2(app,db_PHT2);
-console.log("H");
-
 LoadBackendPHT(app,db_PHT);
+LoadBackendPHT2(app,db_PHT2);
 
 LoadBackendRSGv1(app,db_RSG);
 LoadBackendRSGv2(app,db_RSG2);
