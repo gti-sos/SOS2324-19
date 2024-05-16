@@ -67,7 +67,9 @@ function LoadBackendRSGv2(app, db_RSG) {
             res.status(400).send('Bad Request');
         }
     });
-        
+    
+    // Tu otro código de rutas y demás
+    
     app.use((err, req, res, next) => {
         if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
             res.status(400).send('Bad Request');
