@@ -35,7 +35,7 @@
         } catch (error) {
             console.log(`Error loading initail data: ${error}`)
         }
-    }    
+    }     
     
     async function getData(){
         try{

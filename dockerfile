@@ -13,4 +13,4 @@ RUN npm install
 # Copy the app code to the image
 COPY . .
 EXPOSE 10000
-CMD [ "npm", "start" ]
+CMD [ "npm", "start" ] 

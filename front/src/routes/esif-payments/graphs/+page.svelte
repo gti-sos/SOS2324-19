@@ -30,7 +30,7 @@
 	}
 
 	async function getData() {
-		try {
+		try { 
 			API = API + `?limit=${TOP}`;
 			const res = await fetch(API);
 			const data = await res.json();

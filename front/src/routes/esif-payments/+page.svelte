@@ -31,7 +31,7 @@
 		recovery_of_expenses: 7219112.08,
 		net_interim_payments: 178256037.09,
 		total_net_payments: 256837010.88,
-		eu_payment_rate: 76.694518695056,
+		eu_payment_rate: 76.694518695056, 
 		eu_payment_rate_on_planned_eu_amount: 76.694518695056
 	};
 	let showSearchForm = false;

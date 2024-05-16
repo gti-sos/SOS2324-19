@@ -34,7 +34,7 @@
 			monthly_rate_pct: 0.63,
 			yearly_rate_pct: 2.9
 		},
-		{
+		{ 
 			country: 'Chile',
 			type: 'CPI',
 			period: 'Mar 2024',

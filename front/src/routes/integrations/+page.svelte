@@ -35,7 +35,7 @@
         <h2 style="margin-top: 20px;">Jose Manuel Peña Ramirez</h2>
     </div>
 </div>
-
+ 
 <style>
 .container {
     display: grid;

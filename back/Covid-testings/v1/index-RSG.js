@@ -6,7 +6,7 @@ function LoadBackendRSGv1(app, db_RSG){
         app.get(API_BASE + "/docs", (req, res) => {
             console.log("Redirecting to POSTMAN documentation");
             res.redirect("https://documenter.getpostman.com/view/32953626/2sA2xfZZUP");
-        });
+        }); 
         //POST1
         app.post(API_BASE + "/", (req, res) => {
             let newdata = req.body;

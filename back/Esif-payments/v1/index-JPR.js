@@ -10,7 +10,7 @@ let initial_data = [
         net_interim_payments: 366963945.32, total_net_payments: 389513945, eu_payment_rate: 100,
         eu_payment_rate_on_planned_eu_amount: 100
     },
-
+ 
     {
         ms: "EE", ms_name: "Estonia", cci: "2014EE06RDNP001", title: "Estonia - National Rural Development - ERDF", fund: "EAFRD",
         category_of_region: "", year: 2023, net_planned_eu_amount: 1081864629,

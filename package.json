@@ -29,7 +29,7 @@
     "test-e2e": "npx playwright test",
     "test-integration": " npm run test-policy-program-stats && npm run test-eu-payment-info && npm run test-esif-payments && npm run test-covid-testings",
     "test": "npm run test-integration && npm run test-e2e"
-  },
+  }, 
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gti-sos/SOS2324-19.git"

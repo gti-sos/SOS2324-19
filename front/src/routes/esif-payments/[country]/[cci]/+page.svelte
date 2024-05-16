@@ -33,7 +33,7 @@
         total_net_payments: 12695626.89,
         eu_payment_rate: 967391405294658,
         eu_payment_rate_on_planned_eu_amount: 967391405294658
-    };
+    }; 
 
     let isEditing = false; // Variable para controlar si se está editando o no
 

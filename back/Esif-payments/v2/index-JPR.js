@@ -10,7 +10,7 @@ let initial_data = [
             year: 2023,
             net_planned_eu_amount: 389513945,
             cumulative_initial_pre_financing: 11173608.57,
-            cumulative_additional_initial_pre_financing: 0,
+            cumulative_additional_initial_pre_financing: 0, 
             recovery_of_initial_pre_financing: 0,
             cumulative_annual_pre_financing: 72720941.21,
             pre_financing_covered_by_expenditure: 26381261.74,

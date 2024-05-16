@@ -102,7 +102,7 @@
       // Procesar datos de la segunda fuente
       data2.forEach(entry => {
           const country = entry.ms;
-          if (!combinedData[country]) {
+          if (!combinedData[country]) { 
               combinedData[country] = {
                   name: country,
                   esif_amount_committed_to_fi: 0,

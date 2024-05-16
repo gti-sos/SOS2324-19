@@ -7,7 +7,7 @@ test('has title', async ({ page }) => {
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Menú de Navegación/);
 });
-
+ 
 
 test('list stats', async ({ page }) => {
   await page.goto('http://localhost:10000/policy-program-stats');

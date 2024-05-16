@@ -28,7 +28,7 @@
 	onMount(async () => {
 		const apiData = await getAPIData();
 		const backendData = await getBackendData();
-		const apiData1 = await getAPIData1();
+		const apiData1 = await getAPIData1(); 
 		const apiData2 = await getAPIData2();
         const apiData3= await getAPIData3();
 		console.log(backendData);

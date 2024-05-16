@@ -19,7 +19,7 @@ function LoadBackendAFI(app, db_AFI){
             "to_code_short_title", "to_long_title"];
             const recFields = Object.keys(newdata);
             const isvalid=Fields.every(f=>recFields.includes(f));
-            // Verificar si se recibieron campos adicionales no esperados
+            // Verificar si se recibieron campos adicionales no esperados 
             if (!isvalid) {
                 return res.sendStatus(400, "Bad request");
             }else{

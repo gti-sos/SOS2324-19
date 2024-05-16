@@ -95,7 +95,7 @@
             console.log(`Error fetching data: ${error}`);
         }
     }
-
+ 
 	async function getDataKey(url) {
 		try {
 			const res = await fetch(url, {

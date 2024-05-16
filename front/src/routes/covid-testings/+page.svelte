@@ -32,7 +32,7 @@
                 console.log("No hay datos disponibles")
             } else {
                 errorMsg = error;
-            }
+            } 
         }
     }
 
