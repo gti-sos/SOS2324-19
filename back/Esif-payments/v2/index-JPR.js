@@ -1,5 +1,4 @@
 const API_BASE = "/api/v2/esif-payments";
-console.log("entro1")
 let initial_data = [
         {
             ms: "IT",
@@ -876,4 +875,3 @@ function LoadBackendv2JPR(app, db){
     });
 }
 export {LoadBackendv2JPR}
-console.log("entro")
