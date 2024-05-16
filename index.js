@@ -11,9 +11,10 @@ import path from "path";
 //ALBERTO FRAILE
 import {LoadBackendAFI} from "./back/Policy-program-stats/v1/index-AFI.js";
 import {LoadBackendAFI2} from "./back/Policy-program-stats/v2/index-AFI.js";
+console.log("C");
 //PEDRO HEREDIA
 import {LoadBackendPHT} from "./back/Eu-payment-info/v1/index-PHT.js";
-console.log("C");
+
 import {LoadBackendPHT2} from "./back/Eu-payment-info/v2/index-PHT.js";
 
 //RAUL SEQUERA
@@ -35,21 +36,23 @@ let db_RSG = new dataStore();
 let db_RSG2 = new dataStore();
 let db_JPR = new dataStore();
 let db_JPR2 = new dataStore();
+console.log("Ñ");
 
 const PORT = (process.env.PORT || 10000);
 
 app.use(cors());
 
 app.listen(PORT);
-console.log("A");
-app.use(bodyParser.json());
 
+app.use(bodyParser.json());
+console.log("A");
+console.log("P");
 LoadBackendAFI(app,db_AFI);
 LoadBackendAFI2(app,db_AFI2);
-
+console.log("D");
 LoadBackendPHT(app,db_PHT);
 LoadBackendPHT2(app,db_PHT2);
-console.log("D");
+
 LoadBackendRSGv1(app,db_RSG);
 LoadBackendRSGv2(app,db_RSG2);
 

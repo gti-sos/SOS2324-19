@@ -1,8 +1,9 @@
 const API_BASE = '/api/v2/policy-program-stats';
 
 var datos = [];
-
+console.log("R");
 function LoadBackendAFI2(app, db_AFI){
+    console.log("K");
         //POSTMAN
         app.get(API_BASE + "/docs", (req, res) => {
             console.log("Redirection to Postman documentation");
@@ -96,6 +97,7 @@ function LoadBackendAFI2(app, db_AFI){
                     if (count === 0) {
                         console.error("Data vacio");
                         res.status(200).json([]);
+                        console.log("J");
                     } else {
                         db_AFI.find({}).skip(offset).limit(limit).exec((err, data) => {
                             if (err) {
@@ -124,6 +126,7 @@ function LoadBackendAFI2(app, db_AFI){
                     // Always return an array, even if there's only one data
                     const formattedData = data.map((d) => {
                         const { _id, ...formatted } = d;
+                        console.log(I)
                         return formatted;
                     });
                     console.log("Sending the data");
@@ -225,6 +228,7 @@ function LoadBackendAFI2(app, db_AFI){
                             res.sendStatus(500,"Internal error");
                         }else{
                             res.sendStatus(200,"OK"); 
+                            console.log(M);
                         }
                     });
                 }
