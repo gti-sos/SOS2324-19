@@ -39,6 +39,7 @@
 			<a href="/covid-testings">Covid-testings</a>
 			<a href="/analytics">Vista Global</a>
 			<a href="/integrations">Vista con API de los compañeros</a>
+			<a href="/about">Vídeos</a>
 		</nav>
 	</body>
 </html>

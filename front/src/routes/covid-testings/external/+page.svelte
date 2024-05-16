@@ -37,6 +37,7 @@
 		}
 	});
 
+	//Procesa llamadas a api de zip
 	async function fetchData1() {
 		for (let country of countries1) {
 			console.log(`Fetching data for ${country}`);
@@ -57,6 +58,8 @@
 		}
 	}
 
+
+	//Procesa llamadas a api de interestRate
     async function fetchData2() {
 		for (let country of countries2) {
 			console.log(`Fetching data for ${country}`);
@@ -158,8 +161,9 @@
 
     async function graph2() {
         const covidResponse = await getData(APIRSG);
-        const centralBankResponse = await getData(APIproxyRSG);
+        const eventsResponse = await getData(APIproxyRSG);
     
+		// Extraer el año y el número de nuevos casos
         const covidData = covidResponse
             .map((d) => ({
                 year: parseInt(d.year_week.split('-')[0]),
@@ -167,15 +171,15 @@
             }))
             .sort((a, b) => a.year - b.year);
     
-        const eventsData = centralBankResponse.event || centralBankResponse;
+        const eventsData = eventsResponse.event || eventsResponse;
     
-        const eventsByYear = eventsData.reduce((acc, event) => {
+        const groupByYear = eventsData.reduce((acc, event) => {
             const year = new Date(event.dateEvent).getFullYear();
             acc[year] = (acc[year] || 0) + 1;
             return acc;
         }, {});
     
-        const eventsArray = Object.entries(eventsByYear).map(([year, events]) => ({
+        const eventsArray = Object.entries(groupByYear).map(([year, events]) => ({
             year: parseInt(year),
             events
         }));
@@ -298,10 +302,10 @@
 
     async function graph3() {
 		const covidResponse = await getData(APIRSG);
-		const centralBankResponse = await getDataKey(holidaysAPI);
+		const holidaysResponse = await getDataKey(holidaysAPI);
 
 		console.log('Covid data:', covidResponse);
-		console.log('Events data:', centralBankResponse);
+		console.log('Holidays data:', holidaysResponse);
 
 		const covidData = covidResponse
 			.filter((data) => data.year_week.startsWith('2021'))
@@ -311,23 +315,23 @@
 			}))
 			.sort((a, b) => a.year - b.year);
 
-		const eventsData = centralBankResponse.filter((event) => event.date.startsWith('2021'));
+		const holidaysData = holidaysResponse.filter((event) => event.date.startsWith('2021'));
 
-		const eventsByYear = eventsData.reduce((acc, event) => {
+		const groupByYear = holidaysData.reduce((acc, event) => {
 			const year = new Date(event.date).getFullYear();
 			acc[year] = (acc[year] || 0) + 1;
 			return acc;
 		}, {});
 
 		const years = [
-			...new Set([...covidData.map((data) => data.year), ...Object.keys(eventsByYear).map(Number)])
+			...new Set([...covidData.map((data) => data.year), ...Object.keys(groupByYear).map(Number)])
 		];
 		years.sort((a, b) => a - b);
 
 		const combinedData = years.map((year) => ({
 			year: year,
 			new_cases: covidData.find((data) => data.year === year)?.new_cases || 0,
-			events: eventsByYear[year] || 0
+			hol: groupByYear[year] || 0
 		}));
 
 		const ctx = document.getElementById('graph3').getContext('2d');
@@ -344,7 +348,7 @@
 					},
 					{
 						label: 'Vacaciones',
-						data: combinedData.map((data) => data.events),
+						data: combinedData.map((data) => data.hol),
 						backgroundColor: 'red',
 						yAxisID: 'right-y-axis'
 					}
@@ -403,6 +407,7 @@
 
     function graph4() {
 		const options = {
+			//interestRateData se procesa en fetchData2
 			series: interestRateData.map((item) => item.ratio),
 			labels: interestRateData.map((item) => item.country),
 			chart: {

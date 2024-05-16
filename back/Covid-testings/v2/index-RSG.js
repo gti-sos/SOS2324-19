@@ -50,7 +50,7 @@ function LoadBackendRSGv2(app, db_RSG) {
         const Fields = ["country", "country_code", "year_week", "level", "region", "region_name", "new_cases", "tests_done", "population", "testing_rate", "positivity_rate", "testing_data_source"];
         const recFields = Object.keys(newdata);
         const isvalid = Fields.every(f => recFields.includes(f));
-        if (!isvalid) {
+        if (!isvalid) {// si los campos no coinciden
             return res.sendStatus(400, "Bad request");
         } else {
             db_RSG.find({ positivity_rate: ccc }, (error, existdata) => {
@@ -83,6 +83,7 @@ function LoadBackendRSGv2(app, db_RSG) {
             query.year_week = { $gte: `${from}-W01`, $lte: `${to}-W52` };
         }
 
+        //parametros offset y limit
         db_RSG.find(query).skip(offset).limit(limit).exec((error, data) => {
             if (error) {
                 res.sendStatus(500, "Internal Error");
