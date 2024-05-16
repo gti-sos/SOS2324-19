@@ -15,7 +15,6 @@ function LoadBackendPHT2(app, db_PHT) {
 
     //Post1
     app.post(API_BASE + "/", (req, res) => {
-        console.log("B");
         let newdata = req.body;
         //console.log("New post de :"+JSON.stringify(req.body,null,2))
         const ccc = req.body.cci;
@@ -46,8 +45,6 @@ function LoadBackendPHT2(app, db_PHT) {
 
     //GET1
     app.get(API_BASE + "/", (req, res) => {
-        console.log("D");
-
         const params = req.query;
         const limit = parseInt(req.query.limit) || 20;
         const offset = parseInt(req.query.offset) || 0;
@@ -87,7 +84,6 @@ function LoadBackendPHT2(app, db_PHT) {
             
 
             db_PHT.count({}, (err, count) => {
-                console.log("C");
                 if (err) {
                     res.sendStatus(500).json("error carga datos 1");
                 } else {
@@ -96,8 +92,6 @@ function LoadBackendPHT2(app, db_PHT) {
                         res.status(200).json([]);
                     } else {
                         db_PHT.find({}).skip(offset).limit(limit).exec((err, data) => {
-                            console.log("F");
-
                             if (err) {
                                 console.error("Error when inserting data:", err);
                                 res.sendStatus(500, "Internal Error");
@@ -132,8 +126,6 @@ function LoadBackendPHT2(app, db_PHT) {
                 }
             });
         }
-        console.log("G");
-
     });
 
 
@@ -648,53 +640,3 @@ function LoadBackendPHT2(app, db_PHT) {
 
 }
 export { LoadBackendPHT2 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-console.log("J");
