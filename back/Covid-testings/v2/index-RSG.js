@@ -50,21 +50,29 @@ function LoadBackendRSGv2(app, db_RSG) {
         const Fields = ["country", "country_code", "year_week", "level", "region", "region_name", "new_cases", "tests_done", "population", "testing_rate", "positivity_rate", "testing_data_source"];
         const recFields = Object.keys(newdata);
         const isvalid = Fields.every(f => recFields.includes(f));
-        if (!isvalid) {// si los campos no coinciden
-            return res.sendStatus(400, "Bad request");
-        } else {
+        if (isvalid) {
             db_RSG.find({ positivity_rate: ccc }, (error, existdata) => {
                 if (error) {
-                    res.sendStatus(500, "Internal Error");
+                    res.status(500).send('Internal Error');
                 } else {
                     if (existdata.length > 0) {
-                        res.sendStatus(409, "Conflict");
+                        res.status(409).send('Conflict');
                     } else {
                         db_RSG.insert(newdata);
-                        res.sendStatus(201, "Created");
+                        res.status(201).send('Created');
                     }
                 }
             });
+        } else {
+            res.status(400).send('Bad Request');
+        }
+    });
+        
+    app.use((err, req, res, next) => {
+        if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+            res.status(400).send('Bad Request');
+        } else {
+            next();
         }
     });
     //GET1
