@@ -13,10 +13,10 @@
   let dataAvailable = false;
 
   // Define las URLs de las tres APIs
-  let API_AFI="https://sos2324-19.appspot.com/api/v2/policy-program-stats";
-  let API_PHT="https://sos2324-19.appspot.com/api/v2/eu-payment-info";
-  let API_RSG="https://sos2324-19.appspot.com/api/v2/covid-testings";
-  let API_JPR="https://sos2324-19.appspot.com/api/v2/esif-payments";
+  let API_AFI="/api/v2/policy-program-stats";
+  let API_PHT="/api/v2/eu-payment-info";
+  let API_RSG="/api/v2/covid-testings";
+  let API_JPR="/api/v2/esif-payments";
 
   let countryData,data1,data2,data3,data4 = [];
 
