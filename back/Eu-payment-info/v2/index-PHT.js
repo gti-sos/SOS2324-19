@@ -5,8 +5,7 @@ var datos = [];
 
 
 function LoadBackendPHT2(app, db_PHT) {
-
-
+    console.log("M");
 
     //REDIRECT PORTAL DOCUMENTACION
     app.get(API_BASE + "/docs", (req, res) => {
@@ -62,6 +61,7 @@ function LoadBackendPHT2(app, db_PHT) {
             }
             // Si los años son válidos, construye la consulta para filtrar por el rango de años
             params.year = { $gte: fromYear, $lte: toYear };
+            console.log("G");
         }
 
         Object.keys(params).forEach(key => {
@@ -69,8 +69,10 @@ function LoadBackendPHT2(app, db_PHT) {
                 const value = !isNaN(params[key]) ? parseFloat(params[key]) : params[key];
                 if (typeof value === 'string') {
                     query[key] = new RegExp(value, 'i');
+                    console.log("H");
                 } else {
                     query[key] = value;
+                    console.log("I");
                 }
                 
             }
@@ -94,6 +96,7 @@ function LoadBackendPHT2(app, db_PHT) {
                                 return ;
                             } else {
                                 const resultsWithoutId = data.map(d => { // Delete default generated id
+                                    console.log("J");
                                     const { _id, ...datWithoutId } = d;
                                     return datWithoutId;
                                 });
@@ -635,6 +638,7 @@ function LoadBackendPHT2(app, db_PHT) {
 
 }
 export { LoadBackendPHT2 }
+console.log("K");
 
 
 
