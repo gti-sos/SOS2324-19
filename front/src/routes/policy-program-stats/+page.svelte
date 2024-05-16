@@ -6,7 +6,6 @@
     let API = 'api/v2/policy-program-stats';
 	if (dev) API = 'http://localhost:10000/' + API;
 
-    console.log(juan)
     let stats = []
     let errorMsg = "";
     let Msg = ""; 
