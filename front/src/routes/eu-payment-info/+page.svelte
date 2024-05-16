@@ -37,9 +37,10 @@
 
 	let selectedCountryData = {};
 	onMount(() => {
+		console.log("pepe")
 		getPaymentInfo();
 	});
-
+ 
 	async function getInitial() {
 		try {
 			let response = await fetch(API + '/loadInitialData', {

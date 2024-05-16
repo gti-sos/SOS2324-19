@@ -23,7 +23,7 @@ function LoadBackendAFI2(app, db_AFI){
             // Verificar si se recibieron campos adicionales no esperados
             if (!isvalid) {
                 return res.sendStatus(400, "Bad request");
-            }else{
+            }else{ 
                 db_AFI.find({country:co, year:ye}, (error,existdata)=>{
                     if(error){
                         res.sendStatus(500, "Internal Error");

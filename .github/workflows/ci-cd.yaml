@@ -33,4 +33,4 @@ jobs:
       - run: cd front; npm run build; cd ..
       
       - name: Deploy
-        run: gcloud app deploy
+        run: gcloud app deploy 

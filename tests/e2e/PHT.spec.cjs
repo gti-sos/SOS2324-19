@@ -11,7 +11,7 @@ test('has title', async ({ page }) => {
 
 test('list countries', async ({ page }) => {
   await page.goto('http://localhost:10000/eu-payment-info');
-
+ 
   // Click the get started link.
   await page.click('#cargarDatos');
   await page.waitForTimeout(3000);

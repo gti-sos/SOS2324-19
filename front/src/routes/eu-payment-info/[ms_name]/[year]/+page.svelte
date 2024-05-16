@@ -31,7 +31,7 @@
 		net_pre_financing: 0,
 		interim_payments: 0,
 		recovery_of_expenses: 0,
-		net_interim_payments: 0,
+		net_interim_payments: 0, 
 		total_net_payments: 0,
 		eu_payment_rate_init_plan_eu_amt: 0,
 		eu_payment_rate_actual_plan_eu_amt: 0

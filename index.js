@@ -54,7 +54,7 @@ LoadBackendRSGv1(app,db_RSG);
 LoadBackendRSGv2(app,db_RSG2);
 
 LoadBackendv1JPR(app,db_JPR);
-LoadBackendv2JPR(app,db_JPR2);
+LoadBackendv2JPR(app,db_JPR2); 
 
 //proxy JPR
  app.use("/proxyJPR", function(req,res){

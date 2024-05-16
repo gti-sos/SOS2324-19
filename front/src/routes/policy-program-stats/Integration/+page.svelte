@@ -37,7 +37,7 @@
                 'X-RapidAPI-Key': 'b33bd31facmshcb364f07dd53a09p1c4286jsnab336cf4924b',
                 'X-RapidAPI-Host': 'currency-converter241.p.rapidapi.com'
             }
-        };
+        }; 
     let APIexport2=`https://my-store2.p.rapidapi.com/catalog/products`;
     let optionsexport2 = {
             method: 'GET',

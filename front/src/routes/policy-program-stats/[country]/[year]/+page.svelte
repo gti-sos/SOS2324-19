@@ -80,7 +80,7 @@
             errorMsg = e;
         }
     }
-
+ 
 </script>
 
 <h2>Stat details from {country}:{year}</h2>

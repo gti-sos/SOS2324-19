@@ -13,7 +13,7 @@ function LoadBackendPHT(app, db_PHT){
     //Post1
     app.post(API_BASE + "/", (req, res) => {
         let newdata = req.body;
-        const ccc = req.body.cci;
+        const ccc = req.body.cci; 
         const Fields = ["ms", "ms_name", "cci", "title", "fund", "category_of_region", "year", "init_plan_eu_amt_1_adoption", "transfers", "actual_plan_eu_amt_latest_adop", "pre_fin", "recovery_of_pre_financing", "net_pre_financing", "interim_payments", "recovery_of_expenses", "net_interim_payments", "total_net_payments", "eu_payment_rate_init_plan_eu_amt", "eu_payment_rate_actual_plan_eu_amt"];
         const recFields = Object.keys(newdata);
         const isvalid = Fields.every(f => recFields.includes(f));

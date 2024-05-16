@@ -38,7 +38,7 @@
 
     .list-group-item:hover {
       background-color: #f8f9fa; /* Color de fondo gris claro */
-    }
+    } 
   </style>
 </head>
 <body>

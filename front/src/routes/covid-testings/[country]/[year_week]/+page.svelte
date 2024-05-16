@@ -26,7 +26,7 @@
     let errorMsg = '';
 
     onMount(async () => {
-        await loadTesting();
+        await loadTesting(); 
     });
 
     async function loadTesting() {

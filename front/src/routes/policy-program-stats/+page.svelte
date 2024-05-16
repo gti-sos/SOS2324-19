@@ -328,7 +328,7 @@
 				on:click={() => {
 					window.location.href = 'https://sos2324-19.appspot.com/policy-program-stats/graphs';
 				}}
-				>Graficos
+				>Graficos 
 			</button>
 		</div>
         <div style="margin-bottom: 20px; display: flex; justify-content: space-between;">

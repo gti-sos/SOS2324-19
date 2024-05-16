@@ -32,7 +32,7 @@
             }
         } catch (error) {
             console.log(`Error fetching data: ${error}`);
-        }
+        } 
     }
     function createGraph(data) {
     const greeceData = data.filter(item => item.ms_name === "Greece");

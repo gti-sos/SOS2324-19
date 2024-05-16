@@ -9,7 +9,7 @@ test('has title', async ({ page }) => {
 
 test('list testings', async ({ page }) => {
   await page.goto('http://localhost:10000/covid-testings');
-
+ 
   // Click the "Cargar Datos" button.
   await page.click('#loadData');
   await page.waitForTimeout(3000);
